@@ -4,18 +4,19 @@ import java.util.Arrays;
 
 public class Duke {
 
-    public static String[] add_task(String task){
+    /*public static String[] add_task(String task){
         String[] tasklist = new String[100];
         int count=0;
         for (int i=0; i<tasklist.length; i++){
             tasklist[i] = task;
             count++;
+            System.out.println(Arrays.toString(tasklist));
         }
         return Arrays.copyOf(tasklist, count);
-    }
+    }*/
 
     /*public static void print_list(){
-        System.out.println(add_task());
+
     }*/
 
     public static void main(String[] args) {
@@ -33,29 +34,41 @@ public class Duke {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
         System.out.println("_________________________________________");
-
+        String[] inputs = new String[100];
         line = in.nextLine();
+        int word_count = 0;
         while (!line.contains("bye")) {
+            //add inputs into array
+            if (!line.contains("list")){
+                inputs[word_count] = line;
+                System.out.println("_________________________________________");
+                System.out.println("added: " + line);
+                System.out.println("_________________________________________");
+                word_count++;
 
-            System.out.println("_________________________________________");
-            System.out.println("added: " + line);
-            add_task(line);
-            System.out.println("_________________________________________");
-            line = in.nextLine();
+                //add_task(line);
 
-            if (line.contains("bye")) {
+            }
+
+            /*if (line.contains("bye")) {
                 System.out.println("_________________________________________");
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println("_________________________________________");
 
-            }
+            }*/
             if (line.contains("list")) {
                 System.out.println("_________________________________________");
                 //print_list();
+                String[] print_array = Arrays.copyOf(inputs, word_count);
+                System.out.println(Arrays.toString(print_array));
                 System.out.println("_________________________________________");
 
             }
-        }
 
+            line = in.nextLine();
+        }
+        System.out.println("_________________________________________");
+        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("_________________________________________");
     }
 }
