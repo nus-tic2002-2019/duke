@@ -58,11 +58,16 @@ public class Duke {
             }*/
             if (line.contains("list")) {
                 System.out.println("_________________________________________");
-                //print_list();
                 String[] print_array = Arrays.copyOf(inputs, word_count);
-                System.out.println(Arrays.toString(print_array));
-                System.out.println("_________________________________________");
+                int num = 1;
+                for (String item : print_array) {
+                    System.out.println(num + ". "+ print_array[num-1]);
+                    //System.out.println(word_count+1 + ". " + inputs[word_count]);
+                    //System.out.println(Arrays.toString(print_array));
+                    num++;
 
+                }
+                System.out.println("_________________________________________");
             }
 
             line = in.nextLine();
