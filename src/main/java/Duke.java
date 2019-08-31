@@ -14,15 +14,19 @@ public class Duke {
         String inData = null;
         ArrayList<String> arlist = new ArrayList<String>( );
         while (!Objects.equals(inData, "bye")){
+            int count = 1;
             Scanner scan = new Scanner(System.in);
             inData = scan.nextLine();
             if(Objects.equals(inData, "list")){
-                System.out.println(arlist);
+                for (int i = 0; i < count; i++) {
+                    System.out.println(count + "." + arlist.get(count - 1));
+                    count++;
+                }
             }
             if(!Objects.equals(inData, "list")){
                 if(!Objects.equals(inData, "bye")) {
                     System.out.println("added:" + inData);
-                    arlist.add(inData + "\n");
+                    arlist.add(inData);
                 }
             }
         }
