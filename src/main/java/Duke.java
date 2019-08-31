@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
+
     public static void dukeGreet(){
         System.out.println("    ________________________________________");
         System.out.println ("    Hello! I'm Duke");
@@ -30,6 +31,9 @@ public class Duke {
             textInput = in.nextLine();
             if (textInput.equalsIgnoreCase ("bye")) break;
         }
+        DukeList inputList = new DukeList();
+        System.out.println("length of List = " + inputList.getLength());
+
         System.out.println("    ________________________________________");
         System.out.println("     Bye. Hope to see you again soon!");
         System.out.println("    ________________________________________");
