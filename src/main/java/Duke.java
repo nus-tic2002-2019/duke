@@ -13,14 +13,15 @@ public class Duke {
 
     public static void dukeEcho(String reply){
         System.out.println("    ________________________________________");
-        System.out.println("     added" + reply);
+        System.out.println("     added: " + reply);
         System.out.println("    ________________________________________");
     }
 
     public static void displayList(List<String> tasks){
         int index = 0;
-        while(!tasks.isEmpty()){
+        for (String task:tasks){
             System.out.println (index+1 + "." + tasks.get(index));
+            index ++;
         }
     }
 
@@ -37,8 +38,10 @@ public class Duke {
         String textInput = in.nextLine();
         List<String> tasks = new ArrayList<>();
         while (!textInput.equalsIgnoreCase("bye")){
-            tasks.add(textInput);
-            dukeEcho(textInput);
+            if (!textInput.equalsIgnoreCase("list")){
+                tasks.add(textInput);
+                dukeEcho(textInput);
+            }
             textInput = in.nextLine();
             if (textInput.equalsIgnoreCase("list")) displayList(tasks);
             if (textInput.equalsIgnoreCase ("bye")) break;
