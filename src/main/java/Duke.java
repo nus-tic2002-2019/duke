@@ -13,12 +13,30 @@ public class Duke {
         System.out.println("Hello! I'm Duke" + System.lineSeparator() + "What can I do for you?");
 
 
-        line = in.nextLine();
-        System.out.println(line);
+        //line = in.nextLine();
+        //System.out.println(line);
+        String [] item = new String[100];
+        int index = 0;
 
         do{
+
             line = in.nextLine();
-            System.out.println(line);
+            if (line.equals("list")){
+                int k = 1;
+                for (int i = 0; i< index; i++){
+
+                    System.out.println(k + ". " + item[i]);
+                    k++;
+                }
+            }else{
+                item[index] = line;
+                index++;
+                System.out.println("added: " + line);
+            }
+            //item[index] = line;
+            //index++;
+            //System.out.println("added: " + line);
+
         }while(!line.equals("bye"));
         System.out.println("Bye. Hope to see you again soon!");
     }
