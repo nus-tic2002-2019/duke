@@ -1,10 +1,24 @@
+import java.util.Scanner;
+
 public class Duke {
+
+    public static String hyphen_print(String message){
+        String hyphens = "__________________";
+        return hyphens + "\n" + message;
+    }
+
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        System.out.println(hyphen_print("What can I do?"));
+        String response;
+        // get input from user
+        while(true){
+            Scanner in = new Scanner(System.in);
+            response = in.nextLine();
+            if(response.toLowerCase().equals("bye")){
+                System.out.println("Bye. Hope to see you again soon!\n");
+                return;
+            }
+            System.out.println(hyphen_print((response)));
+        }
     }
 }
