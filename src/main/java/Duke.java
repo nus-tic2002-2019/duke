@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Duke {
 
@@ -11,8 +13,15 @@ public class Duke {
 
     public static void dukeEcho(String reply){
         System.out.println("    ________________________________________");
-        System.out.println("     " + reply);
+        System.out.println("     added" + reply);
         System.out.println("    ________________________________________");
+    }
+
+    public static void displayList(List<String> tasks){
+        int index = 0;
+        while(!tasks.isEmpty()){
+            System.out.println (index+1 + "." + tasks.get(index));
+        }
     }
 
     public static void main(String[] args) {
@@ -26,13 +35,16 @@ public class Duke {
         dukeGreet();
         Scanner in = new Scanner(System.in);
         String textInput = in.nextLine();
+        List<String> tasks = new ArrayList<>();
         while (!textInput.equalsIgnoreCase("bye")){
+            tasks.add(textInput);
             dukeEcho(textInput);
             textInput = in.nextLine();
+            if (textInput.equalsIgnoreCase("list")) displayList(tasks);
             if (textInput.equalsIgnoreCase ("bye")) break;
         }
-        DukeList inputList = new DukeList();
-        System.out.println("length of List = " + inputList.getLength());
+        //DukeList inputList = new DukeList();
+        //System.out.println("length of List = " + inputList.getLength());
 
         System.out.println("    ________________________________________");
         System.out.println("     Bye. Hope to see you again soon!");
