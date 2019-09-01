@@ -13,20 +13,20 @@ public class Duke {
         System.out.println("Hello! I'm Duke\nWhat can I do for you?");
         String inData = null;
         ArrayList<String> arlist = new ArrayList<String>( );
+        int count = 0;
         while (!Objects.equals(inData, "bye")){
-            int count = 1;
             Scanner scan = new Scanner(System.in);
             inData = scan.nextLine();
             if(Objects.equals(inData, "list")){
                 for (int i = 0; i < count; i++) {
-                    System.out.println(count + "." + arlist.get(count - 1));
-                    count++;
+                    System.out.println((i+1) + "." + arlist.get(i));
                 }
             }
             if(!Objects.equals(inData, "list")){
                 if(!Objects.equals(inData, "bye")) {
                     System.out.println("added:" + inData);
                     arlist.add(inData);
+                    count++;
                 }
             }
         }
