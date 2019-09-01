@@ -1,21 +1,26 @@
 import java.util.Scanner;
 public class Duke {
-    private static String tasks[] = new String[100];
     private static int counter = 0;
+    private static Task[] tasks = new Task[100];
 
-    public static void setTasks(String task){
-        tasks[counter] = task;
+    public static void setTasks(Task description){
+        tasks[counter] = description;
         counter++;
     }
 
     public static String getTasks(){
         String output = "\t____________________________________________________________";
         for(int i=0;i<counter;i++){
-            output += "\n\t" + Integer.toString(i+1) + ". " + tasks[i];
+            output += "\n\t" + Integer.toString(i+1) + ". " + tasks[i].getStatusIcon() + tasks[i].toString();
         }
         output += "\n\t____________________________________________________________";
         return output;
     }
+
+    public static String markAsDone(int task){
+        return tasks[task].setDone();
+    }
+
     public static void main(String[] args) {
         // String logo = " ____        _        \n"
         //         + "|  _ \\ _   _| | _____ \n"
@@ -32,7 +37,7 @@ public class Duke {
 
         do {
             input = sc.nextLine();
-            switch(input){
+            switch(input.split(" ")[0]){
                 case "bye":
                     System.out.println("\t____________________________________________________________" + 
                     "\n\tBye. Hope to see you again soon!" +
@@ -41,8 +46,11 @@ public class Duke {
                 case "list":
                     System.out.println(getTasks());
                     break;
+                case "mark":
+                    System.out.println(markAsDone(Integer.parseInt(input.split(" ")[1])-1));
+                    break;
                 default:
-                    setTasks(input);
+                    setTasks(new Task(input));
                     System.out.println("\t____________________________________________________________\n\t"
                     + "added: "
                     + input
