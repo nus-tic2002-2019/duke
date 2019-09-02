@@ -29,19 +29,21 @@ public class Duke {
         return data;
     }
 
-    public static void Task(String Cmmd) {
-        switch (Cmmd) {
+    public static boolean Task(String Cmmd) {
+        switch (Cmmd.toLowerCase()) {
             case "bye":
                 System.out.println("Bye. Hope to see you again soon!");
                 PrintHL();
-                break;
+                return false;
             default:
                 System.out.println(Cmmd);
                 PrintHL();
+                return true;
         }
     }
 
     public static void main(String[] args) {
         init();
+        while (Task(ReadText())) ;
     }
 }
