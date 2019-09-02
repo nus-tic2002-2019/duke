@@ -1,6 +1,7 @@
+
 import java.util.Scanner;
 import java.util.Arrays;
-
+import subclass.*;
 
 public class Duke {
 
@@ -19,6 +20,8 @@ public class Duke {
 
     }*/
 
+
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -26,6 +29,9 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
+
+        //Task task1 = new Task();
+        //task1.printsample();
 
         String line;
         Scanner in = new Scanner(System.in);
@@ -38,6 +44,7 @@ public class Duke {
         line = in.nextLine();
         int word_count = 0;
         while (!line.contains("bye")) {
+
             //add inputs into array
             if (!line.contains("list")){
                 inputs[word_count] = line;
@@ -49,21 +56,14 @@ public class Duke {
                 //add_task(line);
 
             }
-
-            /*if (line.contains("bye")) {
-                System.out.println("_________________________________________");
-                System.out.println("Bye. Hope to see you again soon!");
-                System.out.println("_________________________________________");
-
-            }*/
+                //displaying list
             if (line.contains("list")) {
                 System.out.println("_________________________________________");
                 String[] print_array = Arrays.copyOf(inputs, word_count);
                 int num = 1;
                 for (String item : print_array) {
                     System.out.println(num + ". "+ print_array[num-1]);
-                    //System.out.println(word_count+1 + ". " + inputs[word_count]);
-                    //System.out.println(Arrays.toString(print_array));
+
                     num++;
 
                 }
@@ -72,6 +72,7 @@ public class Duke {
 
             line = in.nextLine();
         }
+        //exit
         System.out.println("_________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("_________________________________________");
