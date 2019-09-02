@@ -30,9 +30,6 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
 
-        //Task task1 = new Task();
-        //task1.printsample();
-
         String line;
         Scanner in = new Scanner(System.in);
 
@@ -58,11 +55,12 @@ public class Duke {
             }
                 //displaying list
             if (line.contains("list")) {
+                Task getIcon = new Task("run");
                 System.out.println("_________________________________________");
                 String[] print_array = Arrays.copyOf(inputs, word_count);
                 int num = 1;
                 for (String item : print_array) {
-                    System.out.println(num + ". "+ print_array[num-1]);
+                    System.out.println(num + ". "+ "[" + getIcon.getStatusIcon() + "] " +print_array[num-1]);
 
                     num++;
 
