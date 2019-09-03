@@ -12,13 +12,24 @@ public class Duke {
         System.out.println("What can I do for you?");
         Scanner myObj = new Scanner(System.in);
         String userInput;
-        String endword = "bye";
-        while((userInput=myObj.next()) != endword){
-            if (userInput.equals(endword)){
-                break;
+        String[] arr01 = new String[100];
+        int index = 0;
+        userInput=myObj.nextLine();
+        while(!userInput.equals("bye")){
+            if (userInput.equals("list")) {
+                for (int i = 0; i < index; i++) {
+                    System.out.println((i + 1) + ". " + arr01[i]);
+                }
+                userInput=myObj.nextLine();
             }
-            System.out.println(userInput);
+            else {
+                System.out.println("Added: " + userInput);
+                arr01[index] = userInput;
+                index++;
+                userInput=myObj.nextLine();
+            }
         }
+
         System.out.println("Bye. Hope to see you again soon!");
     }
 }
