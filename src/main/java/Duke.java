@@ -14,15 +14,20 @@ public class Duke {
         System.out.print("");
         String line = in.nextLine();
         String result = "";
-        while (! line.equals("bye") && (! line.equals("list")) ) {
-            result += line + ",";
-            System.out.println("added: " + line);
+        int i=0;
+        while (! line.equals("bye"))  { // && (! line.equals("list")))  {
+            if (!line.equals("list")) {
+                //line = in.nextLine();
+                result += line + ",";
+                System.out.println("added: " + line);
+                //line = in.nextLine();
+            }    else if (line.equals("list")) {
+                 System.out.println(result.replace(",","\n"));
+            }
             line = in.nextLine();
-        }///
-        if (line.equals("list")) {
-            //return result.split("\n");
-            System.out.println(result.replace(",","\n"));
-        }else if (line.equals("bye")) {
+                  // for (listing : list
+        }
+        if (line.equals("bye")) {
             System.out.println("Bye. Hope to see you again soon!");
         }
     }
