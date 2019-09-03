@@ -33,10 +33,10 @@ public class Duke {
         String line;
         Scanner in = new Scanner(System.in);
 
-        System.out.println("_________________________________________");
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
-        System.out.println("_________________________________________");
+        System.out.println("\t_________________________________________");
+        System.out.println("\tHello! I'm Duke");
+        System.out.println("\tWhat can I do for you?");
+        System.out.println("\t_________________________________________");
         String[] inputs = new String[100];
         line = in.nextLine();
         int word_count = 0;
@@ -46,24 +46,24 @@ public class Duke {
             //add inputs into array
             if (!line.contains("list") && !line.contains("done")){
                 inputs[word_count] = line;
-                System.out.println("_________________________________________");
-                System.out.println("added: " + line);
-                System.out.println("_________________________________________");
+                System.out.println("\t_________________________________________");
+                System.out.println("\tadded: " + line);
+                System.out.println("\t_________________________________________");
                 word_count++;
 
             }
                 //displaying list
             if (line.contains("list")) {
-                System.out.println("_________________________________________");
+                System.out.println("\t_________________________________________");
                 String[] print_array = Arrays.copyOf(inputs, word_count);
                 int num = 1;
                 for (String item : print_array) {
-                    System.out.println(num + ". "+ "[" + newTask.getStatusIcon() + "] " +print_array[num-1]);
+                    System.out.println("\t"+ num + ". "+ "[" + newTask.getStatusIcon() + "] " +print_array[num-1]);
 
                     num++;
 
                 }
-                System.out.println("_________________________________________");
+                System.out.println("\t_________________________________________");
             }
 
             if (line.contains("done")) {
@@ -75,17 +75,17 @@ public class Duke {
                 option = new_array[0];
                 int task_option = Integer.parseInt(option);
                 newTask.setDone(true);
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println("[" + newTask.getStatusIcon() + "] " + print_array[task_option-1]);
-                System.out.println("_________________________________________");
+                System.out.println("\tNice! I've marked this task as done:");
+                System.out.println("\t[" + newTask.getStatusIcon() + "] " + print_array[task_option-1]);
+                System.out.println("\t_________________________________________");
 
             }
 
             line = in.nextLine();
         }
         //exit
-        System.out.println("_________________________________________");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("_________________________________________");
+        System.out.println("\t_________________________________________");
+        System.out.println("\tBye. Hope to see you again soon!");
+        System.out.println("\t_________________________________________");
     }
 }
