@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class Duke {
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -8,17 +6,5 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
-        Scanner myObj = new Scanner(System.in);
-        String userInput;
-        String endword = "bye";
-        while((userInput=myObj.next()) != endword){
-            if (userInput.equals(endword)){
-                break;
-            }
-            System.out.println(userInput);
-        }
-        System.out.println("Bye. Hope to see you again soon!");
     }
 }
