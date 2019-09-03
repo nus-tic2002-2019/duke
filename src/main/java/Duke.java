@@ -9,7 +9,7 @@ public class Duke {
 
                 int k=0;
                 String input[]=new String[100];
-                System.out.println("______________________________________________");
+                System.out.println("______________________________________________" + logo);
                 System.out.println("Hello! I'm Duke");
                 System.out.println("What can I do for you?");
                 System.out.println("______________________________________________");
