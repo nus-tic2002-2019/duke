@@ -18,7 +18,7 @@ public class Duke {
             result += line + ",";
             System.out.println("added: " + line);
             line = in.nextLine();
-        }//
+        }///
         if (line.equals("list")) {
             //return result.split("\n");
             System.out.println(result.replace(",","\n"));
