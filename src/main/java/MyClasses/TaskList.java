@@ -3,7 +3,7 @@ package MyClasses;
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<String> taskList = new ArrayList<String>(100);
+    protected ArrayList<String> taskList = new ArrayList<String>(100);
 
     //Getter
     public void ListTask() {
