@@ -39,4 +39,14 @@ Duke Increment | Tutorial
 * We welcome pull requests too.
 
 
-TEST james_fork
+### Notes by me, for me:
+
+What arguments does git push take?
+
+eg: *git push my_fork master*
+
+Where: 
+
+**my_fork** refers to the remote repository. In this case, *my_fork* is the repository I have forked from Damith, and where I do most of my development.
+
+**master** refers to the branch that I wish to push to the remote repository. In this case, I only have one branch so far, the *master* branch. If I wish to push some other branch *branch_2*, i would use *git push my_fork branch_2*
