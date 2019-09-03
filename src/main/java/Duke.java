@@ -1,10 +1,10 @@
 import java.util.*;
-import java.io.*;
 
+import MyClasses.TaskList;
 public class Duke {
 
     public static final String HoriLine = "--------------------------------------------------\n";
-
+    TaskList List = new TaskList();
     public static void init() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
