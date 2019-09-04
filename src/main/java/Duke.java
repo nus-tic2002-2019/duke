@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Duke {
     public static void main(String[] args) {
@@ -10,7 +11,7 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
 
         System.out.println("\t--------------------------------------------------");
-        System.out.println("\tHello! I'm Duke.\n\tWhat can I do for you?");
+        System.out.println("\tHello! I'm Duke\n\tWhat can I do for you?");
         System.out.println("\t--------------------------------------------------");
 
         Boolean isNotBye = Boolean.TRUE;
@@ -25,7 +26,7 @@ public class Duke {
             if (isNotBye){
                 System.out.println("\t"+line);
             } else {
-                System.out.println("\tBye. Hope to see you soon.");
+                System.out.println("\tBye. Hope to see you again soon!");
             }
             System.out.println("\t--------------------------------------------------");
         }
