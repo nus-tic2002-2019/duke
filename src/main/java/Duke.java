@@ -52,27 +52,57 @@ public class Duke {
                     );
                     break;
                 case "todo":
-                    setTasks(new Todo(input.substring(input.indexOf("todo")+5, input.length())));
+                    try{
+                        if((input.substring(input.indexOf("todo")+5, input.length())).trim().equals("")){
+                            throw new DukeException();
+                        }
+                        setTasks(new Todo(input.substring(input.indexOf("todo")+5, input.length())));
+                    }
+                    catch (IndexOutOfBoundsException | DukeException e){
+                        System.out.println("\t____________________________________________________________\n\t ☹ OOPS!!! The description of a todo cannot be empty.\n\t____________________________________________________________");
+                    }
                     break;
                 case "deadline":
-                    setTasks(new Deadline(input.substring(input.indexOf("deadline")+9, input.indexOf("by")-1), input.substring(input.indexOf("by")+3, input.length())));
+                    try{
+                        if((input.substring(input.indexOf("deadline")+9, input.length()).trim()).equals("")){
+                            throw new DukeException();
+                        }
+                        setTasks(new Deadline(input.substring(input.indexOf("deadline")+9, input.indexOf("by")-1), input.substring(input.indexOf("by")+3, input.length())));
+                    }
+                    catch (IndexOutOfBoundsException | DukeException e){
+                        System.out.println("\t____________________________________________________________\n\t ☹ OOPS!!! The description of a deadline cannot be empty.\n\t____________________________________________________________");
+                    }
                     break;
                 case "event":
-                    setTasks(new Event(input.substring(input.indexOf("event")+6, input.indexOf("at")-1), input.substring(input.indexOf("at")+3, input.length())));
+                    try{
+                        if((input.substring(input.indexOf("event")+6, input.length()).trim()).equals("")){
+                            throw new DukeException();
+                        }
+                        setTasks(new Event(input.substring(input.indexOf("event")+6, input.indexOf("at")-1), input.substring(input.indexOf("at")+3, input.length())));
+                    }
+                    catch (IndexOutOfBoundsException | DukeException e){
+                        System.out.println("\t____________________________________________________________\n\t ☹ OOPS!!! The description of a event cannot be empty.\n\t____________________________________________________________");
+                    }
                     break;
                 case "list":
                     System.out.println(getTasks());
                     break;
-                case "mark":
-                    System.out.println(markAsDone(Integer.parseInt(input.split(" ")[1])-1));
+                case "done":
+                    try{
+                        if((input.substring(input.indexOf("done")+5, input.length()).trim()).equals("")){
+                            throw new DukeException();
+                        }
+                        System.out.println(markAsDone(Integer.parseInt(input.split(" ")[1])-1));
+                    }
+                    catch (IndexOutOfBoundsException | DukeException e){
+                        System.out.println("\t____________________________________________________________\n\t ☹ OOPS!!! The description of a done cannot be empty.\n\t____________________________________________________________");
+                    }
+                    catch (NullPointerException e){
+                        System.out.println("\t____________________________________________________________\n\t ☹ OOPS!!! The tasks list cannot be empty.\n\t____________________________________________________________");
+                    }
                     break;
                 default:
-                    setTasks(new Task(input));
-                    System.out.println("\t____________________________________________________________\n\t"
-                    + "added: "
-                    + input
-                    + "\n\t____________________________________________________________"
-                    );
+                    System.out.println("\t____________________________________________________________\n\t ☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n\t____________________________________________________________");
             }
         }
         while(!(input.equals("bye")));
