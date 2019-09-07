@@ -11,13 +11,14 @@ public class Duke {
         String line;
         Scanner in = new Scanner(System.in);
         System.out.println("Hello! I'm Duke" + System.lineSeparator() + "What can I do for you?");
-
-
+        //System.out.println("week 4");
         //line = in.nextLine();
         //System.out.println(line);
         String [] item = new String[100];
         int index = 0;
 
+        //line = in.nextLine();
+        //System.out.println(line);
         do{
 
             line = in.nextLine();
