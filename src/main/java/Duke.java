@@ -29,16 +29,18 @@ public class Duke {
                 T = arlist.get(Marked - 1);
                 T.markAsDone();
                 System.out.println("Nice! I've marked this task as done: \n" + T.toString());
-            } else if (!Objects.equals(inData, "list")) {
-                if (!Objects.equals(inData, "bye")) {
-                    if (!Objects.equals(inData.substring(0, 4), "done")) {
-
+            } else if (!Objects.equals(inData.substring(0, 4), "done")) {
                         if (inData.contains("todo")) {
+                            if(inData.length()==4){
+                                System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                            }
+                             else {
                                 String itemName = inData.substring(4, inData.length());
                                 ToDo To = new ToDo(itemName);
                                 count++;
                                 arlist.add(To);
                                 System.out.println("Got it. I've added this task: \n" + To.toString() + "\nNow you have " + count + " tasks in list.");
+                            }
                         } else if (inData.contains("deadline")) {
                             try {
                                 int dividerPosition = inData.indexOf("/");
@@ -70,12 +72,12 @@ public class Duke {
                     }
 
                 }
-
-            }
             System.out.println("Bye. Hope to see you again soon!");
+            }
+
         }
-    }
-}
+
+
 
 
 
