@@ -43,7 +43,14 @@ public class Duke {
 
                                 }
                                 else if(inData.contains("Deadline")){
-
+                                    int dividerPosition = inData.indexOf("/");
+                                    String itemName = inData.substring(8, dividerPosition);
+                                    String itemName1 = inData.substring(dividerPosition,inData.length());
+                                    String itemName2 = itemName1.replace("/", "");
+                                    Deadline D = new Deadline(itemName,itemName2);
+                                    count++;
+                                    arlist.add(D);
+                                    System.out.println("Got it. I've added this task: \n" + D.toString() + "\nNow you have " + count + " tasks in list.");
                                 }
 
                         }
