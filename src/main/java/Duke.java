@@ -34,7 +34,8 @@ public class Duke {
             else if(!Objects.equals(inData, "list")){
                     if(!Objects.equals(inData, "bye")) {
                             if(!Objects.equals(inData.substring(0,4), "done")) {
-                                if(inData.contains("ToDo")){
+
+                                if(inData.contains("todo")){
                                     String itemName = inData.substring(4, inData.length());
                                     ToDo To = new ToDo(itemName);
                                     count++;
@@ -42,7 +43,7 @@ public class Duke {
                                     System.out.println("Got it. I've added this task: \n" + To.toString() + "\nNow you have " + count + " tasks in list.");
 
                                 }
-                                else if(inData.contains("Deadline")){
+                                else if(inData.contains("deadline")){
                                     int dividerPosition = inData.indexOf("/");
                                     String itemName = inData.substring(8, dividerPosition);
                                     String itemName1 = inData.substring(dividerPosition,inData.length());
@@ -51,6 +52,16 @@ public class Duke {
                                     count++;
                                     arlist.add(D);
                                     System.out.println("Got it. I've added this task: \n" + D.toString() + "\nNow you have " + count + " tasks in list.");
+                                }
+                                else if(inData.contains("event")) {
+                                    int dividerPosition = inData.indexOf("/");
+                                    String itemName = inData.substring(5, dividerPosition);
+                                    String itemName1 = inData.substring(dividerPosition, inData.length());
+                                    String itemName2 = itemName1.replace("/", "");
+                                    Event E = new Event(itemName, itemName2);
+                                    count++;
+                                    arlist.add(E);
+                                    System.out.println("Got it. I've added this task: \n" + E.toString() + "\nNow you have " + count + " tasks in list.");
                                 }
 
                         }
