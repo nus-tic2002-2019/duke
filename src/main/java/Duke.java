@@ -34,10 +34,18 @@ public class Duke {
             else if(!Objects.equals(inData, "list")){
                     if(!Objects.equals(inData, "bye")) {
                             if(!Objects.equals(inData.substring(0,4), "done")) {
-                            System.out.println("added:" + inData);
-                            T = new Task(inData);
-                            arlist.add(T);
-                            count++;
+                                if(inData.contains("ToDo")){
+                                    String itemName = inData.substring(4, inData.length());
+                                    ToDo To = new ToDo(itemName);
+                                    count++;
+                                    arlist.add(To);
+                                    System.out.println("Got it. I've added this task: \n" + To.toString() + "\nNow you have " + count + " tasks in list.");
+
+                                }
+                                else if(inData.contains("Deadline")){
+
+                                }
+
                         }
                 }
 
