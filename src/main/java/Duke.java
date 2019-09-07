@@ -13,21 +13,21 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         System.out.println("Hello! I'm Duke\nWhat can I do for you?");
         String inData = null;
-        ArrayList<String> arlist = new ArrayList<String>( );
-
+        ArrayList<Task> arlist = new ArrayList<Task>( );
+        Task T = null;
         int count = 0;
+
         while (!Objects.equals(inData, "bye")){
             Scanner scan = new Scanner(System.in);
             inData = scan.nextLine();
             if(Objects.equals(inData, "list")){
                 for (int i = 0; i < count; i++) {
-                    Task T = new Task(arlist.get(i));
-                    System.out.println((i+1) + "." + T.toString());
+                    System.out.println((i+1) + "." + arlist.get(i).toString());
                 }
             }
-            else if(Objects.equals(inData.substring(0,4), "done")){
+            else if(inData.contains("done")){
                 int Marked = (Integer.parseInt(inData.substring(inData.indexOf("done")+5, inData.length())));
-                Task T = new Task(arlist.get(Marked-1));
+                T = arlist.get(Marked-1);
                 T.markAsDone();
                 System.out.println("Nice! I've marked this task as done: \n" + T.toString());
             }
@@ -35,7 +35,8 @@ public class Duke {
                     if(!Objects.equals(inData, "bye")) {
                             if(!Objects.equals(inData.substring(0,4), "done")) {
                             System.out.println("added:" + inData);
-                            arlist.add(inData);
+                            T = new Task(inData);
+                            arlist.add(T);
                             count++;
                         }
                 }
