@@ -4,7 +4,7 @@ public class Duke {
     private static int counter = 0;
     private static Task[] tasks = new Task[100];
 
-    public static void setTasks(Task description){
+    public static void setTask(Task description){
         tasks[counter] = description;
         System.out.println("\t____________________________________________________________"
         + "\n\t Got it. I've added this task:"
@@ -22,6 +22,10 @@ public class Duke {
         output += "\n\t____________________________________________________________";
         return output;
     }
+
+    // public static String markAsDelete(int task){
+    //     return tasks[task].mark();
+    // }
 
     public static String markAsDone(int task){
         return tasks[task].setDone();
@@ -53,35 +57,41 @@ public class Duke {
                     break;
                 case "todo":
                     try{
-                        if((input.substring(input.indexOf("todo")+5, input.length())).trim().equals("")){
-                            throw new DukeException();
+                        if((input.substring(4, input.length())).trim().equals("")){
+                            throw new DukeException("todo");
                         }
-                        setTasks(new Todo(input.substring(input.indexOf("todo")+5, input.length())));
+                        setTask(new Todo(input.substring(5, input.length())));
                     }
-                    catch (IndexOutOfBoundsException | DukeException e){
-                        System.out.println("\t____________________________________________________________\n\t ☹ OOPS!!! The description of a todo cannot be empty.\n\t____________________________________________________________");
+                    catch (DukeException e){
+                        System.out.println(e.getMessage());
                     }
                     break;
                 case "deadline":
                     try{
-                        if((input.substring(input.indexOf("deadline")+9, input.length()).trim()).equals("")){
-                            throw new DukeException();
+                        if((input.substring(8, input.length()).trim()).equals("")){
+                            throw new DukeException("deadline");
                         }
-                        setTasks(new Deadline(input.substring(input.indexOf("deadline")+9, input.indexOf("by")-1), input.substring(input.indexOf("by")+3, input.length())));
+                        if(input.substring(input.indexOf("at")+2, input.length()).trim().equals("") || !(input.contains("at"))){
+                            throw new DukeException("deadline", (input.substring(input.indexOf("by")+2, input.length()).trim()));
+                        }
+                        setTask(new Deadline(input.substring(9, input.indexOf("by")-1), input.substring(input.indexOf("by")+3, input.length())));
                     }
-                    catch (IndexOutOfBoundsException | DukeException e){
-                        System.out.println("\t____________________________________________________________\n\t ☹ OOPS!!! The description of a deadline cannot be empty.\n\t____________________________________________________________");
+                    catch (DukeException e){
+                        System.out.println(e.getMessage());
                     }
                     break;
                 case "event":
                     try{
-                        if((input.substring(input.indexOf("event")+6, input.length()).trim()).equals("")){
-                            throw new DukeException();
+                        if((input.substring(5, input.length()).trim()).equals("")){
+                            throw new DukeException("event");
                         }
-                        setTasks(new Event(input.substring(input.indexOf("event")+6, input.indexOf("at")-1), input.substring(input.indexOf("at")+3, input.length())));
+                        if(input.substring(input.indexOf("at")+2, input.length()).trim().equals("") || !(input.contains("at"))){
+                            throw new DukeException("event", (input.substring(input.indexOf("at")+2, input.length()).trim()));
+                        }
+                        setTask(new Event(input.substring(6, input.indexOf("at")-1), input.substring(input.indexOf("at")+3, input.length())));
                     }
-                    catch (IndexOutOfBoundsException | DukeException e){
-                        System.out.println("\t____________________________________________________________\n\t ☹ OOPS!!! The description of a event cannot be empty.\n\t____________________________________________________________");
+                    catch (DukeException e){
+                        System.out.println(e.getMessage());
                     }
                     break;
                 case "list":
@@ -89,18 +99,26 @@ public class Duke {
                     break;
                 case "done":
                     try{
-                        if((input.substring(input.indexOf("done")+5, input.length()).trim()).equals("")){
-                            throw new DukeException();
+                        if((input.substring(input.indexOf("done")+4, input.length()).trim()).equals("")){
+                            throw new DukeException("done");
                         }
                         System.out.println(markAsDone(Integer.parseInt(input.split(" ")[1])-1));
                     }
-                    catch (IndexOutOfBoundsException | DukeException e){
-                        System.out.println("\t____________________________________________________________\n\t ☹ OOPS!!! The description of a done cannot be empty.\n\t____________________________________________________________");
+                    catch (DukeException e){
+                        System.out.println(e.getMessage());
                     }
                     catch (NullPointerException e){
                         System.out.println("\t____________________________________________________________\n\t ☹ OOPS!!! The tasks list cannot be empty.\n\t____________________________________________________________");
                     }
+                    catch (NumberFormatException e){
+                        System.out.println("\t____________________________________________________________\n\t ☹ OOPS!!! The task number must be a numerical value.\n\t____________________________________________________________");
+                    }
                     break;
+                case "delete":
+                    // try{
+                    //     if((input.substring(input.indexOf("delete")+7, input.length()).trim()).equals("")){
+                    //         throw new DukeException();
+                    //     }
                 default:
                     System.out.println("\t____________________________________________________________\n\t ☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n\t____________________________________________________________");
             }
