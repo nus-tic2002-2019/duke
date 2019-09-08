@@ -2,6 +2,11 @@ import java.util.Scanner;
 
 public class Duke {
 
+    public static void main(String[] args) {
+        InteractionsManager im = new InteractionsManager();
+        im.start();
+    }
+    /**
     public static String hyphen_print(String message){
         String hyphens = "__________________";
         return hyphens + "\n" + message;
@@ -31,5 +36,5 @@ public class Duke {
             idx ++;
 
         }
-    }
+    }**/
 }
