@@ -11,21 +11,20 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         System.out.println("Hello! I'm Duke.\nWhat can I do for you?");
 
-        echoInput();
-    }
-
-    public static void echoInput () {
-        String line;
-        Scanner in = new Scanner(System.in);
-
         while (true) {
+            String line;
+            Scanner in = new Scanner(System.in);
             line = in.nextLine();
-            if (line.equals("bye")) {
-                System.out.println("Bye. Hope to see you soon!");
+
+            Task t = new Task(line);
+
+            if (line.equals("list")) {
+                Task.listTask();
+            } else if (line.equals("bye")) {
+                System.out.println("Bye. Hope to see you again soon!");
                 break;
             } else {
-                System.out.println(line);
-                continue;
+                Task.addTask();
             }
         }
     }
