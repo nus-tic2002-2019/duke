@@ -13,6 +13,12 @@ public class Task {
     }
 	
     public String getStatusIcon() {
-        return (isDone ? "✓" : "✗"); //return tick or X symbols
+        return (isDone ? "[V]" : "[X]"); //return tick or X symbols
+    }
+	public void setStatusIconTrue() {
+        this.isDone = true;
+    }
+	public void setStatusIconFalse() {
+        this.isDone = false; // regression if required
     }
 }
