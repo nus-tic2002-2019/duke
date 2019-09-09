@@ -11,7 +11,14 @@ public class Task {
 
     public static void add_task(Task description){
         inputs[word_count] = description;
+        System.out.println("\t_________________________________________");
+        System.out.println("\tGot it. I've added this task:");
         word_count++;
+        Task[] print_array = Arrays.copyOf(inputs, word_count);
+        int num = 1;
+        System.out.println("\t[" + print_array[num-1].getStatusIcon() + "] " + description);
+        System.out.println("\tNow you have " + word_count + " tasks in list.");
+        System.out.println("\t_________________________________________");
     }
 
     public static void getList() {
