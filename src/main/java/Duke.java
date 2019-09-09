@@ -20,7 +20,6 @@ public class Duke {
                 exit();
                 break;
             }
-            
             if ( line.toLowerCase().equals("list")){
                 printList(list);
             } else {  
