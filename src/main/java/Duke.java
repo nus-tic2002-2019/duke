@@ -26,14 +26,17 @@ public class Duke {
         while (!line.contains("bye")) {
            Task newTask = new Task(line);
 
-            //add inputs into array
-            if (!line.contains("list") && !line.contains("done")){
-                //inputs[word_count] = line;
-                newTask.add_task(new Task(line));
-                System.out.println("\t_________________________________________");
-                System.out.println("\tadded: " + line);
-                System.out.println("\t_________________________________________");
-                //word_count++;
+            //add inputs into array, add Todo
+            if (!line.contains("list") && !line.contains("done") && line.contains("todo")){
+                String input_items = line.substring(line.indexOf(" ")+1);
+                newTask.add_task(new Todo(input_items));
+
+            }
+                //add deadline
+            if (!line.contains("list") && !line.contains("done") && line.contains("deadline")){
+                String input_items = line.substring(line.indexOf(" ")+1);
+                String by = line.substring(line.indexOf("/by ")+1);
+                newTask.add_task(new Deadline(input_items, by));
 
             }
                 //displaying list
