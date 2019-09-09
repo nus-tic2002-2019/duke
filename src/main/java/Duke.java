@@ -19,23 +19,30 @@ public class Duke {
         // Accepts text
 		Scanner in = new Scanner(System.in);
 		line = in.nextLine();
-        //Check entered text for bye
-			if ("bye".equals(line)){
+        // Check entered text for bye
+			if (line.equals("bye")){
 				System.out.println("	Bye. Hope to see you again soon!");
 				break;
 			}
-			if ("list".equals(line)){
+			if (line.equals("list")){
 				System.out.println("	Here are the tasks in your list:");
 				for (int a=1; a<i+1;a++){
 				System.out.println("	"+a+". "+toDoList[a-1].getStatusIcon()+" "+toDoList[a-1].description() );
 				}
 				continue;
 			}
+			if (line.contains("done") && line.matches(".*\\d.*")){ // Level-3
+				int result = Integer.parseInt(line.replaceAll("[\\D]", "")) - 1; 
+				toDoList[result].setStatusIconTrue();
+				System.out.println("	Nice! I've marked this task as done: 	\n	 "+toDoList[result].getStatusIcon()+" "+toDoList[result].description() );
+				continue;
+			} else {
 			// Level-2
 			Task t = new Task(line);
 			toDoList[i] = t;
 			System.out.println("	added: " + line + "\n");
 			i++;
+			}
 		}
     }
 }
