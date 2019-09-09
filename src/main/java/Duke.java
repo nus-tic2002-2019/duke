@@ -34,8 +34,6 @@ public class Duke {
                 
             }
         }
-                
-        
     }
     
     public static void printList(String list[]){
