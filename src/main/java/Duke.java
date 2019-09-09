@@ -37,6 +37,7 @@ public class Duke {
     public static boolean Task(String Cmmd) {
         TaskList task = new TaskList();
         ArrayList<String> commands = new ArrayList<String>(Arrays.asList(Cmmd.split(" ", 3)));
+        System.out.println(commands);
         switch (commands.get(0).toLowerCase()) {
             case "bye":
             case "quit":
@@ -53,7 +54,7 @@ public class Duke {
                 }
                 break;
             case "add":
-                if (commands.get(1) == "-t" || commands.get(1) == "task") {
+                if (commands.get(1).equals("-t") || commands.get(1).equals("task")) {
                     task.AddTask(commands.get(2));
                 }
                 break;
