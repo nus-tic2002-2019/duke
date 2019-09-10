@@ -48,11 +48,8 @@ public class Duke {
 
             if (line.contains("done")) {
 
-                String[] input_items = line.split(" ");
-                String[] new_array = new String[1];
-                new_array[0] = input_items[1];
-                String option = new_array[0];
-                int task_option = Integer.parseInt(option);
+                String input_items = line.substring(line.indexOf(" ")+1);
+                int task_option = Integer.parseInt(input_items);
                 newTask.markDone(task_option);
             }
 

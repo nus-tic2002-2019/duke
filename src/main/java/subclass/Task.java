@@ -16,7 +16,7 @@ public class Task {
         word_count++;
         Task[] print_array = Arrays.copyOf(inputs, word_count);
         int num = 1;
-        System.out.println("\t[" + print_array[num-1].getStatusIcon() + "]" + description);
+        System.out.println("\t" + description);
         System.out.println("\tNow you have " + word_count + " tasks in list.");
         System.out.println("\t_________________________________________");
     }
@@ -26,7 +26,7 @@ public class Task {
         Task[] print_array = Arrays.copyOf(inputs, word_count);
         int num = 1;
         for (Task item : print_array) {
-            System.out.println("\t"+ num + ". "+ "[" + print_array[num-1].getStatusIcon() + "]" +print_array[num-1].toString());
+            System.out.println("\t"+ num + ". "+ print_array[num-1].toString());
 
             num++;
 
@@ -38,7 +38,7 @@ public class Task {
         inputs[taskNo-1].setDone(true);
         Task[] print_array = Arrays.copyOf(inputs, word_count);
         System.out.println("\tNice! I've marked this task as done:");
-        System.out.println("\t[" + print_array[taskNo-1].getStatusIcon() + "]" + print_array[taskNo-1]);
+        System.out.println("\t" + print_array[taskNo-1]);
         System.out.println("\t_________________________________________");
     }
 
@@ -58,6 +58,6 @@ public class Task {
 
 
     public String toString() {
-        return this.description;
+        return "[" + getStatusIcon() + "] " + this.description;
     }
 }
