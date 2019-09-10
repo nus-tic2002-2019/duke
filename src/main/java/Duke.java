@@ -10,8 +10,9 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println(logo);
+        ArrayList<String> toDoList = new ArrayList<String>();
         greet();
-        echo();
+        echo(toDoList);
     }
 
     public static void dukePrint(String input) {
@@ -21,10 +22,10 @@ public class Duke {
     }
 
     public static void greet() {
-        dukePrint("Hello, I'm Duke\nWhat can I do for you?");
+        dukePrint("Harrowwwwwww\nWut iz up?");
     }
 
-    public static void echo() {
+    public static void echo(ArrayList<String> toDoList) {
         Scanner in = new Scanner(System.in);
 
         while (in.hasNext()) {
@@ -33,12 +34,26 @@ public class Duke {
                 case("bye"):
                     dukePrint("BYEBYE!");
                     break;
+                case("list"):
+                    displayList(toDoList);
+                    continue;
                 default:
+                    toDoList.add(input);
                     dukePrint("added: " + input);
             }
         }
     }
 
+
+    public static void displayList(ArrayList<String> toDoList) {
+        //System.out.println("displayList initiated");
+        String input = "Yessir! Here is the list!\n";
+        for(int i = 0; i < toDoList.size(); ++i) {
+            input += "\t" + (i+1) + ". " + toDoList.get(i) + "\n";
+        }
+        dukePrint(input);
+    }
 }
+
 
 
