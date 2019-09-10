@@ -24,7 +24,10 @@ public class Duke {
             index ++;
         }
     }
+    private static Task [] tasks = new Task [100];
+    private static int taskCount = 0;
 
+    
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
