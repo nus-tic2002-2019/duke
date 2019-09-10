@@ -40,6 +40,15 @@ public class Duke {
                 newTask.add_task(new Deadline(input_string, by));
 
             }
+
+            if (!line.contains("list") && !line.contains("done") && line.contains("event")){
+                String input_items = line.substring(line.indexOf(" ")+1);
+                String at = line.substring(line.indexOf("/at")+4);
+                String input_string = input_items.substring(0, input_items.indexOf("/"));
+                newTask.add_task(new Event(input_string, at));
+
+            }
+
                 //displaying list
             if (line.contains("list")) {
 
