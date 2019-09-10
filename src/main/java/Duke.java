@@ -9,7 +9,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         String line;
-        String[] list = new String[10];
+        Task[] taskList = new Task[10];
         Scanner in = new Scanner(System.in);
         System.out.print("Hello! I'm Duke\n" + "What can I do for you?");
         int index = 0;
@@ -21,12 +21,24 @@ public class Duke {
             }
             else if (line.equals("list")) {
                 for (int i = 0; i < index; i++){
-                    System.out.println(i+1 + ". " + list[i]);
+                    System.out.println(i+1 + ". " + "[" + taskList[i].getStatusIcon() + "] " + taskList[i].description);
                 }
             }
+
+            else if (line.contains("done")){
+                int numberList = Integer.valueOf(line.substring(5, line.length()));
+                Task t = taskList[numberList-1];
+                t.markAsDone();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("[" + t.getStatusIcon() + "] " + t.description);
+
+            }
+
             else{
                 System.out.println("added: " + line);
-                list[index] = line;
+                Task newTask = new Task(line);
+                newTask.description = line;
+                taskList[index] = newTask;
                 index ++;
             }
 
