@@ -19,6 +19,7 @@ public class Task {
         System.out.println("\t" + description);
         System.out.println("\tNow you have " + word_count + " tasks in list.");
         System.out.println("\t_________________________________________");
+
     }
 
     public static void getList() {

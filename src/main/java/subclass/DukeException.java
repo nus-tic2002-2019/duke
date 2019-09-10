@@ -1,4 +1,5 @@
 package subclass;
 
-public class DukeException {
+public class DukeException extends Exception {
+    //no code
 }

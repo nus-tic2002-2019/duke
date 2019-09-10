@@ -5,7 +5,7 @@ import subclass.*;
 
 public class Duke {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -25,7 +25,10 @@ public class Duke {
 
         while (!line.contains("bye")) {
            Task newTask = new Task(line);
-
+           //adding exceptions (in progress)
+           /*if (!line.contains("list") && !line.contains("done") && !line.contains("todo") && !line.contains("deadline") && !line.contains("event")) {
+                throw new DukeException();
+            }*/
             //add inputs into array, add Todo
             if (!line.contains("list") && !line.contains("done") && line.contains("todo")){
                 String input_items = line.substring(line.indexOf(" ")+1);
