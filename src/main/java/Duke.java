@@ -20,7 +20,7 @@ public class Duke {
     public static void displayList(Task[] tasks){
 
         for (int index = 0; index<taskCount; index++){
-            System.out.println (index+1 + "." + tasks[index].getDescription());
+            System.out.println (index+1 + "." + "[" + tasks[index].getStatusIcon() +"]" + tasks[index].getDescription());
         }
     }
     private static Task [] taskList = new Task [100];
@@ -30,7 +30,6 @@ public class Duke {
         taskList[taskCount] = t;
         taskCount++;
     }
-
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -45,12 +44,17 @@ public class Duke {
         String textInput = in.nextLine();
         //List<String> tasks = new ArrayList<>();
         while (!textInput.equalsIgnoreCase("bye")){
-            if (!textInput.equalsIgnoreCase("list")){
+            if (!textInput.equalsIgnoreCase("list") || !textInput.contains("done")){
                 addTask(new Task(textInput));
                 dukeEcho(textInput);
             }
             textInput = in.nextLine();
             if (textInput.equalsIgnoreCase("list")) displayList(taskList);
+            if (textInput.contains("done")) {
+                String[] text = textInput.split(" ", 2);
+                System.out.println(Integer.parseInt(text[1]));
+                taskList[Integer.parseInt(text[1])-1].markAsDone(true);
+            }
             if (textInput.equalsIgnoreCase ("bye")) break;
         }
         //DukeList inputList = new DukeList();

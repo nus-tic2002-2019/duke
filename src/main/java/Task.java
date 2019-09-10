@@ -15,4 +15,8 @@ public class Task {
         return description;
     }
 
+    public void markAsDone(boolean status){
+        this.isDone = status;
+    }
+
 }
