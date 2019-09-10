@@ -47,11 +47,15 @@ public class Duke {
                 PrintHL();
                 return false;
             case "list":
-                if (isNumeric(commands.get(1))) {
-                    task.ListTask(Integer.parseInt(commands.get(1)));
-                } else {
+                try {
+                    if (isNumeric(commands.get(1))) {
+                        task.ListTask(Integer.parseInt(commands.get(1)));
+                    }
+                } catch (IndexOutOfBoundsException e) {
                     task.ListTask();
                 }
+
+
                 break;
             case "add":
                 if (commands.get(1).equals("-t") || commands.get(1).equals("task")) {
