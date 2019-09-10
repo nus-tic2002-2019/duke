@@ -35,6 +35,32 @@ public class Duke {
                 System.out.println("Bye. Hope to see you again soon!");
                 PrintHL();
                 return false;
+<<<<<<< HEAD
+=======
+            case "list":
+                try {
+                    if (commands.size() > 1) {
+                        if (isNumeric(commands.get(1))) {
+                            task.ListTask(Integer.parseInt(commands.get(1)));
+                        } else {
+                            System.out.println("Unknown Command for List : " + commands);
+                            PrintHL();
+                        }
+                    } else {
+                        task.ListTask();
+                    }
+                } catch (IndexOutOfBoundsException e) {
+                    task.ListTask();
+                }
+
+
+                break;
+            case "add":
+                if (commands.get(1).equals("-t") || commands.get(1).equals("task")) {
+                    task.AddTask(commands.get(2));
+                }
+                break;
+>>>>>>> e8c8f938ded94ada9c4f734dbeeace25db93415d
             default:
                 System.out.println(Cmmd);
                 PrintHL();
