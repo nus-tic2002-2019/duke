@@ -17,8 +17,12 @@ public class Task {
 
     public String setDone(){
         this.isDone = true;
-        return "\t____________________________________________________________\n\t Nice! I've marked this task as done:\n\t  [\u2713] "
-        + this.description
+        return "\t____________________________________________________________\n\t Nice! I've marked this task as done:\n\t  "
+        + toString()
         + "\n\t____________________________________________________________";
+    }
+
+    public String setDelete(){
+        return "Noted. I've removed this task:\n\t  " + toString();
     }
 }
