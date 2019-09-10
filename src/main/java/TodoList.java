@@ -8,4 +8,6 @@ public class TodoList extends Task {
         this.isDone = status;
     }
 
+    public test(){}
+
 }
