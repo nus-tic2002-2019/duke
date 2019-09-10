@@ -1,5 +1,5 @@
 import java.util.*;
-import MyClasses.TaskList;
+import java.io.*;
 
 public class Duke {
 
@@ -21,11 +21,6 @@ public class Duke {
         System.out.println(HoriLine);
     }
 
-    //check if string numeric
-    public static boolean isNumeric(String s) {
-        return s != null && s.matches("[-+]?\\d*\\.?\\d+");
-    }
-
     // Read the char input of the scanner;
     public static String ReadText() {
         Scanner sc = new Scanner(System.in);
@@ -35,38 +30,16 @@ public class Duke {
     }
 
     public static boolean Task(String Cmmd) {
-        TaskList task = new TaskList();
-        ArrayList<String> commands = new ArrayList<String>(Arrays.asList(Cmmd.split(" ", 3)));
-        System.out.println(commands);
-        switch (commands.get(0).toLowerCase()) {
+        switch (Cmmd.toLowerCase()) {
             case "bye":
-            case "quit":
-            case "close":
-            case "exit":
                 System.out.println("Bye. Hope to see you again soon!");
                 PrintHL();
                 return false;
-            case "list":
-                try {
-                    if (isNumeric(commands.get(1))) {
-                        task.ListTask(Integer.parseInt(commands.get(1)));
-                    }
-                } catch (IndexOutOfBoundsException e) {
-                    task.ListTask();
-                }
-
-
-                break;
-            case "add":
-                if (commands.get(1).equals("-t") || commands.get(1).equals("task")) {
-                    task.AddTask(commands.get(2));
-                }
-                break;
             default:
-                System.out.println("Unknown Command : " + Cmmd);
+                System.out.println(Cmmd);
                 PrintHL();
+                return true;
         }
-        return true;
     }
 
     public static void main(String[] args) {
