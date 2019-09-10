@@ -35,8 +35,9 @@ public class Duke {
                 //add deadline
             if (!line.contains("list") && !line.contains("done") && line.contains("deadline")){
                 String input_items = line.substring(line.indexOf(" ")+1);
-                String by = line.substring(line.indexOf("/by")+3);
-                newTask.add_task(new Deadline(input_items, by));
+                String by = line.substring(line.indexOf("/by")+4);
+                String input_string = input_items.substring(0, input_items.indexOf("/"));
+                newTask.add_task(new Deadline(input_string, by));
 
             }
                 //displaying list
