@@ -48,8 +48,15 @@ public class Duke {
                 return false;
             case "list":
                 try {
-                    if (isNumeric(commands.get(1))) {
-                        task.ListTask(Integer.parseInt(commands.get(1)));
+                    if (commands.size() > 1) {
+                        if (isNumeric(commands.get(1))) {
+                            task.ListTask(Integer.parseInt(commands.get(1)));
+                        } else {
+                            System.out.println("Unknown Command for List : " + commands);
+                            PrintHL();
+                        }
+                    } else {
+                        task.ListTask();
                     }
                 } catch (IndexOutOfBoundsException e) {
                     task.ListTask();

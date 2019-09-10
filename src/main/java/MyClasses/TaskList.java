@@ -15,8 +15,16 @@ public class TaskList {
 
     //Print First x number of tasks
     public void ListTask(int LoopCnt) {
+        Boolean OutofBound = false;
+        if (LoopCnt > this.taskList.size()) {
+            LoopCnt = this.taskList.size();
+            OutofBound = true;
+        }
         for (int i = 0; i < LoopCnt; i++) {
             System.out.println(i + ". " + this.taskList.get(i));
+        }
+        if (OutofBound == true) {
+            System.out.println("Assigned Command value greater than added list of tasks.");
         }
         System.out.println("\n" + HoriLine);
     }
