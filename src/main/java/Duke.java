@@ -76,6 +76,13 @@ public class Duke {
                         System.out.println("☹ OOPS!!! The description of a event's date needs a / after description");
                     }
                     break;
+                case "delete":
+                    Marked = (Integer.parseInt(inData.substring(inData.indexOf("delete") + 7, inData.length())));
+                    System.out.println("Noted. I've removed this task:  \n" + T.toString());
+                    arlist.remove(Marked-1);
+                    count--;
+                    System.out.println("Now you have " + count + " tasks in list.");
+                    break;
                 default:
                     System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                     break;
