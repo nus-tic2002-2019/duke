@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static String[] store = new String[100];
+    public static Task[] store = new Task[100];
     public static int current = 0;
 
     public static void printItem(String[] items){
@@ -25,7 +25,7 @@ public class Duke {
             line = in.nextLine();
             checkString(line);
         } else {
-            store[current] = args;
+            Task[current] = new Task(args);
             System.out.println("Added: " + args + "\n");
             current += 1;
             line = in.nextLine();
