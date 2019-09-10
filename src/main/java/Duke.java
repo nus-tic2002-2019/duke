@@ -17,17 +17,21 @@ public class Duke {
         System.out.println("    ________________________________________");
     }
 
-    public static void displayList(List<String> tasks){
-        int index = 0;
-        for (String task:tasks){
-            System.out.println (index+1 + "." + tasks.get(index));
-            index ++;
+    public static void displayList(Task[] tasks){
+
+        for (int index = 0; index<taskCount; index++){
+            System.out.println (index+1 + "." + tasks[index].getDescription());
         }
     }
-    private static Task [] tasks = new Task [100];
+    private static Task [] taskList = new Task [100];
     private static int taskCount = 0;
 
-    
+    public static void addTask (Task t){
+        taskList[taskCount] = t;
+        taskCount++;
+    }
+
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -39,14 +43,14 @@ public class Duke {
         dukeGreet();
         Scanner in = new Scanner(System.in);
         String textInput = in.nextLine();
-        List<String> tasks = new ArrayList<>();
+        //List<String> tasks = new ArrayList<>();
         while (!textInput.equalsIgnoreCase("bye")){
             if (!textInput.equalsIgnoreCase("list")){
-                tasks.add(textInput);
+                addTask(new Task(textInput));
                 dukeEcho(textInput);
             }
             textInput = in.nextLine();
-            if (textInput.equalsIgnoreCase("list")) displayList(tasks);
+            if (textInput.equalsIgnoreCase("list")) displayList(taskList);
             if (textInput.equalsIgnoreCase ("bye")) break;
         }
         //DukeList inputList = new DukeList();
