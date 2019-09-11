@@ -57,7 +57,7 @@ public class Duke {
 
                 for (listPrint = 0; listPrint < count; listPrint++) {
 
-                    System.out.println("     " + listNum + ". " + mark[listPrint] + " " + listArray[listPrint]);
+                    System.out.println("     " + listNum + ". " + "[" + mark[listPrint] + "]"  + " " + listArray[listPrint]);
                     listNum++;
                 }
                 listNum=1;
@@ -68,8 +68,8 @@ public class Duke {
                 t.markAsDone();
 
                 System.out.print("   " + seperatorLine2);
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.print(t.getStatusIcon());
+                System.out.println("       " + "Nice! I've marked this task as done:");
+                System.out.print("          " + "[" + t.getStatusIcon() + "] ");
                 doneNumber = Integer.parseInt(words[1]) - 1;
                 System.out.println(listArray[doneNumber]);
                 mark[doneNumber] = t.getStatusIcon();
