@@ -5,6 +5,7 @@ public class Duke {
 
     public static Task[] store = new Task[100];
     public static int current = 0;
+    public static Scanner in = new Scanner(System.in);
 
     public static void printItem(Task[] items){
         for(int i = 0;i < current; i++){
@@ -14,8 +15,8 @@ public class Duke {
     }
 
     public static void listeningEvents(){
-        Scanner in = new Scanner(System.in);
-        String line = in.nextLine();
+        String line;
+        line = in.nextLine();
         checkString(line);
     }
 
