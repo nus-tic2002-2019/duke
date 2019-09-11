@@ -27,7 +27,7 @@ public class Duke {
             case "done":
                 int index =  Integer.parseInt(inputs[1]) - 1;
                 store[index].setIsDone();
-                System.out.println("Nice! I've marked this task as done: \n" + "[" + store[index].getStatusIcon() + "] " + store[index].description);
+                System.out.println("Nice!! I've marked this task as done: \n" + "[" + store[index].getStatusIcon() + "] " + store[index].description);
                 System.out.printf("\n");
                 listeningEvents();
                 break;
