@@ -23,51 +23,55 @@ public class Duke {
 
         line = in.nextLine();
             while (!line.contains("bye")) {
-                Task newTask = new Task(line);
-                //adding exceptions (in progress)
-                if (!line.contains("list") && !line.contains("done") && !line.contains("todo") && !line.contains("deadline") && !line.contains("event")) {
-                    throw new DukeException();
+                try {
+                    Task newTask = new Task(line);
+                    //adding exceptions (in progress)
+                    if (!line.contains("list") && !line.contains("done") && !line.contains("todo") && !line.contains("deadline") && !line.contains("event")) {
+                        throw new DukeException();
+                    }
+                    //add inputs into array, add Todo
+                    if (!line.contains("list") && !line.contains("done") && line.contains("todo")) {
+                        String input_items = line.substring(line.indexOf(" ") + 1);
+                        newTask.add_task(new Todo(input_items));
+
+                    }
+                    //add deadline
+                    if (!line.contains("list") && !line.contains("done") && line.contains("deadline")) {
+                        String input_items = line.substring(line.indexOf(" ") + 1);
+                        String by = line.substring(line.indexOf("/by") + 4);
+                        String input_string = input_items.substring(0, input_items.indexOf("/"));
+                        newTask.add_task(new Deadline(input_string, by));
+
+                    }
+
+                    if (!line.contains("list") && !line.contains("done") && line.contains("event")) {
+                        String input_items = line.substring(line.indexOf(" ") + 1);
+                        String at = line.substring(line.indexOf("/at") + 4);
+                        String input_string = input_items.substring(0, input_items.indexOf("/"));
+                        newTask.add_task(new Event(input_string, at));
+
+                    }
+
+                    //displaying list
+                    if (line.contains("list")) {
+
+                        newTask.getList();
+                    }
+
+                    if (line.contains("done")) {
+
+                        String input_items = line.substring(line.indexOf(" ") + 1);
+                        int task_option = Integer.parseInt(input_items);
+                        newTask.markDone(task_option);
+                    }
+                } catch (DukeException e) {
+                    System.out.println("\t_____________________________________________________________");
+                    System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    System.out.println("\t_____________________________________________________________");
                 }
-                //add inputs into array, add Todo
-                if (!line.contains("list") && !line.contains("done") && line.contains("todo")) {
-                    String input_items = line.substring(line.indexOf(" ") + 1);
-                    newTask.add_task(new Todo(input_items));
 
-                }
-                //add deadline
-                if (!line.contains("list") && !line.contains("done") && line.contains("deadline")) {
-                    String input_items = line.substring(line.indexOf(" ") + 1);
-                    String by = line.substring(line.indexOf("/by") + 4);
-                    String input_string = input_items.substring(0, input_items.indexOf("/"));
-                    newTask.add_task(new Deadline(input_string, by));
-
-                }
-
-                if (!line.contains("list") && !line.contains("done") && line.contains("event")) {
-                    String input_items = line.substring(line.indexOf(" ") + 1);
-                    String at = line.substring(line.indexOf("/at") + 4);
-                    String input_string = input_items.substring(0, input_items.indexOf("/"));
-                    newTask.add_task(new Event(input_string, at));
-
-                }
-
-                //displaying list
-                if (line.contains("list")) {
-
-                    newTask.getList();
-                }
-
-                if (line.contains("done")) {
-
-                    String input_items = line.substring(line.indexOf(" ") + 1);
-                    int task_option = Integer.parseInt(input_items);
-                    newTask.markDone(task_option);
-                }
 
                 line = in.nextLine();
-                /*System.out.println("\t_____________________________________________________________");
-                System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-                System.out.println("\t_____________________________________________________________");*/
 
             }
 
