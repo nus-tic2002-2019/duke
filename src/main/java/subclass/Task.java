@@ -9,7 +9,7 @@ public class Task {
     private static Task[] inputs = new Task[100];
     private static int word_count = 0;
 
-    public static void add_task(Task description) throws DukeException {
+    public static void add_task(Task description) {
 
             inputs[word_count] = description;
             System.out.println("\t_________________________________________");

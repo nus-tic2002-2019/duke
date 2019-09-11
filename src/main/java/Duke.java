@@ -5,7 +5,7 @@ import subclass.*;
 
 public class Duke {
 
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args) throws DukeException, todoException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -32,6 +32,9 @@ public class Duke {
                     //add inputs into array, add Todo
                     if (!line.contains("list") && !line.contains("done") && line.contains("todo")) {
                         String input_items = line.substring(line.indexOf(" ") + 1);
+                        if (input_items.equals("todo")) {
+                            throw new todoException();
+                        }
                         newTask.add_task(new Todo(input_items));
 
                     }
@@ -65,9 +68,22 @@ public class Duke {
                         newTask.markDone(task_option);
                     }
                 } catch (DukeException e) {
+
                     System.out.println("\t_____________________________________________________________");
                     System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                     System.out.println("\t_____________________________________________________________");
+
+                } catch (StringIndexOutOfBoundsException e) {
+
+                    System.out.println("\t_______________________________________________________");
+                    System.out.println("\t☹ OOPS!!! The description of a deadline/event cannot be empty.");
+                    System.out.println("\t_______________________________________________________");
+
+                } catch (todoException e) {
+
+                    System.out.println("\t_______________________________________________________");
+                    System.out.println("\t☹ OOPS!!! The description of a todo cannot be empty.");
+                    System.out.println("\t_______________________________________________________");
                 }
 
 
