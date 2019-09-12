@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 
 
 public class Duke {
@@ -83,6 +85,16 @@ public class Duke {
                     count--;
                     System.out.println("Now you have " + count + " tasks in list.");
                     break;
+                case "save":
+                    String file2 = "C:\\NUS\\Year 3 Sem 1\\Software Engineering";
+                    try {
+                        for (int i = 0; i < count; i++) {
+                            writeToFile(file2,"." + arlist.get(i).toString());
+                        }
+                    } catch (IOException e) {
+                        System.out.println("Something went wrong: " + e.getMessage());
+                    }
+                    break;
                 default:
                     System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                     break;
@@ -90,7 +102,13 @@ public class Duke {
         }
         while(!(inData.equals("bye")));
         }
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
     }
+}
 
 
 
