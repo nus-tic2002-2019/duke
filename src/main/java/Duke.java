@@ -1,3 +1,4 @@
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
@@ -86,11 +87,17 @@ public class Duke {
                     System.out.println("Now you have " + count + " tasks in list.");
                     break;
                 case "save":
-                    String file2 = "C:\\NUS\\Year 3 Sem 1\\Software Engineering";
+                    String file2 = "C:\\NUS\\Year 3 Sem 1\\Software Engineering\\Duke Test\\sample.txt";
                     try {
+                        FileOutputStream output = new FileOutputStream(file2);
                         for (int i = 0; i < count; i++) {
-                            writeToFile(file2,"." + arlist.get(i).toString());
+                            //writeToFile(file2,(i+1) + "." + arlist.get(i).toString()+ System.lineSeparator());
+                            //FileWriter fw = new FileWriter(file2, true); // create a FileWriter in append mode
+                            String temp = Integer.toString(i+1) + "." + arlist.get(i).toString()+ System.lineSeparator();
+                            byte[] strToBytes=temp.getBytes();
+                            output.write(strToBytes);
                         }
+                        output.close();
                     } catch (IOException e) {
                         System.out.println("Something went wrong: " + e.getMessage());
                     }
