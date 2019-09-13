@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class InteractionsManager {
     public void start() {
         // say welcome
+        System.out.println("Test save only");
         System.out.println("     Hello! I'm Duke\n" +
                 "     What can I do for you?\n");
         // init some stuff
@@ -19,15 +20,23 @@ public class InteractionsManager {
             else if (userCommand.equals("list")){
                 operations.printList();
             }
+            // expects input in the format "done 4"
+            else if (userCommand.startsWith("done") ){
+                // grab the int the user input
+                String lastValue = userCommand.substring(userCommand.length()-1);
+                int targetToSetDone = Integer.parseInt(lastValue);
+                // mark the tasks[integer] as done
+                operations.setDone(targetToSetDone);
+
+
+            }
+
             else{
                 // add task to list
                 operations.add(userCommand);
             }
 
         }
-    }
-
-    private void getTaskIndexFromDoneCommand(String userCommand) {
     }
     private String getUserCommand() {
         Scanner in = new Scanner(System.in);
