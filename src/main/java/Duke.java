@@ -1,7 +1,11 @@
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
+
+    public static ArrayList<String> list = new ArrayList<>();
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -20,6 +24,9 @@ public class Duke {
         Scanner scan = new Scanner( System.in );
         userInput = scan.nextLine();
 
+        if(!userInput.equals("list")) {
+            list.add(userInput);
+        }
         return userInput;
     }
 
@@ -28,8 +35,14 @@ public class Duke {
             System.out.println("Bye. Hope to see you again soon!");
             return false;
         }
+        else if(userInput.equals("list")) {
+            for (int i = 0; i < list.size(); i++)
+            {
+                System.out.println(i+1 + ". " + list.get(i) + "\n");
+            }
+        }
         else {
-            System.out.println(userInput);
+            System.out.println("Added: " + userInput);
         }
         return true;
     }
