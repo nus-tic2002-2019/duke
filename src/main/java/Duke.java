@@ -3,38 +3,65 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static void addText(String[] arr, String userText, int ctr) {
-        arr[ctr] = userText;
-        System.out.println("added: " + userText);
+    public static void addText(Task[] arr, String userText, int ctr) {
+        Task t = new Task(userText);
+        arr[ctr] = t;
+        //System.out.println("added: " + userText);*/
     }
 
-    public static void listArr(String[] arr, int ctr) {
+    public static void listArr(Task[] arr, int ctr) {
+        System.out.println("Here are the tasks in your list:");
+
         int i = 0;
         while (i < ctr) {
-            System.out.println((i+1) + ": " + arr[i]);
+            System.out.print ((i+1) + ". ");
+            arr[i].print();
             i++;
         }
+    }
+
+    public static void markDone(Task[] arr, int taskNo) {
+        arr[taskNo-1].taskDone();
+        System.out.println("Nice! I've marked this task as done:");
+        arr[taskNo-1].print();
+    }
+
+    private static int taskNum(String userInput) {
+        String[] d = userInput.split(" ");
+        if (d.length > 2) {
+            //throw Exception
+        } else {
+            return Integer.parseInt(d[1]);
+        }
+        return 0;
     }
 
     public static void main(String[] args) {
 
         //System.out.println("Hello from\n" + logo);*/
         String userInput;
+        String temp;
         Scanner in = new Scanner(System.in);
         System.out.println("Hello, I'm Duke.\nWhat can I do for you?");
 
-        String[] userArr = new String[100];
+        Task[] userArr = new Task[100];
         int i = 0;
         userInput = in.nextLine();
+        temp = userInput.toLowerCase();
 
-        while (!userInput.toLowerCase().equals("bye")) {
-            if (userInput.toLowerCase().equals("list")) {
+        while (!temp.equals("bye")) {
+            if (temp.equals("list")) {
                 listArr(userArr, i);
+            } else if (temp.substring(0,4).equals("done")) {
+                //int taskNo = 2;
+                int taskNo = taskNum(temp);
+                markDone(userArr, taskNo);
             } else {
                 addText(userArr, userInput, i);
                 i++;
             }
             userInput = in.nextLine();
+            temp = userInput.toLowerCase();
         }
 
         if (userInput.toLowerCase().equals("bye")) {
