@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Duke {
     public static void main(String[] args) {
@@ -11,21 +12,38 @@ public class Duke {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
 
-
         String line;
+        int count = 0;
         Scanner input = new Scanner(System.in);
-        while (true){
+        String[] data = new String[100];
+        line = input.toString();
+
+        while (true) {
             line = input.nextLine();
-            if(line.equals("list")){
-                 System.out.println ("list");
-            }
-            if (line.equals("blah")){
-                System.out.println ("blah");
-            }
-            if (line.equals("bye")){
+            if (line.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
             }
+            if (line.equals("list")) {
+                ReturnList(data, count);
+            }
+            else{
+                StoreList (data, line, count);
+                count ++;
+            }
+        }
+    }
+
+    public static String[] StoreList (String[]data, String phrase, int number){
+        data[number] = phrase;
+        System.out.println("added:" + phrase);
+        return data;
+    }
+
+    public static void ReturnList (String[]data, int number){
+        for (int i = 0; i < number; i++) {
+            System.out.println(i + 1 + "." + data[i]);
         }
     }
 }
+
