@@ -4,17 +4,20 @@ public class Task {
 //attributes
     protected String description;
     protected boolean done = false;
-    protected String starttime;
-    protected String endtime;
 
 // constructor
-    public Task() {
+
+    public Task(String description) {
+        this.description = description;
     }
+    public Task(){}
 
     public void setDescription(String description){
         this.description = description;
     }
     public void print(){
+        String doneMessage = this.getDoneMessage();
+        System.out.print(doneMessage);
         System.out.println(this.description);
     }
 
@@ -23,5 +26,12 @@ public class Task {
             return "(Not done)";
         }
         else {return "(Done)";}
+    }
+
+    public void printDoneMessage() {
+        if (this.done == false){
+            System.out.print ("(Not done)");
+        }
+        else {System.out.print("(Done)");}
     }
 }

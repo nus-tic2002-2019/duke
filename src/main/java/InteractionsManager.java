@@ -2,17 +2,10 @@ import java.util.Scanner;
 
 public class InteractionsManager {
     public void start() {
-        // say welcome
-        System.out.println("Test save only");
-        System.out.println("     Hello! I'm Duke\n" +
-                "     What can I do for you?\n");
-        // init some stuff
+        System.out.println("     Hello! I'm Duke. What can I do for you?\n");
         Operations operations = new Operations();
-
         while(true) {
-            // user gives command
             String userCommand = getUserCommand();
-
             if (userCommand.equals("bye")){
                 System.out.println("Bye. Hope to see you again soon!");
                 return;
@@ -25,21 +18,78 @@ public class InteractionsManager {
                 // grab the int the user input
                 String lastValue = userCommand.substring(userCommand.length()-1);
                 int targetToSetDone = Integer.parseInt(lastValue);
-                // mark the tasks[integer] as done
                 operations.setDone(targetToSetDone);
-
-
             }
-
             else{
-                // add task to list
-                operations.add(userCommand);
+                // Check if user is adding ToDo, Deadline, or Event in Operations.java
+                    String taskType = checkTaskType(userCommand);
+                    String desc = getDesc(userCommand);
+                    String by = getBy(userCommand);
+                    String start = getStart(userCommand);
+                    String end = getEnd(userCommand);
+
+                    if (taskType.equals("todo")){
+                        Todo toAdd = new Todo(desc);
+                        operations.add(toAdd);
+                    }
+                    else if (taskType.equals("deadline")){
+                        Deadline toAdd = new Deadline(desc, by);
+                        operations.add(toAdd);
+                    }
+                    else if (taskType.equals("event")){
+                        Event toAdd = new Event(desc, start, end);
+                        operations.add(toAdd);
+                    }
+
+
             }
 
         }
     }
+
+    private String getEnd(String userCommand) {
+        return " ";
+    }
+
+    private String getStart(String userCommand) {
+        return " ";
+    }
+
+    private String getBy(String userCommand) {
+        String removedFirstWord = userCommand.split(" ", 2)[1];
+        String by;
+        if (userCommand.contains("/by")){  //
+            by = removedFirstWord.split("/by", 2)[1];
+        }
+        else{
+            by = "No deadline";
+        }
+        return by;
+    }
+
+    private String getDesc(String userCommand) {
+        String removedFirstWord = userCommand.split(" ", 2)[1];
+        String desc;
+        if (userCommand.contains("/")){  // get the text before the "/"
+            desc = removedFirstWord.split("/", 2)[0];
+        }
+        else{
+            desc = removedFirstWord;
+        }
+        return desc;
+    }
+
     private String getUserCommand() {
         Scanner in = new Scanner(System.in);
         return in.nextLine();
+    }
+    private String checkTaskType(String userCommand){
+        // sample inputs:
+        // ["todo borrow book",
+        //  "deadline return book /by Sunday",
+        //  "event project meeting /at Mon 2-4pm"]
+        String taskType = userCommand.split(" ")[0];
+        taskType = taskType.toLowerCase();
+        return taskType;
     }
 }

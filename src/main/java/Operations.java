@@ -5,10 +5,10 @@ public class Operations {
 
     public Operations() {}
 
-    // adds a new task to the Task array
-    public void add(String description) {
-        tasks[taskCounter] = new Task();
-        tasks[taskCounter].setDescription(description);
+    // takes a Todo, Deadline, or Event object.
+    public void add(Task toAdd) {
+        tasks[taskCounter] = toAdd;
+        System.out.print ("Added task: ");
         printIndex(taskCounter);
         taskCounter ++;
     }
@@ -19,7 +19,9 @@ public class Operations {
     }
     public void printList() {
         for (int i = 0; i < taskCounter; i++){
-            System.out.println((i+1) + ". " + tasks[i].getDoneMessage() + " " + tasks[i].description);
+            System.out.print (i+1 + ". ");
+            tasks[i].print();
+
         }
     }
 
@@ -28,10 +30,9 @@ public class Operations {
     }
 
     public void setDone(int listIndex) {
-        // tasks are 0 indexed, but are labelled 1,2,3... hence set -1
+        // tasks are 0 indexed, but are labelled 1,2,3... hence taskIndex = listIndex -1
         int taskIndex = listIndex-1;
         tasks[taskIndex].done = true;
-        System.out.print("Set as done: ");
         tasks[taskIndex].print();
     }
 }
