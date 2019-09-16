@@ -26,11 +26,11 @@ public class Duke {
                 try {
                     Task newTask = new Task(line);
                     //adding exceptions (in progress)
-                    if (!line.contains("list") && !line.contains("done") && !line.contains("todo") && !line.contains("deadline") && !line.contains("event")) {
+                    if (!line.contains("list") && !line.contains("done") && !line.contains("todo") && !line.contains("delete") && !line.contains("deadline") && !line.contains("event")) {
                         throw new DukeException();
                     }
                     //add inputs into array, add Todo
-                    if (!line.contains("list") && !line.contains("done") && line.contains("todo")) {
+                    if (!line.contains("list") && !line.contains("done") && !line.contains("delete") && line.contains("todo")) {
                         String input_items = line.substring(line.indexOf(" ") + 1);
                         if (input_items.equals("todo")) {
                             throw new todoException();
@@ -39,14 +39,14 @@ public class Duke {
 
                     }
                     //add deadline
-                    if (!line.contains("list") && !line.contains("done") && line.contains("deadline")) {
+                    if (!line.contains("list") && !line.contains("done") && !line.contains("delete") && line.contains("deadline")) {
                         String input_items = line.substring(line.indexOf(" ") + 1);
                         String by = line.substring(line.indexOf("/by") + 4);
                         String input_string = input_items.substring(0, input_items.indexOf("/"));
                         newTask.add_task(new Deadline(input_string, by));
 
                     }
-
+                    //add event
                     if (!line.contains("list") && !line.contains("done") && line.contains("event")) {
                         String input_items = line.substring(line.indexOf(" ") + 1);
                         String at = line.substring(line.indexOf("/at") + 4);
@@ -60,12 +60,19 @@ public class Duke {
 
                         newTask.getList();
                     }
-
+                    //mark done
                     if (line.contains("done")) {
 
                         String input_items = line.substring(line.indexOf(" ") + 1);
                         int task_option = Integer.parseInt(input_items);
                         newTask.markDone(task_option);
+                    }
+                    //delete task
+                    if (line.contains("delete")) {
+
+                        String input_items = line.substring(line.indexOf(" ") + 1);
+                        int task_option = Integer.parseInt(input_items);
+                        newTask.removeTask(task_option);
                     }
                 } catch (DukeException e) {
 

@@ -1,47 +1,50 @@
 package subclass;
 
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Task {
     protected String description;
     protected boolean isDone;
 
-    private static Task[] inputs = new Task[100];
+    private static ArrayList<Task> task_info = new ArrayList<Task>(100);
     private static int word_count = 0;
 
     public static void add_task(Task description) {
-
-            inputs[word_count] = description;
+            task_info.add(description);
             System.out.println("\t_________________________________________");
             System.out.println("\tGot it. I've added this task:");
             word_count++;
-            Task[] print_array = Arrays.copyOf(inputs, word_count);
-            int num = 1;
             System.out.println("\t" + description);
             System.out.println("\tNow you have " + word_count + " tasks in list.");
             System.out.println("\t_________________________________________");
-
-
     }
 
     public static void getList() {
         System.out.println("\t_________________________________________");
-        Task[] print_array = Arrays.copyOf(inputs, word_count);
         int num = 1;
-        for (Task item : print_array) {
-            System.out.println("\t"+ num + ". "+ print_array[num-1].toString());
-
+        for (Task elements : task_info) {
+            System.out.println("\t" + num + ". " + elements);
             num++;
-
         }
         System.out.println("\t_________________________________________");
     }
 
     public static void markDone(int taskNo) {
-        inputs[taskNo-1].setDone(true);
-        Task[] print_array = Arrays.copyOf(inputs, word_count);
+        Task task_tmp = task_info.get(taskNo-1);
+        task_tmp.setDone(true);
+        System.out.println("\t_________________________________________");
         System.out.println("\tNice! I've marked this task as done:");
-        System.out.println("\t" + print_array[taskNo-1]);
+        System.out.println("\t" + task_info.get(taskNo-1));
+        System.out.println("\t_________________________________________");
+    }
+
+    public static void removeTask(int taskNo) {
+        System.out.println("\tNoted. I've removed this task:");
+        System.out.println("\t" + task_info.get(taskNo-1));
+        task_info.remove(taskNo-1);
+        word_count--;
+        System.out.println("\tNow you have " + word_count + " tasks in the list.");
         System.out.println("\t_________________________________________");
     }
 
