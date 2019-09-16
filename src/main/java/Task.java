@@ -1,64 +1,40 @@
 public class Task {
-    private static String description;
-    private static String[] contents;
-    private static int size = 0;
+    private String description;
+    private boolean isDone;
 
     public Task(String description) {
         this.description = description;
+        this.isDone = false;
     }
 
-    public static void addTask() {
-        if (size == 0) {
-            contents = new String[1];
-            contents[0] = description;
-            size++;
-            System.out.println("added: " + description);
-        } else if (!checkTask(description)) {
-            refillTask(description);
-            System.out.println("added: " + description);
-        } else {
-            System.out.println("added: " + description);
-        }
+    public String getDescription() {return description;}
+
+    public void setIsDoneTrue() {isDone = true;}
+
+    public String getStatusIcon() {return (isDone ? "\u2713" : "\u2718");}
+
+    public static void addTask(Task[] task, int size, Task t) {
+        task[size] = t;
+        System.out.println("added: " + task[size].getDescription());
     }
 
-    private  static  void refillTask(String args) {
-        String[] result = new String[size+1];
-        int count = 0;
-
-        for (String content : contents) {
-            result[count] = content;
-            count++;
-        }
-        result[count] = description;
-        size++;
-
-        int recount = 0;
-        contents = new String[size];
-        for (String content : result) {
-            contents[recount] = content;
-            recount++;
-        }
-    }
-
-    private static boolean checkTask(String args) {
-        for (String content : contents) {
-            if (content.equals(args)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static void listTask() {
+    public static void listTask(Task[] task, int size) {
         int i = 1;
         if (size == 0) {
             System.out.println("There's nothing in the list!");
         } else {
-            for (String content : contents) {
-                System.out.println(Integer.toString(i) + ". " + content);
+            System.out.println("Here are the tasks in your list:");
+            for (int j = 0; j<= size; j++/*Task content : task*/) {
+                if (i > size) {break;}
+                System.out.println(Integer.toString(i) + "." + "[" + task[j].getStatusIcon() + "] " + task[j].getDescription());
                 i++;
             }
         }
+    }
+
+    public static void doneTask(Task[] task, int taskItem) {
+        task[taskItem-1].setIsDoneTrue();
+        System.out.println("Nice! I've marked this task as done:" + System.lineSeparator() + " [" + task[taskItem-1].getStatusIcon() + "] " + task[taskItem-1].getDescription());
     }
 
 }
