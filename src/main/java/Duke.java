@@ -10,7 +10,7 @@ public class Duke {
         int index = 1;
         String answer = "";
         for (int i = 0; i < listing.length; i++) {
-            answer = (answer + index + "." + listing[i].getTaskStatus() + listing[i].getTask());
+            answer = (answer + index + "." + listing[i].getType() + listing[i].getTaskStatus() + " " + listing[i].getTask() + " " + listing[i].getDetails());
             index++;
             if (listing[i + 1] == null) {
                 break;
@@ -22,7 +22,7 @@ public class Duke {
 
     private static String DukeListDone(Task[] listing, int index) {
         listing[index - 1].setTaskDone();
-        return listing[index - 1].getTaskStatus() + listing[index - 1].getTask();
+        return listing[index-1].getType() + listing[index - 1].getTaskStatus() + " " + listing[index - 1].getTask();
     }
 
     public static void main(String[] args) {
@@ -38,9 +38,7 @@ public class Duke {
         while (true) {
             Scanner in = new Scanner(System.in);
             String input = in.nextLine();
-            String processInput = input;
             input = input.trim();
-            processInput = input.toLowerCase();
             if (input.isEmpty()) { // if input is empty space or just enter, i will ignore it and not add to the list
                 continue;
             }
@@ -64,12 +62,32 @@ public class Duke {
                 DukeReply(input);
                 continue;
             }
-            if (input.equalsIgnoreCase("list")) { // if the user enters "list", it will list out everything, else add to the list.
+            if (input.equalsIgnoreCase("list")) { // if the user enters "list", it will list out everything, else add to the list. refer number 5.
+                if (count ==0) {
+                    DukeReply("There's nothing in the list.");
+                    continue;
+                }
                 input = "Here are the Tasks in your list:\n\t" + DukeList(history);
-            } else {
-                history[count] = new Task(input);
+            }
+             // add the other words into the list
+            else {
+                int idx = input.indexOf('/');
+                if (input.toLowerCase().contains("todo")) {
+                    history[count] = new Todo(input.substring(5));
+                } else if (input.toLowerCase().contains("deadline")) {
+                    history[count] = new Deadlines(input.substring(9, idx - 1), input.substring(idx+4));
+                } else if (input.toLowerCase().contains("event")) {
+                    history[count] = new Events(input.substring(6, idx -1), input.substring(idx+4));
+                } else {
+                    DukeReply("This part needs to do handling in the future, please type a better keyword.");
+                    continue;
+                }
+                input = "Got it. I've added this task:\n\t\t" + history[count].getType() + history[count].getTaskStatus() + " " + history[count].getTask() + " " + history[count].getDetails() + "\n\tNow you have " + (count + 1) + " tasks in the list.";
                 count++;
-                input = "added: " + input;
+
+                //  history[count] = new Task(input);
+                //  count++;
+                //  input = "added: " + input;
             }
             DukeReply(input);
         }
@@ -81,6 +99,8 @@ public class Duke {
 3. Handling errors in inputs by user?
 4. if users type 'Done' only, allow user to type in value of task in the list using scanner input.
 we will leave it to the future.
+5. when list is empty, user types list? Error handling Null element of history
+6. when users just types todo with no other input. Error handling Null element of history
  */
 
 
