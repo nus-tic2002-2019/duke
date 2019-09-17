@@ -46,6 +46,8 @@ public class Duke {
             else if (first.equals("done")){
               String second = split[1];
               tasklist[Integer.parseInt(second) - 1].markAsDone();
+              System.out.println("Nice! I've marked this task as done: ");
+              System.out.println(tasklist[Integer.parseInt(second) - 1].getStatusIcon()+" " + tasklist[Integer.parseInt(second) - 1].description);
             }
             else {
                 System.out.println("Added: " + userInput);
