@@ -8,10 +8,13 @@ public class Duke {
         tasklist[taskCount] = s;
         taskCount++;
     }
-    public static void printList(){
-      for ( int i = 0; i<taskCount;i++){
-        System.out.println(tasklist[i].toString());
-      }
+    //public static void printList(){
+    //  for ( int i = 0; i<taskCount;i++){
+    //    System.out.println(tasklist[i].toString());
+    //  }
+    //}
+    public static void printLine(){
+            System.out.println("_______________________________");
     }
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -31,10 +34,12 @@ public class Duke {
             String[] split = userInput.split(" ");
             String first = split[0];
             if (userInput.equals("list")) {
+                printLine();
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < index; i++) {
                     System.out.println((i + 1) + ". " + tasklist[i].toString());
                 }
+                printLine();
                 continue;
             }
             if (userInput.equals("bye")) {
@@ -43,10 +48,13 @@ public class Duke {
             else if (first.equals("done")){
               String second = split[1];
               tasklist[Integer.parseInt(second) - 1].markAsDone();
+              printLine();
               System.out.println("Nice! I've marked this task as done: ");
               System.out.println(tasklist[Integer.parseInt(second) - 1].getStatusIcon()+" " + tasklist[Integer.parseInt(second) - 1].description);
+              printLine();
             }
             else {
+                printLine();
                 System.out.println("Got it. I've added this task: ");
                 if (first.equals("todo")) {
                     addTask(new ToDo(userInput));
@@ -70,10 +78,12 @@ public class Duke {
                     index++;
                 }
                 System.out.println("Now you have "+index+" tasks in the list.");
+                printLine();
             }
         }
-
+        printLine();
         System.out.println("Bye. Hope to see you again soon!");
+        printLine();
     }
 }
 
