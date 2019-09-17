@@ -23,7 +23,25 @@ public class Duke {
 
     public static void checkString(String args){
         String[] inputs = args.split(" ");
+        int index_date;
         switch(inputs[0]) {
+            case "event":
+                index_date = args.indexOf("/by");
+                store[current] = new Event(args.substring(6, index_date) + "(by: " + args.substring(index_date + 3) + ")");
+                System.out.println("Got it. I've added this task: \n");
+                current += 1;
+                listeningEvents();
+            case "deadline":
+                index_date = args.indexOf("/by");
+                store[current] = new Deadline(args.substring(8, index_date) + "(by: " + args.substring(index_date + 3) + ")");
+                System.out.println("Got it. I've added this task: \n");
+                current += 1;
+                listeningEvents();
+            case "todo":
+                store[current] = new Todo(args.substring(5));
+                System.out.println("Got it. I've added this task: \n");
+                current += 1;
+                listeningEvents();
             case "done":
                 int index =  Integer.parseInt(inputs[1]) - 1;
                 store[index].setIsDone();
