@@ -8,45 +8,48 @@ public class Duke {
     public static Scanner in = new Scanner(System.in);
 
     public static void printItem(Task[] items){
+        System.out.println("    ____________________________________________________________\n" +
+                "     Here are the tasks in your list:");
         for(int i = 0;i < current; i++){
-            System.out.println(Integer.toString(i + 1) + ".[" + items[i].getStatusIcon() + "] " + items[i].description);
+            System.out.printf("    " + Integer.toString(i + 1) + ".");
+            items[i].print();
         }
-        System.out.printf("\n");
+        System.out.printf("    ____________________________________________________________\n");
     }
 
     public static void listeningEvents(){
         String line;
         line = in.nextLine();
-        checkString(line);
+        try{
+            checkString(line);
+        } catch (StringIndexOutOfBoundsException e){
+            System.out.println("Did you forget '/by'? Please try again!");
+            listeningEvents();
+        }
     }
 
 
-    public static void checkString(String args){
+    public static void checkString(String args) throws StringIndexOutOfBoundsException{
         String[] inputs = args.split(" ");
         int index_date;
         switch(inputs[0]) {
             case "event":
                 index_date = args.indexOf("/by");
-                store[current] = new Event(args.substring(6, index_date) + "(by: " + args.substring(index_date + 3) + ")");
-                System.out.println("Got it. I've added this task: \n");
-                current += 1;
+                store[current] = new Event(args.substring(6, index_date) + "(by:" + args.substring(index_date + 3) + ")");
                 listeningEvents();
+                break;
             case "deadline":
                 index_date = args.indexOf("/by");
-                store[current] = new Deadline(args.substring(8, index_date) + "(by: " + args.substring(index_date + 3) + ")");
-                System.out.println("Got it. I've added this task: \n");
-                current += 1;
+                store[current] = new Deadline(args.substring(9, index_date) + "(by:" + args.substring(index_date + 3) + ")");
                 listeningEvents();
+                break;
             case "todo":
                 store[current] = new Todo(args.substring(5));
-                System.out.println("Got it. I've added this task: \n");
-                current += 1;
                 listeningEvents();
+                break;
             case "done":
                 int index =  Integer.parseInt(inputs[1]) - 1;
                 store[index].setIsDone();
-                System.out.println("Nice!! I've marked this task as done: \n" + "[" + store[index].getStatusIcon() + "] " + store[index].description);
-                System.out.printf("\n");
                 listeningEvents();
                 break;
             case "bye":
@@ -57,9 +60,7 @@ public class Duke {
                 listeningEvents();
                 break;
             default:
-                store[current] = new Task(args);
-                System.out.println("Added: " + args + "\n");
-                current += 1;
+                System.out.println("Invalid Entry, Please Try Again!\n");
                 listeningEvents();
         }
 
