@@ -27,10 +27,12 @@ public class Duke {
 
             System.out.println("\t--------------------------------------------------");
             if (s1.equalsIgnoreCase("list")) {
+                System.out.println("Here are the tasks in your list:");
 
-                //System.out.println("\t--------------------------------------------------");
                 for (int i = 0; i < X; i++) {
-                    System.out.println(i + 1 + ". " + input[i]);
+
+                    System.out.println(i + 1 + ". [" + input[i].getStatusIcon() + " ]" + input[i]);
+                    //System.out.println(i + 1 + ". [" +  " ] " + input[i]);
                 }
 
             } else {
@@ -52,6 +54,8 @@ public class Duke {
 
 
     }
+
+
 
 }
 
