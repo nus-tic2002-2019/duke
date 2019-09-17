@@ -82,14 +82,20 @@ public class Duke {
 
                 } catch (StringIndexOutOfBoundsException e) {
 
-                    System.out.println("\t_______________________________________________________");
+                    System.out.println("\t______________________________________________________________");
                     System.out.println("\t☹ OOPS!!! The description of a deadline/event cannot be empty.");
-                    System.out.println("\t_______________________________________________________");
+                    System.out.println("\t______________________________________________________________");
 
                 } catch (todoException e) {
 
                     System.out.println("\t_______________________________________________________");
                     System.out.println("\t☹ OOPS!!! The description of a todo cannot be empty.");
+                    System.out.println("\t_______________________________________________________");
+
+                } catch (IndexOutOfBoundsException e) {
+
+                    System.out.println("\t_______________________________________________________");
+                    System.out.println("\t☹ OOPS!!! There is no item.");
                     System.out.println("\t_______________________________________________________");
                 }
 
