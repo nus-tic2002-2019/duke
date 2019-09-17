@@ -1,6 +1,9 @@
 import java.util.Scanner;
 
 public class Duke {
+    private static String[] storeWords = new String[100];
+    private static int storeWordCount = 0;
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -17,7 +20,7 @@ public class Duke {
         String line;
         Scanner in = new Scanner(System.in);
         boolean byebye = true;
-        String s1 ="bye";
+        String s1 = "bye";
 
         while(byebye) {
             System.out.print("Type something: ");
@@ -25,8 +28,16 @@ public class Duke {
             if (s1.equalsIgnoreCase(line)) {
                 byebye = false;
             }
+            else if(line.equalsIgnoreCase("list")){
+                for(int i = 0; i<storeWordCount; i++){
+                    System.out.println((i+1) + ". "+ storeWords[i]);
+                }
+            }
             else{
-                System.out.println(line);
+                storeWords[storeWordCount] = line;
+                storeWordCount++;
+
+                System.out.println("added: "+ line);
             }
         }
         System.out.println("Bye. Hope to see you again soon!\n");
