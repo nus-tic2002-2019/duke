@@ -18,5 +18,4 @@ public class Task {
         System.out.printf("\n");
     }
 
-    public void print(){};
 }

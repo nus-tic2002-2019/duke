@@ -10,7 +10,7 @@ public class Event extends Task {
     }
 
     @Override
-    public void print(){
-        System.out.println("[E][" + getStatusIcon() + "] " + this.description);
+    public String toString(){
+        return "[E][" + getStatusIcon() + "] " + this.description;
     }
 }

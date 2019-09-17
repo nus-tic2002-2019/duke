@@ -9,7 +9,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public void print(){
-        System.out.println("[D][" + getStatusIcon() + "] " + this.description);
+    public String toString(){
+        return "[D][" + getStatusIcon() + "] " + this.description;
     }
 }

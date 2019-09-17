@@ -11,8 +11,7 @@ public class Duke {
         System.out.println("    ____________________________________________________________\n" +
                 "     Here are the tasks in your list:");
         for(int i = 0;i < current; i++){
-            System.out.printf("    " + Integer.toString(i + 1) + ".");
-            items[i].print();
+            System.out.println("    " + Integer.toString(i + 1) + "." + items[i].toString());
         }
         System.out.printf("    ____________________________________________________________\n");
     }
@@ -22,6 +21,7 @@ public class Duke {
         line = in.nextLine();
         try{
             checkString(line);
+            listeningEvents();
         } catch (StringIndexOutOfBoundsException e){
             System.out.println("Did you forget '/by'? Please try again!");
             listeningEvents();
@@ -39,28 +39,23 @@ public class Duke {
             case "event":
                 index_date = args.indexOf("/by");
                 store[current] = new Event(args.substring(6, index_date) + "(by:" + args.substring(index_date + 3) + ")");
-                listeningEvents();
                 break;
             case "deadline":
                 index_date = args.indexOf("/by");
                 store[current] = new Deadline(args.substring(9, index_date) + "(by:" + args.substring(index_date + 3) + ")");
-                listeningEvents();
                 break;
             case "todo":
                 store[current] = new Todo(args.substring(5));
-                listeningEvents();
                 break;
             case "done":
                 int index =  Integer.parseInt(inputs[1]) - 1;
                 store[index].setIsDone();
-                listeningEvents();
                 break;
             case "bye":
                 System.out.println("Bye. Hope to see you again soon!\n");
                 break;
             case "list":
                 printItem(store);
-                listeningEvents();
                 break;
             default:
                 throw new IllegalStringException();

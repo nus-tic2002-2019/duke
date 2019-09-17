@@ -1,4 +1,5 @@
 public class Todo extends Task {
+
     public Todo(String description){
         super(description);
         System.out.println("    ____________________________________________________________\n" +
@@ -9,7 +10,7 @@ public class Todo extends Task {
     }
 
     @Override
-    public void print(){
-        System.out.println("[T][" + getStatusIcon() + "] " + this.description);
+    public String toString(){
+        return "[T][" + getStatusIcon() + "] " + this.description;
     }
 }
