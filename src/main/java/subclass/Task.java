@@ -15,7 +15,7 @@ public class Task {
             System.out.println("\t_________________________________________");
             System.out.println("\tGot it. I've added this task:");
             word_count++;
-            System.out.println("\t" + description);
+            System.out.println("\t\t" + description);
             System.out.println("\tNow you have " + word_count + " tasks in list.");
             System.out.println("\t_________________________________________");
     }
@@ -35,13 +35,14 @@ public class Task {
         task_tmp.setDone(true);
         System.out.println("\t_________________________________________");
         System.out.println("\tNice! I've marked this task as done:");
-        System.out.println("\t" + task_info.get(taskNo-1));
+        System.out.println("\t\t" + task_info.get(taskNo-1));
         System.out.println("\t_________________________________________");
     }
 
     public static void removeTask(int taskNo) {
+        System.out.println("\t_________________________________________");
         System.out.println("\tNoted. I've removed this task:");
-        System.out.println("\t" + task_info.get(taskNo-1));
+        System.out.println("\t\t" + task_info.get(taskNo-1));
         task_info.remove(taskNo-1);
         word_count--;
         System.out.println("\tNow you have " + word_count + " tasks in the list.");
