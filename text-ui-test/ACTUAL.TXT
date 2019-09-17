@@ -5,9 +5,28 @@ Hello I'm from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 What can I do for you?
-Added: do homework
+Invalid command, Please Try Again!
 
-Added: set alarm clock
+    ____________________________________________________________
+     Got it. I've added this task:
+       [T][?] homework
+     Now you have 1 tasks in the list.
+    ____________________________________________________________
 
+Did you forget '/by'? Please try again!
+    ____________________________________________________________
+     Got it. I've added this task:
+       [D][?] homework (by: tomorrow)
+     Now you have 2 tasks in the list.
+    ____________________________________________________________
+
+Nice!! I've marked this task as done: 
+[?] homework
+
+    ____________________________________________________________
+     Here are the tasks in your list:
+    1.[T][?] homework
+    2.[D][?] homework (by: tomorrow)
+    ____________________________________________________________
 Bye. Hope to see you again soon!
 

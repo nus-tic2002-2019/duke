@@ -25,11 +25,14 @@ public class Duke {
         } catch (StringIndexOutOfBoundsException e){
             System.out.println("Did you forget '/by'? Please try again!");
             listeningEvents();
+        } catch (IllegalStringException e){
+            System.out.println("Invalid command, Please Try Again!\n");
+            listeningEvents();
         }
     }
 
 
-    public static void checkString(String args) throws StringIndexOutOfBoundsException{
+    public static void checkString(String args) throws StringIndexOutOfBoundsException, IllegalStringException{
         String[] inputs = args.split(" ");
         int index_date;
         switch(inputs[0]) {
@@ -60,8 +63,7 @@ public class Duke {
                 listeningEvents();
                 break;
             default:
-                System.out.println("Invalid Entry, Please Try Again!\n");
-                listeningEvents();
+                throw new IllegalStringException();
         }
 
 

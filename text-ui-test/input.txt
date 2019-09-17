@@ -1,7 +1,7 @@
-do homework
-set alarm clock
-todo borrow book
+invalid command
+todo homework
+deadline homework by tomorrow
+deadline homework /by tomorrow
+done 1
 list
-deadline return book /by Sunday
-event project meeting /at Mon 2-4pm
 bye

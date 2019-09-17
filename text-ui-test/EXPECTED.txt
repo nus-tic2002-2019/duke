@@ -5,39 +5,28 @@ Hello I'm from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 What can I do for you?
-Added: do homework
+Invalid command, Please Try Again!
 
-Added: set alarm clock
-
-Bye. Hope to see you again soon!
-
-todo borrow book
     ____________________________________________________________
      Got it. I've added this task:
-       [T][✗] borrow book
-     Now you have 5 tasks in the list.
+       [T][?] homework
+     Now you have 1 tasks in the list.
     ____________________________________________________________
 
-list
+Did you forget '/by'? Please try again!
+    ____________________________________________________________
+     Got it. I've added this task:
+       [D][?] homework (by: tomorrow)
+     Now you have 2 tasks in the list.
+    ____________________________________________________________
+
+Nice!! I've marked this task as done:
+[?] homework
+
     ____________________________________________________________
      Here are the tasks in your list:
-     1.[T][✓] read book
-     2.[D][✗] return book (by: June 6th)
-     3.[E][✗] project meeting (at: Aug 6th 2-4pm)
-     4.[T][✓] join sports club
-     5.[T][✗] borrow book
+    1.[T][?] homework
+    2.[D][?] homework (by: tomorrow)
     ____________________________________________________________
+Bye. Hope to see you again soon!
 
-deadline return book /by Sunday
-    ____________________________________________________________
-     Got it. I've added this task:
-       [D][✗] return book (by: Sunday)
-     Now you have 6 tasks in the list.
-    ____________________________________________________________
-
-event project meeting /at Mon 2-4pm
-    ____________________________________________________________
-     Got it. I've added this task:
-       [E][✗] project meeting (at: Mon 2-4pm)
-     Now you have 7 tasks in the list.
-    ____________________________________________________________
