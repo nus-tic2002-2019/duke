@@ -15,7 +15,7 @@ public class Task {
         return done;
     }
 
-    public void taskDone() {
+    public void isDone() {
         this.done = true;
     }
 

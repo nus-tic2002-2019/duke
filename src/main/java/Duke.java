@@ -6,7 +6,6 @@ public class Duke {
     public static void addText(Task[] arr, String userText, int ctr) {
         Task t = new Task(userText);
         arr[ctr] = t;
-        //System.out.println("added: " + userText);*/
     }
 
     public static void listArr(Task[] arr, int ctr) {
@@ -21,12 +20,12 @@ public class Duke {
     }
 
     public static void markDone(Task[] arr, int taskNo) {
-        arr[taskNo-1].taskDone();
+        arr[taskNo-1].isDone();
         System.out.println("Nice! I've marked this task as done:");
         arr[taskNo-1].print();
     }
 
-    private static int taskNum(String userInput) {
+    private static int taskDone(String userInput) {
         String[] d = userInput.split(" ");
         if (d.length > 2) {
             //throw Exception
@@ -53,8 +52,7 @@ public class Duke {
             if (temp.equals("list")) {
                 listArr(userArr, i);
             } else if (temp.substring(0,4).equals("done")) {
-                //int taskNo = 2;
-                int taskNo = taskNum(temp);
+                int taskNo = taskDone(temp);
                 markDone(userArr, taskNo);
             } else {
                 addText(userArr, userInput, i);
@@ -64,7 +62,7 @@ public class Duke {
             temp = userInput.toLowerCase();
         }
 
-        if (userInput.toLowerCase().equals("bye")) {
+        if (temp.equals("bye")) {
             System.out.println("Bye. Hope to see you again soon!");
         }
     }
