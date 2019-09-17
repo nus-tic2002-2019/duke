@@ -42,23 +42,21 @@ public class Duke {
         dukeGreet();
         Scanner in = new Scanner(System.in);
         String textInput = in.nextLine();
-        //List<String> tasks = new ArrayList<>();
         while (!textInput.equalsIgnoreCase("bye")){
-            if (!textInput.equalsIgnoreCase("list") || !textInput.contains("done")){
+            if (textInput.equalsIgnoreCase("list")) displayList(taskList);
+            else if (textInput.contains("done")) {
+                String[] text = textInput.split(" ", 2);
+                taskList[Integer.parseInt(text[1])-1].markAsDone(true);
+                System.out.println("Nice! I've marked this task as done: ");
+            }
+            else if (textInput.equalsIgnoreCase ("bye")) break;
+            else {
                 addTask(new Task(textInput));
                 dukeEcho(textInput);
+
             }
             textInput = in.nextLine();
-            if (textInput.equalsIgnoreCase("list")) displayList(taskList);
-            if (textInput.contains("done")) {
-                String[] text = textInput.split(" ", 2);
-                System.out.println(Integer.parseInt(text[1]));
-                taskList[Integer.parseInt(text[1])-1].markAsDone(true);
-            }
-            if (textInput.equalsIgnoreCase ("bye")) break;
         }
-        //DukeList inputList = new DukeList();
-        //System.out.println("length of List = " + inputList.getLength());
 
         System.out.println("    ________________________________________");
         System.out.println("     Bye. Hope to see you again soon!");
