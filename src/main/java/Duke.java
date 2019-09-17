@@ -23,13 +23,12 @@ public class Duke {
             }
             if (filteredtext.equals("done")){
                 System.out.println("____________________________________________________________\n" + "Nice! I've marked this task as done:");
-                //System.out.println("Debugging");
                 String getTaskNum = text.substring(5);
-                //System.out.println("Debug:" + getTaskNum);
                 int doneInt = Integer.parseInt(getTaskNum);
-                String filteredList = list.get(doneInt - 1);
-                list.set(doneInt - 1, ("[" + "\u2713" + "]" + filteredList.substring(3)));
-                System.out.println(list.get(doneInt -1));
+                doneInt--;
+                String filteredList = list.get(doneInt);
+                list.set(doneInt, ("[" + "\u2713" + "]" + filteredList.substring(3)));
+                System.out.println(list.get(doneInt));
                 System.out.println("____________________________________________________________");
             }
             switch ( filteredtext ) {
