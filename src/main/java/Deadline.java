@@ -6,7 +6,7 @@ public class Deadline extends ToDo {
         this.by = by;
     }
     public String list(){
-        return "[D]" +super.print()+ "do by: "+ by;
+        return "[D]" +super.print()+ "do by:"+ by;
     }
     public void setDone(boolean isDone){
         super.setDone(isDone);

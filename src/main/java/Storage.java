@@ -24,7 +24,7 @@ public class Storage {
     private static Task createTask(String line) throws DukeException {
         String type=line.split("]")[0];
         String isDone=line.split("]")[1];
-        String detail=line.split(" ")[2];
+        String detail=line.split("]")[2];
         if(type.contains("T")){
             if(isDone.contains("✘")){
                 return new ToDo(detail.substring(1),false);
@@ -34,24 +34,32 @@ public class Storage {
 
         }
         if(type.contains("D")) {
-            int dividerPosition = detail.indexOf("do");
-            String itemName = detail.substring(0, dividerPosition);
-            String itemName1 = detail.substring(dividerPosition,detail.length());
-            String itemName2 = itemName1.replace("/", "");
             if (isDone.contains("✘")) {
+                int dividerPosition = detail.indexOf("do by:");
+                String itemName = detail.substring(0, dividerPosition);
+                String itemName1 = detail.substring(dividerPosition,detail.length());
+                String itemName2 = itemName1.replace("do by:", "");
                 return new Deadline(itemName, itemName2);
             } else if (isDone.contains("✓")) {
+                int dividerPosition = detail.indexOf("do by:");
+                String itemName = detail.substring(0, dividerPosition);
+                String itemName1 = detail.substring(dividerPosition,detail.length());
+                String itemName2 = itemName1.replace("do by:", "");
                 return new Deadline(itemName, itemName2);
             }
         }
         if(type.contains("E")){
-            int dividerPosition = detail.indexOf("at");
-            String itemName = detail.substring(0, dividerPosition);
-            String itemName1 = detail.substring(dividerPosition,detail.length());
-            String itemName2 = itemName1.replace("/", "");
             if (isDone.contains("✘")) {
+                int dividerPosition = detail.indexOf("at:");
+                String itemName = detail.substring(0, dividerPosition);
+                String itemName1 = detail.substring(dividerPosition,detail.length());
+                String itemName2 = itemName1.replace("at:", "");
                 return new Event(itemName, itemName2);
             } else if (isDone.contains("✓")) {
+                int dividerPosition = detail.indexOf("at:");
+                String itemName = detail.substring(0, dividerPosition);
+                String itemName1 = detail.substring(dividerPosition,detail.length());
+                String itemName2 = itemName1.replace("at:", "");
                 return new Event(itemName, itemName2);
             }
         }
