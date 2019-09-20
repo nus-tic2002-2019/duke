@@ -1,14 +1,21 @@
-public class Deadline extends Task {
-
+public class Deadline extends ToDo {
     protected String by;
 
-    public Deadline(String description, String by) {
-        super(description);
+    public Deadline(String s, String by){
+        super(s);
         this.by = by;
     }
+    public String list(){
+        return "[D]" +super.print()+ "do by: "+ by;
+    }
+    public void setDone(boolean isDone){
+        super.setDone(isDone);
+    }
+    public boolean getDone(){
+        return super.getDone();
+    }
 
-    @Override
-    public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+    public String getText(){
+        return super.getText();
     }
 }
