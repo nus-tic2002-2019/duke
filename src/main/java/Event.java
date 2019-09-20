@@ -1,4 +1,4 @@
-public class Event extends Task {
+public class Event extends ToDo {
 
     protected String at;
 
@@ -6,9 +6,17 @@ public class Event extends Task {
         super(description);
         this.at = at;
     }
+    public String list(){
+        return "[E]" +super.print()+ "at: "+ at;
+    }
+    public void setDone(boolean isDone){
+        super.setDone(isDone);
+    }
+    public boolean getDone(){
+        return super.getDone();
+    }
 
-    @Override
-    public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + ")";
+    public String getText(){
+        return super.getText();
     }
 }
