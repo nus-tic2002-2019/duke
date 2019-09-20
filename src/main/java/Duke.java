@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 
+
 public class Duke {
     private static int count = 0;
 
@@ -87,7 +88,7 @@ public class Duke {
                     System.out.println("Now you have " + count + " tasks in list.");
                     break;
                 case "save":
-                    String file2 = "C:\\Users\\User\\Documents\\duke\\sample.txt";
+                    String file2 = "C:\\NUS\\Year 3 Sem 1\\Software Engineering\\Duke Test\\sample.txt";
                     try {
                         FileOutputStream output = new FileOutputStream(file2);
                         for (int i = 0; i < count; i++) {
