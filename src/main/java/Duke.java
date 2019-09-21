@@ -1,6 +1,4 @@
-import java.util.Arrays;
 import java.util.Scanner;
-
 
 public class Duke {
     public static void main(String[] args) {
@@ -18,29 +16,33 @@ public class Duke {
         line = in.nextLine();
 
         // Level 2
-        String[] list = new String [50];
+        Task[] list = new Task[100];
         int count = 0;
         while (!line.equals("bye")) {
-
              if(line.equals("list")) {
-                 System.out.print(horizontal_line);
+                 System.out.println(horizontal_line + '\n' + "Here are the tasks in your list:");
                  for (int i = 0; i < count ; i++) {
-                     System.out.println(i + 1 + "." + list[i]);
+                     System.out.println(i + 1 + "." + '[' + list[i].getStatusIcon() + "] " + list[i].description);
                  }
                  System.out.println(horizontal_line);
-                 line = in.nextLine();
-             } else {
-                 list[count] = line;
-                 System.out.println(horizontal_line + "Added: " + list[count] + '\n' + horizontal_line);
-                 line = in.nextLine();
+             }
+             else if ((line.substring(0,4)).equals("done")){
+                 int position = Integer.parseInt(line.substring(5));
+                 list[position - 1].setDone();
+                 System.out.println( horizontal_line + "Nice! I've marked this task as done: " );
+                 System.out.println('[' + list[position -1].getStatusIcon() + "] " +
+                         list[position -1].description + '\n' + horizontal_line);
+             }
+             else
+             {
+                 Task add_task = new Task (line);
+                 list[count] = add_task;
+                 System.out.println(horizontal_line + "Added: " + list[count].description + '\n' + horizontal_line);
                  count++;
              }
+             line = in.nextLine();
         } System.out.println(horizontal_line + "Bye. Hope to see you again soon!" +'\n'+ horizontal_line);
-
-        // Level 1
-        // while(!line.equals(end)) {
-        //    System.out.println(horizontal_line + line + '\n'+ horizontal_line);
-        //    line = in.nextLine();
-        //} System.out.println(horizontal_line + "Bye. Hope to see you again soon!" +'\n'+ horizontal_line);
     }
 }
+
+//public class Task {
