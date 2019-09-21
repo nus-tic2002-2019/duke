@@ -15,35 +15,46 @@ public class Duke {
         String line;
         int count = 0;
         Scanner input = new Scanner(System.in);
-        String[] data = new String[100];
         line = input.toString();
+        Task[] t = new Task[100];
 
-        while (true) {
-            line = input.nextLine();
-            if (line.equals("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
-                break;
-            }
-            if (line.equals("list")) {
-                ReturnList(data, count);
-            }
-            else{
-                StoreList (data, line, count);
-                count ++;
+        boolean isExit = false;
+        while (!isExit) {
+            line  = input.nextLine();
+            switch (line.split(" ")[0]) {
+                case "bye":
+                    System.out.println("Bye. Hope to see you again soon!");
+                    break;
+                case "done":
+                    int line_num = Integer.parseInt(line.split(" ")[1]);
+                    for (int i=0; line_num != i; i++) {
+                        t[line_num-1].markAsDone();
+                        break;
+                    }
+                case "list":
+                    ReturnList(t, count);
+                    break;
+
+                default:
+                    t[count] = new Task(line);
+                    StoreList(t, line, count);
+                    count++;
+                    break;
             }
         }
     }
 
-    public static String[] StoreList (String[]data, String phrase, int number){
-        data[number] = phrase;
-        System.out.println("added:" + phrase);
-        return data;
+
+    public static Task[] StoreList(Task[] t, String line, int number) {
+        t[number] = new Task(line);
+        System.out.println("added:" + line);
+        return t;
     }
 
-    public static void ReturnList (String[]data, int number){
+    public static void ReturnList(Task[] t, int number) {
         for (int i = 0; i < number; i++) {
-            System.out.println(i + 1 + "." + data[i]);
+            String icon = t[i].getStatusIcon();
+            System.out.println(i + 1 + "." + "[" + icon + "]" + t[i].getDescription());
         }
     }
 }
-
