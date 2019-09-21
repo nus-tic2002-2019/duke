@@ -37,7 +37,6 @@ public class Duke {
     public static boolean Task(String Cmmd) {
         TaskList task = new TaskList();
         ArrayList<String> commands = new ArrayList<String>(Arrays.asList(Cmmd.split(" ", 3)));
-        System.out.println(commands);
         switch (commands.get(0).toLowerCase()) {
             case "bye":
             case "quit":
@@ -61,8 +60,27 @@ public class Duke {
                 } catch (IndexOutOfBoundsException e) {
                     task.ListTask();
                 }
+                break;
 
+            case "done":
+            case "finish":
+                if (commands.get(1).equals("-t") || commands.get(1).equals("task")) {
+                    try {
+                        if (commands.size() > 1) {
+                            if (isNumeric(commands.get(2))) {
+                                task.DoneTask(Integer.parseInt(commands.get(2)) - 1);
 
+                            } else {
+                                System.out.println("Please provide the index number");
+                                PrintHL();
+                            }
+                        }
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Item at the specified index does not exist");
+                    }
+                } else {
+                    System.out.println("Please specify the type of task");
+                }
                 break;
             case "add":
                 if (commands.get(1).equals("-t") || commands.get(1).equals("task")) {
