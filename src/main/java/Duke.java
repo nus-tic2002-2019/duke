@@ -3,19 +3,18 @@ import java.util.Arrays;
 
 
 public class Duke {
-    public static void main(String[] args) {
-    /*    String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+    private static Task[] task = new Task[50];
+    private static Integer taskNo = 0;
 
-        System.out.println("\t--------------------------------------------------");
-        System.out.println("\tHello! I'm Duke\n\tWhat can I do for you?");
-        System.out.println("\t--------------------------------------------------");
-    */
-        Message.welcomeMessage();
+    public static void addTask(Task t){
+        task[ taskNo ] = t;
+        taskNo ++ ;
+    }
+
+    public static void main(String[] args) {
+
+        Message.welcomeMessage(); // Duke welcome message
+
         Boolean isNotBye = Boolean.TRUE;   // check if user type "Bye"
         Boolean isNotList = Boolean.TRUE;   // check if user type "List"
         Boolean done = Boolean.FALSE;       // status of task
@@ -24,10 +23,65 @@ public class Duke {
         String done_word = "done";
         String line = "";
         String[] stringList = new String[50];
-        Task[] t = new Task[50];
-        int count = 0;
-        int taskNo = 0;
 
+        int count = 0;
+        int index = 0;
+
+
+
+ //       /*
+        String command = "";
+        String description = "";
+        while (!command.equals(bye_word)){
+            Scanner in = new Scanner(System.in);
+            line = in.nextLine().toLowerCase();
+            String[] first_word = line.split(" ");
+            command = first_word[0];
+            switch(command){
+                case "list" :
+                    System.out.println("\t--------------------------------------------------");
+                    System.out.println("\tHere are the tasks in your list:");
+                    for (int i = 0; i < taskNo ; i++) {
+                        System.out.println("\t" + (i+1) + "." + task[i]);
+                    }
+                    System.out.println("\t--------------------------------------------------");
+                    break;
+                case "todo" :
+                    addTask( new Todo(line.replace("todo ","")));
+                    break;
+                case "deadline" :
+                    System.out.println("deadline");
+                    break;
+                case "event" :
+                    System.out.println("event");
+                    break;
+                case "done" :
+                    index = Integer.parseInt(first_word[1]);
+                    task[index - 1].taskDone();
+                    System.out.println("\t--------------------------------------------------");
+                    System.out.println("\tNice! I marked this task as done");
+                    System.out.println("\t" + task[index-1]);
+                    System.out.println("\t--------------------------------------------------");
+                    break;
+                case "delete" :
+                    System.out.println("\tyou have arrive at delete function");
+                    break;
+                case "bye" :
+                    break;
+                default : // same as todo
+                    addTask( new Todo(line));
+                    System.out.println("\t--------------------------------------------------");
+                    System.out.println("\tadded: " + line);
+                    System.out.println("\t--------------------------------------------------");
+                    break;
+            }
+        }
+        Message.byeMessage();  // */
+
+
+
+
+/*
         Scanner in = new Scanner(System.in);
 
         while (isNotBye) {
@@ -70,6 +124,6 @@ public class Duke {
             }
             System.out.println("\t--------------------------------------------------");
         }
-        stringList = Arrays.copyOf(stringList, count);
+        stringList = Arrays.copyOf(stringList, count);   */
     }
 }

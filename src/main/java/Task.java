@@ -19,6 +19,8 @@ public class Task {
     public void taskDone(){
         this.isDone = true;
     }
-    //...
-
+    @Override
+    public String toString() {
+        return "[" + (isDone ? "\u2713" : "\u2718") + "]"+ description ;
+    }
 }
