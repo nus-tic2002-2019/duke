@@ -5,13 +5,18 @@ import java.util.ArrayList;
 public class Task {
     protected String description;
     protected boolean isDone;
-    protected ArrayList<String> taskList;
+   // protected ArrayList<String> taskList = new ArrayList<>();
+
+
 
     //Getters
+
+
     public String getDescription(){
-        return getStatusIcon() + this.description;
+        return getStatus() + getStatusIcon() + this.description;
     }
 
+    //Setters
     public void setDone(boolean done) {
         isDone = done;
     }
@@ -25,17 +30,31 @@ public class Task {
         return (isDone ? "[" + "\u2713" + "]": "["+"\u2718"+"]"); //return tick or X symbols
     }
 
-    public int getIndex(String input){
-        String[] num = input.split("done");
-        String part1 = num[0];
-        String part2 = num[1];
-        return Integer.parseInt(part2);
-    }
+    // Additional Methods
+//    public void addTasks(String task){
+//        taskList.add(task);
+//    }
 
     public void markAsDone(){
         this.isDone = true;
 
     }
+
+//    public void getStatus(String status){
+//        switch (status){
+//            case "T" :
+//                System.out.println("[T]");
+//                break;
+//            case "D" :
+//                System.out.println("[D]");
+//                break;
+//            case "E" :
+//                System.out.println("[E]");
+//                break;
+//        }
+//    }
+
+    public String getStatus(){return "";};
 
     public void markAsUndone(){
         this.isDone = false;
