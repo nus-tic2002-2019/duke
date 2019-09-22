@@ -22,7 +22,7 @@ public class Duke {
              if(line.equals("list")) {
                  System.out.println(horizontal_line + '\n' + "Here are the tasks in your list:");
                  for (int i = 0; i < count ; i++) {
-                     System.out.println(i + 1 + "." + '[' + list[i].getStatusIcon() + "] " + list[i].description);
+                     System.out.println(i + 1 + "." +  list[i].toString());
                  }
                  System.out.println(horizontal_line);
              }
@@ -33,10 +33,32 @@ public class Duke {
                  System.out.println('[' + list[position -1].getStatusIcon() + "] " +
                          list[position -1].description + '\n' + horizontal_line);
              }
-             else
+             else if (line.contains("todo")) {
+                 list[count] = new Todo (line.substring(5));
+                 System.out.println(horizontal_line + "Got it. I've added this task: ");
+                 System.out.println(" " + list[count].toString());
+                 System.out.println("Now you have " + (count + 1) + " tasks in the list.\n" + horizontal_line);
+                 count ++;
+             }
+             else if (line.contains("deadline")){
+                 int position = line.indexOf("/");
+                 list[count] = new Deadlines(line.substring(9,position-1),line.substring(position + 4));
+                 System.out.println(horizontal_line + "Got it. I've added this task: ");
+                 System.out.println(" " + list[count].toString());
+                 System.out.println("Now you have " + (count + 1) + " tasks in the list.\n" + horizontal_line);
+                 count++;
+
+             } else if (line.contains("event")) {
+                 int position_slash = line.indexOf("/");
+                 int position_time = line.indexOf(" " , position_slash);
+                 list[count] = new Event(line.substring(6,position_slash-1),line.substring(position_slash + 4));
+                 System.out.println(horizontal_line + "Got it. I've added this task: ");
+                 System.out.println(" " + list[count].toString());
+                 System.out.println("Now you have " + (count + 1) + " tasks in the list.\n" + horizontal_line);
+                 count++;
+             } else
              {
-                 Task add_task = new Task (line);
-                 list[count] = add_task;
+                 list[count] = new Task (line);//add_task;
                  System.out.println(horizontal_line + "Added: " + list[count].description + '\n' + horizontal_line);
                  count++;
              }
