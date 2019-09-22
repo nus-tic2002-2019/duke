@@ -1,11 +1,10 @@
 public class Todo extends Task{
-    private String event;
-
-    public Todo(String event){
-        super(event);
+    private String description;
+    public Todo(String description){
+        super(description);
     }
     @Override
     public String toString() {
-        return super.toString() ;
+        return "[T]" + super.toString() ;
     }
 }

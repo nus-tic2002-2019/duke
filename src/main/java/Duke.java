@@ -3,7 +3,7 @@ import java.util.Arrays;
 
 
 public class Duke {
-    private static Task[] task = new Task[50];
+    private static Task[] task = new Task[100];
     private static Integer taskNo = 0;
 
     public static void addTask(Task t){
@@ -24,6 +24,10 @@ public class Duke {
         String line = "";
         String[] stringList = new String[50];
 
+        String[] s1 = new String[20]; // for splitting of user entry
+        String   s2 = "" ; // for due date purposes without modification
+        String   s3 = "" ; // description of user task in lowercase
+
         int count = 0;
         int index = 0;
 
@@ -34,9 +38,11 @@ public class Duke {
         String description = "";
         while (!command.equals(bye_word)){
             Scanner in = new Scanner(System.in);
-            line = in.nextLine().toLowerCase();
+            line = in.nextLine();
+            s1 = line.split("/");
+            s3 = s1[0].toLowerCase();
             String[] first_word = line.split(" ");
-            command = first_word[0];
+            command = first_word[0].toLowerCase();
             switch(command){
                 case "list" :
                     System.out.println("\t--------------------------------------------------");
@@ -47,13 +53,32 @@ public class Duke {
                     System.out.println("\t--------------------------------------------------");
                     break;
                 case "todo" :
-                    addTask( new Todo(line.replace("todo ","")));
+                    addTask( new Todo(s3.replace("todo ","")));
+                    System.out.println("\t--------------------------------------------------");
+                    System.out.println("\tGot it. I've added this task:");
+                    System.out.println("\t" + task[taskNo-1]);
+                    System.out.println("\tNow you have " + taskNo + " tasks in the list");
+                    System.out.println("\t--------------------------------------------------");
                     break;
                 case "deadline" :
-                    System.out.println("deadline");
+                    //s1 = line.split("/");
+                    s2 = s1[1].replace("by ", ""); // due date
+                    addTask( new Deadline(s3.replace("deadline ",""), s2) );
+                    System.out.println("\t--------------------------------------------------");
+                    System.out.println("\tGot it. I've added this task:");
+                    System.out.println("\t" + task[taskNo-1]);
+                    System.out.println("\tNow you have " + taskNo + " tasks in the list");
+                    System.out.println("\t--------------------------------------------------");
                     break;
                 case "event" :
-                    System.out.println("event");
+                    //s1 = line.split("/");
+                    s2 = s1[1].replace("at ", ""); // event date and time
+                    addTask( new Event(s3.replace("event ",""), s2));
+                    System.out.println("\t--------------------------------------------------");
+                    System.out.println("\tGot it. I've added this task:");
+                    System.out.println("\t" + task[taskNo-1]);
+                    System.out.println("\tNow you have " + taskNo + " tasks in the list");
+                    System.out.println("\t--------------------------------------------------");
                     break;
                 case "done" :
                     index = Integer.parseInt(first_word[1]);
@@ -69,7 +94,7 @@ public class Duke {
                 case "bye" :
                     break;
                 default : // same as todo
-                    addTask( new Todo(line));
+                    addTask( new Todo(s3.toLowerCase()));
                     System.out.println("\t--------------------------------------------------");
                     System.out.println("\tadded: " + line);
                     System.out.println("\t--------------------------------------------------");
