@@ -20,6 +20,11 @@ public class Task {
             System.out.println("\t_________________________________________");
     }
 
+    public static void _add_task(Task description) {
+        task_info.add(description);
+        //word_count++;
+    }
+
     public static String getList() {
         int num = 1;
         String _list_ = "";
@@ -34,11 +39,6 @@ public class Task {
         int num = 1;
         String _list_ = "";
         for (Task elements : task_info) {
-            //String status_icon = elements.getStatusIcon();
-            //int status_num = 0;
-            /*if (status_icon == "\u2713") {
-                status_num = 1;
-            }*/
             _list_ += elements + "\n";
             num++;
         }
@@ -52,6 +52,11 @@ public class Task {
         System.out.println("\tNice! I've marked this task as done:");
         System.out.println("\t\t" + task_info.get(taskNo-1));
         System.out.println("\t_________________________________________");
+    }
+
+    public static void _markDone(int taskNo) {
+        Task task_tmp = task_info.get(taskNo-1);
+        task_tmp.setDone(true);
     }
 
     public static void removeTask(int taskNo) {

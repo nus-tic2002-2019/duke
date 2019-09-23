@@ -10,7 +10,7 @@ import subclass.*;
 public class Duke {
 
     public static void writeToFile(String filePath, String textToAdd) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
+        FileWriter fw = new FileWriter(filePath, true);
         fw.write(textToAdd);
         fw.close();
     }
@@ -18,8 +18,39 @@ public class Duke {
     public static void loadFile(String filePath) throws FileNotFoundException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
+        int num = 1;
         while (s.hasNext()) {
-            Task.add_task(new Todo(s.nextLine()));
+            String line_input = s.nextLine();
+            //add todo, if any
+            if (line_input.contains("T|")) {
+                String input_items = line_input.substring(line_input.lastIndexOf("|") + 1);
+                String task_status_num = line_input.substring(line_input.indexOf("|") + 1);
+                Task._add_task(new Todo(input_items));
+                if (task_status_num.contains("1")){
+                    Task._markDone(num);
+                }
+            }
+            //add deadline, if any
+            if (line_input.contains("D|")) {
+                String input_by = line_input.substring(line_input.lastIndexOf("|") + 1);
+                String input_items = line_input.substring(line_input.indexOf("|") + 3, line_input.lastIndexOf("|"));
+                String task_status_num = line_input.substring(line_input.indexOf("|") + 1);
+                Task._add_task(new Deadline(input_items, input_by));
+                if (task_status_num.contains("1")){
+                    Task._markDone(num);
+                }
+            }
+            //add event, if any
+            if (line_input.contains("E|")) {
+                String input_by = line_input.substring(line_input.lastIndexOf("|") + 1);
+                String input_items = line_input.substring(line_input.indexOf("|") + 3, line_input.lastIndexOf("|"));
+                String task_status_num = line_input.substring(line_input.indexOf("|") + 1);
+                Task._add_task(new Event(input_items, input_by));
+                if (task_status_num.contains("1")){
+                    Task._markDone(num);
+                }
+            }
+            num++;
         }
     }
 
@@ -34,6 +65,7 @@ public class Duke {
         newOutput = newOutput.replace("at:", "");
         newOutput = newOutput.replace(", ", ",");
         newOutput = newOutput.replace("  ,", ",");
+        newOutput = newOutput.replace(",", "|");
         return newOutput;
     }
 
@@ -48,7 +80,7 @@ public class Duke {
         String line;
         Scanner in = new Scanner(System.in);
         String file_path = "C:\\Users\\marcus.ng\\Desktop\\m\\m\\NUS\\TIC2002 Introduction to Software Engineering\\duke\\src\\main\\java\\taskList.txt";
-        //loadFile(file_path);
+        loadFile(file_path);
 
         System.out.println("\t_________________________________________");
         System.out.println("\tHello! I'm Duke");
@@ -70,6 +102,7 @@ public class Duke {
                         if (input_items.equals("todo")) {
                             throw new todoException();
                         }
+
                         newTask.add_task(new Todo(input_items));
 
                     }
