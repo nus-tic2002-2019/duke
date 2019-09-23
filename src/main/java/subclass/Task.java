@@ -20,14 +20,14 @@ public class Task {
             System.out.println("\t_________________________________________");
     }
 
-    public static void getList() {
-        System.out.println("\t_________________________________________");
+    public static String getList() {
         int num = 1;
+        String _list_ = "";
         for (Task elements : task_info) {
-            System.out.println("\t" + num + ". " + elements);
+            _list_ += "\n\t" + num + ". " + elements;
             num++;
         }
-        System.out.println("\t_________________________________________");
+        return _list_;
     }
 
     public static void markDone(int taskNo) {
@@ -56,7 +56,6 @@ public class Task {
 
     public void setDone(boolean isDone) {
         this.isDone = isDone;
-
     }
 
     public String getStatusIcon() {

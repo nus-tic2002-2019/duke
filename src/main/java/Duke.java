@@ -1,11 +1,21 @@
 
 import java.util.Scanner;
 import java.util.Arrays;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
 import subclass.*;
 
 public class Duke {
 
-    public static void main(String[] args) throws DukeException, todoException {
+    public static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    public static void main(String[] args) throws DukeException, todoException, IOException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -15,6 +25,7 @@ public class Duke {
 
         String line;
         Scanner in = new Scanner(System.in);
+        String file_path = "C:\\Users\\marcus.ng\\Desktop\\m\\m\\NUS\\TIC2002 Introduction to Software Engineering\\duke\\src\\main\\java\\taskList.txt";
 
         System.out.println("\t_________________________________________");
         System.out.println("\tHello! I'm Duke");
@@ -57,8 +68,9 @@ public class Duke {
 
                     //displaying list
                     if (line.contains("list")) {
-
-                        newTask.getList();
+                        System.out.println("\t_________________________________________");
+                        System.out.println(newTask.getList());
+                        System.out.println("\t_________________________________________");
                     }
                     //mark done
                     if (line.contains("done")) {
@@ -103,6 +115,8 @@ public class Duke {
                 line = in.nextLine();
 
             }
+        //save Task.txt
+        writeToFile(file_path, Task.getList());
 
         //exit
         System.out.println("\t_________________________________________");
