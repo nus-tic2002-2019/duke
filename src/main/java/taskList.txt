@@ -1,5 +1,6 @@
-D|1|read books|7pm
-T|1|read magazine
-T|0|swim
-T|0|read magazine again
-E|0|boxing|Gym 7pm
+T|1|read books 
+D|0|do accounts|19-Jul-19 06:30 pm
+E|0|meeting|Suntec 8pm
+T|1|swimming
+E|0|boxing match|Gym
+D|0|do math|23-Sep-19 08:00 pm

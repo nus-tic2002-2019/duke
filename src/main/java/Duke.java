@@ -5,17 +5,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.ParseException;
 import subclass.*;
 
 public class Duke {
 
     public static void writeToFile(String filePath, String textToAdd) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
+        FileWriter fw = new FileWriter(filePath);
         fw.write(textToAdd);
         fw.close();
     }
 
-    public static void loadFile(String filePath) throws FileNotFoundException {
+    public static void loadFile(String filePath) throws FileNotFoundException, ParseException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
         int num = 1;
@@ -25,9 +26,9 @@ public class Duke {
             if (line_input.contains("T|")) {
                 String input_items = line_input.substring(line_input.lastIndexOf("|") + 1);
                 String task_status_num = line_input.substring(line_input.indexOf("|") + 1);
-                Task._add_task(new Todo(input_items));
+                Task.add_task(new Todo(input_items));
                 if (task_status_num.contains("1")){
-                    Task._markDone(num);
+                    Task.markDone(num);
                 }
             }
             //add deadline, if any
@@ -35,9 +36,9 @@ public class Duke {
                 String input_by = line_input.substring(line_input.lastIndexOf("|") + 1);
                 String input_items = line_input.substring(line_input.indexOf("|") + 3, line_input.lastIndexOf("|"));
                 String task_status_num = line_input.substring(line_input.indexOf("|") + 1);
-                Task._add_task(new Deadline(input_items, input_by));
+                Task.add_task(new Deadline(input_items, input_by));
                 if (task_status_num.contains("1")){
-                    Task._markDone(num);
+                    Task.markDone(num);
                 }
             }
             //add event, if any
@@ -45,9 +46,9 @@ public class Duke {
                 String input_by = line_input.substring(line_input.lastIndexOf("|") + 1);
                 String input_items = line_input.substring(line_input.indexOf("|") + 3, line_input.lastIndexOf("|"));
                 String task_status_num = line_input.substring(line_input.indexOf("|") + 1);
-                Task._add_task(new Event(input_items, input_by));
+                Task.add_task(new Event(input_items, input_by));
                 if (task_status_num.contains("1")){
-                    Task._markDone(num);
+                    Task.markDone(num);
                 }
             }
             num++;
@@ -66,10 +67,11 @@ public class Duke {
         newOutput = newOutput.replace(", ", ",");
         newOutput = newOutput.replace("  ,", ",");
         newOutput = newOutput.replace(",", "|");
+        newOutput = newOutput.replace(" |", "|");
         return newOutput;
     }
 
-    public static void main(String[] args) throws DukeException, todoException, IOException {
+    public static void main(String[] args) throws DukeException, todoException, IOException, ParseException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -80,7 +82,12 @@ public class Duke {
         String line;
         Scanner in = new Scanner(System.in);
         String file_path = "C:\\Users\\marcus.ng\\Desktop\\m\\m\\NUS\\TIC2002 Introduction to Software Engineering\\duke\\src\\main\\java\\taskList.txt";
-        loadFile(file_path);
+        try {
+            loadFile(file_path);
+        } catch (ParseException e) {
+            System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
+
 
         System.out.println("\t_________________________________________");
         System.out.println("\tHello! I'm Duke");
@@ -102,24 +109,38 @@ public class Duke {
                         if (input_items.equals("todo")) {
                             throw new todoException();
                         }
-
-                        newTask.add_task(new Todo(input_items));
+                        System.out.println("\t_________________________________________");
+                        System.out.println("\tGot it. I've added this task:");
+                        System.out.println("\t\t" + newTask.add_task(new Todo(input_items)));
+                        //word_count++;
+                        System.out.println("\tNow you have " + newTask.word_count + " tasks in list.");
+                        System.out.println("\t_________________________________________");
 
                     }
                     //add deadline
                     if (!line.contains("list") && !line.contains("done") && !line.contains("delete") && line.contains("deadline")) {
                         String input_items = line.substring(line.indexOf(" ") + 1);
                         String by = line.substring(line.indexOf("/by") + 4);
-                        String input_string = input_items.substring(0, input_items.indexOf("/"));
-                        newTask.add_task(new Deadline(input_string, by));
+                        String input_string = input_items.substring(0, input_items.indexOf("/")-1);
+                        Task tmp = newTask.add_task(new Deadline(input_string, by));
+                        System.out.println("\t_________________________________________");
+                        System.out.println("\tGot it. I've added this task:");
+                        System.out.println("\t\t" + tmp);
+                        System.out.println("\tNow you have " + newTask.word_count + " tasks in list.");
+                        System.out.println("\t_________________________________________");
 
                     }
                     //add event
                     if (!line.contains("list") && !line.contains("done") && line.contains("event")) {
                         String input_items = line.substring(line.indexOf(" ") + 1);
                         String at = line.substring(line.indexOf("/at") + 4);
-                        String input_string = input_items.substring(0, input_items.indexOf("/"));
-                        newTask.add_task(new Event(input_string, at));
+                        String input_string = input_items.substring(0, input_items.indexOf("/")-1);
+                        Task tmp = newTask.add_task(new Event(input_string, at));
+                        System.out.println("\t_________________________________________");
+                        System.out.println("\tGot it. I've added this task:");
+                        System.out.println("\t\t" + tmp);
+                        System.out.println("\tNow you have " + newTask.word_count + " tasks in list.");
+                        System.out.println("\t_________________________________________");
 
                     }
 
@@ -134,7 +155,11 @@ public class Duke {
 
                         String input_items = line.substring(line.indexOf(" ") + 1);
                         int task_option = Integer.parseInt(input_items);
-                        newTask.markDone(task_option);
+                        Task tmp = newTask.markDone(task_option);
+                        System.out.println("\t_________________________________________");
+                        System.out.println("\tNice! I've marked this task as done:");
+                        System.out.println("\t\t" + tmp);
+                        System.out.println("\t_________________________________________");
                     }
                     //delete task
                     if (line.contains("delete")) {
@@ -166,8 +191,14 @@ public class Duke {
                     System.out.println("\t_______________________________________________________");
                     System.out.println("\t☹ OOPS!!! There is no item.");
                     System.out.println("\t_______________________________________________________");
-                }
 
+                } catch (ParseException e) {
+                    System.out.println("\t_________________________________________________________");
+                    System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    System.out.println("\tMake sure to enter date in format: dd-MMM-yy hh:mm PM/AM");
+                    System.out.println("\t_________________________________________________________");
+
+                }
 
                 line = in.nextLine();
 
