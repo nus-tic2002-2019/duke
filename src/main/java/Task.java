@@ -23,7 +23,11 @@ public class Task {
         return (done ? "\u2713" : "\u2718");
     }
 
+    public String toString(){
+        return "[" + getStatusIcon() + "] " + getTask();
+    }
+
     public void print(){
-        System.out.println("[" + getStatusIcon() + "] " + getTask());
+        System.out.println(this.toString());
     }
 }
