@@ -43,15 +43,15 @@ public class ErrType {
         return true;
     }
 
-    // user input command
+    // user input command / not use
     public static String command(String in){
         String[] s = in.split(" ");
         return s[0].toLowerCase();
     }
-
-    // user input task
+    // user input task / not use
     public static String userTask(String in){
         String[] s = in.split("/");
         return s[0].toLowerCase();
     }
+
 }
