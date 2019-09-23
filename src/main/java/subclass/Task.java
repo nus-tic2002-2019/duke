@@ -30,6 +30,21 @@ public class Task {
         return _list_;
     }
 
+    public static String getOutput() {
+        int num = 1;
+        String _list_ = "";
+        for (Task elements : task_info) {
+            //String status_icon = elements.getStatusIcon();
+            //int status_num = 0;
+            /*if (status_icon == "\u2713") {
+                status_num = 1;
+            }*/
+            _list_ += elements + "\n";
+            num++;
+        }
+        return _list_;
+    }
+
     public static void markDone(int taskNo) {
         Task task_tmp = task_info.get(taskNo-1);
         task_tmp.setDone(true);

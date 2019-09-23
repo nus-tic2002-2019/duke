@@ -1,4 +1,4 @@
-
-	1. [T][✘] read books
-	2. [T][✓] buy books
-	3. [D][✘] do work  (by: today, 6pm)
+T,0,read books
+D,0,booboo,tmr 2pm
+E,1,meeting,suntec 4pm
+T,0,swim

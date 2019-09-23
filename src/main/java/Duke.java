@@ -10,9 +10,31 @@ import subclass.*;
 public class Duke {
 
     public static void writeToFile(String filePath, String textToAdd) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
+        FileWriter fw = new FileWriter(filePath);
         fw.write(textToAdd);
         fw.close();
+    }
+
+    public static void loadFile(String filePath) throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            Task.add_task(new Todo(s.nextLine()));
+        }
+    }
+
+    public static String toTxt (String outputs) {
+        String newOutput = outputs.replace("[", "");
+        newOutput = newOutput.replace("]", ",");
+        newOutput = newOutput.replace("(", ",");
+        newOutput = newOutput.replace(")", "");
+        newOutput = newOutput.replace("\u2713", "1");
+        newOutput = newOutput.replace("\u2718", "0");
+        newOutput = newOutput.replace("by:", "");
+        newOutput = newOutput.replace("at:", "");
+        newOutput = newOutput.replace(", ", ",");
+        newOutput = newOutput.replace("  ,", ",");
+        return newOutput;
     }
 
     public static void main(String[] args) throws DukeException, todoException, IOException {
@@ -26,11 +48,13 @@ public class Duke {
         String line;
         Scanner in = new Scanner(System.in);
         String file_path = "C:\\Users\\marcus.ng\\Desktop\\m\\m\\NUS\\TIC2002 Introduction to Software Engineering\\duke\\src\\main\\java\\taskList.txt";
+        //loadFile(file_path);
 
         System.out.println("\t_________________________________________");
         System.out.println("\tHello! I'm Duke");
         System.out.println("\tWhat can I do for you?");
         System.out.println("\t_________________________________________");
+
 
         line = in.nextLine();
             while (!line.contains("bye")) {
@@ -116,7 +140,7 @@ public class Duke {
 
             }
         //save Task.txt
-        writeToFile(file_path, Task.getList());
+        writeToFile(file_path, toTxt(Task.getOutput()));
 
         //exit
         System.out.println("\t_________________________________________");
