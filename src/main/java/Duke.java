@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.Arrays;
 
 
 public class Duke {
@@ -10,6 +9,10 @@ public class Duke {
         task[ taskNo ] = t;
         taskNo ++ ;
     }
+    //public static String commandCheck(String command) throws DukeException {
+    //}
+
+
 
     public static void main(String[] args) {
 
@@ -21,12 +24,14 @@ public class Duke {
         String bye_word = "bye";
         String list_word = "list";
         String done_word = "done";
-        String line = "";
+        String user_input = "";
+        String blank = "";
         String[] stringList = new String[50];
 
-        String[] s1 = new String[20]; // for splitting of user entry
+        String[] task_sch = new String[20]; // for splitting of user entry into command / schedule
         String   s2 = "" ; // for due date purposes without modification
-        String   s3 = "" ; // description of user task in lowercase
+        String left_task = "" ; // description of user task in lowercase
+        String sch_right = "" ; // description of user schedule
 
         int count = 0;
         int index = 0;
@@ -34,70 +39,66 @@ public class Duke {
 
 
  //       /*
-        String command = "";
+        String command = ""; // initialise command to loop while() till "bye"
         String description = "";
         while (!command.equals(bye_word)){
             Scanner in = new Scanner(System.in);
-            line = in.nextLine();
-            s1 = line.split("/");
-            s3 = s1[0].toLowerCase();
-            String[] first_word = line.split(" ");
-            command = first_word[0].toLowerCase();
+            user_input = in.nextLine();
+            task_sch = user_input.split("/");
+            left_task = task_sch[0].toLowerCase();
+            //sch_right = task_sch[1];
+            //description = ErrType.TaskCheck(user_input);
+            String[] split_word = user_input.split(" ");
+            command = user_input.split(" ")[0].toLowerCase();
+            //command = ErrType.command(user_input);
             switch(command){
                 case "list" :
-                    System.out.println("\t--------------------------------------------------");
-                    System.out.println("\tHere are the tasks in your list:");
-                    for (int i = 0; i < taskNo ; i++) {
-                        System.out.println("\t" + (i+1) + "." + task[i]);
-                    }
-                    System.out.println("\t--------------------------------------------------");
+                    Message.listMessage(task,taskNo);
                     break;
+
                 case "todo" :
-                    addTask( new Todo(s3.replace("todo ","")));
-                    System.out.println("\t--------------------------------------------------");
-                    System.out.println("\tGot it. I've added this task:");
-                    System.out.println("\t" + task[taskNo-1]);
-                    System.out.println("\tNow you have " + taskNo + " tasks in the list");
-                    System.out.println("\t--------------------------------------------------");
+                    if (ErrType.TaskCheck(user_input)) {
+                        addTask(new Todo(user_input.replace("todo", "").trim()));
+                        Message.acknowledgeMessage(task, taskNo);
+                    }
                     break;
+
                 case "deadline" :
-                    //s1 = line.split("/");
-                    s2 = s1[1].replace("by ", ""); // due date
-                    addTask( new Deadline(s3.replace("deadline ",""), s2) );
-                    System.out.println("\t--------------------------------------------------");
-                    System.out.println("\tGot it. I've added this task:");
-                    System.out.println("\t" + task[taskNo-1]);
-                    System.out.println("\tNow you have " + taskNo + " tasks in the list");
-                    System.out.println("\t--------------------------------------------------");
+                    if (ErrType.TaskCheck(user_input) && ErrType.ScheduleCheck(user_input)) {
+                        addTask(new Deadline(user_input.split("/")[0].replace("deadline ", ""),
+                                             user_input.split("/")[1].replace("by","")));
+                        Message.acknowledgeMessage(task, taskNo);
+                    }
                     break;
+
                 case "event" :
-                    //s1 = line.split("/");
-                    s2 = s1[1].replace("at ", ""); // event date and time
-                    addTask( new Event(s3.replace("event ",""), s2));
-                    System.out.println("\t--------------------------------------------------");
-                    System.out.println("\tGot it. I've added this task:");
-                    System.out.println("\t" + task[taskNo-1]);
-                    System.out.println("\tNow you have " + taskNo + " tasks in the list");
-                    System.out.println("\t--------------------------------------------------");
+                    if (ErrType.TaskCheck(user_input) && ErrType.ScheduleCheck(user_input)) {
+//                        s2 = task_sch[1].replace("at ", ""); // event date and time
+//                        addTask(new Event(left_task.replace("event ", ""), s2));
+                        addTask(new Event(user_input.split("/")[0].replace("event ", ""),
+                                user_input.split("/")[1].replace("at","")));
+                        Message.acknowledgeMessage(task, taskNo);
+                    }
                     break;
+
                 case "done" :
-                    index = Integer.parseInt(first_word[1]);
-                    task[index - 1].taskDone();
-                    System.out.println("\t--------------------------------------------------");
-                    System.out.println("\tNice! I marked this task as done");
-                    System.out.println("\t" + task[index-1]);
-                    System.out.println("\t--------------------------------------------------");
+                    index = ErrType.toInteger(split_word[1], taskNo); // with Exceptions handling
+                    if ( index == -1) {
+                        System.out.println("\tPlease key a valid task number.");
+                        break;
+                    }
+                    Message.doneMessage(task,index);
                     break;
+
                 case "delete" :
                     System.out.println("\tyou have arrive at delete function");
                     break;
-                case "bye" :
+
+                case "bye" : // "bye" command will end loop after looping back to while()
                     break;
-                default : // same as todo
-                    addTask( new Todo(s3.toLowerCase()));
-                    System.out.println("\t--------------------------------------------------");
-                    System.out.println("\tadded: " + line);
-                    System.out.println("\t--------------------------------------------------");
+
+                default :   // any other command will be considered as error
+                    System.out.println("\tOops!! You have key an invalid command.");
                     break;
             }
         }
