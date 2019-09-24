@@ -71,4 +71,4 @@
 
 --------------------------------------------------------------------------------
 **Authors:**
-* Initial Version: based on se-edu/addressbook-level2, adapted by Jeffry Lum
+* Initial Version: based on se-edu/duke-level2, adapted by Jeffry Lum
