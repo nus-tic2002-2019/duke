@@ -7,7 +7,7 @@ public class Main {
                 + "|  _ \\ _   | | __ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| || | || |   <  __/\n"
-                + "|_/ \\,||\\\\___|\n";
+                + "|/ \\,||\\\\__|\n";
 
         // TODO Auto-generated method stub
         Task list[] = new Task[100];
@@ -16,60 +16,61 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("____________________________________________________________");
+        System.out.println("____________________");
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
+        System.out.println("____________________");
         input = sc.nextLine();
-
         while(!input.equalsIgnoreCase("bye")) {
-            System.out.println("____________________________________________________________");
+            System.out.println("________");
+            try {
+                String function = input.split(" ")[0];
+                if (function.equalsIgnoreCase("list")) {
+                    for (int i = 0; i < counter; i++) {
+                        System.out.println(i + 1 + "." + list[i].toString());
+                    }
+                } else if (function.equalsIgnoreCase("done")) {
+                    int taskNo = Integer.parseInt(input.substring(5));
+                    list[taskNo - 1].markAsDone();
 
-            if(input.equalsIgnoreCase("list")) {
-                for(int i = 0; i < counter; i++) {
-                    System.out.println(i + 1 + "."+list[i].toString());
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("[" + list[taskNo - 1].getStatusIcon() + "] " + list[taskNo - 1].getDescription());
+                } else if (function.equalsIgnoreCase("todo")) {
+                    if (input.length() > 5) {
+                        //list[counter] = new Todo(input.substring(5));
+                        System.out.println("Got it. I've added this task: ");
+                        System.out.println(list[counter].toString());
+                        counter++;
+                        System.out.println("Now you have todo borrow book" + counter + " tasks in the list.");
+                    } else {
+                        throw new DukeException(" OOPS!!! The description of a todo cannot be empty.");
+                    }
+                } else if (function.equalsIgnoreCase("deadline")) {
+                    //list[counter] = new Deadline(input.substring(9, input.indexOf("/") - 1), input.substring(input.indexOf("/") + 3));
+                    System.out.println("Got it. I've added this task: ");
+                    System.out.println(list[counter].toString());
+                    counter++;
+                    System.out.println("Now you have " + counter + " tasks in the list.");
+                } else if (function.equalsIgnoreCase("event")) {
+                    //list[counter] = new Event(input.substring(6, input.indexOf("/") - 1), input.substring(input.indexOf("/") + 3));
+                    System.out.println("Got it. I've added this task: ");
+                    System.out.println(list[counter].toString());
+                    counter++;
+                    System.out.println("Now you have " + counter + " tasks in the list.");
+                } else {
+                    throw newtodo DukeException(" OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             }
-            else if (input.substring(0,4).equalsIgnoreCase("done")) {
-                int taskNo = Integer.parseInt(input.substring(5));
-                list[taskNo-1].markAsDone();
-
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println("[" + list[taskNo-1].getStatusIcon() + "] " + list[taskNo-1].getDescription());
+            catch (DukeException e) {
+                System.out.println(e.getMessage());
             }
-            else if (input.substring(0,4).equalsIgnoreCase("todo")) {
-                list[counter] = new Todo(input.substring(5));
-                System.out.println("Got it. I've added this task: ");
-                System.out.println(list[counter].toString());
-                counter++;
-                System.out.println("Now you have todo borrow book" + counter + " tasks in the list.");
-            }
-            else if (input.substring(0,8).equalsIgnoreCase("deadline")) {
-                list[counter] = new Deadline(input.substring(9, input.indexOf("/")-1),input.substring(input.indexOf("/")+3));
-                System.out.println("Got it. I've added this task: ");
-                System.out.println(list[counter].toString());
-                counter++;
-                System.out.println("Now you have " + counter + " tasks in the list.");
-            }
-            else if (input.substring(0,5).equalsIgnoreCase("event")) {
-                list[counter] = new Event(input.substring(6, input.indexOf("/")-1),input.substring(input.indexOf("/")+3));
-                System.out.println("Got it. I've added this task: ");
-                System.out.println(list[counter].toString());
-                counter++;
-                System.out.println("Now you have " + counter + " tasks in the list.");
-            }
-
-            else if (input.equalsIgnoreCase("blah")) {
-                System.out.println("blah");
-            }
-            System.out.println("____________________________________________________________");
+            System.out.println("________");
             input = sc.nextLine();
-        }
 
-        System.out.println("____________________________________________________________");
+        }
+        System.out.println("____________________");
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+        System.out.println("____________________");
     }
 
 }
-
