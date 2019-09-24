@@ -1,6 +1,16 @@
 import java.io.*;
+import java.nio.file.FileAlreadyExistsException;
 import java.util.Scanner;
 import java.util.ArrayList;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class Duke {
     private static Task[] task = new Task[100];
@@ -14,21 +24,7 @@ public class Duke {
         ArrayTask.add(t);
         listNo++;
     }
-/*
-    public void saveFile(ArrayList<Task> t)throws FileNotFoundException {
-        FileOutputStream fileoutput = new FileOutputStream("D:\\git\\duke\\task.txt");
-        ObjectOutputStream objectoutput = new ObjectOutputStream(fileoutput);
-        objectoutput.writeObject(t);
-        objectoutput.close();
-    }
 
-    public void loadFile(ArrayList<Task> t)throws FileNotFoundException{
-        FileInputStream fis = new FileInputStream("D:\\git\\duke\\task.txt");
-        ObjectInputStream ois = new ObjectInputStream(fis);
-        ArrayList<Task> ArrayTask = (ArrayList<Task>)ois.readObject();
-        ois.close();
-    }
-*/
     public static void main(String[] args) {
 
         Message.welcomeMessage(); // Duke welcome message
@@ -72,12 +68,12 @@ public class Duke {
                     break;
 
                 case "done":
-                    index = ErrType.toInteger(user_input.split(" ")[1], taskNo); // with Exceptions handling
+                    index = ErrType.toInteger(user_input.split(" ")[1], ArrayTask.size()); // with Exceptions handling
                     if (index == -1) {
                         System.out.println("\tPlease key a valid task number.");
                         break;
                     }
-                    Message.doneMessage(task, index);
+                    Message.doneMessage(ArrayTask, index);
                     break;
 
                 case "delete":
@@ -89,27 +85,42 @@ public class Duke {
                     Message.deleteMessage(ArrayTask, index);
                     break;
 
-/*
                 case "save":
                     try {
-                        FileOutputStream fos = new FileOutputStream("D:\\git\\dukeoutput.txt");
-                        ObjectOutputStream oos = new ObjectOutputStream(fos);
-                        oos.writeObject(ArrayTask);
-                        oos.close();
-                    } catch (Exception ex) {
+                        FileOutputStream fout = new FileOutputStream("D:\\git\\output.txt");
+                        //ObjectOutputStream oos = new ObjectOutputStream(fos);
+                        //oos.writeObject(ArrayTask.get(1));
+                        //oos.close();
+                        for( Integer i=0 ; i<ArrayTask.size() ; i++){
+                            String s = ArrayTask.get(i).toString() + System.lineSeparator();
+                            byte b[]= s.getBytes();//converting string into byte array
+                            fout.write(b);
+                        }
+                        fout.close();
+                        System.out.println("\tFile saved successfully.");
+                    } catch (IOException e) {
+                        System.out.println("File not found");
+                    } finally {
+                        System.out.println("\tPlease continue.");
                     }
                     break;
 
                 case "load":
                     try {
-                        FileInputStream fis = new FileInputStream("D:\\git\\dukeoutput.txt");
-                        ObjectInputStream ois = new ObjectInputStream(fis);
-                        ArrayTask = (ArrayList<Task>)ois.readObject();
-                        System.out.println(ArrayTask);
-                    } catch (Exception e) {
+                        FileInputStream  fin = new FileInputStream("D:\\git\\output.txt");
+                        FilterInputStream fread = new BufferedInputStream(fin);
+                        int k =0;
+                        while((k=fread.read())!=-1){
+                            System.out.print((char)k);
+                        }
+                        fin.close();
+                        fread.close();
+                    } catch (IOException e) {
+                        System.out.println("File not found");
+                    } finally {
+                        System.out.println("\tPrintout is for information only.File cannot merge with existing task.");
                     }
                     break;
-*/
 
                 case "bye": // "bye" command will end loop after looping back to while()
                     break;

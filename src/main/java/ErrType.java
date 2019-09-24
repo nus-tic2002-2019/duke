@@ -1,3 +1,6 @@
+import java.io.*;
+import java.util.ArrayList;
+
 public class ErrType {
     public static Integer toInteger(String s, Integer taskNo) {
         Integer index;

@@ -24,11 +24,11 @@ public class Message {
         System.out.println("\tNow you have " + index + " tasks in the list");
         System.out.println("\t--------------------------------------------------");
     }
-    public static void doneMessage(Task[] t, Integer index){
-        t[index - 1].taskDone();
+    public static void doneMessage(ArrayList<Task> t, Integer index){
+        t.get(index - 1).taskDone();
         System.out.println("\t--------------------------------------------------");
         System.out.println("\tNice! I marked this task as done");
-        System.out.println("\t" + t[index-1]);
+        System.out.println("\t" + t.get(index-1));
         System.out.println("\t--------------------------------------------------");
     }
     public static void deleteMessage(ArrayList<Task> t, Integer index){
