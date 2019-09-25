@@ -29,6 +29,8 @@ public class Duke {
             task_words = userInput.substring(task_stringIndex_After_taskWord, by_string);
 
         }
+        else if(userInput.contains("bye")){
+        }
         else {
             task_words = userInput.substring(task_stringIndex_After_taskWord);
         }
@@ -40,7 +42,7 @@ public class Duke {
         System.out.println("     " + "Got it. I've added this task");
         System.out.println("        " + "[" + t.getStatusIcon() + "]" + todolistArray[task_count]);
 
-        System.out.println("Now you have "+ (task_count + 1) + " tasks in the list.");
+        System.out.println("     "+ "Now you have "+ (task_count + 1) + " tasks in the list.");
         System.out.print("   " + seperatorLine2);
         task_count++;
     }
@@ -69,7 +71,7 @@ public class Duke {
         boolean isToDo;
         boolean isDeadline;
         boolean isEvent;
-        int  listPrint, listNum = 1, doneNumber = 1;
+        int listPrint, listNum = 1, doneNumber = 1;
 
         while (!isBye) {
 
@@ -88,40 +90,24 @@ public class Duke {
             isDeadline = userInput.equals("deadline");
             isEvent = userInput.equals("event");
 
-            Task[] tasks = new Task[100];   //*****
-//            Task t = new Task(userInput); //****
-
-             if (isToDo) {
-//                tasks[task_count] = new Todo(task_words);
-//                todolistArray[task_count] = tasks[task_count].toString();
+            if (isToDo) {
                  addTask(new Todo(task_words));
                  print_event();
-             }
+            }
 
-             else if (isDeadline) {
-//                 tasks[task_count] = new Deadline(task_words, by_words);
-//                 todolistArray[task_count] = tasks[task_count].toString();
+            else if (isDeadline) {
                  addTask(new Deadline(task_words, by_words));
                  print_event();
-             }
+            }
 
-             else if (isEvent) {
-//                 tasks[task_count] = new Event(task_words, by_words);
-//                 todolistArray[task_count] = tasks[task_count].toString();
+            else if (isEvent) {
                  addTask(new Event(task_words, by_words));
                  print_event();
-             }
+            }
 
             else if (isList){
-//                 count = listCount;
                  int count_todo = task_count;
                  System.out.print("   " + seperatorLine2);
-
-//                for (listPrint = 0; listPrint < count; listPrint++) {
-//                    System.out.println("     " + listNum + ". " + "[" + mark[listPrint] + "]"  + " " + listArray[listPrint]);
-//                    listNum++;
-//                }
-//                listNum=1;
 
                  for (listPrint = 0; listPrint  < count_todo; listPrint++) {
 
@@ -146,6 +132,7 @@ public class Duke {
             }
 
             else if (isBye){
+
                 System.out.print(seperatorLine);
                 System.out.println("       " + "Bye. Hope to see you again soon!");
                 System.out.println(seperatorLine);
@@ -177,6 +164,16 @@ public class Duke {
         echo_Added_List(input);
     }
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
