@@ -35,6 +35,8 @@ public class Duke {
 
         String command = ""; // initialise command to loop while() until "bye"
 
+        Storage.LoadFile(ArrayTask);
+
         while (!command.equals(bye_word)) {
             Scanner in = new Scanner(System.in);
             user_input = in.nextLine();
@@ -85,44 +87,6 @@ public class Duke {
                     Message.deleteMessage(ArrayTask, index);
                     break;
 
-                case "save":
-                    try {
-                        FileOutputStream fout = new FileOutputStream("D:\\git\\output.txt");
-                        //ObjectOutputStream oos = new ObjectOutputStream(fos);
-                        //oos.writeObject(ArrayTask.get(1));
-                        //oos.close();
-                        for( Integer i=0 ; i<ArrayTask.size() ; i++){
-                            String s = ArrayTask.get(i).toString().replace("\u2713","1" ).replace("\u2718","0").
-                                       replaceAll("\\[","").replaceAll("]","|") + System.lineSeparator();
-                            byte b[]= s.getBytes();//converting string into byte array
-                            fout.write(b);
-                        }
-                        fout.close();
-                        System.out.println("\tFile saved successfully.");
-                    } catch (IOException e) {
-                        System.out.println("File not found");
-                    } finally {
-                        System.out.println("\tPlease continue.");
-                    }
-                    break;
-
-                case "load":
-                    try {
-                        FileInputStream  fin = new FileInputStream("D:\\git\\output.txt");
-                        FilterInputStream fread = new BufferedInputStream(fin);
-                        int k =0;
-                        while((k=fread.read())!=-1){
-                            System.out.print((char)k);
-                        }
-                        fin.close();
-                        fread.close();
-                    } catch (IOException e) {
-                        System.out.println("File not found");
-                    } finally {
-                        System.out.println("\tPrintout is for information only.File cannot merge with existing task.");
-                    }
-                    break;
-
                 case "bye": // "bye" command will end loop after looping back to while()
                     break;
 
@@ -130,6 +94,7 @@ public class Duke {
                     System.out.println("\tOops!! You have key an invalid command.");
                     break;
             }
+            Storage.SaveFile(ArrayTask);
         }
         Message.byeMessage();  // */
     }
