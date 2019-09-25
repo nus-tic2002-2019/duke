@@ -92,7 +92,7 @@ public class Duke {
                         //oos.writeObject(ArrayTask.get(1));
                         //oos.close();
                         for( Integer i=0 ; i<ArrayTask.size() ; i++){
-                            String s = ArrayTask.get(i).toString() + System.lineSeparator();
+                            String s = ArrayTask.get(i).toString().replace("\u2713","1" ).replace("\u2718","0") + System.lineSeparator();
                             byte b[]= s.getBytes();//converting string into byte array
                             fout.write(b);
                         }
