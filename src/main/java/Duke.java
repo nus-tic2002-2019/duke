@@ -16,7 +16,7 @@ public class Duke {
         System.out.println("Hello! I am Duke\nWhat can I do for you?");
         System.out.println(separateLine);
 
-
+      /*
 //        String line="";
 //        //String[] list=new String[100];
 //        List<String> list = new ArrayList<String>();
@@ -39,6 +39,8 @@ public class Duke {
 //            }
 //        }
 
+       */
+
 
         String line="";
         List<Task> list = new ArrayList<Task>();
@@ -50,7 +52,8 @@ public class Duke {
                 //Stream.of(list.toString()).forEach(System.out::println);
                 for(int i=1;i<=list.size();i++)
                 {
-                    System.out.println(i+". "+"["+list.get(i-1).getStatusIcon()+"] "+list.get(i-1).getDescription());
+                    //System.out.println(i+". "+"["+list.get(i-1).getStatusIcon()+"] "+list.get(i-1).getDescription());
+                    System.out.println(i+". "+list.get(i-1).toString());
                 }
                 System.out.println(separateLine);
             }
@@ -60,6 +63,32 @@ public class Duke {
                 list.get(idx-1).markAsDone();
                 System.out.println(separateLine + "\n" +"Nice! I've marked this task as done");
                 System.out.println("["+list.get(idx-1).getStatusIcon()+"] "+list.get(idx-1).getDescription());
+            }
+            else if(line.startsWith("todo"))
+            {
+                System.out.println(separateLine + "\n" +"Got it. I've added this task: ");
+                String task=line.substring(5);
+                list.add(new Todo(task));
+                System.out.println(list.get(list.size()-1).toString());
+                System.out.println("Now you have "+list.size()+" tasks in the list.");
+
+            }
+            else if(line.startsWith("deadline"))
+            {
+                System.out.println(separateLine + "\n" +"Got it. I've added this task: ");
+                String[] task=line.substring(9).split(" /by ");
+                list.add(new Deadline(task[0],task[1]));
+                System.out.println(list.get(list.size()-1).toString());
+                System.out.println("Now you have "+list.size()+" tasks in the list.");
+
+            }
+            else if(line.startsWith("event"))
+            {
+                System.out.println(separateLine + "\n" +"Got it. I've added this task: ");
+                String[] task=line.substring(6).split(" /at ");
+                list.add(new Events(task[0],task[1]));
+                System.out.println(list.get(list.size()-1).toString());
+                System.out.println("Now you have "+list.size()+" tasks in the list.");
             }
             else{
                 System.out.println(separateLine + "\n" +"Added: "+ line + "\n" + separateLine);
