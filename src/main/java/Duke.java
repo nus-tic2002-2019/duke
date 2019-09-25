@@ -5,24 +5,54 @@ public class Duke {
 
     private static String seperatorLine = "___________________________________________\n";
     private static String seperatorLine2 = "________________________________________\n";
-    public static String[] listArray = new String[100];
-    public static int listCount = 0;
-    public static String userInput;
+    private static int listCount = 0;
+    private static String userInput;
 
-    public static String[] todolistArray = new String[100];
+    private static String[] listArray = new String[100];
+    private static String[] todolistArray = new String[100];
 
-    public static Task[] taskss = new Task[100];
-    public static int taskCount = 0;
+    private static String task_words, by_words = " ";
+    private static int task_stringIndex_After_taskWord = 0;
+    private static int task_count = 0;
+    private static String[] mark = new String[100];
 
-//
-//    public static void addTask(Task s) {
-//        taskss[taskCount] = s;
-//        taskCount++;
-//    }
+    private static Task t = new Task(userInput); //****
+    private static Task[] tasks_addTask = new Task[100];  //*****
+    private static int taskCount_addTask = 0;
 
 
+    private static void input_task() {
 
-    public static void Added_Print(Scanner input){
+        if (userInput.contains("/")) {
+            int by_string = userInput.indexOf("/");
+            by_words = userInput.substring(by_string + 3);
+            task_words = userInput.substring(task_stringIndex_After_taskWord, by_string);
+
+        }
+        else {
+            task_words = userInput.substring(task_stringIndex_After_taskWord);
+        }
+    }
+
+    private static void print_event(){
+
+        System.out.print("   " + seperatorLine2);
+        System.out.println("     " + "Got it. I've added this task");
+        System.out.println("        " + "[" + t.getStatusIcon() + "]" + todolistArray[task_count]);
+
+        System.out.println("Now you have "+ (task_count + 1) + " tasks in the list.");
+        System.out.print("   " + seperatorLine2);
+        task_count++;
+    }
+
+    public static void addTask(Task s) {
+
+        tasks_addTask[taskCount_addTask] = s;
+        todolistArray[taskCount_addTask] = tasks_addTask[taskCount_addTask].toString();
+        taskCount_addTask++;
+    }
+
+    public static void added_Print(){
         System.out.print("   " + seperatorLine2);
         System.out.println("      added:" + userInput);
         System.out.print("   " + seperatorLine2);
@@ -31,92 +61,63 @@ public class Duke {
         listCount++;
     }
 
-
-
-    public static void Echo_Added_List(Scanner input) {
+    public static void echo_Added_List(Scanner input) {
 
         boolean isBye = false;
         boolean isList;
         boolean isDone;
         boolean isToDo;
         boolean isDeadline;
-        int  listPrint, count = 0, listNum = 1, doneNumber = 1;
-        int task_count = 0;
-
-        String[] mark = new String[100];
-        Arrays.fill(mark, "\u2718");
+        boolean isEvent;
+        int  listPrint, listNum = 1, doneNumber = 1;
 
         while (!isBye) {
 
             userInput = input.nextLine();
             String[] words = userInput.split(" ");
 
-            int task_string = userInput.indexOf(" ");
+            task_stringIndex_After_taskWord = userInput.indexOf(" ");
 
-
-            int by_string = userInput.indexOf("/");
-            String by_words = userInput.substring(by_string + 3);
-
-            String task_words = userInput.substring(task_string);
-
-
-//            String[] words = userInput.substring(0,task_string);
-//            String[] result = new String[words.length];
+            input_task();
 
             userInput = words[0];
-
             isList = userInput.equals("list");
             isBye = userInput.equals("bye");
             isDone = userInput.equals("done");
             isToDo = userInput.equals("todo");
             isDeadline = userInput.equals("deadline");
+            isEvent = userInput.equals("event");
 
-            Task[] tasks = new Task[100];  //****
-            Task t = new Task(userInput);
-
-//            Task todo = new Todo(userInput);
+            Task[] tasks = new Task[100];   //*****
+//            Task t = new Task(userInput); //****
 
              if (isToDo) {
-                tasks[task_count] = new Todo(task_words);
-//                addTask(new Todo(task_words)); ***
-                todolistArray[task_count] = tasks[task_count].toString();
-
-                System.out.print("   " + seperatorLine2);
-                System.out.println("     " + "Got it. I've added this task");
-                System.out.println("        " + "[" + t.getStatusIcon() + "]" + todolistArray[task_count]);
-
-//                doneNumber = Integer.parseInt(words[1]) - 1;
-//                System.out.println(listArray[doneNumber]);
-//                mark[doneNumber] = t.getStatusIcon();
-
-                System.out.println("Now you have "+ (task_count + 1) + " tasks in the list.");
-                System.out.print("   " + seperatorLine2);
-                task_count++;
-
-
-            }
+//                tasks[task_count] = new Todo(task_words);
+//                todolistArray[task_count] = tasks[task_count].toString();
+                 addTask(new Todo(task_words));
+                 print_event();
+             }
 
              else if (isDeadline) {
-                 tasks[task_count] = new Deadline(task_words, by_words);
+//                 tasks[task_count] = new Deadline(task_words, by_words);
+//                 todolistArray[task_count] = tasks[task_count].toString();
+                 addTask(new Deadline(task_words, by_words));
+                 print_event();
+             }
 
-                 todolistArray[task_count] = tasks[task_count].toString();
-
-                 System.out.print("   " + seperatorLine2);
-                 System.out.println("     " + "Got it. I've added this task");
-                 System.out.println("        " + "[" + t.getStatusIcon() + "]" + todolistArray[task_count]);
-
-                 System.out.println("Now you have "+ (task_count + 1) + " tasks in the list.");
-                 System.out.print("   " + seperatorLine2);
-                 task_count++;
+             else if (isEvent) {
+//                 tasks[task_count] = new Event(task_words, by_words);
+//                 todolistArray[task_count] = tasks[task_count].toString();
+                 addTask(new Event(task_words, by_words));
+                 print_event();
              }
 
             else if (isList){
-                count = listCount;
-                int count_todo = task_count;
-                System.out.print("   " + seperatorLine2);
+//                 count = listCount;
+                 int count_todo = task_count;
+                 System.out.print("   " + seperatorLine2);
 
 //                for (listPrint = 0; listPrint < count; listPrint++) {
-//
 //                    System.out.println("     " + listNum + ". " + "[" + mark[listPrint] + "]"  + " " + listArray[listPrint]);
 //                    listNum++;
 //                }
@@ -131,7 +132,6 @@ public class Duke {
                 System.out.print("   " + seperatorLine2);
             }
 
-
             else if(isDone){
                 t.markAsDone();
 
@@ -140,10 +140,9 @@ public class Duke {
                 System.out.print("        " + "[" + t.getStatusIcon() + "] ");
                 doneNumber = Integer.parseInt(words[1]) - 1;
 //                System.out.println(listArray[doneNumber]);
-                 System.out.println(todolistArray[doneNumber]);
+                System.out.println(todolistArray[doneNumber]);
                 mark[doneNumber] = t.getStatusIcon();
                 System.out.print("   " + seperatorLine2);
-
             }
 
             else if (isBye){
@@ -153,7 +152,7 @@ public class Duke {
             }
 
             else {
-                Added_Print(input);
+                added_Print();
             }
         }
     }
@@ -173,10 +172,16 @@ public class Duke {
 
         Scanner input = new Scanner(System.in);
 
-        Echo_Added_List(input);
+        Arrays.fill(mark, "\u2718");  //initialize mark array = "x"
 
+        echo_Added_List(input);
     }
 }
+
+
+
+
+
 
 
 //            if(!isList && !isBye && !isDone){
