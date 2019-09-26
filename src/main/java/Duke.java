@@ -8,8 +8,7 @@ public class Duke {
         Scanner input = new Scanner(System.in);
         Task[] tasks = new Task[100];
         int size = 0;
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?\n");
+        System.out.println("Hello! I'm Duke\nWhat can I do for you?\n");
         while (true) {
             String inputStr = input.nextLine();
             if (inputStr.toLowerCase().equals("bye")) {
