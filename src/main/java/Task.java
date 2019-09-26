@@ -1,8 +1,8 @@
 package main.java;
 
-public class Task {
-    private boolean isDone;
-    private String description;
+public abstract class Task {
+    protected boolean isDone;
+    protected String description;
     public static final char checkmark = '\u2713';
     public static final char crossmark = '\u274C';
 
