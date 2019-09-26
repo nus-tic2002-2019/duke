@@ -29,6 +29,6 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s", (isDone) ? checkmark : crossmark, description);
+        return String.format("[%s] %s", (isDone) ? checkmark : crossmark, getDescription());
     }
 }

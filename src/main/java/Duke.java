@@ -17,14 +17,16 @@ public class Duke {
         while (true) {
             String inputStr;
             try{
-                inputStr = input.nextLine();
+                inputStr = input.nextLine().strip();
             }catch (Exception e){
                 System.out.println("Error parsing input. Try again.");
                 continue;
             }
             String[] strings = inputStr.split(" ");
-            System.out.println(Arrays.toString(strings));
             String firstStr = strings[0].strip().toLowerCase();
+
+            //System.out.println(Arrays.toString(strings));   //todo remove once done debugging.
+
             if(strings.length == 1) { //if list or bye
                 if(firstStr.equals("bye")){
                     System.out.println("Bye. Hope to see you again soon!");
@@ -32,6 +34,10 @@ public class Duke {
                 }
                 else if (firstStr.equals("list"))
                     printTasks(tasks);
+                else{
+                    System.out.println("Unable to parse command, please try again.");
+                    continue;
+                }
             }
             else if (firstStr.equals("done")) {
                 int pos;
@@ -51,24 +57,31 @@ public class Duke {
                     System.out.println(String.format("Nice! I've marked this task as done:\n%s", tasks[pos]));
                 }
             }else {
-                String formattedStr;
+                String tempStr1, tempStr2;
+                int delimiterIndex;
                 System.out.println("Got it. I've added this task:");
                 switch (firstStr){
                     default:
                         System.out.println("Unknown task detected. defaulting to todo.");
                     case "todo":
-                        formattedStr = inputStr.replaceFirst("(todo)", "").strip();
-                        tasks[size] = new ToDo(formattedStr);
-                        System.out.println(tasks[size++].toString());   //increment size after printing the task added.
+                        tempStr1 = inputStr.replaceFirst("(todo)", "").strip();
+                        tasks[size] = new ToDo(tempStr1);
                         break;
                     case "deadline":
-                        System.out.println("deadline detected!");
+                        delimiterIndex = inputStr.indexOf("/by");
+                        tempStr1 = inputStr.substring(8, delimiterIndex).strip();   //start after deadline, end at start of /by
+                        tempStr2 = inputStr.substring(delimiterIndex + 3).strip();  //start of /by + length of "/by"
+                        tasks[size] = new Deadline(tempStr1, tempStr2);
                         break;
                     case "event":
-                        System.out.println("event detected!");
+                        delimiterIndex = inputStr.indexOf("/at");
+                        tempStr1 = inputStr.substring(5, delimiterIndex).strip();   //start after event, end at start of /by
+                        tempStr2 = inputStr.substring(delimiterIndex + 3).strip();  //start of /at + length of "/at"
+                        tasks[size] = new Event(tempStr1, tempStr2);
                         break;
                 }
-                System.out.println(String.format("Now you have %d %s in the list", size, (size > 1) ? "tasks" : "task"));
+                System.out.println(tasks[size++].toString());   //increment size after printing the task added.
+                System.out.println(String.format("Now you have %d %s in the list.", size, (size > 1) ? "tasks" : "task"));
             }
         }
     }
