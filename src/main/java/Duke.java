@@ -31,12 +31,19 @@ public class Duke {
                         System.out.println(i + ". " + list.get(i - 1).toString());
                     }
                     System.out.println(separateLine);
-                } else if (line.contains("done")) {
+                } else if (line.startsWith("done")) {
                     int idx = Integer.parseInt(line.substring(5));
                     list.get(idx - 1).markAsDone();
                     System.out.println(separateLine + "\n" + "Nice! I've marked this task as done");
                     System.out.println("[" + list.get(idx - 1).getStatusIcon() + "] " + list.get(idx - 1).getDescription());
-                } else {
+                }else if (line.startsWith("delete")) {
+                    int idx = Integer.parseInt(line.substring(7));
+                    System.out.println(separateLine + "\n" + "Noted. I've removed this task: ");
+                    System.out.println(list.get(idx-1).toString());
+                    list.remove(idx-1);
+                    System.out.println("Now you have "+list.size()+" tasks in the list");
+                }
+                else {
                     try { addTask(line);}
                     catch (EmptyDescriptionException e) {
                         System.out.println(e.getMessage());
