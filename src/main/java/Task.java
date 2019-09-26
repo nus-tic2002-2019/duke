@@ -3,8 +3,7 @@ package main.java;
 public abstract class Task {
     protected boolean isDone;
     protected String description;
-    public static final char checkmark = '\u2713';
-    public static final char crossmark = '\u274C';
+    public static final char checkmark = '\u2713', crossmark = '\u274C';
 
     public boolean isDone() {
         return isDone;
