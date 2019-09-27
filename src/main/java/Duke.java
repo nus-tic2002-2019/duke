@@ -20,8 +20,8 @@ public class Duke {
     public static void dukeReply(Task[] taskList, int taskCount){
         System.out.println("    ________________________________________");
         System.out.println("     Got it. I've added this task: ");
-        System.out.println(      taskList[taskCount-1].getDescription());
-        System.out.println(     "Now you have " + taskCount + " tasks in the list.");
+        System.out.println("     "+ taskList[taskCount-1].getDescription());
+        System.out.println("     Now you have " + taskCount + " tasks in the list.");
         System.out.println("    ________________________________________");
     }
 
@@ -48,11 +48,16 @@ public class Duke {
 
     }
 
+    public static void addDeadlines (Deadlines dl){
+        taskList[taskCount] = dl;
+        taskCount++;
+        dukeReply(taskList, taskCount);
+    }
+
     private static void markInList(String textInput) {
-        String[] text = textInput.split(" ", 2);
-        taskList[Integer.parseInt(text[1])-1].markAsDone(true);
+        taskList[Integer.parseInt(textInput)-1].markAsDone(true);
         System.out.println("Nice! I've marked this task as done: ");
-        System.out.println ("[" + taskList[Integer.parseInt(text[1])-1].getStatusIcon() +"]" + taskList[Integer.parseInt(text[1])-1].getDescription());
+        System.out.println (taskList[Integer.parseInt(textInput)-1].getDescription());
     }
 
     public static void main(String[] args) {
@@ -67,7 +72,7 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String textInput = in.nextLine();
         while (!textInput.equalsIgnoreCase("bye")){
-            if (textInput.equalsIgnoreCase("list")) displayList(taskList);
+           /* if (textInput.equalsIgnoreCase("list")) displayList(taskList);
             else if (textInput.contains("done")) {
                 markInList(textInput);
             }
@@ -81,18 +86,25 @@ public class Duke {
                 addTask(new Task(textInput), textInput);
                // dukeEcho(textInput);
 
-            }
-
-           /* switch(textInput.toLowerCase()){
+            }*/
+            String textInputArr[] = textInput.split(" ",2);
+            switch(textInputArr[0]){
                 case "list":
                     displayList(taskList);
                     break;
                 case "done":
-                    markInList(textInput);
+                    markInList(textInputArr[1]);
+                    break;
+                case "todo":
+                    addTodo(new Todo(textInputArr[1]));
+                    break;
+                case "deadline":
+                    String textDeadline[] = textInputArr[1].split("/by", 2);
+                    addDeadlines(new Deadlines(textDeadline[0], textDeadline[1]));
                     break;
                 default:
-                    addTask(new Task(textInput), textInput);
-            }*/
+                    addTask(new Task(textInputArr[1]), textInput);
+            }
             textInput = in.nextLine();
         }
 
