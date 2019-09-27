@@ -12,9 +12,14 @@ public class TaskList {
         }
         tasks=input;
     }
+
+    public TaskList() {
+
+    }
+
     public static void addTask(Task t) {
         tasks.add(t);
-        System.out.println("Got it. I've added this task: \n" + t.print() + "\nNow you have tasks in the list: "+tasks.size());
+        System.out.println("Got it. I've added this task: \n" + t.list() + "\nNow you have tasks in the list: "+tasks.size());
     }
     public static void removeTask(int i){
         Task T = tasks.get(i-1);

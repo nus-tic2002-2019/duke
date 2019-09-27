@@ -1,55 +1,32 @@
+public class Parser{
 
-public class Parser {
-    private Parser(){}
-    public static String parse(String fullCommand){
+    public static Command parse(String fullCommand) throws DukeException {
         String command = fullCommand.split(" ")[0];
-        return command;
-    }
-    public static int getIndex(String fullCommand){
 
-        return Integer.parseInt(fullCommand.split(" ")[1]);
-    }
-
-    public static ToDo createTodo(String fullCommand) throws DukeException {
-        if(fullCommand.substring(5).isEmpty()){
-            throw new DukeException("☹ OOPS!!! Empty description for TODO");
+        switch (command) {
+            case "bye":
+            case "": // exit if user input is empty
+                return new ByeCommand();
+            case "todo":
+                return new TodoCommand(fullCommand);
+            case "deadline":
+                return new DeadlineCommand(fullCommand);
+            case "event":
+                return new EventCommand(fullCommand);
+            case "delete":
+                return new DeleteCommand(fullCommand);
+            case "list":
+                return new ListCommand();
+            case "done":
+                return new DoneCommand(fullCommand);
+            case "save":
+                return new SaveCommand();
+            case "saveTo":
+                return new SaveToCommand(fullCommand);
+            case "loadFrom":
+                return new LoadFromCommand(fullCommand);
+            default:
+                throw new DukeException("☹ OOPS!!! Unknown command! please try again" + System.lineSeparator());
         }
-        return new ToDo(fullCommand.substring(5));
-    }
-
-    public static Deadline createDeadline(String fullCommand) throws DukeException {
-
-        if (fullCommand.isEmpty()){
-            throw new DukeException("☹ OOPS!!! Empty description for DEADLINE");
-        }else if(!fullCommand.contains(" / ")){
-            throw new DukeException("☹ OOPS!!! Missing keyword / for DEADLINE");
-        }
-
-        int dividerPosition = fullCommand.indexOf("/");
-        String itemName = fullCommand.substring(8, dividerPosition);
-        String itemName1 = fullCommand.substring(dividerPosition,fullCommand.length());
-        String itemName2 = itemName1.replace("/", "");
-
-        return new Deadline(itemName,itemName2);
-    }
-
-    public static Event createEvent(String fullCommand) throws DukeException {
-
-        if (fullCommand.isEmpty()){
-            throw new DukeException("☹ OOPS!!! Empty description for EVENT");
-        }else if(!fullCommand.contains(" / ")){
-            throw new DukeException("☹ OOPS!!! Missing keyword / for EVENT");
-        }
-        int dividerPosition = fullCommand.indexOf("/");
-        String itemName = fullCommand.substring(5, dividerPosition);
-        String itemName1 = fullCommand.substring(dividerPosition,fullCommand.length());
-        String itemName2 = itemName1.replace("/", "");
-
-        return new Event(itemName,itemName2);
-    }
-
-    public static String getPath(String fullCommand) throws DukeException {
-        System.out.println("New file path has been set into: "+fullCommand.split("\"")[1]);
-        return fullCommand.split("\"")[1];
     }
 }
