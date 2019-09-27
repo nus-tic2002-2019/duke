@@ -11,7 +11,7 @@ public class Event extends ToDo {
         this.at = at;
     }
     public String list(){
-        return "[E]" +super.print()+ "at:"+ at;
+        return "[E]" +super.print()+ "at: "+at;
     }
     public void setDone(boolean isDone){
         super.setDone(isDone);

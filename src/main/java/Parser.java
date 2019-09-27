@@ -25,6 +25,8 @@ public class Parser{
                 return new SaveToCommand(fullCommand);
             case "loadFrom":
                 return new LoadFromCommand(fullCommand);
+            case "find":
+                return new FindCommand(fullCommand);
             default:
                 throw new DukeException("☹ OOPS!!! Unknown command! please try again" + System.lineSeparator());
         }

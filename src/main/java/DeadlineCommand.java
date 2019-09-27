@@ -32,7 +32,7 @@ public class DeadlineCommand extends Command{
         }
 
         int dividerPosition = fullCommand.indexOf("/");
-        String itemName = fullCommand.substring(8, dividerPosition);
+        String itemName = fullCommand.substring(9, dividerPosition);
         String itemName1 = fullCommand.substring(dividerPosition,fullCommand.length());
         String itemName2 = itemName1.replace("/", "");
 

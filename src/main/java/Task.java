@@ -21,4 +21,5 @@ abstract public class Task {
     public String getText(){
         return text;
     }
+
 }

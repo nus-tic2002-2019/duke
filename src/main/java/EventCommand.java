@@ -30,7 +30,7 @@ public class EventCommand extends Command{
             throw new DukeException("☹ OOPS!!! Missing keyword / for EVENT");
         }
         int dividerPosition = fullCommand.indexOf("/");
-        String itemName = fullCommand.substring(5, dividerPosition);
+        String itemName = fullCommand.substring(6, dividerPosition);
         String itemName1 = fullCommand.substring(dividerPosition,fullCommand.length());
         String itemName2 = itemName1.replace("/", "");
 

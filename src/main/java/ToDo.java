@@ -20,9 +20,9 @@ public class ToDo extends Task {
 
     public String print(){
         if(isDone) {
-            return "[\u2713] "  + super.print();
+            return "[\u2713] "+super.print();
         }else{
-            return "[\u2718] "  + super.print();
+            return "[\u2718] "+super.print();
         }
     }
     public void setDone(boolean isDone){
@@ -34,4 +34,5 @@ public class ToDo extends Task {
     public String getText(){
         return super.getText();
     }
+
 }
