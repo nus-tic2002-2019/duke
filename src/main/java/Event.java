@@ -1,9 +1,13 @@
+import java.util.Date;
+
 public class Event extends ToDo {
 
-    protected String at;
+    protected Date at;
 
-    public Event(String description, String at) {
+    public Event(String description, Date at) {
         super(description);
+        Date now=new Date();
+        assert at.after(now):"Deadline cannot be earlier than now!";
         this.at = at;
     }
     public String list(){

@@ -1,8 +1,12 @@
-public class Deadline extends ToDo {
-    protected String by;
+import java.util.Date;
 
-    public Deadline(String s, String by){
+public class Deadline extends ToDo {
+    protected Date by;
+
+    public Deadline(String s, Date by){
         super(s);
+        Date now=new Date();
+        assert by.after(now):"Deadline cannot be earlier than now!";
         this.by = by;
     }
     public String list(){

@@ -39,13 +39,13 @@ public class Storage {
                 String itemName = detail.substring(0, dividerPosition);
                 String itemName1 = detail.substring(dividerPosition,detail.length());
                 String itemName2 = itemName1.replace("do by:", "");
-                return new Deadline(itemName, itemName2);
+                return new Deadline(itemName, DeadlineCommand.convertDeadline(itemName2));
             } else if (isDone.contains("✓")) {
                 int dividerPosition = detail.indexOf("do by:");
                 String itemName = detail.substring(0, dividerPosition);
                 String itemName1 = detail.substring(dividerPosition,detail.length());
                 String itemName2 = itemName1.replace("do by:", "");
-                return new Deadline(itemName, itemName2);
+                return new Deadline(itemName, DeadlineCommand.convertDeadline(itemName2));
             }
         }
         if(type.contains("E")){
@@ -54,13 +54,13 @@ public class Storage {
                 String itemName = detail.substring(0, dividerPosition);
                 String itemName1 = detail.substring(dividerPosition,detail.length());
                 String itemName2 = itemName1.replace("at:", "");
-                return new Event(itemName, itemName2);
+                return new Event(itemName, EventCommand.convertEvent(itemName2));
             } else if (isDone.contains("✓")) {
                 int dividerPosition = detail.indexOf("at:");
                 String itemName = detail.substring(0, dividerPosition);
                 String itemName1 = detail.substring(dividerPosition,detail.length());
                 String itemName2 = itemName1.replace("at:", "");
-                return new Event(itemName, itemName2);
+                return new Event(itemName, EventCommand.convertEvent(itemName2));
             }
         }
 
