@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="05f8734c-50dc-4382-93fc-ad42e7523522" name="Default Changelist" comment="" />
+    <list default="true" id="de3700ab-ad14-492f-96b1-4b11b695f076" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -11,7 +11,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
-  <component name="ProjectId" id="1RQE3aXGrUSG0dFArCubsIKpqju" />
+  <component name="ProjectId" id="1RQDx1Cw67M6vHeieIPLPNUOM2b" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -25,30 +25,16 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
-    <configuration name="Duke" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Duke" />
-      <module name="main" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.Duke" />
-      </list>
-    </recent_temporary>
-  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="05f8734c-50dc-4382-93fc-ad42e7523522" name="Default Changelist" comment="" />
-      <created>1569590720221</created>
+      <changelist id="de3700ab-ad14-492f-96b1-4b11b695f076" name="Default Changelist" comment="" />
+      <created>1569590668773</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1569590720221</updated>
+      <updated>1569590668773</updated>
     </task>
     <servers />
   </component>
