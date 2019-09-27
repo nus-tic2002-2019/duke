@@ -54,6 +54,12 @@ public class Duke {
         dukeReply(taskList, taskCount);
     }
 
+    public static void addEvent (Event e){
+        taskList[taskCount] = e;
+        taskCount++;
+        dukeReply(taskList, taskCount);
+    }
+
     private static void markInList(String textInput) {
         taskList[Integer.parseInt(textInput)-1].markAsDone(true);
         System.out.println("Nice! I've marked this task as done: ");
@@ -101,6 +107,10 @@ public class Duke {
                 case "deadline":
                     String textDeadline[] = textInputArr[1].split("/by", 2);
                     addDeadlines(new Deadlines(textDeadline[0], textDeadline[1]));
+                    break;
+                case "event":
+                    String textEvent[] = textInputArr[1].split("/at", 2);
+                    addEvent (new Event (textEvent[0], textEvent[1]));
                     break;
                 default:
                     addTask(new Task(textInputArr[1]), textInput);
