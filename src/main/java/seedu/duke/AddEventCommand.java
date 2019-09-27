@@ -1,5 +1,8 @@
 import java.io.IOException;
 import java.util.Arrays;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class AddEventCommand extends Command{
 
@@ -26,12 +29,24 @@ public class AddEventCommand extends Command{
                     throw new DukeException("The date of a event cannot be empty.");
                 }
                 else {
-                    event = new Event (String.join(" ", Arrays.copyOfRange(input.split(" "), 1, index-1)), String.join(" ", Arrays.copyOfRange(input.split(" "), index, input.split(" ").length)));
+                    String description = String.join(" ", Arrays.copyOfRange(input.split(" "), 1, index-1));
+                    String date = String.join(" ", Arrays.copyOfRange(input.split(" "), index, input.split(" ").length));
+                    event = new Event (description, stringToDate(date));
                     taskList.addToTaskList(event);
                     ui.showOutputToUser("Got it. I've added this task:\n\t  " + event.toString() + "\n\t Now you have " + taskList.getSize() + " tasks in the list.");
                     storage.saveToFile();
                 }
             }
+        }
+    }
+
+    private LocalDateTime stringToDate(String date) throws DukeException{
+        try{
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
+            return LocalDateTime.parse(date, formatter);
+        }
+        catch (DateTimeParseException e){
+            throw new DukeException("The format of the date and time must be in this format: dd/mm/yyyy hhss");
         }
     }
 }

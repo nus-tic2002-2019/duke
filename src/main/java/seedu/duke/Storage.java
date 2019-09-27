@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.FileWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Storage{
     private String filePath;
@@ -30,14 +33,14 @@ public class Storage{
                     String[] splitLine = line.split(" \\| ");
                     switch(splitLine[0]){
                         case "E":
-                            Event newEvent = new Event(splitLine[2], splitLine[3]);
+                            Event newEvent = new Event(splitLine[2], stringToDate(splitLine[3]));
                             if(splitLine[1].equals("1")){
                                 newEvent.setDone();
                             }
                             taskList.add(newEvent);
                             break;
                         case "D":
-                            Deadline newDeadline = new Deadline(splitLine[2], splitLine[3]);
+                            Deadline newDeadline = new Deadline(splitLine[2], stringToDate(splitLine[3]));
                             if(splitLine[1].equals("1")){
                                 newDeadline.setDone();
                             }
@@ -91,11 +94,11 @@ public class Storage{
             }
             else if(task instanceof Event){
                 taskClass = "E";
-                date = ((Event) task).at;
+                date = dateToString(((Event) task).at);
             }
             else if(task instanceof Deadline){
                 taskClass = "D";
-                date = ((Deadline) task).by;
+                date = dateToString(((Deadline) task).by);
             }
 
             if (task.isDone){
@@ -120,4 +123,21 @@ public class Storage{
             new IOException("The file " + file.getAbsolutePath() + " has encountered an error writing.");
         }
     }
+
+    private LocalDateTime stringToDate(String date) throws DukeException{
+        try{
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
+            return LocalDateTime.parse(date, formatter);
+        }
+        catch (DateTimeParseException e){
+            throw new DukeException("The date " + date + " loaded from the file is invalid.");
+        }
+    }
+
+    public String dateToString(LocalDateTime dateTime){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
+        return dateTime.format(formatter);
+    }
+
+
 }
