@@ -42,10 +42,9 @@ public class Duke {
     }
 
     public static void addTodo (Todo td){
-        taskList[taskCount] = td;
-        taskCount++;
-        dukeReply(taskList, taskCount);
-
+            taskList[taskCount] = td;
+            taskCount++;
+            dukeReply(taskList, taskCount);
     }
 
     public static void addDeadlines (Deadlines dl){
@@ -61,12 +60,18 @@ public class Duke {
     }
 
     private static void markInList(String textInput) {
-        taskList[Integer.parseInt(textInput)-1].markAsDone(true);
-        System.out.println("Nice! I've marked this task as done: ");
-        System.out.println (taskList[Integer.parseInt(textInput)-1].getDescription());
+        try {
+            taskList[Integer.parseInt(textInput) - 1].markAsDone(true);
+            System.out.println("Nice! I've marked this task as done: ");
+            System.out.println (taskList[Integer.parseInt(textInput)-1].getDescription());
+
+        } catch (NumberFormatException e){
+            System.out.println ("☹ OOPS!!! You must indicate which task is done");
+        }
+
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -76,8 +81,63 @@ public class Duke {
 
         dukeGreet();
         Scanner in = new Scanner(System.in);
-        String textInput = in.nextLine();
-        while (!textInput.equalsIgnoreCase("bye")){
+        String textInput;
+
+        do {
+         textInput = in.nextLine();
+
+            String textInputArr[] = textInput.split(" ",2);
+            try {
+                switch (textInputArr[0]) {
+                    case "list":
+                        displayList(taskList);
+                        break;
+                    case "done":
+                        markInList(textInputArr[1]);
+                        break;
+                    case "todo":
+                        addTodo(new Todo(textInputArr[1]));
+                        break;
+                    case "deadline":
+                        String textDeadline[] = textInputArr[1].split("/by", 2);
+                        addDeadlines(new Deadlines(textDeadline[0], textDeadline[1]));
+                        break;
+                    case "event":
+                        String textEvent[] = textInputArr[1].split("/at", 2);
+                        addEvent(new Event(textEvent[0], textEvent[1]));
+                        break;
+                    default:
+                        throw new DukeException();
+                }
+            } catch (IndexOutOfBoundsException e){
+               // throw new DukeException(textInputArr[0]);
+                switch(textInputArr[0]) {
+                    case "done":
+                        System.out.println("☹ OOPS!!! You must indicate which task is done");
+                        break;
+                    case "todo":
+                        System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                        break;
+                    case "deadline":
+                        System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+                        break;
+                    case "event":
+                        System.out.println("☹ OOPS!!! The description of an event cannot be empty");
+                        break;
+                }
+            }
+            catch (DukeException e){
+                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+            /*finally {
+                textInput = in.nextLine();
+            }*/
+
+        }  while (!textInput.equalsIgnoreCase("bye"));
+
+
+
+        /* while (!textInput.equalsIgnoreCase("bye")){
            /* if (textInput.equalsIgnoreCase("list")) displayList(taskList);
             else if (textInput.contains("done")) {
                 markInList(textInput);
@@ -92,31 +152,55 @@ public class Duke {
                 addTask(new Task(textInput), textInput);
                // dukeEcho(textInput);
 
-            }*/
+            }
             String textInputArr[] = textInput.split(" ",2);
-            switch(textInputArr[0]){
-                case "list":
-                    displayList(taskList);
-                    break;
-                case "done":
-                    markInList(textInputArr[1]);
-                    break;
-                case "todo":
-                    addTodo(new Todo(textInputArr[1]));
-                    break;
-                case "deadline":
-                    String textDeadline[] = textInputArr[1].split("/by", 2);
-                    addDeadlines(new Deadlines(textDeadline[0], textDeadline[1]));
-                    break;
-                case "event":
-                    String textEvent[] = textInputArr[1].split("/at", 2);
-                    addEvent (new Event (textEvent[0], textEvent[1]));
-                    break;
-                default:
-                    addTask(new Task(textInputArr[1]), textInput);
+            try {
+                switch (textInputArr[0]) {
+                    case "list":
+                        displayList(taskList);
+                        break;
+                    case "done":
+                        markInList(textInputArr[1]);
+                        break;
+                    case "todo":
+                        addTodo(new Todo(textInputArr[1]));
+                        break;
+                    case "deadline":
+                        String textDeadline[] = textInputArr[1].split("/by", 2);
+                        addDeadlines(new Deadlines(textDeadline[0], textDeadline[1]));
+                        break;
+                    case "event":
+                        String textEvent[] = textInputArr[1].split("/at", 2);
+                        addEvent(new Event(textEvent[0], textEvent[1]));
+                        break;
+                    default:
+                        throw new DukeException();
+                }
+            } catch (IndexOutOfBoundsException e){
+                throw new DukeException(textInputArr[0]);
+               /* switch(textInputArr[0]) {
+                    case "done":
+                        System.out.println("☹ OOPS!!! You must indicate which task is done");
+                        break;
+                    case "todo":
+                        System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                        break;
+                    case "deadline":
+                        System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+                        break;
+                    case "event":
+                        System.out.println("☹ OOPS!!! The description of an event cannot be empty");
+                        break;
+                }
+            }
+            catch (DukeException e){
+               System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+            /*finally {
+                textInput = in.nextLine();
             }
             textInput = in.nextLine();
-        }
+        }*/
 
         System.out.println("    ________________________________________");
         System.out.println("     Bye. Hope to see you again soon!");
