@@ -18,10 +18,15 @@ public class Duke {
 
         System.out.println("Hello! I'm Duke\nWhat can I do for you?");
 
-        while(printout(echo()));
+        try {
+            while (printout(echo())) ;
+        }
+
+        catch (Exception e) {
+        }
     }
 
-      public static String echo(){
+      public static String echo() throws DukeException {
         String userInput;
         Scanner scan = new Scanner( System.in );
         userInput = scan.nextLine();
@@ -34,18 +39,25 @@ public class Duke {
          else if((!userInput.equals("list")) && (!userInput.equals("bye"))) {
              String typeS = getType(userInput);
 
-             if(typeS == "E" || typeS == "D") {
-                 String[] splitStr = userInput.split("/");
-                 userInput = splitStr[0] + "(" + splitStr[1] + ")";
+             userInput = userInput.replace("todo","");
+             userInput = userInput.replace("deadline","");
+             userInput = userInput.replace("event","");
+
+             if(userInput.isEmpty()) {
+                 System.out.println("☹ OOPS!!! The description cannot be empty.");
+                 throw new DukeException();
              }
 
-              userInput = userInput.replace("todo","");
-              userInput = userInput.replace("deadline","");
-              userInput = userInput.replace("event","");
+             else {
+                 if (typeS == "E" || typeS == "D") {
+                     String[] splitStr = userInput.split("/");
+                     userInput = splitStr[0] + "(" + splitStr[1] + ")";
+                 }
 
-             list.add(userInput);
-             mark.add(false);
-             type.add(typeS);
+                 list.add(userInput);
+                 mark.add(false);
+                 type.add(typeS);
+             }
          }
         return userInput;
     }
@@ -87,13 +99,17 @@ public class Duke {
              return "X";
     }
 
-    public static String getType(String type) {
+    public static String getType(String type) throws DukeException {
 
         if (type.contains("todo"))
             return "T";
         else if (type.contains("deadline"))
             return "D";
-        else
+        else if (type.contains("event"))
             return "E";
+        else {
+            System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DukeException();
+        }
     }
 }
