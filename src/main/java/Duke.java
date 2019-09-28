@@ -13,7 +13,7 @@ public class Duke {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
         split_line();
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int size = 0;
 
         chatting(tasks, size);
@@ -23,7 +23,7 @@ public class Duke {
         System.out.println("--------------------------------------------------------");
     }
 
-    public static void chatting(String[] tasks, int size) {
+    public static void chatting(Task[] tasks, int size) {
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
@@ -35,16 +35,27 @@ public class Duke {
             return;
         }
         else if(line.toLowerCase().equals ("list")) {
+            System.out.println("Here are the tasks in your list:");
+
             for (int i = 0; i < size;  i++) {
-                System.out.println(i+1 + ". " + tasks[i]);
+                System.out.println(i+1 + "." + tasks[i].toString());
             }
+            split_line();
+            chatting(tasks, size);
+        }
+        else if(line.split(" ")[0].toLowerCase().equals("done")) {
+            int index = Integer.parseInt(line.substring(5)) - 1;
+            tasks[index].markAsDone();
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println("  " + tasks[index].toString());
             split_line();
             chatting(tasks, size);
         }
         else {
             System.out.println("added: " + line);
+            Task t = new Task(line);
             split_line();
-            tasks[size] = line;
+            tasks[size] = t;
             size++;
             chatting(tasks, size);
         }
