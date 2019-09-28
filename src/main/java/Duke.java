@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Duke {
 
     public static ArrayList<String> list = new ArrayList<>();
+    public static ArrayList<String> type = new ArrayList<>();
     public static ArrayList<Boolean> mark = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -30,9 +31,21 @@ public class Duke {
              // System.out.println("ddd " + splitStr[1]);
              mark.set(Integer.valueOf(splitStr[1])-1,  true);
         }
-         else if(!userInput.equals("list")) {
+         else if((!userInput.equals("list")) && (!userInput.equals("bye"))) {
+             String typeS = getType(userInput);
+
+             if(typeS == "E" || typeS == "D") {
+                 String[] splitStr = userInput.split("/");
+                 userInput = splitStr[0] + "(" + splitStr[1] + ")";
+             }
+
+              userInput = userInput.replace("todo","");
+              userInput = userInput.replace("deadline","");
+              userInput = userInput.replace("event","");
+
              list.add(userInput);
              mark.add(false);
+             type.add(typeS);
          }
         return userInput;
     }
@@ -47,7 +60,7 @@ public class Duke {
 
                 for (int i = 0; i < list.size(); i++)
                 {
-                    System.out.println(i+1 + ". [" + getMark(mark.get(i))+ "] " + list.get(i));
+                    System.out.println(i+1 + ". [" + type.get(type.size()-1) + "][" + getMark(mark.get(i))+ "] " + list.get(i));
                 }
         }
         else if(userInput.contains("done")) {
@@ -59,7 +72,9 @@ public class Duke {
 
         }
         else {
-            System.out.println("Added: " + userInput);
+            System.out.println("Got it. I've added this task: " + userInput);
+            System.out.println("[" + type.get(type.size()-1) + "][" + getMark(mark.get(list.size()-1))+ "] " + list.get(list.size()-1));
+            System.out.println("Now you have " + type.size() + " tasks in the list.");
         }
         return true;
     }
@@ -70,5 +85,15 @@ public class Duke {
             return "✓";
         else
              return "X";
+    }
+
+    public static String getType(String type) {
+
+        if (type.contains("todo"))
+            return "T";
+        else if (type.contains("deadline"))
+            return "D";
+        else
+            return "E";
     }
 }
