@@ -8,9 +8,9 @@ del ACTUAL.TXT
 
 REM compile the code into the bin folder
 javac  -cp ..\src -Xlint:none -d ..\bin ..\src\main\java\Duke.java
-IF ERRORLEVEL 1 (
+IF ERRORLEVEL 3 (
     echo ********** BUILD FAILURE **********
-    exit /b 1
+    exit /b 3
 )
 REM no error here, errorlevel == 0
 
