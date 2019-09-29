@@ -25,15 +25,30 @@ public class Duke {
         } */
 
 //MAKE LIST
-        LinkedList<Task> list = new LinkedList<Task>();
+        ArrayList<Task> list = new ArrayList<Task>();
 
+//USER INPUT
         while(echo != null) {
             echo = in.nextLine();
+            echo = echo.trim();
 
             if (echo.equals("list")) {
                 printList(list);
                 continue;
             }
+
+            if (echo.contains("done")) {
+                echo = echo.substring(echo.indexOf(" ") + 1);
+                int listIndex = Integer.parseInt(echo) - 1;
+                list.get(listIndex).setcompleted();
+
+                System.out.println("\tNice! I've marked this task as done: ");
+                System.out.println("\t  " + list.get(listIndex));
+
+                continue;
+            }
+
+            /////////
             if (echo.equals("bye"))
                 break;
             list.add(new Task(echo));
@@ -43,9 +58,12 @@ public class Duke {
 
     }
 
-    public static void printList(LinkedList<Task> list) {
+    public static void printList(ArrayList<Task> list) {
+        System.out.println("\tHere are the tasks in your list: ");
+        int taskNumber = 1;
         for (Task task : list) {
-            System.out.println("\t" + task);
+            System.out.printf("\t%d.%s" + System.lineSeparator(),taskNumber, task);
+            ++taskNumber;
         }
     }
 

@@ -31,12 +31,13 @@ public class Task {
         completed = true;
         return;
     }
+
     @Override
     public String toString() {
         String status = "[✗]";
         if (getcompleted()) {
             status = "[✓]";
         }
-        return taskNumber + "." + status + " " + content;
+        return status + " " + content;
     }
 }
