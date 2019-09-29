@@ -16,4 +16,9 @@ public class Deadline extends Task {
         eDescription = description.substring(0, description.indexOf('/') - 1);
         eBy = description.substring(description.indexOf('/') + 2 + numBy);
     }
+
+    @Override
+    public String toString() {
+        return "[" + typeIdt + "][" + getStatusIcon() + "] " + eDescription + " (" + keyBy + ": " + eBy + ")";
+    }
 }
