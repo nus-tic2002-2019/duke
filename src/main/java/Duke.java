@@ -33,18 +33,12 @@ public class Duke {
             echo = echo.trim();
 
             if (echo.equals("list")) {
-                printList(list);
+                cmdPrintList(list);
                 continue;
             }
 
             if (echo.contains("done")) {
-                echo = echo.substring(echo.indexOf(" ") + 1);
-                int listIndex = Integer.parseInt(echo) - 1;
-                list.get(listIndex).setcompleted();
-
-                System.out.println("\tNice! I've marked this task as done: ");
-                System.out.println("\t  " + list.get(listIndex));
-
+                cmdMarkDone(echo, list);
                 continue;
             }
 
@@ -58,7 +52,23 @@ public class Duke {
 
     }
 
-    public static void printList(ArrayList<Task> list) {
+    public static void cmdMarkDone(String echo, ArrayList<Task> list) {
+        int listIndex = getIntStringSpace(echo) - 1;
+        list.get(listIndex).setcompleted();
+        printMarkDone(list, listIndex);
+    }
+
+    public static void printMarkDone(ArrayList<Task> list, int listIndex) {
+        System.out.println("\tNice! I've marked this task as done: ");
+        System.out.println("\t  " + list.get(listIndex));
+    }
+
+    public static int getIntStringSpace(String echo) {
+        echo = echo.substring(echo.indexOf(" ") + 1); //split number str
+        return Integer.parseInt(echo); // get number
+    }
+
+    public static void cmdPrintList(ArrayList<Task> list) {
         System.out.println("\tHere are the tasks in your list: ");
         int taskNumber = 1;
         for (Task task : list) {
