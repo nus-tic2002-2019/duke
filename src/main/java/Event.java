@@ -11,7 +11,7 @@ public class Event extends Task{
         this.start_endTime = start_endTime;
     }
 
-    public Event(String description, String start_endTime) {
+    public Event(String description, String start_endTime) throws DukeMissingDescException {
         super(description);
         setStart_endTime(start_endTime);
     }

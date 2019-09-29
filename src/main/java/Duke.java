@@ -1,6 +1,7 @@
 package main.java;
 
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Duke {
     private static Scanner input = new Scanner(System.in);
@@ -12,35 +13,35 @@ public class Duke {
             System.out.format("%d: %s\n", i + 1, tasks[i]);
         }
     }
+    public static Task parseEventOrDeadline(String[] inputStrs) throws DukeMissingDescException{
+        String tempStr1 = "", tempStr2 = "";
+        int delimiterIndex = Arrays.asList(inputStrs).indexOf((inputStrs[0].equals("event")) ? "/at" : "/by");
+        for (int i = 1; i < delimiterIndex; i++) {
+            tempStr1 = tempStr1.concat(String.format("%s ", inputStrs[i]));
+        }
+        for (int i = delimiterIndex + 1; i < inputStrs.length; i++) {
+            tempStr2 = tempStr2.concat(String.format("%s ", inputStrs[i]));
+        }
+        tempStr1 = tempStr1.strip();
+        tempStr2 = tempStr2.strip();
+        return (inputStrs[0].equals("event")) ? new Event(tempStr1, tempStr2) : new Deadline(tempStr1, tempStr2);
+    }
+    public static void processTask(String[] inputStrs) throws DukeUnknownException, DukeMissingDescException {
+        String tempStr1 = "", tempStr2 = "";
+        int delimiterIndex = inputStrs.length;
 
-    public static void processTask(String inputStr) throws DukeUnknownException, DukeMissingDescException {
-        String tempStr1, tempStr2;
-        int delimiterIndex;
-        tempStr1 = inputStr.split(" ", 2)[0];
-        switch (tempStr1) {
+        switch (inputStrs[0]) {
             default:
                 throw new DukeUnknownException();
             case "todo":
-                tempStr1 = inputStr.replaceFirst("(todo)", "").strip();
-                if (tempStr1.isEmpty() || tempStr1.isBlank())
-                    throw new DukeMissingDescException("todo");
-                tasks[size] = new ToDo(tempStr1);
+                for (int i = 1; i < inputStrs.length; i++) {
+                    tempStr1 = tempStr1.concat(String.format("%s ", inputStrs[i]));
+                }
+                tasks[size] = new ToDo(tempStr1.stripTrailing());   //remove extra space added on last elem.
                 break;
             case "deadline":
-                delimiterIndex = inputStr.indexOf("/by");
-                tempStr1 = inputStr.substring(8, delimiterIndex).strip();   //start after deadline, end at start of /by
-                if (tempStr1.isEmpty() || tempStr1.isBlank())
-                    throw new DukeMissingDescException("deadline");
-                tempStr2 = inputStr.substring(delimiterIndex + 3).strip();  //start of /by + length of "/by"
-                tasks[size] = new Deadline(tempStr1, tempStr2);
-                break;
             case "event":
-                delimiterIndex = inputStr.indexOf("/at");
-                tempStr1 = inputStr.substring(5, delimiterIndex).strip();   //start after event, end at start of /by
-                if (tempStr1.isEmpty() || tempStr1.isBlank())
-                    throw new DukeMissingDescException("event");
-                tempStr2 = inputStr.substring(delimiterIndex + 3).strip();  //start of /at + length of "/at"
-                tasks[size] = new Event(tempStr1, tempStr2);
+                tasks[size] = parseEventOrDeadline(inputStrs);
                 break;
         }
         System.out.println("Got it. I've added this task:");
@@ -60,7 +61,6 @@ public class Duke {
             }
             String[] strings = inputStr.split(" ");
             String firstStr = strings[0].strip().toLowerCase();
-
             switch (firstStr) {
                 case "bye":
                     System.out.println("Bye. Hope to see you again soon!");
@@ -88,7 +88,9 @@ public class Duke {
                     break;
                 default:    //task processing.
                     try {
-                        processTask(inputStr);
+                        if(firstStr.isBlank() || firstStr.isEmpty())
+                            throw new DukeUnknownException();
+                        processTask(strings);
                     } catch (DukeMissingDescException e) {
                         System.out.println(String.format("OOPS!!! The description of %s cannot be empty.", e.getMessage()));
                     } catch (DukeUnknownException e) {

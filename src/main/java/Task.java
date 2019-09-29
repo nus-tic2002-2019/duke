@@ -21,8 +21,10 @@ public abstract class Task {
         this.description = description;
     }
 
-    public Task(String description) {
+    public Task(String description) throws DukeMissingDescException {
         setDescription(description);
+        if(description.isEmpty() || description.isBlank())
+            throw new DukeMissingDescException(getClass().getSimpleName().toLowerCase());
         setDone(false);
     }
 

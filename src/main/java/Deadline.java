@@ -11,7 +11,7 @@ public class Deadline extends Task{
         this.deadline = deadline;
     }
 
-    public Deadline(String description, String deadline) {
+    public Deadline(String description, String deadline) throws DukeMissingDescException {
         super(description);
         setDeadline(deadline);
     }
