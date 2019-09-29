@@ -24,24 +24,22 @@ public class Duke {
             System.out.println("\t" + echo + "\n");
         } */
 
-        LinkedList<String> list = new LinkedList<String>();
-        int i;
+        LinkedList<Task> list = new LinkedList<Task>();
+
         while(echo != null) {
             echo = in.nextLine();
 
             if (echo.equals("list")) {
-                i = 1;
-                for (String s : list) {
-                    System.out.println("\t" + i + ". " + s);
-                    ++i;
+                for (Task task : list) {
+                    System.out.println("\t" + task);
                 }
                 continue;
             }
             if (echo.equals("bye"))
                 break;
-            list.add(echo);
+            list.add(new Task(echo));
         }
-        
+
         System.out.println("\tBye. Hope to see you again soon!");
 
     }
