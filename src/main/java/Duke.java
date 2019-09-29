@@ -4,6 +4,10 @@ import java.util.List;
 
 public class Duke {
 
+    private static Task [] taskList = new Task [100];
+    private static int taskCount = 0;
+
+
     public static void dukeGreet(){
         System.out.println("    ________________________________________");
         System.out.println ("    Hello! I'm Duke");
@@ -11,13 +15,14 @@ public class Duke {
         System.out.println("    ________________________________________");
     }
 
-    public static void dukeEcho(String reply){
+    private static void dukeBye (){
         System.out.println("    ________________________________________");
-        System.out.println("     Got it. I've added this task: " + reply);
+        System.out.println("     Bye. Hope to see you again soon!");
         System.out.println("    ________________________________________");
     }
 
-    public static void dukeReply(Task[] taskList, int taskCount){
+
+      public static void dukeReply(Task[] taskList, int taskCount){
         System.out.println("    ________________________________________");
         System.out.println("     Got it. I've added this task: ");
         System.out.println("     "+ taskList[taskCount-1].getDescription());
@@ -31,20 +36,11 @@ public class Duke {
             System.out.println (index+1 + "." + tasks[index].getDescription());
         }
     }
-    private static Task [] taskList = new Task [100];
-    private static int taskCount = 0;
 
-    public static void addTask (Task t, String textInput){
-        taskList[taskCount] = t;
+     public static void addTodo (Todo td){
+        taskList[taskCount] = td;
         taskCount++;
-        dukeEcho(textInput);
-
-    }
-
-    public static void addTodo (Todo td){
-            taskList[taskCount] = td;
-            taskCount++;
-            dukeReply(taskList, taskCount);
+        dukeReply(taskList, taskCount);
     }
 
     public static void addDeadlines (Deadlines dl){
@@ -71,11 +67,6 @@ public class Duke {
 
     }
 
-    private static void dukeBye (){
-        System.out.println("    ________________________________________");
-        System.out.println("     Bye. Hope to see you again soon!");
-        System.out.println("    ________________________________________");
-    }
 
     private static void dukeInput (String textInput) throws DukeException {
         String textInputArr[] = textInput.split(" ",2);
@@ -92,10 +83,12 @@ public class Duke {
                     break;
                 case "deadline":
                     String textDeadline[] = textInputArr[1].split("/by", 2);
+                    if (textDeadline.length < 2) throw new DukeException("/by");
                     addDeadlines(new Deadlines(textDeadline[0], textDeadline[1]));
                     break;
                 case "event":
                     String textEvent[] = textInputArr[1].split("/at", 2);
+                    if (textEvent.length < 2) throw new DukeException("/at");
                     addEvent(new Event(textEvent[0], textEvent[1]));
                     break;
                 case "bye":
@@ -143,13 +136,8 @@ public class Duke {
          textInput = in.nextLine();
           try {
               dukeInput(textInput);
-          } catch (DukeException e){
-          }
-
+          } catch (DukeException e){}
         }  while (!textInput.equalsIgnoreCase("bye"));
-
-
-
     }
 
 
