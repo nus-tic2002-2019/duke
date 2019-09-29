@@ -2,18 +2,20 @@ package main.java;
 
 import java.util.Scanner;
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Duke {
     private static Scanner input = new Scanner(System.in);
-    private static Task[] tasks = new Task[100];
-    private static int size = 0;
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
-    public static void printTasks(Task[] tasks) {
-        for (int i = 0; tasks[i] != null; i++) {
-            System.out.format("%d: %s\n", i + 1, tasks[i]);
+    private static void printTasks() {
+        int i = 0;
+        for (Task t:tasks) {
+            System.out.format("%d: %s\n", ++i, t);
         }
     }
-    public static Task parseEventOrDeadline(String[] inputStrs) throws DukeMissingDescException{
+
+    private static Task parseEventOrDeadline(String[] inputStrs) throws DukeMissingDescException{
         String tempStr1 = "", tempStr2 = "";
         int delimiterIndex = Arrays.asList(inputStrs).indexOf((inputStrs[0].equals("event")) ? "/at" : "/by");
         for (int i = 1; i < delimiterIndex; i++) {
@@ -27,26 +29,25 @@ public class Duke {
         return (inputStrs[0].equals("event")) ? new Event(tempStr1, tempStr2) : new Deadline(tempStr1, tempStr2);
     }
     public static void processTask(String[] inputStrs) throws DukeUnknownException, DukeMissingDescException {
-        String tempStr1 = "", tempStr2 = "";
-        int delimiterIndex = inputStrs.length;
+        String tempStr = "";
 
         switch (inputStrs[0]) {
             default:
                 throw new DukeUnknownException();
             case "todo":
                 for (int i = 1; i < inputStrs.length; i++) {
-                    tempStr1 = tempStr1.concat(String.format("%s ", inputStrs[i]));
+                    tempStr = tempStr.concat(String.format("%s ", inputStrs[i]));
                 }
-                tasks[size] = new ToDo(tempStr1.stripTrailing());   //remove extra space added on last elem.
+                tasks.add(new ToDo(tempStr.stripTrailing())); //remove extra space added on last elem.
                 break;
             case "deadline":
             case "event":
-                tasks[size] = parseEventOrDeadline(inputStrs);
+                tasks.add(parseEventOrDeadline(inputStrs));
                 break;
         }
         System.out.println("Got it. I've added this task:");
-        System.out.println(tasks[size++].toString());   //increment size after printing the task added.
-        System.out.println(String.format("Now you have %d %s in the list.", size, (size > 1) ? "tasks" : "task"));
+        System.out.println(tasks.get(tasks.size() - 1).toString());   //increment size after printing the task added.
+        System.out.println(String.format("Now you have %d %s in the list.", tasks.size(), (tasks.size() > 1) ? "tasks" : "task"));
     }
 
     public static void main(String[] args) {
@@ -59,6 +60,7 @@ public class Duke {
                 System.out.println("Error parsing input. Try again.");
                 continue;
             }
+            Task currTask;
             String[] strings = inputStr.split(" ");
             String firstStr = strings[0].strip().toLowerCase();
             switch (firstStr) {
@@ -66,24 +68,34 @@ public class Duke {
                     System.out.println("Bye. Hope to see you again soon!");
                     return;
                 case "list":
-                    printTasks(tasks);
+                    printTasks();
                     break;
+                case "delete":
                 case "done":
                     int pos;
                     try {
-                        pos = Integer.parseInt(strings[1]);
+                        pos = Integer.parseInt(strings[1]) - 1;
                     } catch (NumberFormatException e) {
                         System.out.println("inputted index is not valid. Try again.");
                         continue;
                     }
-                    System.out.println(String.format("Completed: %d", pos--));//shift pos back by one here after printing as arrays are zero indexed.
-                    if (pos >= size) {
+                    currTask = tasks.get(pos);
+                    if (pos >= tasks.size()) {
                         System.out.println("No such item in task list.");
-                    } else if (tasks[pos].isDone()) {
-                        System.out.println("Task is already done.");
                     } else {
-                        tasks[pos].setDone(true);
-                        System.out.println(String.format("Nice! I've marked this task as done:\n%s", tasks[pos]));
+                        if(firstStr.equals("done")){
+                            if (currTask.isDone()) {
+                                System.out.println("Task is already done.");
+                            }
+                            else{
+                                currTask.setDone(true);
+                                System.out.println(String.format("Nice! I've marked this task as done:\n%s", currTask));
+                            }
+                        }
+                        if(firstStr.equals("delete")){
+                            tasks.remove(pos);
+                            System.out.println(String.format("Noted. I've removed this task:\n %s\nNow you have %d tasks in the list.", currTask, tasks.size()));
+                        }
                     }
                     break;
                 default:    //task processing.
