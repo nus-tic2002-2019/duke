@@ -1,18 +1,20 @@
+package seedu.duke.data.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task {
+public class Event extends Task {
 
-    protected LocalDateTime by;
+    public LocalDateTime at;
 
-    public Deadline(String description, LocalDateTime by) {
+    public Event(String description, LocalDateTime at) {
         super(description);
-        this.by = by;
+        this.at = at;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + dateToString(by) + ")";
+        return "[E]" + super.toString() + " (at: " + dateToString(at) + ")";
     }
 
     public String dateToString(LocalDateTime dateTime){

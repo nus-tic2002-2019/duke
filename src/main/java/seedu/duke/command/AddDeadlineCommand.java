@@ -1,9 +1,18 @@
+package seedu.duke.command;
+
 import java.io.IOException;
-import java.util.Arrays;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+
+import seedu.duke.data.exception.DukeEmptyException;
+import seedu.duke.data.exception.DukeException;
+import seedu.duke.data.task.Deadline;
+import seedu.duke.data.task.TaskList;
+import seedu.duke.storage.Storage;
+import seedu.duke.ui.UI;
+
 
 public class AddDeadlineCommand extends Command{
 
@@ -47,7 +56,7 @@ public class AddDeadlineCommand extends Command{
             return LocalDateTime.parse(date, formatter);
         }
         catch (DateTimeParseException e){
-            throw new DukeException("The format of the date and time must be in this format: dd/mm/yyyy hhss");
+            throw new DukeException("The format of the date and time must be in this format: dd/mm/yyyy hhss (13/08/2019 0000)");
         }
     }
 }

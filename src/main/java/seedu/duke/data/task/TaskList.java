@@ -1,3 +1,5 @@
+package seedu.duke.data.task;
+
 import java.util.ArrayList;
 
 public class TaskList{

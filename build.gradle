@@ -12,11 +12,19 @@ repositories {
 
 application {
     // Change this to your main class.
-    mainClassName = "Duke"
+    mainClassName = "seedu.duke.Duke"
 }
 
 dependencies {
-	testImplementation('org.junit.jupiter:junit-jupiter:5.5.2')
+	testImplementation("org.junit.jupiter:junit-jupiter-api:5.5.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.5.2")
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+		events "passed", "skipped", "failed"
+	}
 }
 
 run {

@@ -1,8 +1,17 @@
+package seedu.duke.command;
+
 import java.io.IOException;
-import java.util.Arrays;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+
+import seedu.duke.data.exception.DukeEmptyException;
+import seedu.duke.data.exception.DukeException;
+import seedu.duke.data.task.Event;
+import seedu.duke.data.task.TaskList;
+import seedu.duke.storage.Storage;
+import seedu.duke.ui.UI;
 
 public class AddEventCommand extends Command{
 

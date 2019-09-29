@@ -1,3 +1,5 @@
+package seedu.duke.data.exception;
+
 public class DukeEmptyException extends Exception{
 
     public DukeEmptyException(String taskName){

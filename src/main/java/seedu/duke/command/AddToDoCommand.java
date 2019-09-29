@@ -1,4 +1,12 @@
+package seedu.duke.command;
+
 import java.io.IOException;
+
+import seedu.duke.data.exception.DukeEmptyException;
+import seedu.duke.data.task.TaskList;
+import seedu.duke.data.task.ToDo;
+import seedu.duke.storage.Storage;
+import seedu.duke.ui.UI;
 
 public class AddToDoCommand extends Command{
 

@@ -1,4 +1,11 @@
-import java.io.IOException;
+package seedu.duke;
+
+import seedu.duke.command.Command;
+import seedu.duke.data.exception.DukeException;
+import seedu.duke.data.task.TaskList;
+import seedu.duke.storage.Storage;
+import seedu.duke.ui.UI;
+import seedu.duke.parser.Parser;
 
 public class Duke {
 

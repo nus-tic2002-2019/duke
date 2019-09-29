@@ -1,5 +1,14 @@
-import java.util.List;
+package seedu.duke.command;
+
 import java.util.ArrayList;
+import java.util.List;
+
+import seedu.duke.data.exception.DukeException;
+import seedu.duke.data.task.TaskList;
+import seedu.duke.data.task.Task;
+import seedu.duke.storage.Storage;
+import seedu.duke.ui.UI;
+
 
 public class FindCommand extends Command{
 
