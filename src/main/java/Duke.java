@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class Duke {
 
@@ -19,11 +19,13 @@ public class Duke {
         String echo = " ";
         while(echo != null) {
             echo = in.nextLine();
-            if (echo.equals("bye")) // DO NOT use == 
+            if (echo.equals("bye")) // DO NOT use ==
                 break;
-            System.out.println(echo);
+            System.out.println("\t" + echo + "\n");
         }
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("\tBye. Hope to see you again soon!");
+
+
 
     }
 
