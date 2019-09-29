@@ -27,4 +27,9 @@ public class Task {
     {
         this.taskDone = taskDone;
     }
+
+    public String toString()
+    {
+        return taskName;
+    }
 }
