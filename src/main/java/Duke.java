@@ -201,8 +201,51 @@ public class Duke {
         System.out.println("     Now you have " + List.size() + " task(s) in the list.");
     }
 
+    //DukeException class which extends Exception;
+    public static class DukeException extends Exception {}
+
+    public static class DoneNumberException extends Exception{}
+
+    public static void Input_Length_Checking(String First_Word, String[] Input_Words) throws DukeException {
+        if(!First_Word.equals("list") && !First_Word.equals("bye") && Input_Words.length == 1){
+            throw new DukeException();
+        }
+    }
+
+    public static void To_Add_New_Input_Into_List(String First_Word, String Input, String[] Input_Words, Vector<Task> List){
+
+        Task New_task = new Task();
+
+        //if the input is Todo;
+        if(First_Word.equals("todo")){
+            New_task = new Todo(Description(Input));
+            List.add(New_task);
+        }
+        //if the input is Deadline;
+        else if(First_Word.equals("deadline")){
+            New_task = new Deadline(Description(Input), Deadline_time(Input));
+            List.add(New_task);
+        }
+        //if the input is Event;
+        else if(First_Word.equals("event")){
+            New_task = new Event(Description(Input), Event_time(Input));
+            List.add(New_task);
+        }
+
+        Out_After_Added(New_task, First_Word, List);
+    }
+
+    public static void Done_Number(Vector<Task> List, String[] Input) throws DoneNumberException {
+        int DoneNumber = Integer.parseInt(Input[1]);
+        int L_size = List.size();
+
+        if(DoneNumber > L_size || DoneNumber < 1){
+            throw new DoneNumberException();
+        }
+    }
+
     //Chatting body;
-    public static void chatting_Vector_Task(Vector<Task> List){
+    public static void chatting_Vector_Task(Vector<Task> List) throws DukeException {
         String Ending = "bye";
         String Input;
 
@@ -216,68 +259,75 @@ public class Duke {
         String[] Input_Words = Input.split(" ");    //To split input by " " into String Array;
         String First_Word = Input_Words[0];     //To get the first word of input;
 
+        try{
+            Input_Length_Checking(First_Word, Input_Words);
 
-
-        //If the input is "bye";
-        if(In.equals(Ending)){
-            System.out.println("     Bye. Hope to see you again soon!");
-            Separated_Line();
-            return;
-        }
-        //If the input is "list";
-        else if (In.equals("list")){
-            Print_List(List);
-            Separated_Line();
-            chatting_Vector_Task(List);
-        }
-        //The rest;
-        else{
-            //If the input first four char is "done"
-            if(First_Word.equals("done")){
-                if(isNumeric(Input_Words[1]) && Input_Words.length == 2) {
-                    int i = Integer.parseInt(Input_Words[1]) - 1;
-                    List.get(i).isDone = true;
-                    System.out.println("     Nice! I've marked this task as done:");
-                    System.out.println("       [" + List.get(i).getStatusIcon() + "] " + List.get(i).getDescription());
-                    Separated_Line();
-                    chatting_Vector_Task(List);
-                }
-                else{
-                    System.out.println("Invalid Task, please key in again!");
-                    chatting_Vector_Task(List);
-                }
+            //If the input is "bye";
+            if(In.equals(Ending)){
+                System.out.println("     Bye. Hope to see you again soon!");
+                Separated_Line();
+                return;
             }
-            else
-            {
-                Task New_task = new Task();
-                //if the input is Todo;
-                if(First_Word.equals("todo")){
-                    New_task = new Todo(Description(Input));
-                    List.add(New_task);
-                }
-                //if the input is Deadline;
-                else if(First_Word.equals("deadline")){
-                    New_task = new Deadline(Description(Input), Deadline_time(Input));
-                    List.add(New_task);
-                }
-                //if the input is Event;
-                else if(First_Word.equals("event")){
-                    New_task = new Event(Description(Input), Event_time(Input));
-                    List.add(New_task);
-                }
-                else {
-                    System.out.println("Invalid Input. Please input again!");
-                    chatting_Vector_Task(List);
-                }
-
-                Out_After_Added(New_task, First_Word, List);
+            //If the input is "list";
+            else if (In.equals("list")){
+                Print_List(List);
                 Separated_Line();
                 chatting_Vector_Task(List);
             }
+            //The rest;
+            else{
+                //If the input first four char is "done"
+                if(First_Word.equals("done")){
+                    if(isNumeric(Input_Words[1]) && Input_Words.length == 2) {
+
+                        Done_Number(List, Input_Words);
+
+                        int i = Integer.parseInt(Input_Words[1]) - 1;
+                        List.get(i).isDone = true;
+                        System.out.println("     Nice! I've marked this task as done:");
+                        System.out.println("       [" + List.get(i).getStatusIcon() + "] " + List.get(i).getDescription());
+                        Separated_Line();
+                        chatting_Vector_Task(List);
+                    }
+                    else{
+                        System.out.println("Invalid Task, please key in again!");
+                        chatting_Vector_Task(List);
+                    }
+                }
+                else
+                {
+                    To_Add_New_Input_Into_List(First_Word, Input, Input_Words, List);
+
+                    Separated_Line();
+                    chatting_Vector_Task(List);
+                }
+            }
+        }
+        catch (DukeException e) {
+            if (First_Word.equals("todo")) {
+                System.out.println("     \u2639" + " OOPS!!! The description of a todo cannot be empty.");
+            } else if (First_Word.equals("event")) {
+                System.out.println("     \u2639" + " OOPS!!! The description of a event cannot be empty.");
+            } else if (First_Word.equals("deadline")) {
+                System.out.println("     \u2639" + " OOPS!!! The description of a deadline cannot be empty.");
+            } else {
+                System.out.println("     \u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+
+            Separated_Line();
+
+            chatting_Vector_Task(List);
+        }
+        catch (DoneNumberException e){
+            System.out.println("      The number of task you want to done is invalid! Please key-in again!");
+
+            Separated_Line();
+
+            chatting_Vector_Task(List);
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -294,6 +344,8 @@ public class Duke {
         chatting_Vector_Task(List);
     }
 }
+
+
 
     //Chatting_Level 1&2;
     /*public static void chatting(){
