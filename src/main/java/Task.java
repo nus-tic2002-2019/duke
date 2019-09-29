@@ -12,7 +12,7 @@ public class Task {
     //Accessor
     public String printTask()
     {
-        return this.task;
+        return "[" + this.getIcon() + "] " + this.task;
     }
 
     public Boolean isDone()

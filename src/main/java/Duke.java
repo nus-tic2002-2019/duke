@@ -4,16 +4,33 @@ import java.util.regex.*;                               //Regular Expressions li
 
 public class Duke {
 
-    public static void updateStore(Task[] storage, String reply, int i)
+    public static void updateStore(Task[] storage, String reply, int i) throws NoClassException
     {
-        storage[i] = new Task(reply);
+        String[] input = reply.split("/");
+
+            if (reply.startsWith("todo"))
+            {
+                storage[i] = new ToDo(reply);
+            }
+            else if (reply.startsWith("deadline"))
+            {
+                storage[i] = new Deadline(input[0], input[1]);
+            }
+            else if (reply.startsWith("event"))
+            {
+                storage[i] = new Event(input[0], input[1]);
+            }
+            else
+            {
+                throw new NoClassException();
+            }
     }
 
     public static void printStore(Task[] storage, int count)
     {
         for (int i = 0; i < count; i++)
         {
-            System.out.println((i+1) + ".[" + storage[i].getIcon() + "] " + storage[i].printTask());
+            System.out.println((i+1) + ". " + storage[i].printTask());
         }
     }
 
@@ -63,10 +80,20 @@ public class Duke {
             }
             else
             {
-                updateStore(storage, reply, storeCount);
-                storeCount++;
-                System.out.println("Added: " + reply);  //Prints out echo + reply
-
+                try
+                {
+                    updateStore(storage, reply, storeCount);
+                    storeCount++;
+                    System.out.println("Got it. I've added this task:\n" + reply + "\nNow you have " + storeCount + " in the list.");  //Prints out echo + reply
+                }
+                catch (NoClassException e)
+                {
+                    System.out.println("Please state the type of Task..");
+                }
+                catch (ArrayIndexOutOfBoundsException e)
+                {
+                    System.out.println("Please input the correct format of task");
+                }
                 reply = myObj.nextLine();               //Reads the next line for next input
             }
         }
