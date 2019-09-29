@@ -17,15 +17,32 @@ public class Duke {
         Scanner in = new Scanner(System.in);
 
         String echo = " ";
-        while(echo != null) {
+        /* while(echo != null) {
             echo = in.nextLine();
             if (echo.equals("bye")) // DO NOT use ==
                 break;
             System.out.println("\t" + echo + "\n");
+        } */
+
+        LinkedList<String> list = new LinkedList<String>();
+        int i;
+        while(echo != null) {
+            echo = in.nextLine();
+
+            if (echo.equals("list")) {
+                i = 1;
+                for (String s : list) {
+                    System.out.println("\t" + i + ". " + s);
+                    ++i;
+                }
+                continue;
+            }
+            if (echo.equals("bye"))
+                break;
+            list.add(echo);
         }
+        
         System.out.println("\tBye. Hope to see you again soon!");
-
-
 
     }
 
