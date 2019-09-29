@@ -4,8 +4,10 @@ import java.util.List;
 
 public class Duke {
 
-    private static Task [] taskList = new Task [100];
+    //private static Task [] taskList = new Task [100];
     private static int taskCount = 0;
+
+    private static ArrayList<Task> taskList = new ArrayList();
 
 
     public static void dukeGreet(){
@@ -21,16 +23,76 @@ public class Duke {
         System.out.println("    ________________________________________");
     }
 
-
+/*
       public static void dukeReply(Task[] taskList, int taskCount){
         System.out.println("    ________________________________________");
         System.out.println("     Got it. I've added this task: ");
         System.out.println("     "+ taskList[taskCount-1].getDescription());
         System.out.println("     Now you have " + taskCount + " tasks in the list.");
         System.out.println("    ________________________________________");
+    }*/
+    public static void dukeReply(ArrayList<Task> taskList){
+        System.out.println("    ________________________________________");
+        System.out.println("     Got it. I've added this task: ");
+        System.out.println("     " + taskList.get(taskList.size()-1).getDescription());
+        System.out.println("     Now you have " + taskList.size() + " tasks in the list.");
+        System.out.println("    ________________________________________");
+}
+
+
+    public static void displayList (ArrayList<Task> tasks){
+        System.out.println("Here are the tasks in your list:");
+        for (int index = 0; index < tasks.size(); index++){
+            System.out.println (index+1 + "." + tasks.get(index).getDescription());
+        }
     }
 
-    public static void displayList(Task[] tasks){
+    private static void markInList(String textInput) {
+        try {
+            System.out.println("    ________________________________________");
+            taskList.get(Integer.parseInt(textInput) - 1).markAsDone(true);
+            System.out.println("    Nice! I've marked this task as done: ");
+            System.out.println ("     " + taskList.get(Integer.parseInt(textInput) - 1).getDescription());
+            System.out.println("    ________________________________________");
+
+        } catch (NumberFormatException e){
+            //System.out.println ("☹ OOPS!!! You must indicate which task is done");
+        }
+
+    }
+
+    private static void deleteFromList(String textInput){
+        try {
+            System.out.println("    ________________________________________");
+            System.out.println("    Noted. I've removed this task: ");
+            System.out.println("     " + taskList.get(Integer.parseInt(textInput) - 1).getDescription());
+            taskList.remove(Integer.parseInt(textInput) - 1);
+            System.out.println("    Now you have " + taskList.size() + " tasks in the list.");
+            System.out.println("    ________________________________________");
+        } catch (NumberFormatException e){
+            //System.out.println ("☹ OOPS!!! You must indicate which task to delete");
+        }
+    }
+
+    public static void addTodo (Todo td){
+        taskList.add(td);
+        //taskCount++;
+        dukeReply(taskList);
+    }
+
+    public static void addDeadlines (Deadlines dl){
+        taskList.add(dl);
+        //taskCount++;
+        dukeReply(taskList);
+    }
+
+    public static void addEvent (Event e){
+        taskList.add(e);
+        //taskCount++;
+        dukeReply(taskList);
+    }
+
+    /*public static void displayList(Task[] tasks){
         System.out.println("Here are the tasks in your list:");
         for (int index = 0; index<taskCount; index++){
             System.out.println (index+1 + "." + tasks[index].getDescription());
@@ -65,7 +127,7 @@ public class Duke {
             System.out.println ("☹ OOPS!!! You must indicate which task is done");
         }
 
-    }
+    }*/
 
 
     private static void dukeInput (String textInput) throws DukeException {
@@ -77,6 +139,9 @@ public class Duke {
                     break;
                 case "done":
                     markInList(textInputArr[1]);
+                    break;
+                case "delete":
+                    deleteFromList(textInputArr[1]);
                     break;
                 case "todo":
                     addTodo(new Todo(textInputArr[1]));
@@ -99,23 +164,9 @@ public class Duke {
             }
         } catch (IndexOutOfBoundsException e){
             throw new DukeException(textInputArr[0]);
-           /* switch(textInputArr[0]) {
-                case "done":
-                    System.out.println("☹ OOPS!!! You must indicate which task is done");
-                    break;
-                case "todo":
-                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
-                    break;
-                case "deadline":
-                    System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
-                    break;
-                case "event":
-                    System.out.println("☹ OOPS!!! The description of an event cannot be empty");
-                    break;
-            }*/
         }
         catch (DukeException e){
-            //System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            //do we need anything here
         }
 
     }
@@ -136,7 +187,9 @@ public class Duke {
          textInput = in.nextLine();
           try {
               dukeInput(textInput);
-          } catch (DukeException e){}
+          } catch (DukeException e){
+              //do we need anything here?
+          }
         }  while (!textInput.equalsIgnoreCase("bye"));
     }
 

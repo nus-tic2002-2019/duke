@@ -7,6 +7,9 @@ public class DukeException extends Exception {
             case "done":
                 System.out.println("☹ OOPS!!! You must indicate which task is done");
                 break;
+            case "delete":
+                System.out.println ("☹ OOPS!!! You must indicate which task to delete");
+                break;
             case "todo":
                 System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
                 break;
