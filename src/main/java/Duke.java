@@ -10,7 +10,7 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         System.out.println("What can I do for you?");
         Scanner sc = new Scanner(System.in);
-        String[] line = new String[100];
+        Task[] line = new Task[100];
         String input = "";
         int count = 0;
         while (!input.equals("bye")) //if string doesn't equal to bye
@@ -27,7 +27,7 @@ public class Duke {
             }
             else {
 
-                line[count] = input;
+                line[count] = new Task(input,false);
                 System.out.println("added: " + line[count]);
                 count++;
             }
