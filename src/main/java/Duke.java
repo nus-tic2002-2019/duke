@@ -24,15 +24,14 @@ public class Duke {
             System.out.println("\t" + echo + "\n");
         } */
 
+//MAKE LIST
         LinkedList<Task> list = new LinkedList<Task>();
 
         while(echo != null) {
             echo = in.nextLine();
 
             if (echo.equals("list")) {
-                for (Task task : list) {
-                    System.out.println("\t" + task);
-                }
+                printList(list);
                 continue;
             }
             if (echo.equals("bye"))
@@ -42,6 +41,12 @@ public class Duke {
 
         System.out.println("\tBye. Hope to see you again soon!");
 
+    }
+
+    public static void printList(LinkedList<Task> list) {
+        for (Task task : list) {
+            System.out.println("\t" + task);
+        }
     }
 
     /*

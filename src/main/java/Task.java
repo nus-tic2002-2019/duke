@@ -33,6 +33,10 @@ public class Task {
     }
     @Override
     public String toString() {
-        return taskNumber + ". " + content;
+        String status = "[✗]";
+        if (getcompleted()) {
+            status = "[✓]";
+        }
+        return taskNumber + "." + status + " " + content;
     }
 }
