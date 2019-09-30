@@ -14,7 +14,7 @@ public class Duke {
     }
 
     //public static void addTodo(Todo t){
-    public static void addTask(Todo t){
+    public static void addTask(Todo t) {
         tasks[taskCount] = t;
         System.out.println("-----------------------------------------------");
         System.out.println("Got it. I've added this task: :");
@@ -67,7 +67,7 @@ public class Duke {
         System.out.println("-----------------------------------------------");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException  {
 
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
@@ -77,7 +77,8 @@ public class Duke {
             Scanner in = new Scanner(System.in);
             line = in.nextLine();
             linearr = line.split(" ", 2);
-            switch (line.toUpperCase()) {
+            try{
+                switch (line.toUpperCase()) {
                 case "LIST":
                     displayTasks();
                     break;
@@ -91,6 +92,8 @@ public class Duke {
 //                    else {
 //                        addTask(new Task(line));
 //                    }
+                    //System.out.println("linearray :" + linearr.length);
+
                     switch (linearr[0].toUpperCase())
                     {
                         case "DONE":
@@ -98,26 +101,51 @@ public class Duke {
                             break;
                         case "TODO":
                             //addTodo(new Todo(linearr[1]));
-                            addTask(new Todo(linearr[1]));
+                            //System.out.println("reach todo here");
+                            try {
+                                addTask(new Todo(linearr[1]));
+                            } catch (IndexOutOfBoundsException e)
+                            {
+                                System.out.println("OOPS!!! The description of a todo cannot be empty.");
+                            }
                             break;
                         case "DEADLINE":
-                            String lineDeadline[] = linearr[1].split("/by", 2);
-                            //addDeadline(new Deadlines(lineDeadline[0],lineDeadline[1])) ;
-                            addTask(new Deadlines(lineDeadline[0],lineDeadline[1])); ;
-
+                            try {
+                                String lineDeadline[] = linearr[1].split("/by", 2);
+                                //addDeadline(new Deadlines(lineDeadline[0],lineDeadline[1])) ;
+                                addTask(new Deadlines(lineDeadline[0], lineDeadline[1]));
+                            } catch (IndexOutOfBoundsException e)
+                            {
+                                System.out.println("OOPS!!! The description of a deadline cannot be empty.");
+                            }
                             break;
                         case "EVENT":
-                            String lineEvent[] = linearr[1].split("/at", 2);
-                            //addEvent(new Events(lineEvent[0],lineEvent[1])); ;
-                            addTask(new Events(lineEvent[0],lineEvent[1])); ;
+                            try {
+                                String lineEvent[] = linearr[1].split("/at", 2);
+                                //addEvent(new Events(lineEvent[0],lineEvent[1])); ;
+                                addTask(new Events(lineEvent[0], lineEvent[1]));
+                            } catch (IndexOutOfBoundsException e)
+                            {
+                                System.out.println("OOPS!!! The description of an event cannot be empty.");
+                            }
                             break;
                         default:
-//                            addTask(new Task(line));
-                            //addTodo(new Todo(line));
-                            addTask(new Todo(line));
+//                            if (linearr.length <=1)
+//                            {
+                                //System.out.println("length <=1");
+                                throw new DukeException();
+//                            }
+//                            addTask(new Todo(line));
+                            //break;
                     }
 
-                    break;
+                    //break;
+            }
+            } catch (DukeException e)
+            {
+                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(" );
+            }catch (Exception e) {
+                System.out.println("Exception caught" + e.getMessage());
             }
         }
     }
