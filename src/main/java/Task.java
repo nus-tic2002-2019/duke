@@ -2,15 +2,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Task {
-    protected String description;
+    //protected String description;
     protected static boolean isDone;
 
     //private static Scanner read;
     static ArrayList<String> checkBox = new ArrayList<String>();
 
-    public Task(String description) {
-        this.description = description;
+    public Task() {
+        //this.description = description;
         this.isDone = false;
+        checkBox = new ArrayList<String>();
     }
 
     public static String getStatusIcon() {
