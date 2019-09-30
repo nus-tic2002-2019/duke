@@ -15,6 +15,8 @@ public class Duke {
         System.out.println("\tHello! I'm Duke \n\tWhat can I do for you?");
 
         Scanner in = new Scanner(System.in);
+//DEFINE Keyword
+        String keywords[] = {"done", "todo", "deadline", "event"};
 
         String echo = " ";
         /* while(echo != null) {
@@ -41,11 +43,26 @@ public class Duke {
                 cmdMarkDone(echo, list);
                 continue;
             }
+//TODO contains is not very good : DONE
+            if (containsKeyword(echo, "todo")) {
+                list.add(new Todo(echo));
+                continue;
+            }
+            if (containsKeyword(echo, "deadline")) {
+                list.add(new Deadline(echo));
+                continue;
+            }
+            if (containsKeyword(echo, "event")) {
+                list.add(new Event(echo));
+                continue;
+            }
 
             /////////
             if (echo.equals("bye"))
                 break;
-            list.add(new Task(echo));
+            // list.add(new Task(echo));
+            // At level-4, I think original task input should no longer be allowed
+            // every task must be either todo or deadline or event
         }
 
         System.out.println("\tBye. Hope to see you again soon!");
@@ -63,8 +80,21 @@ public class Duke {
         System.out.println("\t  " + list.get(listIndex));
     }
 
+    public static boolean containsKeyword(String echo, String keyword) {
+        String[] parts = echo.split(" ", 2);
+        if (parts[0].equals(keyword))
+            return true;
+        return false;
+    }
+
+    public static String removeKeyword(String echo) {
+        String[] parts = echo.split(" ", 2);
+        return parts[1];
+    }
+
     public static int getIntStringSpace(String echo) {
-        echo = echo.substring(echo.indexOf(" ") + 1); //split number str
+        //echo = echo.substring(echo.indexOf(" ") + 1); //split number str
+        echo = removeKeyword(echo);
         return Integer.parseInt(echo); // get number
     }
 
@@ -76,6 +106,7 @@ public class Duke {
             ++taskNumber;
         }
     }
+
 
     /*
     @Override

@@ -4,6 +4,10 @@ public class Task {
     private String content;
     private boolean completed;
 
+    public Task() {
+        content = null;
+        completed = false;
+    }
 
     public Task(String content) {
         this.content = content;
