@@ -45,19 +45,19 @@ public class Duke {
             }
 //TODO contains is not very good : DONE
             if (containsKeyword(echo, "todo")) {
-                list.add(new Todo(echo));
+                cmdTodo(echo, list);
                 continue;
             }
             if (containsKeyword(echo, "deadline")) {
-                list.add(new Deadline(echo));
+                cmdDeadline(echo, list);
                 continue;
             }
             if (containsKeyword(echo, "event")) {
-                list.add(new Event(echo));
+                cmdEvent(echo, list);
                 continue;
             }
 
-            /////////
+            ///////////////////////
             if (echo.equals("bye"))
                 break;
             // list.add(new Task(echo));
@@ -73,6 +73,35 @@ public class Duke {
         int listIndex = getIntStringSpace(echo) - 1;
         list.get(listIndex).setcompleted();
         printMarkDone(list, listIndex);
+    }
+    public static void cmdTodo(String echo, ArrayList<Task> list) {
+        String content = removeKeyword(echo);
+        list.add(new Todo(content));
+        int index = list.get(0).getTotalTask() - 1;
+        System.out.println("\tGot it. I've added this task: ");
+        System.out.println("\t  " + list.get(index));
+        System.out.printf("\tNow you have %d tasks in the list."
+                + System.lineSeparator(), list.get(0).getTotalTask());
+    }
+    public static void cmdDeadline(String echo, ArrayList<Task> list) {
+        String content = removeKeyword(echo);
+        String[] parts = content.split(" /by ");
+        list.add(new Deadline(parts[0], parts[1]));
+        int index = list.get(0).getTotalTask() - 1;
+        System.out.println("\tGot it. I've added this task: ");
+        System.out.println("\t  " + list.get(index));
+        System.out.printf("\tNow you have %d tasks in the list."
+                + System.lineSeparator(), list.get(0).getTotalTask());
+    }
+    public static void cmdEvent(String echo, ArrayList<Task> list) {
+        String content = removeKeyword(echo);
+        String[] parts = content.split(" /at ");
+        list.add(new Event(parts[0], parts[1]));
+        int index = list.get(0).getTotalTask() - 1;
+        System.out.println("\tGot it. I've added this task: ");
+        System.out.println("\t  " + list.get(index));
+        System.out.printf("\tNow you have %d tasks in the list."
+                + System.lineSeparator(), list.get(0).getTotalTask());
     }
 
     public static void printMarkDone(ArrayList<Task> list, int listIndex) {
