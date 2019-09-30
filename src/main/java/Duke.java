@@ -13,7 +13,7 @@ public class Duke {
         System.out.println(greet);
     }
 
-    public static void modify() {
+    public static void modify() throws StringIndexOutOfBoundsException, DukeException {
         //Declare variables for keywords
         String keyBye = "bye";
         String keyList = "list";
@@ -28,9 +28,19 @@ public class Duke {
         int numDeadline = keyDeadline.length();
         int numEvent = keyEvent.length();
 
+        //Declare error inputs in an array
+        String[] errorInputs = {"blah"};
+
         //Get user input
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
+
+        //Check if input is error
+        for (String s : errorInputs) {
+            if (s.equals(input) ) {
+                throw new DukeException();
+            }
+        }
 
         if (input.equals(keyBye) ) { //Bye
             String bye = "____________________________________________________________\n"
@@ -66,6 +76,11 @@ public class Duke {
             String extractInput;
 
             if (input.length() >= numTodo && (input.substring(0, numTodo) ).equals(keyTodo) ) { //Add to-do
+                //Exception of to-do without title
+                /*if (numTodo + 1 > input.length() ) {
+                    throw new StringIndexOutOfBoundsException();
+                }*/
+
                 extractInput = input.substring(numTodo + 1, input.length() );
                 tasks[tasksCounter] = new Todo(extractInput);
             } else if (input.length() >= numDeadline && (input.substring(0, numDeadline) ).equals(keyDeadline) ) { //Add deadline
@@ -107,6 +122,18 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         //System.out.println("Bye!");
         greet();
-        modify();
+        try {
+            modify();
+        } catch (StringIndexOutOfBoundsException e) {
+            String errorMessage = "____________________________________________________________\n"
+                    +"OOPS!!! The description of a done/todo/deadline/event cannot be empty.\n"
+                    + "____________________________________________________________\n";
+            System.out.println(errorMessage);
+        } catch (DukeException e) {
+            String errorMessage = "____________________________________________________________\n"
+                    +"OOPS!!! I'm sorry, but I don't know what that means :-(\n"
+                    + "____________________________________________________________\n";
+            System.out.println(errorMessage);
+        }
     }
 }
