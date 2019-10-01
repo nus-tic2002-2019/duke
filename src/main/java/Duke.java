@@ -18,6 +18,7 @@ public class Duke {
     public static void addTask(Task s){
         Tasks[numberOfTask] = s;
         numberOfTask++;
+        System.out.println("added: "+ s.getTask());
     }
 
     public static void Echo() {
@@ -70,7 +71,7 @@ public class Duke {
             }
             else if(line.equalsIgnoreCase("list")){
                 for(int i = 0; i< numberOfTask; i++){
-                    System.out.println((i+1) + ". "+ " [" + Tasks[i].getStatusIcon() + "] "+Tasks[i].getTask());
+                    System.out.println((i+1) + ". " + Tasks[i].toString());
                 }
             }
             else if(itemName.equalsIgnoreCase("done")){
@@ -78,17 +79,41 @@ public class Duke {
                 int taskIndex = Integer.parseInt(taskNumber)-1;
                 if(numberOfTask >=taskIndex + 1 && taskIndex >= 0) {
                     Tasks[taskIndex].edit_done(true);
-                    System.out.println("Nice! I've marked this task as done: \n" +
-                            " [" + Tasks[taskIndex].getStatusIcon() + "] " + Tasks[taskIndex].getTask());
+                    System.out.println("Nice! I've marked this task as done: \n" + Tasks[taskIndex].toString());
                 }
                 else{
                     System.out.println("Not such task");
                 }
             }
-            
+            else if(itemName.equalsIgnoreCase("deadline")){
+                if(itemName.contains(" /by ")) {
+                    int dividerPosition2 = line.indexOf(" /by ");
+                    String taskDes = line.substring(dividerPosition + 1, dividerPosition2);
+                    String taskTime = line.substring(dividerPosition2 + 5, line.length());
+                    addTask(new Deadlines(taskDes, taskTime));
+                }
+                else{
+                    addTask(new Task(line));
+                }
+                
+            }
+            else if(itemName.equalsIgnoreCase("event")){
+                if(itemName.contains(" /at ")){
+                    int dividerPosition2 = line.indexOf(" /at ");
+                    String taskDes = line.substring(dividerPosition + 1, dividerPosition2);
+                    String taskTime = line.substring(dividerPosition2 + 5, line.length());
+                    addTask(new Events(taskDes, taskTime));
+                }
+                else{
+                    addTask(new Task(line));
+                }
+            }
+            else if(itemName.equalsIgnoreCase("todo")){
+                String taskDes = line.substring(dividerPosition+1,line.length());
+                addTask(new ToDos(taskDes));
+            }
             else{
                 addTask(new Task(line));
-                System.out.println("added: "+ line);
             }
         }
         System.out.println("Bye. Hope to see you again soon!\n");
