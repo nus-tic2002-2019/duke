@@ -37,4 +37,9 @@ public class Task {
     {
         return (taskDone ? "\u2713" : "\u2718"); //return tick or X symbols
     }
+
+    public void markAsDone()
+    {
+        taskDone = true;
+    }
 }

@@ -16,7 +16,7 @@ public class Duke {
         while (!input.equals("bye")) //if string doesn't equal to bye
         {
             input = sc.nextLine();
-
+            String[] arrOfString = input.split(" ");
             if (input.equals("list"))
             {
 
@@ -24,6 +24,13 @@ public class Duke {
                 {
                     System.out.println(i+1 +".[" +line[i].getStatusIcon() +"] " + line[i]);
                 }
+            }
+            else if (arrOfString[0].equals("done"))
+            {
+                int index = Integer.parseInt(arrOfString[1]);
+                line[index-1].markAsDone();
+                System.out.println("Nice! I've marked this task as done: ");
+                System.out.println("\t["+line[index-1].getStatusIcon() + "] "+ line[index-1]);
             }
             else {
 
