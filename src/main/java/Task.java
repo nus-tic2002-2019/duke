@@ -32,4 +32,9 @@ public class Task {
     {
         return taskName;
     }
+
+    public String getStatusIcon()
+    {
+        return (taskDone ? "\u2713" : "\u2718"); //return tick or X symbols
+    }
 }

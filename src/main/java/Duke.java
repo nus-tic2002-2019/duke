@@ -22,7 +22,7 @@ public class Duke {
 
                 for (int i = 0; i < count; i++)
                 {
-                    System.out.println(i+1 +". " + line[i]);
+                    System.out.println(i+1 +".[" +line[i].getStatusIcon() +"] " + line[i]);
                 }
             }
             else {
