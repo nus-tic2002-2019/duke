@@ -15,7 +15,8 @@ public class Deadline extends Task {
         System.out.print("[D]: ");
         this.printDoneMessage();
         System.out.print(this.description);
-        System.out.print("by: " + by);
+        System.out.print("by: " + by + "\n");
+
     }
 
 

@@ -25,8 +25,8 @@ public class InteractionsManager {
                     String taskType = checkTaskType(userCommand);
                     String desc = getDesc(userCommand);
                     String by = getBy(userCommand);
-                    String start = getStart(userCommand);
-                    String end = getEnd(userCommand);
+                    String at = getAt(userCommand);
+
 
                     if (taskType.equals("todo")){
                         Todo toAdd = new Todo(desc);
@@ -37,7 +37,7 @@ public class InteractionsManager {
                         operations.add(toAdd);
                     }
                     else if (taskType.equals("event")){
-                        Event toAdd = new Event(desc, start, end);
+                        Event toAdd = new Event(desc, at);
                         operations.add(toAdd);
                     }
 
@@ -51,9 +51,17 @@ public class InteractionsManager {
         return " ";
     }
 
-    private String getStart(String userCommand) {
+    private String getAt(String userCommand) {
+        String removedFirstWord = userCommand.split(" ", 2)[1];
+        String at;
+        if (userCommand.contains("/at")){  //
+            at = removedFirstWord.split("/at", 2)[1];
+
+            return at;
+        }
         return " ";
     }
+
 
     private String getBy(String userCommand) {
         String removedFirstWord = userCommand.split(" ", 2)[1];
@@ -62,7 +70,7 @@ public class InteractionsManager {
             by = removedFirstWord.split("/by", 2)[1];
         }
         else{
-            by = "No deadline";
+            by = " No deadline";
         }
         return by;
     }
@@ -79,13 +87,14 @@ public class InteractionsManager {
         return desc;
     }
 
-    private String getUserCommand() {
+    private String getUserCommand(){
         Scanner in = new Scanner(System.in);
         return in.nextLine();
     }
+
     private String checkTaskType(String userCommand){
         // sample inputs:
-        // ["todo borrow book",
+        // ['todo borrow book'
         //  "deadline return book /by Sunday",
         //  "event project meeting /at Mon 2-4pm"]
         String taskType = userCommand.split(" ")[0];
