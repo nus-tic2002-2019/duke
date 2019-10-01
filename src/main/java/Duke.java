@@ -9,6 +9,10 @@ public class Duke {
         tasklist.add(taskCount,s);
         taskCount++;
     }
+    public static void deleteTask(int index){
+        taskCount--;
+        tasklist.remove(index);
+    }
     public static void printLine(){
             System.out.println("_______________________________");
     }
@@ -49,6 +53,15 @@ public class Duke {
                 }
                 if (userInput.equals("bye")) {
                     break;
+                }
+                if (first.equals("delete")) {
+                    String second = split[1];
+                    printLine();
+                    System.out.println("Noted. I've removed this task: ");
+                    System.out.println(tasklist.get(Integer.parseInt(second) - 1).toString());
+                    System.out.println("Now you have " + (taskCount-1) + " tasks in the list.");
+                    printLine();
+                    deleteTask(Integer.parseInt(second) - 1);
                 }
                  else if (first.equals("done")) {
                     String second = split[1];
