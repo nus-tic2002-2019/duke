@@ -20,33 +20,65 @@ public class Duke {
             String[] arrOfString = input.split(" ");
             if (input.equals("list"))
             {
-
+                System.out.println("_______________________________________________");
                 for (int i = 0; i < count; i++)
                 {
+
                     System.out.println(i+1 + ". " + line[i]);
+
                 }
+                System.out.println("_______________________________________________");
             }
             else if (arrOfString[0].equals("done"))
             {
                 int index = Integer.parseInt(arrOfString[1]);
                 line[index-1].markAsDone();
+                System.out.println("_______________________________________________");
                 System.out.println("Nice! I've marked this task as done: ");
-                System.out.println("\t["+line[index-1].getStatusIcon() + "] "+ line[index-1]);
+                System.out.println("\t["+ line[index-1]);
+                System.out.println("_______________________________________________");
             }
 
             else if (arrOfString[0].equals("todo"))
             {
                 String replaceString = input.replace("todo ", "");
                 line[count] = new Todo(replaceString, false);
+                System.out.println("_______________________________________________");
                 System.out.println("Got it. I've added this task:");
                 System.out.println("\t" + line[count]);
                 count ++;
                 System.out.println("Now you have " + count + " tasks in the list.");
+                System.out.println("_______________________________________________");
 
 
             }
+            else if (arrOfString[0].equals("deadline"))
+            {
+                String replaceString = input.replace("deadline ","");
+                String [] splitBy = replaceString.split(" /by ");
+                line[count] = new Deadline(splitBy[0], false, splitBy[1]);
+                System.out.println("_______________________________________________");
+                System.out.println("Got it. I've added this task:");
+                System.out.println("\t" + line[count]);
+                count ++;
+                System.out.println("Now you have " + count + " tasks in the list.");
+                System.out.println("_______________________________________________");
+            }
 
+            else if (arrOfString[0].equals("event"))
+            {
+                String replaceString = input.replace("event", "");
+                String [] splitAt = replaceString.split(" /at ");
+                line [count] = new Event(splitAt[0], false, splitAt[1]);
+                System.out.println("_______________________________________________");
+                System.out.println("Got it. I've added this task:");
+                System.out.println("\t" + line[count]);
+                count ++;
+                System.out.println("Now you have " + count + " tasks in the list.");
+                System.out.println("_______________________________________________");
+            }
         }
+
 
         System.out.println("Bye. Hope to see you again soon !");
     }
