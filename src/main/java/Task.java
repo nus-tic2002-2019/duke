@@ -30,7 +30,7 @@ public class Task {
 
     public String toString()
     {
-        return taskName;
+        return "[" + getStatusIcon() + "]" + taskName;
     }
 
     public String getStatusIcon()

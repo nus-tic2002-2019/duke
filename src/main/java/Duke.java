@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Duke {
@@ -22,7 +23,7 @@ public class Duke {
 
                 for (int i = 0; i < count; i++)
                 {
-                    System.out.println(i+1 +".[" +line[i].getStatusIcon() +"] " + line[i]);
+                    System.out.println(i+1 + ". " + line[i]);
                 }
             }
             else if (arrOfString[0].equals("done"))
@@ -32,13 +33,18 @@ public class Duke {
                 System.out.println("Nice! I've marked this task as done: ");
                 System.out.println("\t["+line[index-1].getStatusIcon() + "] "+ line[index-1]);
             }
-            else {
 
-                line[count] = new Task(input,false);
-                System.out.println("added: " + line[count]);
-                count++;
+            else if (arrOfString[0].equals("todo"))
+            {
+                String replaceString = input.replace("todo ", "");
+                line[count] = new Todo(replaceString, false);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("\t" + line[count]);
+                count ++;
+                System.out.println("Now you have " + count + " tasks in the list.");
+
+
             }
-
 
         }
 
