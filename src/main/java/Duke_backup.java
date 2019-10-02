@@ -1,7 +1,6 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
-public class Duke {
+public class Duke_backup {
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -31,8 +30,8 @@ public class Duke {
 
                 for (int i = 0; i < X; i++) {
 
-                    System.out.println(i + 1 + ". [" + input[i].getStatusIcon() + " ]" + input[i]);
-                    //System.out.println(i + 1 + ". [" +  " ] " + input[i]);
+                    //System.out.println(i + 1 + ". [" + input[i].getStatusIcon() + " ]" + input[i]);
+                    System.out.println(i + 1 + ". [" +  " ] " + input[i]);
                 }
 
             } else {
