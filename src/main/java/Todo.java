@@ -1,17 +1,11 @@
-import java.util.ArrayList;
+public class Todo extends Task {
 
-public class Todo {
-
-    //ArrayList<String> todoBox = new ArrayList<String>();
-    static String Type = "T";
-
-    public Todo() {
-        String Type = "T";
+    public Todo(String description) {
+        super(description);
     }
 
-    public static void fillTaskType() {
-        List.taskType.add(Type);
+    @Override
+    public String toString() {
+        return "[T]" + super.toString();
     }
-
-
 }
