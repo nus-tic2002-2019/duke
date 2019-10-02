@@ -72,12 +72,6 @@ public class Duke {
     }
 
     public static void main(String[] args) throws DukeException, todoException, IOException, ParseException {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
 
         String line;
         Scanner in = new Scanner(System.in);
@@ -85,15 +79,10 @@ public class Duke {
         try {
             loadFile(file_path);
         } catch (ParseException e) {
-            System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            Ui.displayError();
         }
 
-
-        System.out.println("\t_________________________________________");
-        System.out.println("\tHello! I'm Duke");
-        System.out.println("\tWhat can I do for you?");
-        System.out.println("\t_________________________________________");
-
+        Ui.showWelcome();
 
         line = in.nextLine();
             while (!line.contains("bye")) {
@@ -109,12 +98,12 @@ public class Duke {
                         if (input_items.equals("todo")) {
                             throw new todoException();
                         }
-                        System.out.println("\t_________________________________________");
-                        System.out.println("\tGot it. I've added this task:");
+                        Ui.showLine();
+                        Ui.displayGotIt();
                         System.out.println("\t\t" + newTask.add_task(new Todo(input_items)));
                         //word_count++;
-                        System.out.println("\tNow you have " + newTask.word_count + " tasks in list.");
-                        System.out.println("\t_________________________________________");
+                        System.out.println("\t\tNow you have " + newTask.word_count + " tasks in list.");
+                        Ui.showLine();
 
                     }
                     //add deadline
@@ -123,11 +112,11 @@ public class Duke {
                         String by = line.substring(line.indexOf("/by") + 4);
                         String input_string = input_items.substring(0, input_items.indexOf("/")-1);
                         Task tmp = newTask.add_task(new Deadline(input_string, by));
-                        System.out.println("\t_________________________________________");
-                        System.out.println("\tGot it. I've added this task:");
+                        Ui.showLine();
+                        Ui.displayGotIt();
                         System.out.println("\t\t" + tmp);
-                        System.out.println("\tNow you have " + newTask.word_count + " tasks in list.");
-                        System.out.println("\t_________________________________________");
+                        System.out.println("\t\tNow you have " + newTask.word_count + " tasks in list.");
+                        Ui.showLine();
 
                     }
                     //add event
@@ -136,19 +125,19 @@ public class Duke {
                         String at = line.substring(line.indexOf("/at") + 4);
                         String input_string = input_items.substring(0, input_items.indexOf("/")-1);
                         Task tmp = newTask.add_task(new Event(input_string, at));
-                        System.out.println("\t_________________________________________");
-                        System.out.println("\tGot it. I've added this task:");
+                        Ui.showLine();
+                        Ui.displayGotIt();
                         System.out.println("\t\t" + tmp);
-                        System.out.println("\tNow you have " + newTask.word_count + " tasks in list.");
-                        System.out.println("\t_________________________________________");
+                        System.out.println("\t\tNow you have " + newTask.word_count + " tasks in list.");
+                        Ui.showLine();
 
                     }
 
                     //displaying list
                     if (line.contains("list")) {
-                        System.out.println("\t_________________________________________");
+                        Ui.showLine();
                         System.out.println(newTask.getList());
-                        System.out.println("\t_________________________________________");
+                        Ui.showLine();
                     }
                     //mark done
                     if (line.contains("done")) {
@@ -156,10 +145,10 @@ public class Duke {
                         String input_items = line.substring(line.indexOf(" ") + 1);
                         int task_option = Integer.parseInt(input_items);
                         Task tmp = newTask.markDone(task_option);
-                        System.out.println("\t_________________________________________");
-                        System.out.println("\tNice! I've marked this task as done:");
+                        Ui.showLine();
+                        Ui.markAsDone();
                         System.out.println("\t\t" + tmp);
-                        System.out.println("\t_________________________________________");
+                        Ui.showLine();
                     }
                     //delete task
                     if (line.contains("delete")) {
@@ -170,33 +159,33 @@ public class Duke {
                     }
                 } catch (DukeException e) {
 
-                    System.out.println("\t_____________________________________________________________");
-                    System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-                    System.out.println("\t_____________________________________________________________");
+                    Ui.showLine();
+                    Ui.displayError();
+                    Ui.showLine();
 
                 } catch (StringIndexOutOfBoundsException e) {
 
-                    System.out.println("\t______________________________________________________________");
-                    System.out.println("\t☹ OOPS!!! The description of a deadline/event cannot be empty.");
-                    System.out.println("\t______________________________________________________________");
+                    Ui.showLine();
+                    Ui.displayDeadlineEventError();
+                    Ui.showLine();
 
                 } catch (todoException e) {
 
-                    System.out.println("\t_______________________________________________________");
-                    System.out.println("\t☹ OOPS!!! The description of a todo cannot be empty.");
-                    System.out.println("\t_______________________________________________________");
+                    Ui.showLine();
+                    Ui.displayTodoError();
+                    Ui.showLine();
 
                 } catch (IndexOutOfBoundsException e) {
 
-                    System.out.println("\t_______________________________________________________");
-                    System.out.println("\t☹ OOPS!!! There is no item.");
-                    System.out.println("\t_______________________________________________________");
+                    Ui.showLine();
+                    Ui.displayError_noItem();
+                    Ui.showLine();
 
                 } catch (ParseException e) {
-                    System.out.println("\t_________________________________________________________");
-                    System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-                    System.out.println("\tMake sure to enter date in format: dd-MMM-yy hh:mm PM/AM");
-                    System.out.println("\t_________________________________________________________");
+                    Ui.showLine();
+                    Ui.displayError();
+                    Ui.displayError_dateFormat();
+                    Ui.showLine();
 
                 }
 
@@ -207,8 +196,8 @@ public class Duke {
         writeToFile(file_path, toTxt(Task.getOutput()));
 
         //exit
-        System.out.println("\t_________________________________________");
-        System.out.println("\tBye. Hope to see you again soon!");
-        System.out.println("\t_________________________________________");
+        Ui.showLine();
+        Ui.goodBye();
+        Ui.showLine();
     }
 }
