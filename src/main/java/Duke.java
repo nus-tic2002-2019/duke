@@ -7,8 +7,6 @@ public class Duke {
 
     public static void main(String[] args) throws DukeException, todoException, IOException, ParseException {
 
-        String line;
-        Scanner in = new Scanner(System.in);
         String file_path = "C:\\Users\\marcus.ng\\Desktop\\m\\m\\NUS\\TIC2002 Introduction to Software Engineering\\duke\\src\\main\\java\\taskList.txt";
         try {
             Storage.loadFile(file_path);
@@ -17,6 +15,8 @@ public class Duke {
         }
 
         Ui.showWelcome();
+        String line;
+        Scanner in = new Scanner(System.in);
 
         line = in.nextLine();
             while (!line.contains("bye")) {
