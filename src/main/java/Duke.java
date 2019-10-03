@@ -28,7 +28,7 @@ public class Duke {
                     }
                     //add inputs into array, add Todo
                     if (!line.contains("list") && !line.contains("done") && !line.contains("delete") && line.contains("todo")) {
-                        String input_items = line.substring(line.indexOf(" ") + 1);
+                        String input_items = Parser.parseTask(line);
                         if (input_items.equals("todo")) {
                             throw new todoException();
                         }
@@ -41,9 +41,9 @@ public class Duke {
                     }
                     //add deadline
                     if (!line.contains("list") && !line.contains("done") && !line.contains("delete") && line.contains("deadline")) {
-                        String input_items = line.substring(line.indexOf(" ") + 1);
-                        String by = line.substring(line.indexOf("/by") + 4);
-                        String input_string = input_items.substring(0, input_items.indexOf("/")-1);
+                        String input_items = Parser.parseTask(line);
+                        String by = Parser.parseDeadline_by(line);
+                        String input_string = Parser.parseTask_description(input_items);
                         Task tmp = newTask.add_task(new Deadline(input_string, by));
                         Ui.showLine();
                         Ui.displayGotIt();
@@ -54,9 +54,9 @@ public class Duke {
                     }
                     //add event
                     if (!line.contains("list") && !line.contains("done") && line.contains("event")) {
-                        String input_items = line.substring(line.indexOf(" ") + 1);
-                        String at = line.substring(line.indexOf("/at") + 4);
-                        String input_string = input_items.substring(0, input_items.indexOf("/")-1);
+                        String input_items = Parser.parseTask(line);
+                        String at = Parser.parseEvent_at(line);
+                        String input_string = Parser.parseTask_description(input_items);
                         Task tmp = newTask.add_task(new Event(input_string, at));
                         Ui.showLine();
                         Ui.displayGotIt();

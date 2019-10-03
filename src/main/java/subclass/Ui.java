@@ -2,12 +2,12 @@ package subclass;
 
 public class Ui {
     public static void showWelcome () {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String logo = "\t ____        _        \n"
+                + "\t|  _ \\ _   _| | _____ \n"
+                + "\t| | | | | | | |/ / _ \\\n"
+                + "\t| |_| | |_| |   <  __/\n"
+                + "\t|____/ \\__,_|_|\\_\\___|\n";
+        System.out.println(logo);
         System.out.println("\t_________________________________________");
         System.out.println("\t\tHello! I'm Duke");
         System.out.println("\t\tWhat can I do for you?");
