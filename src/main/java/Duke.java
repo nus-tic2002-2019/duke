@@ -1,71 +1,98 @@
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
-    private static Task[] tasks = new Task[100];
-    private static int taskCount = 0;
+    //private static Task[] tasks = new Task[100];
+    //private static int taskCount = 0;
+
+    private static ArrayList<Task> taskitems = new ArrayList<>();
 
     public static void addTask(Task t){
-        tasks[taskCount] = t;
+        //tasks[taskCount] = t;
+        taskitems.add(t);
         System.out.println("-----------------------------------------------");
         System.out.println("added:" + t.getDescription());
         System.out.println("-----------------------------------------------");
-        taskCount++;
+        //taskCount++;
     }
 
     //public static void addTodo(Todo t){
     public static void addTask(Todo t) {
-        tasks[taskCount] = t;
+        //tasks[taskCount] = t;
+        taskitems.add(t);
         System.out.println("-----------------------------------------------");
         System.out.println("Got it. I've added this task: :");
 //        System.out.println("   [T][" + t.getStatusIcon() + "] " + t.getDescription());
         System.out.println(t);
-        taskCount++;
-        System.out.println("Now you have " + taskCount + " tasks in the list");
+        //taskCount++;
+        //System.out.println("Now you have " + taskCount + " tasks in the list");
+        System.out.println("Now you have " + taskitems.size() + " tasks in the list");
         System.out.println("-----------------------------------------------");
     }
 
     //public static void addDeadline(Deadlines t){
     public static void addTask(Deadlines t){
-        tasks[taskCount] = t;
+        //tasks[taskCount] = t;
+        taskitems.add(t);
         System.out.println("-----------------------------------------------");
         System.out.println("Got it. I've added this task: :");
 //        System.out.println("   [T][" + t.getStatusIcon() + "] " + t.getDescription());
         System.out.println(t);
-        taskCount++;
-        System.out.println("Now you have " + taskCount + " tasks in the list");
+        //taskCount++;
+        //System.out.println("Now you have " + taskCount + " tasks in the list");
+        System.out.println("Now you have " + taskitems.size() + " tasks in the list");
         System.out.println("-----------------------------------------------");
     }
 
     //public static void addEvent(Events t){
     public static void addTask(Events t){
-        tasks[taskCount] = t;
+        //tasks[taskCount] = t;
+        taskitems.add(t);
         System.out.println("-----------------------------------------------");
         System.out.println("Got it. I've added this task: :");
 //        System.out.println("   [T][" + t.getStatusIcon() + "] " + t.getDescription());
         System.out.println(t);
-        taskCount++;
-        System.out.println("Now you have " + taskCount + " tasks in the list");
+//        taskCount++;
+        //System.out.println("Now you have " + taskCount + " tasks in the list");
+        System.out.println("Now you have " + taskitems.size() + " tasks in the list");
         System.out.println("-----------------------------------------------");
     }
 
     public static void displayTasks()
     {
         System.out.println("-----------------------------------------------");
-        for(int i=0; i < taskCount; i++)
+        for(int i=0; i < taskitems.size(); i++)
         {
-            System.out.println(i + 1 + ". " + tasks[i]); // or tasks[i].toString()
+            System.out.println(i + 1 + ". " + taskitems.get(i)); // or tasks[i].toString()
         }
         System.out.println("-----------------------------------------------");
     }
 
     public static void markDone(int pos) {
-         tasks[pos-1].markDone(true);
+         //tasks[pos-1].markDone(true);
+        //(taskitems[pos-1]).markDone(true);
+        taskitems.get(pos-1).markDone(true);
         System.out.println("-----------------------------------------------");
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("    [" +  tasks[pos-1].getStatusIcon() + "]" +  tasks[pos-1].getDescription());
+        //System.out.println("    [" +  tasks[pos-1].getStatusIcon() + "]" +  tasks[pos-1].getDescription());
+        System.out.println("    [" +  taskitems.get(pos-1).getStatusIcon() + "]" +  taskitems.get(pos-1).getDescription());
         System.out.println("-----------------------------------------------");
     }
+
+    public static void removeItem(int pos) {
+        //tasks[pos-1].markDone(true);
+        //(taskitems[pos-1]).markDone(true);
+        System.out.println("-----------------------------------------------");
+        System.out.println("Noted. I've removed this task: ");
+        //System.out.println("    [" +  tasks[pos-1].getStatusIcon() + "]" +  tasks[pos-1].getDescription());
+        //System.out.println("    [" +  taskitems.get(pos-1).getStatusIcon() + "]" +  taskitems.get(pos-1).getDescription());
+        System.out.println("    [" +  taskitems.get(pos-1).getStatusIcon() + "]" +  taskitems.get(pos-1).toString());
+        taskitems.remove(pos-1);
+        System.out.println("Now you have " + taskitems.size() + " tasks in the list");
+        System.out.println("-----------------------------------------------");
+    }
+
 
     public static void main(String[] args) throws DukeException  {
 
@@ -79,6 +106,7 @@ public class Duke {
             linearr = line.split(" ", 2);
             try{
                 switch (line.toUpperCase()) {
+                //case "LIST":
                 case "LIST":
                     displayTasks();
                     break;
@@ -98,6 +126,9 @@ public class Duke {
                     {
                         case "DONE":
                             markDone(Integer.parseInt(linearr[1]));
+                            break;
+                        case "DELETE":
+                            removeItem(Integer.parseInt(linearr[1]));
                             break;
                         case "TODO":
                             //addTodo(new Todo(linearr[1]));
@@ -150,3 +181,8 @@ public class Duke {
         }
     }
 }
+// list
+//  todo borrow book
+//  deadline return book /by Sunday
+//  event project meeting /at Mon 2-4pm
+// todo read this
