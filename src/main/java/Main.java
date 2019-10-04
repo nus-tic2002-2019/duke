@@ -73,13 +73,15 @@ public class Main {
                         ArrayList<Task> temp = new ArrayList<Task>();
                         for(int i = 0; i<counter; i++){
                             if(i!=Integer.parseInt(input.substring(7))-1) {
+
                                 temp.add(list.get(i));
-                               System.out.println(list.get(counter).toString());
-                                System.out.println(list.get(i).toString());
+
                                 list.remove(i);
-                                System.out.println(list.get(i).toString());
-                                System.out.println(list.get(counter).toString());
+
+
                             }
+                            System.out.println(list.get(i).toString());
+
                         }
                         list.clear();
                         list.addAll(temp);
@@ -88,7 +90,7 @@ public class Main {
 
                         System.out.println("Now you have " + counter + " tasks in the list.");
                     } else {
-                        throw new DukeException("☹ OOPS!!! The description of a event cannot be empty.");
+                        throw new DukeException("☹ OOPS!!! The description of a delete cannot be empty.");
                     }
                 } else if (function.equalsIgnoreCase("event")) {
                     if (input.length() > 6) {
