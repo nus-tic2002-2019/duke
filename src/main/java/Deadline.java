@@ -3,6 +3,7 @@ public class Deadline extends Task {
 
     public Deadline(String input, String by) {
         super(input);
+        by = by.trim();
         this.by = by;
     }
 

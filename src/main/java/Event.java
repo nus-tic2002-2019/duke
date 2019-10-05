@@ -4,6 +4,7 @@ public class Event extends Task {
     public Event(String input, String startend)
     {
         super(input);
+        startend = startend.trim();
         this.startend = startend;
     }
 

@@ -1,23 +1,41 @@
 import java.util.Scanner;                               //Scanner library
 import java.util.Arrays;                                //Arrays library
 import java.util.regex.*;                               //Regular Expressions library
+import java.util.ArrayList;                             //ArrayList library
 
 public class Duke {
 
-    public static void updateStore(Task[] storage, String reply, int i) throws NoClassException
+    public static void updateStore(Task[] storage, String reply, int i) throws NoClassException, DukeException
     {
-        String[] input = reply.split("/");
+        String replied = reply;
 
             if (reply.startsWith("todo"))
             {
+                reply = reply.replace("todo", "");      //replacing the task with nothing
+                if (reply.isBlank())
+                {
+                    throw new DukeException(replied);
+                }
                 storage[i] = new ToDo(reply);
             }
             else if (reply.startsWith("deadline"))
             {
+                reply = reply.replace("deadline", "");
+                if (reply.isBlank())
+                {
+                    throw new DukeException(replied);
+                }
+                String[] input = reply.split("/");
                 storage[i] = new Deadline(input[0], input[1]);
             }
             else if (reply.startsWith("event"))
             {
+                reply = reply.replace("event", "");
+                if (reply.isBlank())
+                {
+                    throw new DukeException(replied);
+                }
+                String[] input = reply.split("/");
                 storage[i] = new Event(input[0], input[1]);
             }
             else
@@ -92,7 +110,12 @@ public class Duke {
                 }
                 catch (ArrayIndexOutOfBoundsException e)
                 {
-                    System.out.println("Please input the correct format of task");
+                    System.out.println("Please input the correct format of task : [Task Type] [Task] / [date]");
+                }
+                catch (DukeException e)
+                {
+                    DukeException exceptional = new DukeException(reply);
+                    System.out.println("☹ OOPS!!! The description of a " + exceptional.printtask() + " cannot be empty.");
                 }
                 reply = myObj.nextLine();               //Reads the next line for next input
             }

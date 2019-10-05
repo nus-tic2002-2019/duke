@@ -5,6 +5,7 @@ public class Task {
     //Constructor
     public Task(String input)
     {
+        input = input.trim();
         this.task = input;
         this.done = false;
     }
