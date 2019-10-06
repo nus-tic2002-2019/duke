@@ -68,35 +68,70 @@ public class Duke {
                     break;
 
                 case "deadline":
-                    String[] dsplit = input.split("/");
-                    String deadTask = dsplit[0];
-                    String deadBy = dsplit[1];
+                    try{
+                        if (input.equals("deadline")){
+                            throw new DukeChildException.nullDescription("Task description required!");
+                        }
+                        if (!input.contains("/by")){
+                            throw new DukeChildException.nullDescription("Description has invalid format!");
+                        }
+                        if (input.equals("deadline /by")) {
+                            throw new DukeChildException.nullDescription("Description has invalid format!");
+                        }
+                        if (input.split("/")[1].equals("by")) {
+                            throw new DukeChildException.nullDescription("Date required!");
+                        }
+                        String[] dsplit = input.split("/");
+                        String deadTask = dsplit[0];
+                        String deadBy = dsplit[1];
 
-                    deadTask = deadTask.substring(9);
-                    deadBy = deadBy.substring(3);
-                    //System.out.println(deadTask);
-                    //System.out.println(deadBy);
+                        deadTask = deadTask.substring(9);
+                        deadBy = deadBy.substring(3);
+                        //System.out.println(deadTask);
+                        //System.out.println(deadBy);
 
-                    Deadline deadline = new Deadline(deadTask, deadBy);
-                    userList.add(deadline);
+                        Deadline deadline = new Deadline(deadTask, deadBy);
+                        userList.add(deadline);
 
-                    System.out.println("Procrastination is forbidden. Deadline added: " + System.lineSeparator() + deadline.toString());
+                        System.out.println("Procrastination is forbidden. Deadline added: " + System.lineSeparator() + deadline.toString());
+
+                    } catch (DukeChildException.nullDescription e) {
+                        e.printStackTrace();
+                    }
                     break;
 
                 case "event":
-                    String[] esplit = input.split("/");
-                    String eventTask = esplit[0];
-                    String eventAt = esplit[1];
+                    try {
+                        if (input.equals("event")) {
+                            throw new DukeChildException.nullDescription("Task description required!");
+                        }
+                        if (!input.contains("/at")) {
+                            throw new DukeChildException.nullDescription("Description has invalid format!");
+                        }
+                        if (input.equals("event /at")) {
+                            throw new DukeChildException.nullDescription("Description has invalid format!");
+                        }
+                        if (input.split("/")[1].equals("at")) {
+                            throw new DukeChildException.nullDescription("Time or location required!");
+                        }
 
-                    eventTask = eventTask.substring(6);
-                    eventAt = eventAt.substring(3);
-                    //System.out.println(deadTask);
-                    //System.out.println(deadBy);
+                        String[] esplit = input.split("/");
+                        String eventTask = esplit[0];
+                        String eventAt = esplit[1];
 
-                    Event event = new Event(eventTask, eventAt);
-                    userList.add(event);
+                        eventTask = eventTask.substring(6);
+                        eventAt = eventAt.substring(3);
+                        //System.out.println(deadTask);
+                        //System.out.println(deadBy);
 
-                    System.out.println("Don't you DARE come late. Event added: " + System.lineSeparator() + event.toString());
+                        Event event = new Event(eventTask, eventAt);
+                        userList.add(event);
+
+                        System.out.println("Don't you DARE come late. Event added: " + System.lineSeparator() + event.toString());
+
+                    } catch (DukeChildException.nullDescription e) {
+                        e.printStackTrace();
+                    }
                     break;
 
                 default:
