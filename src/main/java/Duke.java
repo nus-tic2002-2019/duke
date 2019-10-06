@@ -100,7 +100,11 @@ public class Duke {
                     break;
 
                 default:
-                    System.out.println("Please enter a command. Enter 'help' for a list of commands.");
+                    try {
+                        throw new DukeChildException.invalidInput("Invalid format! Enter 'help' for assistance");
+                    } catch (DukeChildException.invalidInput e) {
+                        e.printStackTrace();
+                    }
                     continueInput = true;
             }
         }
