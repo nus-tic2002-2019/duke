@@ -1,18 +1,11 @@
 import java.util.Scanner;
 //import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Duke {
 
-    public static void addText(Task[] arr, String newTask, int ctr) {
-        System.out.println("Got it. I've added this task:");
-        String temp = "";
+    public static void addText(ArrayList<Task> arr, String actType, String newTask, int ctr) {
 
-        arr[ctr] = new Todo(newTask);
-        temp = arr[ctr].toString();
-        System.out.println(temp + "\nNow you have " + (ctr+1) + " in the list.");
-    }
-
-    public static void addText(Task[] arr, String actType, String newTask, int ctr){
         String dateline = "";
         int pos = 0;
         String temp = "";
@@ -20,32 +13,56 @@ public class Duke {
         if (actType.equals("deadline")) {
             dateline = parseString(newTask, "/by ");
             pos = newTask.indexOf("/by");
-            arr[ctr] = new Deadline(newTask.substring(0, pos-1), dateline);
         } else if (actType.equals("event")) {
             dateline = parseString(newTask, "/at ");
             pos = newTask.indexOf("/at");
-            arr[ctr] = new Event(newTask.substring(0, pos-1), dateline);
         }
-        temp = arr[ctr].toString();
-        System.out.println(temp + "\nNow you have " + (ctr+1) + " in the list.");
+
+        switch (actType) {
+            case "todo":
+                arr.add(new Todo(newTask));
+                break;
+            case "deadline":
+                arr.add(new Deadline(newTask.substring(0, pos-1), dateline));
+                break;
+            case "event":
+                arr.add(new Event(newTask.substring(0, pos-1), dateline));
+                break;
+            default:
+                break;
+        }
+
+        /*if (actType.equals("todo")) {
+            arr.add(new Todo(newTask));
+        } else if (actType.equals("deadline")) {
+            dateline = parseString(newTask, "/by ");
+            pos = newTask.indexOf("/by");
+            arr.add(new Deadline(newTask.substring(0, pos-1), dateline));
+        } else if (actType.equals("event")) {
+            dateline = parseString(newTask, "/at ");
+            pos = newTask.indexOf("/at");
+            arr.add(new Event(newTask.substring(0, pos-1), dateline));
+        }*/
+
+        System.out.println("Got it. I've added this task:\n  " + arr.get(ctr));
+        System.out.println("Now you have " + (ctr+1) + " tasks in the list.");
     }
 
-
-    public static void listArr(Task[] arr, int ctr) {
+     public static void listArr(ArrayList<Task> arr) {
         System.out.println("Here are the tasks in your list:");
 
-        int i = 0;
-        while (i < ctr) {
-            System.out.print ((i+1) + ". ");
-            arr[i].print();
+        int i = 1;
+        for (Task t : arr) {
+            System.out.println(i + "." + t);
             i++;
         }
     }
 
-    public static void markDone(Task[] arr, int taskNo) {
-        arr[taskNo-1].isDone();
-        System.out.println("Nice! I've marked this task as done:");
-        arr[taskNo-1].print();
+    public static void markDone(ArrayList<Task> arr, int taskNo) {
+        arr.get(taskNo-1).isDone();
+        //arr(taskNo-1).isDone();
+        System.out.println("Nice! I've marked this task as done:\n  " + arr.get(taskNo-1));
+        //(arr.get(taskNo-1));
     }
 
     private static int taskDone(String userInput) {
@@ -71,15 +88,14 @@ public class Duke {
 
         //System.out.println("Hello from\n" + logo);*/
         String userInput;
-        String temp;
         Scanner in = new Scanner(System.in);
         System.out.println("Hello, I'm Duke.\nWhat can I do for you?");
 
-        Task[] userArr = new Task[100];
+        ArrayList<Task> userArr = new ArrayList<>();
+
         int i = 0;
         userInput = in.nextLine();
-        //temp = userInput.toLowerCase();
-        temp = parseString(userInput, " ");
+        String temp = parseString(userInput, " ");
 
         while (!temp.equals("bye")) {
             switch(temp) {
@@ -88,22 +104,14 @@ public class Duke {
                     markDone(userArr, taskNo);
                     break;
                 case "list":
-                    listArr(userArr, i);
+                    listArr(userArr);
                     break;
-                case "todo":
-                    addText(userArr, userInput.substring(5), i);
-                    i++;
-                    break;
-                case "deadline":
-                    addText(userArr, "deadline", userInput.substring(9), i);
-                    i++;
-                    break;
-                case "event":
-                    addText(userArr, "event", userInput.substring(6), i);
+                case "todo": case "deadline": case "event":
+                    addText(userArr, temp, userInput.substring(temp.length()+1), i);
                     i++;
                     break;
                 default:
-                    addText(userArr, userInput, "", i);
+                    addText(userArr, "todo",userInput, i);
                     i++;
                     break;
             }
