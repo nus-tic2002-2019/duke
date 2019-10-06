@@ -54,10 +54,17 @@ public class Duke {
                     break;
 
                 case "todo":
-                    String todo = input.substring(4);
-                    Todo todoTask = new Todo(todo);
-                    userList.add(todoTask);
-                    System.out.println("Okie dokie! Task added: " + System.lineSeparator() + todoTask.toString());
+                    try {
+                        if (input.equals("todo")) {
+                            throw new DukeChildException.nullDescription("Task description required!");
+                        }
+                        String todo = input.substring(4);
+                        Todo todoTask = new Todo(todo);
+                        userList.add(todoTask);
+                        System.out.println("Okie dokie! Task added: " + System.lineSeparator() + todoTask.toString());
+                    } catch (DukeChildException.nullDescription e) {
+                        e.printStackTrace();
+                    }
                     break;
 
                 case "deadline":
