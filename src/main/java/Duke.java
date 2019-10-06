@@ -3,6 +3,11 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
+    public static void deleteTask(ArrayList<Task> arr, int taskNo) {
+        System.out.println("Noted. I've removed this task:\n  " + arr.get(taskNo-1));
+        arr.remove(taskNo-1);
+        System.out.println("Now you have " + arr.size() + " tasks in the list.");
+    }
 
     public static void addText(ArrayList<Task> arr, String actType, String newTask, int ctr) {
 
@@ -32,18 +37,6 @@ public class Duke {
                 break;
         }
 
-        /*if (actType.equals("todo")) {
-            arr.add(new Todo(newTask));
-        } else if (actType.equals("deadline")) {
-            dateline = parseString(newTask, "/by ");
-            pos = newTask.indexOf("/by");
-            arr.add(new Deadline(newTask.substring(0, pos-1), dateline));
-        } else if (actType.equals("event")) {
-            dateline = parseString(newTask, "/at ");
-            pos = newTask.indexOf("/at");
-            arr.add(new Event(newTask.substring(0, pos-1), dateline));
-        }*/
-
         System.out.println("Got it. I've added this task:\n  " + arr.get(ctr));
         System.out.println("Now you have " + (ctr+1) + " tasks in the list.");
     }
@@ -60,9 +53,7 @@ public class Duke {
 
     public static void markDone(ArrayList<Task> arr, int taskNo) {
         arr.get(taskNo-1).isDone();
-        //arr(taskNo-1).isDone();
         System.out.println("Nice! I've marked this task as done:\n  " + arr.get(taskNo-1));
-        //(arr.get(taskNo-1));
     }
 
     private static int taskDone(String userInput) {
@@ -109,6 +100,11 @@ public class Duke {
                 case "todo": case "deadline": case "event":
                     addText(userArr, temp, userInput.substring(temp.length()+1), i);
                     i++;
+                    break;
+                case "delete":
+                    taskNo = taskDone(userInput);
+                    deleteTask(userArr, taskNo);
+                    i--;
                     break;
                 default:
                     addText(userArr, "todo",userInput, i);
