@@ -5,7 +5,6 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        Duke.current += 1;
     }
 
     public String getStatusIcon() {

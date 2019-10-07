@@ -5,7 +5,7 @@ public class Todo extends Task {
         System.out.println("    ____________________________________________________________\n" +
                 "     Got it. I've added this task:\n" +
                 "       [T][\u2718] " + description + "\n" +
-                "     Now you have " +  Integer.toString(Duke.current) +  " tasks in the list.\n" +
+                "     Now you have " +  Integer.toString(Duke.store.size() + 1) +  " tasks in the list.\n" +
                 "    ____________________________________________________________\n");
     }
 

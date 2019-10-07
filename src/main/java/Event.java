@@ -4,7 +4,7 @@ public class Event extends Task {
         System.out.println("    ____________________________________________________________\n" +
                 "     Got it. I've added this task:\n" +
                 "       [E][\u2718] " + description + "\n" +
-                "     Now you have " +  Integer.toString(Duke.current) +  " tasks in the list.\n" +
+                "     Now you have " +  Integer.toString(Duke.store.size()) +  " tasks in the list.\n" +
                 "    ____________________________________________________________\n");
 
     }
