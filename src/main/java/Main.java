@@ -63,31 +63,21 @@ public class Main {
                     }
                 } else if (function.equalsIgnoreCase("delete")) {
                     if (input.length() > 7) {
-                        //  list[counter] = new Event(input.substring(7, input.indexOf("/") - 1), input.substring(input.indexOf("/") + 3));
+                        int delNo = Integer.parseInt(input.substring(input.indexOf(" ")+1))-1;
+
+                        if (delNo >= counter) {
+                            throw new DukeException("☹ OOPS!!! The description of a delete not found.");
+                        }
                         System.out.println("Noted. I've removed this task:  ");
                         //System.out.println(list.get(counter).toString());
                         //System.out.println(list.get(counter).toString());
                         //Task x = list.get();
                         //System.out.println(x.getDescription());
 
-                        ArrayList<Task> temp = new ArrayList<Task>();
-                        for(int i = 0; i<counter; i++){
-                            if(i!=Integer.parseInt(input.substring(7))-1) {
-
-                                temp.add(list.get(i));
-
-                                list.remove(i);
-
-
-                            }
-                            System.out.println(list.get(i).toString());
-
-                        }
-                        list.clear();
-                        list.addAll(temp);
+                        System.out.println(list.get(delNo).toString());
+                        list.remove(delNo);
 
                         counter--;
-
                         System.out.println("Now you have " + counter + " tasks in the list.");
                     } else {
                         throw new DukeException("☹ OOPS!!! The description of a delete cannot be empty.");
