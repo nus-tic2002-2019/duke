@@ -157,8 +157,8 @@ public class Duke {
         Storage.writeToFile(file_path, Storage.toTxt(Task.getOutput()));
 
         //exit
-        Ui.showLine();
-        Ui.goodBye();
-        Ui.showLine();
+        //Ui.showLine();
+        //Ui.goodBye();
+        //Ui.showLine();
     }
 }

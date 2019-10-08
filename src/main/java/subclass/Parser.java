@@ -13,11 +13,13 @@ public class Parser {
             case EventCommand.INPUT:
                 return new EventCommand(false, input);
             case ListCommand.INPUT:
-                return new ListCommand(false, input);
+                return new ListCommand(false, "");
             case DoneCommand.INPUT:
                 return new DoneCommand(false, input);
             case DeleteCommand.INPUT:
                 return new DeleteCommand(false, input);
+            case ByeCommand.INPUT:
+                return new ByeCommand(true, "");
             default:
                 throw new DukeException();
         }
