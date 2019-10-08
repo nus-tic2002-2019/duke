@@ -22,13 +22,12 @@ public class Storage{
     private File file;
     private Scanner fileReader;
 
-    public Storage(String filePath){
+    public Storage(String filePath) {
         try{
         this.filePath = filePath;
         this.file = new File(filePath);
         fileReader = new Scanner(file);
-        }
-        catch (FileNotFoundException e){
+        } catch (FileNotFoundException e){
             createFileAndDirectory();
         }
     }
@@ -67,8 +66,7 @@ public class Storage{
             else{
                 throw new IOException();
             }
-        }
-        catch(IOException | NullPointerException e){
+        } catch(IOException | NullPointerException e){
             createFileAndDirectory();
         }
         return taskList;
@@ -80,13 +78,12 @@ public class Storage{
             }
             if(file.createNewFile()){
             }
-        }
-        catch(IOException e){
+        } catch(IOException e){
             new IOException("The file " + file.getAbsolutePath() + " has encountered an error creating.");
         }
     }
 
-    public void saveToFile() throws IOException{
+    public void saveToFile() throws DukeException, IOException{
         FileWriter fileWriter = new FileWriter(file.getAbsolutePath());
         String toAdd = "";
         createFileAndDirectory();
@@ -109,7 +106,6 @@ public class Storage{
                 taskClass = "D";
                 date = dateToString(((Deadline) task).by);
             }
-
             if (task.isDone){
                 isDone = 1;
             }
@@ -126,10 +122,8 @@ public class Storage{
         try{
             fileWriter.write(toAdd);
             fileWriter.close();
-        }
-
-        catch(IOException e){
-            new IOException("The file " + file.getAbsolutePath() + " has encountered an error writing.");
+        } catch(IOException e){
+            throw new DukeException("The file " + file.getAbsolutePath() + " has encountered an error writing.");
         }
     }
 
@@ -137,8 +131,7 @@ public class Storage{
         try{
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
             return LocalDateTime.parse(date, formatter);
-        }
-        catch (DateTimeParseException e){
+        } catch (DateTimeParseException e){
             throw new DukeException("The date " + date + " loaded from the file is invalid.");
         }
     }

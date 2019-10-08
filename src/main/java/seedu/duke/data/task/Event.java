@@ -12,6 +12,10 @@ public class Event extends Task {
         this.at = at;
     }
 
+    /** 
+     * Returns the Event in a String format.
+     * @return String   The Event in a String format.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (at: " + dateToString(at) + ")";

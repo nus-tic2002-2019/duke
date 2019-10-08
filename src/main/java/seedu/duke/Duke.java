@@ -30,9 +30,9 @@ public class Duke {
         while (!isExit) {
             try {
                 String fullCommand = ui.readUserInput();
-                Command c = Parser.parseInput(fullCommand);
-                c.execute(taskList, ui, storage);
-                isExit = c.isExit;
+                Command command = Parser.parseInput(fullCommand);
+                command.execute(taskList, ui, storage);
+                isExit = command.isExit;
             }
             catch (Exception e) {
                 ui.showError(e.getMessage());
