@@ -1,6 +1,10 @@
+import java.util.ArrayList;
+
 public class Operations {
     // operations class handles all interactions with the Task class.
     Task[] tasks = new Task[256];
+    //private static ArrayList<Task> tasks = new ArrayList<>();
+
     int taskCounter = 0;
 
     public Operations() {}

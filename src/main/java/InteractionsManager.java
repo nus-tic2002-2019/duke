@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
-public class InteractionsManager {
-    public void start() {
+public class InteractionsManager{
+    public void start() throws DukeException {
         System.out.println("     Hello! I'm Duke. What can I do for you?\n");
         Operations operations = new Operations();
         while(true) {
@@ -40,6 +40,10 @@ public class InteractionsManager {
                         Event toAdd = new Event(desc, at);
                         operations.add(toAdd);
                     }
+                    else{
+                        //throw new DukeException();
+                    }
+
 
 
             }
