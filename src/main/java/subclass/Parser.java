@@ -2,6 +2,27 @@ package subclass;
 
 public class Parser {
 
+    public static Command parse(String full_input) throws DukeException {
+        String input = full_input;
+
+        switch (input.split(" ")[0]) {
+            case TodoCommand.INPUT:
+                return new TodoCommand(false, input);
+            case DeadlineCommand.INPUT:
+                return new DeadlineCommand(false, input);
+            case EventCommand.INPUT:
+                return new EventCommand(false, input);
+            case ListCommand.INPUT:
+                return new ListCommand(false, input);
+            case DoneCommand.INPUT:
+                return new DoneCommand(false, input);
+            case DeleteCommand.INPUT:
+                return new DeleteCommand(false, input);
+            default:
+                throw new DukeException();
+        }
+    }
+
     public static String parseTask(String line) {
         return line.substring(line.indexOf(" ") + 1);
     }

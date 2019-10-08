@@ -1,20 +1,48 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.IOException;
 import java.text.ParseException;
 import subclass.*;
 
 public class Duke {
+    //private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
-    public static void main(String[] args) throws DukeException, todoException, IOException, ParseException {
-
-        String file_path = "C:\\Users\\marcus.ng\\Desktop\\m\\m\\NUS\\TIC2002 Introduction to Software Engineering\\duke\\src\\main\\java\\taskList.txt";
+    public Duke(String filePath) {
+        ui = new Ui();
+        //storage = new Storage(filePath);
         try {
-            Storage.loadFile(file_path);
-        } catch (ParseException e) {
+            Storage.loadFile(filePath);
+        } catch (ParseException | FileNotFoundException e) {
             Ui.displayError();
+            tasks = new TaskList();
         }
 
+    }
+
+    public void run() {
         Ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                //ui.showLine();
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui);
+                isExit = c.isExit;
+            } catch (IOException | DukeException | ParseException e) {
+                ui.displayError();
+            }
+        }
+    }
+
+    public static void main(String[] args) throws DukeException, todoException, IOException, ParseException {
+        //load txt file
+        String file_path = "C:\\Users\\marcus.ng\\Desktop\\m\\m\\NUS\\TIC2002 Introduction to Software Engineering\\duke\\src\\main\\java\\taskList.txt";
+        new Duke(file_path).run();
+
+        /*Ui.showWelcome();
         String line;
         Scanner in = new Scanner(System.in);
 
@@ -75,7 +103,7 @@ public class Duke {
                     //mark done
                     if (line.contains("done")) {
 
-                        String input_items = line.substring(line.indexOf(" ") + 1);
+                        String input_items = Parser.parseTask(line);
                         int task_option = Integer.parseInt(input_items);
                         Task tmp = newTask.markDone(task_option);
                         Ui.showLine();
@@ -86,7 +114,7 @@ public class Duke {
                     //delete task
                     if (line.contains("delete")) {
 
-                        String input_items = line.substring(line.indexOf(" ") + 1);
+                        String input_items = Parser.parseTask(line);
                         int task_option = Integer.parseInt(input_items);
                         newTask.removeTask(task_option);
                     }
@@ -124,7 +152,7 @@ public class Duke {
 
                 line = in.nextLine();
 
-            }
+            } */
         //save Task.txt
         Storage.writeToFile(file_path, Storage.toTxt(Task.getOutput()));
 

@@ -1,6 +1,11 @@
 package subclass;
 
+import java.util.Scanner;
+
 public class Ui {
+
+    private Scanner in;
+
     public static void showWelcome () {
         String logo = "\t ____        _        \n"
                 + "\t|  _ \\ _   _| | _____ \n"
@@ -12,6 +17,20 @@ public class Ui {
         System.out.println("\t\tHello! I'm Duke");
         System.out.println("\t\tWhat can I do for you?");
         System.out.println("\t_________________________________________");
+    }
+
+    private boolean isInputting(String input) {
+        return input.trim().isEmpty();
+    }
+
+    public String readCommand() {
+        String line;
+        Scanner in = new Scanner(System.in);
+        line = in.nextLine();
+        while (isInputting(line)) {
+            line = in.nextLine();
+        }
+        return line;
     }
 
     public static void displayError() {
@@ -45,6 +64,10 @@ public class Ui {
     public static void showLine() {
         System.out.println("\t________________________________________________________________");
     }
+
+    /*public static void showError(String error_message) {
+        System.out.println("\t☹ OOPS!!! " + error_message);
+    }*/
 
     public static void goodBye() {
         System.out.println("\t\tBye. Hope to see you again soon!");

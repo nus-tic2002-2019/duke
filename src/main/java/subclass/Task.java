@@ -44,13 +44,13 @@ public class Task {
 
     public static void removeTask(int taskNo) {
         Task tmp = task_info.get(taskNo-1);
-        System.out.println("\t_________________________________________");
+        Ui.showLine();
         System.out.println("\tNoted. I've removed this task:");
         System.out.println("\t\t" + tmp);
         task_info.remove(taskNo-1);
         word_count--;
         System.out.println("\tNow you have " + word_count + " tasks in the list.");
-        System.out.println("\t_________________________________________");
+        Ui.showLine();
     }
 
     public Task(String description) {
