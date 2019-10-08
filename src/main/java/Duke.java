@@ -5,7 +5,7 @@ import java.util.ArrayList;                             //ArrayList library
 
 public class Duke {
 
-    public static void updateStore(Task[] storage, String reply, int i) throws NoClassException, DukeException
+    public static void updateStore(ArrayList<Task> storage, String reply, int i) throws NoClassException, DukeException
     {
         String replied = reply;
 
@@ -16,7 +16,7 @@ public class Duke {
                 {
                     throw new DukeException(replied);
                 }
-                storage[i] = new ToDo(reply);
+                storage.add(new ToDo(reply));
             }
             else if (reply.startsWith("deadline"))
             {
@@ -26,7 +26,7 @@ public class Duke {
                     throw new DukeException(replied);
                 }
                 String[] input = reply.split("/");
-                storage[i] = new Deadline(input[0], input[1]);
+                storage.add(new Deadline(input[0], input[1]));
             }
             else if (reply.startsWith("event"))
             {
@@ -36,7 +36,7 @@ public class Duke {
                     throw new DukeException(replied);
                 }
                 String[] input = reply.split("/");
-                storage[i] = new Event(input[0], input[1]);
+                storage.add(new Event(input[0],input[1]));
             }
             else
             {
@@ -44,11 +44,11 @@ public class Duke {
             }
     }
 
-    public static void printStore(Task[] storage, int count)
+    public static void printStore(ArrayList<Task> storage, int count)
     {
         for (int i = 0; i < count; i++)
         {
-            System.out.println((i+1) + ". " + storage[i].printTask());
+            System.out.println((i+1) + ". " + storage.get(i).printTask());
         }
     }
 
@@ -62,9 +62,10 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println(logo);
 
-        Task[] storage = new Task[100];                 //Creating empty array of 100 to store
-        int storeCount = 0;                             //Create count for items within storage
-        int num = 0;                                        //Store for the integer input
+        ArrayList<Task> storage = new ArrayList<>();    //Create ArrayList for tasks
+        //Task[] storage = new Task[100];               //Creating empty array of 100 to store
+        int storeCount = 0;                             //Create counter for items within storage
+        int num = 0;                                    //Store for the integer input
 
         Scanner myObj = new Scanner(System.in);
         System.out.println("Hello! I'm Duke\n What can I do for you?");
@@ -91,8 +92,8 @@ public class Duke {
 
                 num = num-1;                            //Aligns numbering with stored array[]
 
-                storage[num].markDone();                //Update Task as done
-                System.out.println("Nice! I've marked this task as done:\n[" + storage[num].getIcon() + "] " + storage[num].printTask());
+                storage.get(num).markDone();            //Update Task as done
+                System.out.println("Nice! I've marked this task as done:\n" + storage.get(num).printTask());
 
                 reply = myObj.nextLine();               //Reads the next line for next input
             }
