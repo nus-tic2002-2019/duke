@@ -1,10 +1,35 @@
 import javax.swing.plaf.synth.SynthTabbedPaneUI;
+import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Vector;
 import java.util.Scanner;
 
 public class Duke {
 
+    //num list;
+    public static enum First_Input_Word{
+        todo("todo", 1),
+        event("event", 2),
+        deadline("deadline", 3),
+        done("done", 4),
+        delete("delete", 5),
+        list("list", 6),
+        bye("bye", 7);
+
+        private  String name;
+        private int index;
+
+        private First_Input_Word(String name, int index){
+            this.name = name;
+            this.index = index;
+        }
+
+        public String getName(){
+            return this.name;
+        }
+    }
+
+    //To check whether the string is a number;
     public static boolean isNumeric(String strNum) {
         boolean ret = true;
         try {
@@ -17,6 +42,7 @@ public class Duke {
         return ret;
     }
 
+    //Task class;
     public static class Task{
         protected String description;
         protected String type;
@@ -50,12 +76,14 @@ public class Duke {
         }
     }
 
+    //To do class;
     public static class Todo extends Task{
         public Todo(String description){
             super(description, "T");
         }
     }
 
+    //Deadline class;
     public static class Deadline extends Task{
 
         public Deadline(String description, String by){
@@ -64,6 +92,7 @@ public class Duke {
         }
     }
 
+    //Event class;
     public static class Event extends Task {
 
         public Event(String description, String Event_time){
@@ -89,7 +118,9 @@ public class Duke {
 
     //To print everything in the List;
     public static void Print_List(Vector<Task> List){
-        //List.remove(List.size()-1);
+
+        System.out.println("     Here are the task(s) in your list:");
+
         for(int i = 0; i < List.size(); i++){
             int j = i+1;
             Task current = List.get(i);
@@ -201,17 +232,33 @@ public class Duke {
         System.out.println("     Now you have " + List.size() + " task(s) in the list.");
     }
 
+    //To check and delete;
+    public static void Out_After_Delete(Task Deleted_Task, Vector<Task> List){
+        System.out.println("     Noted. I've removed this task:");
+        System.out.println("       [" + Deleted_Task.getType() + "][" + Deleted_Task.getStatusIcon() + "] " + Deleted_Task.getDescription());
+        System.out.println("     Now you have " + List.size() + " task(s) in the list.");
+    }
+
     //DukeException class which extends Exception;
     public static class DukeException extends Exception {}
 
+    //DoneNumberException;
     public static class DoneNumberException extends Exception{}
 
+    //DeleteNumberException;
+    public static class DeleteNumberException extends Exception{}
+
+    //To check input with enum list;
+    public static class InputNotMatchEnum extends Exception{}
+
+    //To check input information length;
     public static void Input_Length_Checking(String First_Word, String[] Input_Words) throws DukeException {
         if(!First_Word.equals("list") && !First_Word.equals("bye") && Input_Words.length == 1){
             throw new DukeException();
         }
     }
 
+    //To add input into the List;
     public static void To_Add_New_Input_Into_List(String First_Word, String Input, String[] Input_Words, Vector<Task> List){
 
         Task New_task = new Task();
@@ -235,13 +282,42 @@ public class Duke {
         Out_After_Added(New_task, First_Word, List);
     }
 
-    public static void Done_Number(Vector<Task> List, String[] Input) throws DoneNumberException {
-        int DoneNumber = Integer.parseInt(Input[1]);
+    //To check Done Number input is in correct format or not;
+    public static void Done_Number(Vector<Task> List, String[] Input_Words) throws DoneNumberException {
+        int DoneNumber = Integer.parseInt(Input_Words[1]);
         int L_size = List.size();
 
-        if(DoneNumber > L_size || DoneNumber < 1){
+        if(!isNumeric(Input_Words[1]) || Input_Words.length != 2 || DoneNumber > L_size || DoneNumber < 1){
             throw new DoneNumberException();
         }
+
+        int i = Integer.parseInt(Input_Words[1]) - 1;
+        List.get(i).isDone = true;
+        System.out.println("     Nice! I've marked this task as done:");
+        System.out.println("       [" + List.get(i).getStatusIcon() + "] " + List.get(i).getDescription());
+    }
+
+    //To check Delete Number input is in correct format or not;
+    public static void Delete_Number(Vector<Task> List, String[] Input_Words) throws DeleteNumberException{
+        int DeleteNumber_Index = Integer.parseInt(Input_Words[1]);
+        int L_size = List.size();
+
+        if(!isNumeric(Input_Words[1]) || Input_Words.length != 2 || DeleteNumber_Index > L_size || DeleteNumber_Index < 1) {
+              throw new DeleteNumberException();
+        }
+
+        Task Deleted_Task = List.remove(DeleteNumber_Index - 1);
+
+        Out_After_Delete(Deleted_Task, List);
+    }
+
+    //To compare input with enum list;
+    public static String matchName(String n) throws InputNotMatchEnum {
+        for( First_Input_Word testing : First_Input_Word.values()){
+            if(testing.getName().equals(n)) return testing.getName();
+        }
+
+        throw new InputNotMatchEnum();
     }
 
     //Chatting body;
@@ -259,48 +335,33 @@ public class Duke {
         String[] Input_Words = Input.split(" ");    //To split input by " " into String Array;
         String First_Word = Input_Words[0];     //To get the first word of input;
 
-        try{
+
+        try {
             Input_Length_Checking(First_Word, Input_Words);
 
-            //If the input is "bye";
-            if(In.equals(Ending)){
-                System.out.println("     Bye. Hope to see you again soon!");
-                Separated_Line();
-                return;
-            }
-            //If the input is "list";
-            else if (In.equals("list")){
-                Print_List(List);
-                Separated_Line();
-                chatting_Vector_Task(List);
-            }
-            //The rest;
-            else{
-                //If the input first four char is "done"
-                if(First_Word.equals("done")){
-                    if(isNumeric(Input_Words[1]) && Input_Words.length == 2) {
+            String Compared_Result = matchName(First_Word);
 
-                        Done_Number(List, Input_Words);
-
-                        int i = Integer.parseInt(Input_Words[1]) - 1;
-                        List.get(i).isDone = true;
-                        System.out.println("     Nice! I've marked this task as done:");
-                        System.out.println("       [" + List.get(i).getStatusIcon() + "] " + List.get(i).getDescription());
-                        Separated_Line();
-                        chatting_Vector_Task(List);
-                    }
-                    else{
-                        System.out.println("Invalid Task, please key in again!");
-                        chatting_Vector_Task(List);
-                    }
-                }
-                else
-                {
+            switch (First_Word){
+                case "todo":
+                case "event":
+                case "project":
                     To_Add_New_Input_Into_List(First_Word, Input, Input_Words, List);
-
+                    break;
+                case "done":
+                    Done_Number(List, Input_Words);
+                    break;
+                case "delete":
+                    Delete_Number(List, Input_Words);
+                    break;
+                case "list":
+                    Print_List(List);
+                    break;
+                case "bye":
+                    System.out.println("     Bye. Hope to see you again soon!");
                     Separated_Line();
-                    chatting_Vector_Task(List);
-                }
+                    return;
+                default:
+                    System.out.println("    Invalid Input! Please try again!");
             }
         }
         catch (DukeException e) {
@@ -313,20 +374,22 @@ public class Duke {
             } else {
                 System.out.println("     \u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-
-            Separated_Line();
-
-            chatting_Vector_Task(List);
         }
         catch (DoneNumberException e){
-            System.out.println("      The number of task you want to done is invalid! Please key-in again!");
-
-            Separated_Line();
-
-            chatting_Vector_Task(List);
+            System.out.println("      The task you want to done is invalid! Please key-in again!");
         }
+        catch (DeleteNumberException e){
+            System.out.println("     The number of task you want to delete is invalid! Please key-in again!");
+        }
+        catch (InputNotMatchEnum e){
+            System.out.println("    Input not valid, please try again!");
+        }
+
+        Separated_Line();
+        chatting_Vector_Task(List);
     }
 
+    //Main;
     public static void main(String[] args) throws DukeException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -344,77 +407,3 @@ public class Duke {
         chatting_Vector_Task(List);
     }
 }
-
-
-
-    //Chatting_Level 1&2;
-    /*public static void chatting(){
-        String Ending = "bye";
-        String Line;
-        Scanner in = new Scanner(System.in);
-        Line = in.nextLine();
-        Seperated_Line();
-
-        if(Line.equals(Ending)){
-            System.out.println("Bye. Hope to see you again soon!");
-            Seperated_Line();
-            return;
-        }
-        else {
-            System.out.println(Line);
-            Seperated_Line();
-            chatting();
-        }
-    }*/
-
-    //Chatting_vector_Task_Level 3;
-    /*public static void chatting_Vector_Task(Vector<Task> List){
-        String Ending = "bye";
-        String Input;
-
-        Scanner in = new Scanner(System.in);
-        Input = in.nextLine();
-
-        Task In = new Task(Input);
-
-        List.add(In);
-
-        Separated_Line();
-        String last = List.lastElement().getDescription();  //To get the newest input from Task into String
-        boolean status = List.lastElement().getStatus();    //To get the isDone status of the newest input
-
-
-        //If the input is "bye";
-        if(last.equals(Ending)){
-            System.out.println("Bye. Hope to see you again soon!");
-            Separated_Line();
-            return;
-        }
-        //If the input is "list";
-        else if (last.equals("list")){
-            Print_List(List);
-            Separated_Line();
-            chatting_Vector_Task(List);
-        }
-        //The rest;
-        else{
-            //If the input first four char is "done"
-            if(Checking_Input_Status(last)){
-                String[] Last_Input = last.split(" "); //Split String base on " " into String Array;
-                if(isNumeric(Last_Input[1]) && Last_Input.length == 2) {
-                    int i = Integer.parseInt(Last_Input[1]) - 1;
-                    List.get(i).isDone = true;
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  [" + List.get(i).getStatusIcon() + "] " + List.get(i).getDescription());
-                    Separated_Line();
-                    chatting_Vector_Task(List);
-                }
-            }
-            else
-                {
-                    System.out.println("added: " + last);
-                    Separated_Line();
-                    chatting_Vector_Task(List);
-                }
-        }
-    }*/
