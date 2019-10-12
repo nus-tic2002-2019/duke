@@ -5,16 +5,23 @@ import exception.DukeException;
 import task.TaskList;
 import ui.Ui;
 import storage.Storage;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+/**
+ * Represents the event command.
+ * */
 
 public class EventCommand extends Command {
 
     public EventCommand(String fullCommand){
         super(fullCommand);
     }
+
+    /**
+     * Format deadline date to dd-mm-yyyy hh:mm:ss.
+     * */
 
     public static Date convertEvent(String deadline){
         SimpleDateFormat format = new SimpleDateFormat ("dd-MM-yyyy HH:mm:ss");
@@ -29,6 +36,11 @@ public class EventCommand extends Command {
         }
         return new Date();
     }
+
+    /**
+     * Utilizing parent class function to return new event.
+     * */
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
 

@@ -13,9 +13,13 @@ import command.LoadFromCommand;
 import command.FindCommand;
 
 import exception.DukeException;
-
+/**
+ *Represents the parser class to parse correct information from users to respective commands.
+ * */
 public class Parser{
-
+    /**
+     *Takes input from user and splits out the important keywords to return to the correct command.
+     * */
     public static Command parse(String fullCommand) throws DukeException {
         String command = fullCommand.split(" ")[0];
 

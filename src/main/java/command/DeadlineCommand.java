@@ -5,16 +5,25 @@ import task.TaskList;
 import ui.Ui;
 import storage.Storage;
 import exception.DukeException;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DeadlineCommand extends Command {
+/**
+ * Represents the deadline command.
+ * */
 
+public class DeadlineCommand extends Command {
+    /**
+     * Return deadline input description.
+     * */
     public DeadlineCommand(String fullCommand){
         super(fullCommand);
     }
+
+    /**
+     * Format deadline date to dd-mm-yyyy hh:mm:ss.
+     * */
 
     public static Date convertDeadline(String deadline){
         SimpleDateFormat format = new SimpleDateFormat ("dd-MM-yyyy HH:mm:ss");
@@ -30,6 +39,9 @@ public class DeadlineCommand extends Command {
         return new Date();
     }
 
+    /**
+     * Utilizing parent class function to return new deadline.
+     * */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
 

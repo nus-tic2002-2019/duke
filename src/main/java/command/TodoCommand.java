@@ -6,11 +6,19 @@ import task.TaskList;
 import task.ToDo;
 import ui.Ui;
 
+/**
+ * Represents the todo command.
+ * */
+
 public class TodoCommand extends Command {
 
     public TodoCommand(String fullCommand){
         super(fullCommand);
     }
+
+    /**
+     * Utilizing parent class function to return new todo.
+     * */
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {

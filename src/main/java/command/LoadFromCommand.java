@@ -5,11 +5,18 @@ import ui.Ui;
 import storage.Storage;
 import exception.DukeException;
 
+/**
+ * Represents the load command.
+ * */
 
 public class LoadFromCommand extends Command {
     public LoadFromCommand(String fullCommand) {
         super(fullCommand);
     }
+
+    /**
+     * Utilizing parent class function to loaded file.
+     * */
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage){

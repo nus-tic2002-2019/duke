@@ -1,5 +1,4 @@
 package storage;
-
 import task.Deadline;
 import command.DeadlineCommand;
 import task.ToDo;
@@ -8,7 +7,6 @@ import task.Event;
 import command.EventCommand;
 import exception.DukeException;
 import ui.Ui;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -16,13 +14,23 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ *Represents the storage for list of task.
+ * */
 public class Storage {
-
+    /**
+     *Creation of variable path.
+     * */
     private String path;
+    /**
+     *return path according to input.
+     * */
     public  Storage(String s){
         this.path=s;
     }
+    /**
+     *Retrieval of line for loading up saved files.
+     * */
     private List<String> getLine() throws FileNotFoundException {
         List<String> lines = new ArrayList<>();
         File f = new File(path);
@@ -32,6 +40,9 @@ public class Storage {
         }
         return lines;
     }
+    /**
+     *Loading up task according to the saved files.
+     * */
     private static Task createTask(String line) throws DukeException {
         String type=line.split("]")[0];
         String isDone=line.split("]")[1];
@@ -80,7 +91,9 @@ public class Storage {
         }
         return new ToDo();
     }
-
+    /**
+     *Reading and loading up file stated in Duke.
+     * */
     private List<Task> getTasksFromFile() throws FileNotFoundException{
         List<Task> loadedTasks = new ArrayList<>();
         Ui a=new Ui();
@@ -98,6 +111,9 @@ public class Storage {
         }
         return loadedTasks;
     }
+    /**
+     *Checking if there is any file in the stated path.
+     * */
     public List<Task> load(){
         try {
             List<Task> tasks = getTasksFromFile();
@@ -108,6 +124,9 @@ public class Storage {
             return tasks;
         }
     }
+    /**
+     *Saving any changes to task list.
+     * */
     public void save(List<Task> changed){
 
         try {
@@ -122,6 +141,9 @@ public class Storage {
             e.printStackTrace();
         }
     }
+    /**
+     *Returns new path indicated.
+     * */
     public void changePath(String newPath){
         this.path=newPath;
     }
