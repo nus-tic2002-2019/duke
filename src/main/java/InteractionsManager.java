@@ -20,13 +20,18 @@ public class InteractionsManager{
                 int targetToSetDone = Integer.parseInt(lastValue);
                 operations.setDone(targetToSetDone);
             }
+
+            else if (userCommand.startsWith("delete")){
+                String lastValue = userCommand.substring(userCommand.length()-1);
+                int targetToDelete = Integer.parseInt(lastValue);
+                operations.delete(targetToDelete);
+            }
             else{
                 // Check if user is adding ToDo, Deadline, or Event in Operations.java
                     String taskType = checkTaskType(userCommand);
                     String desc = getDesc(userCommand);
                     String by = getBy(userCommand);
                     String at = getAt(userCommand);
-
 
                     if (taskType.equals("todo")){
                         Todo toAdd = new Todo(desc);
