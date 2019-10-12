@@ -1,3 +1,7 @@
+package tasklist;
+
+import tasklist.Task;
+
 public class Event extends Task {
     protected String at;
 

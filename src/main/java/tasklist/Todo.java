@@ -1,3 +1,7 @@
+package tasklist;
+
+import tasklist.Task;
+
 public class Todo extends Task {
 
     public Todo (String description){
