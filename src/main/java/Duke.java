@@ -27,40 +27,40 @@ public class Duke {
     }
 
       public static String echo() throws DukeException {
-        String userInput;
-        Scanner scan = new Scanner( System.in );
-        userInput = scan.nextLine();
+          String userInput;
+          Scanner scan = new Scanner(System.in);
+          userInput = scan.nextLine();
 
-         if(userInput.contains("done")) {
-             String[] splitStr = userInput.split("\\s+");
-             // System.out.println("ddd " + splitStr[1]);
-             mark.set(Integer.valueOf(splitStr[1])-1,  true);
-        }
-         else if((!userInput.equals("list")) && (!userInput.equals("bye"))) {
-             String typeS = getType(userInput);
+          String[] splitStr;
 
-             userInput = userInput.replace("todo","");
-             userInput = userInput.replace("deadline","");
-             userInput = userInput.replace("event","");
+          if (userInput.contains("done")) {
+              splitStr = userInput.split("\\s+");
+              mark.set(Integer.valueOf(splitStr[1]) - 1, true);
+          } else if (userInput.contains("delete")) {
 
-             if(userInput.isEmpty()) {
-                 System.out.println("☹ OOPS!!! The description cannot be empty.");
-                 throw new DukeException();
-             }
+          } else if ((!userInput.equals("list")) && (!userInput.equals("bye"))) {
+              String typeS = getType(userInput);
 
-             else {
-                 if (typeS == "E" || typeS == "D") {
-                     String[] splitStr = userInput.split("/");
-                     userInput = splitStr[0] + "(" + splitStr[1] + ")";
-                 }
+              userInput = userInput.replace("todo", "");
+              userInput = userInput.replace("deadline", "");
+              userInput = userInput.replace("event", "");
 
-                 list.add(userInput);
-                 mark.add(false);
-                 type.add(typeS);
-             }
-         }
-        return userInput;
-    }
+              if (userInput.isEmpty()) {
+                  System.out.println("☹ OOPS!!! The description cannot be empty.");
+                  throw new DukeException();
+              } else {
+                  if (typeS == "E" || typeS == "D") {
+                      splitStr = userInput.split("/");
+                      userInput = splitStr[0] + "(" + splitStr[1] + ")";
+                  }
+
+                  list.add(userInput);
+                  mark.add(false);
+                  type.add(typeS);
+              }
+          }
+          return userInput;
+      }
 
     public static boolean printout(String userInput){
         if(userInput.equals("bye")){
@@ -82,6 +82,19 @@ public class Duke {
             System.out.println("Nice! I've marked this task as done: ");
             System.out.println("[" + getMark(mark.get(index))+ "] " + list.get(index));
 
+        }
+        else if(userInput.contains("delete")) {
+            String[] splitStr = userInput.split("\\s+");
+            int index = Integer.parseInt(splitStr[1]) - 1;
+
+            System.out.println("Noted. I've removed this task: ");
+            System.out.println("[" + type.get(index) + "][" + getMark(mark.get(index))+ "] " + list.get(index));
+
+            list.remove(index);
+            type.remove(index);
+            mark.remove(index);
+
+            System.out.println("Now you have " + list.size() + " tasks in the list.");
         }
         else {
             System.out.println("Got it. I've added this task: " + userInput);
