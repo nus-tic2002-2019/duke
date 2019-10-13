@@ -10,6 +10,10 @@ public class Ui {
 
     }
 
+    public void showLine(){
+        System.out.println("    ________________________________________");
+    }
+
     public void showWelcome(){
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
