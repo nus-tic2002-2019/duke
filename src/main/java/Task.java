@@ -1,6 +1,7 @@
 public class Task {
     protected String description;
     protected boolean isDone;
+    //protected boolean tobedo;
 
     public Task(String description) {
         this.description = description;
@@ -8,11 +9,19 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "\u2713" : "\u2718");
+        return (this.isDone ? "\u2713" : "\u2718");
     }
 
-    public void markAsDone() {
+    //public String setDone() {
+      //  this.isDone = true;
+        //return "Nice! I've marked this task as done: " + "[\u2713]" + this.getStatusIcon();
+    //}
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "]" + this.description;
+    }
+    public String setDone() {
         this.isDone = true;
-        this.getStatusIcon();
+        return "Nice! I've marked this task as done: " + "[\u2713]" + this.description;
     }
 }
