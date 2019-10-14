@@ -4,6 +4,7 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Vector;
 import java.util.Scanner;
 
+
 public class Duke {
 
     //num list;
@@ -58,7 +59,7 @@ public class Duke {
         }
 
         public String getStatusIcon(){
-            return (isDone ? "\u2713" : "\u2718");
+            return (isDone ? String.valueOf('\u2713') : "\u2718");
         }
 
         public String getDescription(){
@@ -217,7 +218,7 @@ public class Duke {
 
     //Print staff after adding new task;
     public static void Out_After_Added(Task New_Task, String First_Word, Vector<Task> List){
-        System.out.println("     Got it。 I've added this task: ");
+        System.out.println("     Got it. I've added this task: ");
         System.out.print("       [" + New_Task.getType() + "][" + New_Task.getStatusIcon() + "] " + New_Task.getDescription());
 
         if(First_Word.equals("deadline")){
