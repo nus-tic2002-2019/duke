@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 public class Duke {
+    private static int counter = 1;
+    private static Task[] taskList = new Task[100];
     public static void main(String[] args) {
         String logo = " ____        _        \n" 
                     + "|  _ \\ _   _| | _____ \n" 
@@ -19,53 +21,69 @@ public class Duke {
     public static void getMsg(){
         String line;
         Scanner in = new Scanner(System.in);
-        Task[] taskList = new Task[100];
-        int counter = 1;
         while (true) {
             line = in.nextLine();
-            if (line.equals("list")) {
-                System.out.println("Here are the tasks in your list:");
-                printListFunction(taskList, counter);
-            } 
-            else if(line.equals("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
-                in.close();
-            }
-           
-            else if(line.contains("done")){
-                int listLocation = Integer.valueOf(line.substring(5,line.length()));
-                System.out.println("Nice! I've marked this task as done:");
-                doneFunction(taskList, listLocation);
-            }
-            else if(line.contains("todo")){
-                String description = line.substring(5, line.length());
-                System.out.println("Got it. I've added this task:");
-                todoFunction(taskList, description , counter);
-                System.out.println("    " + taskList[counter].toString());
-                System.out.println("Now you have " + counter + " tasks in the list.");
-                counter++;                
-            }
-            else if(line.contains("deadline")){
-                String description = line.substring(line.indexOf("deadline")+9, line.indexOf("by")-1);
-                String date = line.substring(line.indexOf("by")+3, line.length());
-                System.out.println("Got it. I've added this task:");
-                deadlineFunction(taskList, description, date, counter);
-                System.out.println("    " + taskList[counter].toString());
-                System.out.println("Now you have " + counter + " tasks in the list.");
-                counter++;                
-            }
-            else if(line.contains("event")){
-                String description = line.substring(line.indexOf("event")+6, line.indexOf("at")-1);
-                String date = line.substring(line.indexOf("at")+3, line.length());
-                System.out.println("Got it. I've added this task:");
-                eventFunction(taskList, description, date, counter);
-                System.out.println("   " + taskList[counter].toString());
-                System.out.println("Now you have " + counter + " tasks in the list.");
-                counter++;                
-            }
-            else{
-                storeFunction(taskList, line, counter);
-                counter ++;
+            String lineArr[] = line.split(" ");
+            switch(lineArr[0]){
+                case"list":
+
+                    System.out.println("Here are the tasks in your list:");
+                    printListFunction(taskList, counter);
+                    break;
+                case "bye":
+                    System.out.println("Bye. Hope to see you again soon!");
+                    in.close();
+                    break;
+                case "done":
+                    try{
+                        if(lineArr[1] == ""){
+                            throw new DukeException();
+                        }
+                        System.out.println("Nice! I've marked this task as done:");
+                        doneFunction(taskList, Integer.valueOf(lineArr[1]));
+                    }
+                    catch (IndexOutOfBoundsException | DukeException e){
+                        System.out.println("☹ OOPS!!! The description of a done cannot be empty.");
+                    }
+                    catch (NullPointerException e){
+                        System.out.println(" ☹ OOPS!!! The tasks list cannot be empty.");
+                    }
+                    break;
+                case "todo":
+                    try{ 
+                        if(lineArr[1] == ""){
+                            throw new DukeException();
+                        }
+                        storeFunction(new Todo(lineArr[1]));   
+                    }
+                    catch(IndexOutOfBoundsException | DukeException e){
+                        System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                    }  
+                    break;       
+                case "deadline":
+                    try{ 
+                        if(lineArr[3] == ""){
+                            throw new DukeException();
+                        }
+                        storeFunction(new Deadline(lineArr[1], lineArr[3]));   
+                    }
+                    catch(IndexOutOfBoundsException | DukeException e){
+                        System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+                    }
+                    break;           
+                case "event":  
+                    try{ 
+                        if(lineArr[3] == ""){
+                            throw new DukeException();
+                        }
+                        storeFunction(new Event(lineArr[1], lineArr[3]));
+                    }
+                    catch(IndexOutOfBoundsException | DukeException e){
+                        System.out.println("☹ OOPS!!! The description of a event cannot be empty.");
+                    }    
+                    break;
+                default:
+                    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         }
     }
@@ -73,42 +91,12 @@ public class Duke {
     /////////////////////////////
     //store user input into arr//
     /////////////////////////////
-    public static Task[] storeFunction(Task[] taskList, String description, int counter){
-        System.out.println("added: " + description);
-        Task newTask = new Task(description);
-        newTask.description = description;
-        taskList[counter] = newTask;
-        return taskList;
-    }
-
-    //////////////////////////////////
-    //store user todo input into arr//
-    /////////////////////////////////
-    public static Task[] todoFunction(Task[] taskList, String description, int counter){
-        Task newTask = new Todo(description);
-        newTask.description = description;
-        taskList[counter] = newTask;
-        return taskList;
-    }
-
-    ///////////////////////////////////
-    //store user event input into arr//
-    //////////////////////////////////
-    public static Task[] eventFunction(Task[] taskList, String description, String date, int counter){
-        Task newTask = new Event(description, date);
-        newTask.description = description;
-        taskList[counter] = newTask;
-        return taskList;
-    }
-
-    //////////////////////////////////////
-    //store user deadline input into arr//
-    //////////////////////////////////////
-    public static Task[] deadlineFunction(Task[] taskList, String description, String date, int counter){
-        Task newTask = new Deadline(description, date);
-        newTask.description = description;
-        taskList[counter] = newTask;
-        return taskList;
+    public static void storeFunction(Task description){
+        taskList[counter] = description;
+        System.out.println("Got it. I've added this task:");
+        System.out.println("   " + taskList[counter].toString());
+        System.out.println("Now you have " + counter + " tasks in the list.");
+        counter++; 
     }
 
     ////////////////////////////////
