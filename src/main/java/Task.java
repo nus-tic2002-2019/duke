@@ -24,5 +24,11 @@ public class Task {
         return "[" + getStatusIcon() + "] " + description;
     }
 
+    public boolean getDone() {
+        return isDone;
+    }
 
+    public String saveTask() {
+        return description;
+    }
 }
