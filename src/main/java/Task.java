@@ -28,6 +28,10 @@ public class Task {
         isDone = true;
     }
 
+    public void resetDone() {
+        isDone = false;
+    }
+
     @Override
     public String toString() {
         return "[" + typeIdt + "][" + getStatusIcon() + "] " + description;

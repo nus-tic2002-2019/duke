@@ -1,8 +1,8 @@
-import java.util.Scanner;
+import java.util.Scanner; //Import Java Scanner
+import java.util.ArrayList; //Import Java ArrayList
 
 public class Duke {
-    private static Task[] tasks = new Task[100];
-    private static int tasksCounter = 0;
+    private static ArrayList<Task> tasks = new ArrayList<Task>();
 
     public static void greet() {
         String greet = "____________________________________________________________\n"
@@ -18,12 +18,14 @@ public class Duke {
         String keyBye = "bye";
         String keyList = "list";
         String keyDone = "done";
+        String keyDelete = "delete";
         String keyTodo = "todo";
         String keyDeadline = "deadline";
         String keyEvent = "event";
 
         //Store keywords' number of characters
         int numDone = keyDone.length();
+        int numDelete = keyDelete.length();
         int numTodo = keyTodo.length();
         int numDeadline = keyDeadline.length();
         int numEvent = keyEvent.length();
@@ -51,27 +53,41 @@ public class Duke {
         } else if (input.equals(keyList) ) { //List tasks
             System.out.println("____________________________________________________________");
             System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < tasksCounter; i++) {
+            for (int i = 0; i < tasks.size(); i++) {
                 System.out.print(i + 1);
                 System.out.print(".");
-                System.out.println(tasks[i]);
+                System.out.println(tasks.get(i));
             }
             System.out.println("____________________________________________________________");
         } else if (input.length() >= numDone && (input.substring(0, numDone) ).equals(keyDone) ) { //Mark task as done
             //Get task index
-            String taskIndex = input.substring(numDone + 1, input.length() );
+            String taskIndex = input.substring(numDone + 1, input.length());
             int taskNum = Integer.parseInt(taskIndex) - 1;
 
             //Set task as done
-            tasks[taskNum].setDone();
-
-            System.out.println("____________________________________________________________");
-            System.out.println("Nice! I've marked this task as done:");
+            tasks.get(taskNum).setDone();
 
             //Print completed task
-            System.out.println(tasks[taskNum]);
-
             System.out.println("____________________________________________________________");
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println(tasks.get(taskNum));
+            System.out.println("____________________________________________________________");
+        } else if (input.length() >= numDelete && (input.substring(0, numDelete) ).equals(keyDelete) ){ //Delete task
+            //Get task index
+            String taskIndex = input.substring(numDelete + 1, input.length());
+            int taskNum = Integer.parseInt(taskIndex) - 1;
+
+            //Reset task done status
+            tasks.get(taskNum).resetDone();
+
+            //Print task to be deleted
+            System.out.println("____________________________________________________________");
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(tasks.get(taskNum));
+            System.out.println("____________________________________________________________");
+
+            //Delete task
+            tasks.remove(taskNum);
         } else {
             String extractInput;
 
@@ -82,16 +98,16 @@ public class Duke {
                 }*/
 
                 extractInput = input.substring(numTodo + 1, input.length() );
-                tasks[tasksCounter] = new Todo(extractInput);
+                tasks.add(new Todo(extractInput) );
             } else if (input.length() >= numDeadline && (input.substring(0, numDeadline) ).equals(keyDeadline) ) { //Add deadline
                 extractInput = input.substring(numDeadline + 1, input.length() );
-                tasks[tasksCounter] = new Deadline(extractInput);
+                tasks.add(new Deadline(extractInput) );
             } else if (input.length() >= numEvent && (input.substring(0, numEvent) ).equals(keyEvent) ) { //Add event
                 extractInput = input.substring(numEvent + 1, input.length() );
-                tasks[tasksCounter] = new Event(extractInput);
+                tasks.add(new Event(extractInput) );
             } else { //Add task
                 extractInput = input;
-                tasks[tasksCounter] = new Task(extractInput);
+                tasks.add(new Task(extractInput) );
             }
 
             //Old message
@@ -101,13 +117,11 @@ public class Duke {
 
             String preTaskMsg = "____________________________________________________________\n"
                     + "Got it. I've added this task:";
-            String postTaskMsg = "Now you have " + (tasksCounter + 1) + " tasks in the list."
+            String postTaskMsg = "Now you have " + (tasks.size()) + " tasks in the list."
                     + "\n____________________________________________________________";
             System.out.println(preTaskMsg);
-            System.out.println(tasks[tasksCounter]);
+            System.out.println(tasks.get(tasks.size() -1) );
             System.out.println(postTaskMsg);
-
-            tasksCounter++;
         }
 
         modify(); //Recurring method
