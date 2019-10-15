@@ -1,4 +1,6 @@
-public class Task {
+package duke.task;
+
+public abstract class Task {
     protected String task;
     protected Boolean done;
 
@@ -10,7 +12,11 @@ public class Task {
         this.done = false;
     }
 
-    //Accessor
+    /**
+     * Method to return and print the description of the task with the completion status.
+     *
+     * @return task printed in format of [status] task description
+     */
     public String printTask()
     {
         return "[" + this.getIcon() + "] " + this.task;
