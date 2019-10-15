@@ -21,7 +21,8 @@ public class DukeResponses extends Duke {
 
     private String[] Operations = {
             "   Nice! I've marked this task as done: ",
-            "   Here are the tasks in your list: "
+            "   Here are the tasks in your list: ",
+            "   Now you have @ tasks in the list."
     };
 
     public DukeResponses() {
@@ -29,7 +30,7 @@ public class DukeResponses extends Duke {
         Random counter = new Random();
         int phrase = counter.nextInt(Greetings.length);
         System.out.println(Greetings[phrase]);
-        line();
+        Generics.line();
     }
 
     public boolean isAlive() {
@@ -41,7 +42,7 @@ public class DukeResponses extends Duke {
         Random counter = new Random();
         int phrase = counter.nextInt(GoodByes.length);
         System.out.println("  "+ GoodByes[phrase]);
-        line();
+        Generics.line();
     }
 
     public void converse(String input) {
@@ -52,10 +53,22 @@ public class DukeResponses extends Duke {
             return;
         }
 
-        // Intent Classification (Level 2)
+        // Intent Classifications
         if (input.contains("list") || input.contains("List")) {
             System.out.println(Operations[1]);
             printTasks();
+        }
+        else if (input.contains("done") || input.contains("Done")) {
+            String nevin = input.replaceAll("\\D+","");
+            Tasks.get(Integer.parseInt(nevin) - 1).SetAsDone();
+            System.out.println(Operations[0]);
+            System.out.println(Tasks.get(Integer.parseInt(nevin) - 1));
+        }
+        else if (input.contains("todo") || input.contains("Todo")) {
+            // To be Implemented
+            String nevin = input.replaceAll("todo", "");
+            Todo a = new Todo(nevin);
+            Tasks.add(a);
         }
         else {
             Task a = new Task(input);
@@ -63,15 +76,6 @@ public class DukeResponses extends Duke {
             System.out.println("   added: " + input);
         }
 
-        // Intent Classification (Level 3)
-        if (input.contains("done") || input.contains("Done")) {
-            String nevin = input.replaceAll("\\D+","");
-            Tasks.get(Integer.parseInt(nevin) - 1).SetAsDone();
-            System.out.println(Operations[0]);
-            System.out.println(Tasks.get(Integer.parseInt(nevin) - 1));
-
-        }
-
-        line();
+        Generics.line();
     }
 }

@@ -4,7 +4,7 @@
  *  a Personal Assistant Chat bot that helps a person to keep track of various things.
  *
  * @author yralle.lesly.gimpaya
- * @version 0.1
+ * @version 0.2
  *
  */
 
@@ -13,21 +13,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-
-    private static void WelcomeBanner() {
-
-        String logo = " _______   __    __   __  ___  _______ \n"
-                + "|       \\ |  |  |  | |  |/  / |   ____|\n"
-                + "|  .--.  ||  |  |  | |  '  /  |  |__   \n"
-                + "|  |  |  ||  |  |  | |    <   |   __|\n"
-                + "|  '--'  ||  `--'  | |  .  \\  |  |___\n"
-                + "|_______/  \\______/  |__|\\__\\ |_______|\n";
-        System.out.println(logo);
-    }
-
-    public static void line() {
-        System.out.println("   ____________________________________________________________");
-    }
 
     // Static ArrayList to Store Tasks Objects (Level 2)
     public static ArrayList<Task> Tasks = new ArrayList<>();
@@ -40,17 +25,15 @@ public class Duke {
             count++;
         }
     }
-
     public static void main(String[] args) {
-        WelcomeBanner();
+        Generics.WelcomeBanner();
         DukeResponses Duke = new DukeResponses();
 
         while(Duke.isAlive()) {
             Scanner in = new Scanner(System.in);
             String input = in.nextLine();
-            line();
+            Generics.line();
             Duke.converse(input);
         }
-
     }
 }
