@@ -2,7 +2,7 @@ package subclass;
 
 public class Todo extends Task {
 
-    public Todo(String description) {
+    public Todo(String description) throws todoException{
         super(description);
     }
 

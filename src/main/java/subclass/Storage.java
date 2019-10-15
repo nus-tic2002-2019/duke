@@ -15,7 +15,7 @@ public class Storage {
         fw.close();
     }
 
-    public static void loadFile(String filePath) throws FileNotFoundException, ParseException {
+    public static void loadFile(String filePath) throws FileNotFoundException, ParseException, todoException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
         int num = 1;

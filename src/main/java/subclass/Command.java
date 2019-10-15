@@ -12,7 +12,7 @@ public class Command {
         this.input = input;
     }
 
-    public void execute(TaskList taskList, Ui ui) throws IOException, DukeException, ParseException {
+    public void execute(TaskList taskList, Ui ui) throws IOException, DukeException, ParseException, todoException {
         //empty;
     }
 }

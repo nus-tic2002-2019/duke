@@ -12,14 +12,21 @@ public class EventCommand extends Command {
     }
 
     public void execute(TaskList taskList, Ui ui) throws IOException, ParseException {
-        String input_items = Parser.parseTask(input);
-        String at = Parser.parseEvent_at(input);
-        String input_string = Parser.parseTask_description(input_items);
-        Task tmp = Task.add_task(new Event(input_string, at));
-        Ui.showLine();
-        Ui.displayGotIt();
-        System.out.println("\t\t" + tmp);
-        System.out.println("\t\tNow you have " + Task.word_count + " tasks in list.");
-        Ui.showLine();
+        try {
+            String input_items = Parser.parseTask(input);
+            String at = Parser.parseEvent_at(input);
+            String input_string = Parser.parseTask_description(input_items);
+            Task tmp = Task.add_task(new Event(input_string, at));
+            Ui.showLine();
+            Ui.displayGotIt();
+            System.out.println("\t\t" + tmp);
+            System.out.println("\t\tNow you have " + Task.word_count + " tasks in list.");
+            Ui.showLine();
+        } catch (StringIndexOutOfBoundsException e) {
+            Ui.showLine();
+            Ui.displayDeadlineEventError();
+            Ui.showLine();
+        }
+
     }
 }

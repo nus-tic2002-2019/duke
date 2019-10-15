@@ -9,11 +9,15 @@ public class DeleteCommand extends Command {
     }
 
     public void execute(TaskList taskList, Ui ui) throws DukeException {
-        /*String input_items = Parser.parseTask(input);
-        task_no = Integer.parseInt(input_items);
-        taskList.deleteTask(task_no);*/
-        String input_items = Parser.parseTask(input);
-        int task_option = Integer.parseInt(input_items);
-        Task.removeTask(task_option);
+        try {
+            String input_items = Parser.parseTask(input);
+            int task_option = Integer.parseInt(input_items);
+            Task.removeTask(task_option);
+        } catch (IndexOutOfBoundsException e) {
+            Ui.showLine();
+            Ui.displayError_noItem();
+            Ui.showLine();
+        }
+
     }
 }

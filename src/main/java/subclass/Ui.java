@@ -58,7 +58,7 @@ public class Ui {
     }
 
     public static void displayDeadlineEventError() {
-        System.out.println("\t\t☹ OOPS!!! The description of a deadline/event cannot be empty.");
+        System.out.println("\t☹ OOPS!!! The description of a deadline/event cannot be empty.");
     }
 
     public static void showLine() {

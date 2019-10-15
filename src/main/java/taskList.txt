@@ -2,6 +2,6 @@ T|1|read books
 D|1|do accounts|19-Jul-19 06:30 PM
 E|0|meeting|Suntec 8pm
 T|1|swimming
-E|0|boxing match|Gym
+E|1|boxing match|Gym
 D|1|do math|23-Sep-19 08:00 PM
-T|0|basketball practice
+E|1|Joker Movie|Cathay 7pm
