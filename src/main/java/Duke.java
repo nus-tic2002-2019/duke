@@ -16,23 +16,15 @@ public class Duke {
             Scanner in = new Scanner(System.in);
             String input = in.nextLine();
 
-            if (input.toLowerCase().equals ("bye")){
-                System.out.println("Bye. Hope to see you soon!");
+            if (!input.toLowerCase().equals ("bye")){
+                DukeResponse.echo(input);
             }
             else
-                DukeResponse.echo(input);
-        }
+                System.out.println("Bye. Hope to see you soon!");
 
+        }
     }
 }
 
-/*int count = 0;
-while (!input.equals("bye")){
-    input = in.nextLine();
 
-    if(input.equals("list")){
-        for (int i=0; i<count; i++){
-            System.out.println(i+1 + "." + line[i]);
-        }
-    }
-}*/
+
