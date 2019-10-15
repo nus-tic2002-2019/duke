@@ -6,8 +6,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
-import seedu.duke.data.exception.DukeEmptyException;
-import seedu.duke.data.exception.DukeException;
+import seedu.duke.exception.DukeEmptyException;
+import seedu.duke.exception.DukeException;
 import seedu.duke.data.task.Event;
 import seedu.duke.data.task.TaskList;
 import seedu.duke.storage.Storage;
@@ -56,7 +56,7 @@ public class AddEventCommand extends Command{
                     String date = String.join(" ", Arrays.copyOfRange(input.split(" "), index, input.split(" ").length));
                     event = new Event (description, stringToDate(date));
                     taskList.addToTaskList(event);
-                    ui.showOutputToUser(MESSAGE_ADD_EVENT_SUCCESS + event.toString() + "\n\t Now you have " + taskList.getSize() + " tasks in the list.");
+                    ui.setOutput(MESSAGE_ADD_EVENT_SUCCESS + event.toString() + "\n\t Now you have " + taskList.getSize() + " tasks in the list.");
                     storage.saveToFile();
                 }
             }
@@ -65,7 +65,7 @@ public class AddEventCommand extends Command{
 
     /** 
      * Converts the date & time inputted by the user to a LocalDateTime format of (d/MM/yyyy HHmm).
-     * @param   date            The date in String format inputted by the user.
+     * @param   date            The date inputted by the user.
      * @return  LocalDateTime   The converted date & time in a LocalDateTime format from the String date.
      * @throws  DukeException   If the input by the user is not of the format (dd/mm/yyyy HHmm) or the input has an invalid date.
      */

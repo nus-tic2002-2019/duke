@@ -1,21 +1,22 @@
 package seedu.duke;
 
 import seedu.duke.command.Command;
-import seedu.duke.data.exception.DukeException;
+import seedu.duke.exception.DukeException;
 import seedu.duke.data.task.TaskList;
 import seedu.duke.storage.Storage;
 import seedu.duke.ui.UI;
 import seedu.duke.parser.Parser;
 
-public class Duke {
+public class Duke{
 
     private Storage storage;
     private TaskList taskList;
     private UI ui;
 
-    public Duke(String filePath) {
+
+    public Duke() {
         ui = new UI();
-        storage = new Storage(filePath);
+        storage = new Storage("data/taskList.txt");
         try {
             taskList = new TaskList(storage.load());
         } catch (DukeException e) {
@@ -29,22 +30,27 @@ public class Duke {
         boolean isExit = false;
         while (!isExit) {
             try {
-                String fullCommand = ui.readUserInput();
-                Command command = Parser.parseInput(fullCommand);
+                String input = ui.readUserInput();
+                Command command = Parser.parseInput(input);
                 command.execute(taskList, ui, storage);
                 isExit = command.isExit;
             }
             catch (Exception e) {
-                ui.showError(e.getMessage());
+                ui.showError(e);
             }
         }
     }
-    public static void main(String[] args) {
-        new Duke("data/taskList.txt").run();
-    }
 
-    private void exit() {
-        ui.showGoodbyeMessage();
-        System.exit(0);
+    String getResponse(String input) {
+        try {
+            Command command = Parser.parseInput(input);
+            command.execute(taskList, ui, storage);
+            return ui.showOutputToUser();
+        } catch (Exception e) {
+            return ui.showError(e);
+        }
+    }
+    public static void main(String[] args) {
+        new Duke().run();
     }
 }

@@ -2,8 +2,8 @@ package seedu.duke.command;
 
 import java.io.IOException;
 
-import seedu.duke.data.exception.DukeEmptyException;
-import seedu.duke.data.exception.DukeException;
+import seedu.duke.exception.DukeEmptyException;
+import seedu.duke.exception.DukeException;
 import seedu.duke.data.task.TaskList;
 import seedu.duke.data.task.ToDo;
 import seedu.duke.storage.Storage;
@@ -38,7 +38,7 @@ public class AddToDoCommand extends Command{
         }
         todo = new ToDo(input.substring(5));
         taskList.addToTaskList(todo);
-        ui.showOutputToUser(MESSAGE_ADD_TODO_SUCCESS + todo.toString() + "\n\t Now you have " + taskList.getSize() + " tasks in the list.");
+        ui.setOutput(MESSAGE_ADD_TODO_SUCCESS + todo.toString() + "\n\t Now you have " + taskList.getSize() + " tasks in the list.");
         storage.saveToFile();
     }
 }

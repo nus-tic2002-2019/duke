@@ -2,6 +2,11 @@ package seedu.duke.data.task;
 
 public class ToDo extends Task{
 
+    /** 
+     * Constructs a new todo with the description specified.
+     * @param description
+     * @return 
+     */
     public ToDo(String description) {
         super(description);
     }

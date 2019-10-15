@@ -7,7 +7,7 @@ public class Deadline extends Task {
     public LocalDateTime by;
 
     /** 
-     * Constructs a new Deadline with the description and date speficied.
+     * Constructs a new Deadline with the description and date specified.
      * @param description
      * @param by
      */
@@ -18,7 +18,7 @@ public class Deadline extends Task {
 
     /** 
      * Returns the Deadline in a String format.
-     * @return String
+     * @return String   The deadline in a String format.
      */
     @Override
     public String toString() {
@@ -26,8 +26,9 @@ public class Deadline extends Task {
     }
 
     /** 
-     * @param dateTime
-     * @return String
+     * Converts the LocalDateTime object of a Deadline to a String object with the format (d/MM/yyyy HHmm);
+     * @param dateTime  The date and time of the deadline in a specified date and time format.
+     * @return String   The date and time for the deadline.
      */
     public String dateToString(LocalDateTime dateTime){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");

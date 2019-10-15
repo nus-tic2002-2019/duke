@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 public class ToDoTest {
     @Test
-    @DisplayName("Insert todo to study for Final Examination")
+    @DisplayName("Inserting todo to study for Final Examination")
     public void TestToString() {
         ToDo todo = new ToDo("Study for Final Examiniations");
         assertEquals("[T][\u2718] Study for Final Examiniations", todo.toString());

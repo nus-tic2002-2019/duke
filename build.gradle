@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.8'
 }
 
 group 'seedu.duke'
@@ -11,8 +12,7 @@ repositories {
 }
 
 application {
-    // Change this to your main class.
-    mainClassName = "seedu.duke.Duke"
+    mainClassName = "seedu.duke.Launcher"
 }
 
 dependencies {
@@ -20,10 +20,18 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.5.2")
 }
 
+javafx {
+    version = "11.0.2"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
 test {
     useJUnitPlatform()
     testLogging {
-		events "passed", "skipped", "failed"
+		events "passed", "skipped", "failed", "standardOut", "standardError"
+        showExceptions true
+        showCauses true
+        showStackTraces true
 	}
 }
 

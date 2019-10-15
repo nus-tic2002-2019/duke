@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import seedu.duke.data.exception.DukeException;
+import seedu.duke.exception.DukeException;
 import seedu.duke.data.task.Deadline;
 import seedu.duke.data.task.Event;
 import seedu.duke.data.task.Task;

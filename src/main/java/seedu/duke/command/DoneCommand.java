@@ -2,7 +2,7 @@ package seedu.duke.command;
 
 import java.io.IOException;
 
-import seedu.duke.data.exception.DukeException;
+import seedu.duke.exception.DukeException;
 import seedu.duke.data.task.TaskList;
 import seedu.duke.storage.Storage;
 import seedu.duke.ui.UI;
@@ -35,7 +35,7 @@ public class DoneCommand extends Command{
         try{
         index = prepareIndex(input);
         (taskList.getTask(index)).setDone();
-        ui.showOutputToUser(MESSAGE_DELETE_SUCCESS + taskList.getTask(index).toString());
+        ui.setOutput(MESSAGE_DELETE_SUCCESS + taskList.getTask(index).toString());
         storage.saveToFile();
         } catch (NumberFormatException e){
             throw new DukeException("The task selected must be a numerical value.");

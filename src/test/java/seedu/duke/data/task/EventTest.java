@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 public class EventTest {
     @Test
-    @DisplayName("Insert Event for Final Examiniations at 4/12/2019 1300H")
+    @DisplayName("Inserting Event for Final Examiniations at 4/12/2019 1300H")
     public void TestToString() {
         LocalDateTime dateTime = LocalDateTime.of(2019, 12, 04, 13, 00);
         Event event = new Event("Final Examiniations", dateTime);

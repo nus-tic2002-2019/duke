@@ -3,7 +3,7 @@ package seedu.duke.command;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.duke.data.exception.DukeException;
+import seedu.duke.exception.DukeException;
 import seedu.duke.data.task.TaskList;
 import seedu.duke.data.task.Task;
 import seedu.duke.storage.Storage;
@@ -55,16 +55,16 @@ public class FindCommand extends Command{
             }
         }
         if(isMatch){
-            ui.showOutputToUser(showToUserAsIndexedList(matchedTasks));
+            ui.setOutput(showToUserAsIndexedList(matchedTasks));
         }
         else{
-            ui.showOutputToUser(MESSAGE_FIND_FAILURE);
+            ui.setOutput(MESSAGE_FIND_FAILURE);
         }
     }
 
     /** 
      * Formats the list of tasks and return them in a formatted indexed list.
-     * @param listItems A list of String containing the tasks from the task list.
+     * @param listItems A list of tasks from the task list.
      * @return String   A formatted String in indexed format containing the tasks from the task list.
      */
     private static String showToUserAsIndexedList(List<String> listItems){
@@ -80,7 +80,7 @@ public class FindCommand extends Command{
     /** 
      * Returns the items in an indexed format with the relevant task.
      * @param visibleIndex  The index of the item in the list.
-     * @param listItem      The task in String format to be indexed.
+     * @param listItem      The task to be indexed.
      * @return String       A formatted indexed tasks in String format.
      */
     private static String getIndexedListItem(int visibleIndex, String listItem){

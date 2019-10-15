@@ -5,6 +5,7 @@ import java.io.InputStream;
 
 public class UI{
     private final Scanner in;
+    private String output;
 
     public UI(){
         this(System.in);
@@ -14,22 +15,20 @@ public class UI{
         this.in = new Scanner(in);
     }
 
-    public void showWelcomeMessage(){
-        System.out.println(wrapString("Hello! I'm Duke\n\tWhat can I do for you?"));
+    public String showWelcomeMessage(){
+        return "Hello! I'm Duke\n\tWhat can I do for you?";
     }
 
     public void showGoodbyeMessage(){
-        System.out.println(wrapString("Bye. Hope to see you again soon!"));
+        this.output = "Bye. Hope to see you again soon!";
     }
 
     private boolean shouldIgnore(String rawInputLine) {
         return rawInputLine.trim().isEmpty();
     }
 
-    public String wrapString(String string){
-        return "\t____________________________________________________________\n\t"
-        + string
-        + "\n\t____________________________________________________________ ";
+    public void setOutput(String output){
+        this.output = output;
     }
     
     public String readUserInput(){
@@ -40,11 +39,11 @@ public class UI{
         return input;
     }
 
-    public void showOutputToUser(String output) {
-        System.out.println(wrapString(output));
+    public String showOutputToUser() {
+        return this.output;
     }
 
-    public void showError(String errorMessage){
-        System.out.println(wrapString("☹ OOPS!!! " + errorMessage));
+    public String showError(Exception exception){
+        return "\u2639 OOPS!!! " + exception.getMessage();
     }
 }
