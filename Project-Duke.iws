@@ -2,6 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dbdbf99f-0347-4320-998f-462e98245c39" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/actions/Input_Action.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/apperance/Apperance.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/storage/Decoder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/storage/Encoder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/storage/StorageFile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/taskclasses/Deadline.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/taskclasses/Event.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/taskclasses/Task.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/taskclasses/Todo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/unused/Unused.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project-Duke.iws" beforeDir="false" afterPath="$PROJECT_DIR$/Project-Duke.iws" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Duke.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Duke.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -9,6 +20,9 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
   </component>
   <component name="CodeStyleSettingsInfer">
     <option name="done" value="true" />
@@ -44,11 +58,20 @@
     <option name="version" value="1" />
   </component>
   <component name="ProjectId" id="1S8Qf7fqy9vW6qbFBEDws2OYk6q" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.tabs" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="exceptions" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -65,7 +88,7 @@
   <component name="RunManager">
     <configuration name="Duke" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Duke" />
-      <module name="main" />
+      <module name="duke.main" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -101,5 +124,8 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

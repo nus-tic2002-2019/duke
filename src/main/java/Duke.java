@@ -1,12 +1,11 @@
-import javax.swing.plaf.synth.SynthTabbedPaneUI;
-import javax.swing.plaf.synth.SynthTextAreaUI;
-import java.util.InvalidPropertiesFormatException;
-import java.util.Vector;
+import actions.Input_Action;
+import apperance.Apperance;
+import taskclasses.Task;
 import java.util.Scanner;
+import java.util.Vector;
 
 
 public class Duke {
-
     //num list;
     public static enum First_Input_Word{
         todo("todo", 1),
@@ -34,210 +33,12 @@ public class Duke {
     public static boolean isNumeric(String strNum) {
         boolean ret = true;
         try {
-
             Double.parseDouble(strNum);
 
         }catch (NumberFormatException e) {
             ret = false;
         }
         return ret;
-    }
-
-    //Task class;
-    public static class Task{
-        protected String description;
-        protected String type;
-        protected String Time;
-        protected boolean isDone = false;
-
-        public Task(){}
-
-        public Task(String description, String type){
-            this.description = description;
-            this.type = type;
-            isDone = false;
-        }
-
-        public String getStatusIcon(){
-            return (isDone ? String.valueOf('\u2713') : "\u2718");
-        }
-
-        public String getDescription(){
-            return description;
-        }
-
-        public String getType(){ return type; }
-
-        public String getTime(){
-            return Time;
-        }
-
-        public boolean getStatus() {
-            return isDone;
-        }
-    }
-
-    //To do class;
-    public static class Todo extends Task{
-        public Todo(String description){
-            super(description, "T");
-        }
-    }
-
-    //Deadline class;
-    public static class Deadline extends Task{
-
-        public Deadline(String description, String by){
-            super(description, "D");
-            Time = by;
-        }
-    }
-
-    //Event class;
-    public static class Event extends Task {
-
-        public Event(String description, String Event_time){
-            super(description, "E");
-            Time = Event_time;
-        }
-    }
-
-    //Greeting at beginning;
-    public static void Greeting (){
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
-    }
-
-    //To print the separated line;
-    public static void Separated_Line(){
-        System.out.print("    ");
-        for(int i=0; i<100; i++){
-            System.out.print("-");
-        }
-        System.out.println("");
-    }
-
-    //To print everything in the List;
-    public static void Print_List(Vector<Task> List){
-
-        System.out.println("     Here are the task(s) in your list:");
-
-        for(int i = 0; i < List.size(); i++){
-            int j = i+1;
-            Task current = List.get(i);
-            String StatusIcon = current.getStatusIcon();
-            String TypeIcon = current.getType();
-            System.out.print("     " + j + ".[" + TypeIcon + "][" + StatusIcon + "] " + current.getDescription());
-            if(TypeIcon.equals("D")){
-                System.out.print(" (by: " + current.getTime() + ")");
-            }
-            else if(TypeIcon.equals("E")) {
-                System.out.print(" (at: " + current.getTime() + ")");
-            }
-            System.out.println();
-        }
-    }
-
-    //To check whether the first word is "done";
-    public static boolean Checking_Input_Status(String Input) {
-        if(Input.length() < 6) return false;
-
-        String DoneString =Input.substring(0, 4);
-        if(DoneString.equals("done")){
-            return true;
-        }
-        else return false;
-    }
-
-    //To identify whether the first word is "Deadline", "Todo", "Event or something else;
-    public static String Identify_T_D_E(String Input){
-          String[] words = Input.split(" ");
-
-          if(words[0].equals("Deadline")) return "D";
-          if(words[0].equals("Todo")) return "T";
-          if(words[0].equals("Event")) return "E";
-
-          return "Invalid Input";
-    }
-
-    //To get starting time;
-    public static String Deadline_time(String Input){
-        String ST;
-
-        int ST_index = Input.lastIndexOf("by") + 3;
-
-        ST = Input.substring(ST_index);
-
-        return ST;
-    }
-
-    //To get ending time;
-    public static String Event_time(String Input){
-        String ET;
-
-        int ET_index = Input.lastIndexOf("at");
-
-        if(ET_index == -1){
-            ET_index = Input.lastIndexOf("on") + 3;
-        }
-        else {
-            ET_index = ET_index + 3;
-        }
-
-        ET = Input.substring(ET_index);
-
-        return ET;
-    }
-
-    //To get description of the input;
-    public static String Description(String Input){
-        String D;
-        String[] body = Input.split(" ");
-
-        int D_index = Input.indexOf(" ") + 1;
-
-        if(body[0].equals("todo")){
-            D = Input.substring(D_index);
-        }
-        else{
-
-            int slash_index = Input.length();
-
-            if(body[0].equals("deadline")){
-                slash_index = Input.lastIndexOf("by");
-            }
-            else {
-                slash_index = Input.lastIndexOf("at");
-            }
-
-            D = Input.substring(D_index, slash_index - 1).trim();
-        }
-
-        return D.trim();
-    }
-
-    //Print staff after adding new task;
-    public static void Out_After_Added(Task New_Task, String First_Word, Vector<Task> List){
-        System.out.println("     Got it. I've added this task: ");
-        System.out.print("       [" + New_Task.getType() + "][" + New_Task.getStatusIcon() + "] " + New_Task.getDescription());
-
-        if(First_Word.equals("deadline")){
-            System.out.print(" (by: " + New_Task.getTime() + ")");
-
-        }
-        else if(First_Word.equals("event")) {
-            System.out.print(" (at: " + New_Task.getTime() + ")");
-        }
-
-        System.out.println();
-        System.out.println("     Now you have " + List.size() + " task(s) in the list.");
-    }
-
-    //To check and delete;
-    public static void Out_After_Delete(Task Deleted_Task, Vector<Task> List){
-        System.out.println("     Noted. I've removed this task:");
-        System.out.println("       [" + Deleted_Task.getType() + "][" + Deleted_Task.getStatusIcon() + "] " + Deleted_Task.getDescription());
-        System.out.println("     Now you have " + List.size() + " task(s) in the list.");
     }
 
     //DukeException class which extends Exception;
@@ -252,35 +53,11 @@ public class Duke {
     //To check input with enum list;
     public static class InputNotMatchEnum extends Exception{}
 
-    //To check input information length;
-    public static void Input_Length_Checking(String First_Word, String[] Input_Words) throws DukeException {
+    //To check the length of input;
+    public static void Input_Length_Checking(String First_Word, String[] Input_Words) throws Duke.DukeException{
         if(!First_Word.equals("list") && !First_Word.equals("bye") && Input_Words.length == 1){
-            throw new DukeException();
+            throw new Duke.DukeException();
         }
-    }
-
-    //To add input into the List;
-    public static void To_Add_New_Input_Into_List(String First_Word, String Input, String[] Input_Words, Vector<Task> List){
-
-        Task New_task = new Task();
-
-        //if the input is Todo;
-        if(First_Word.equals("todo")){
-            New_task = new Todo(Description(Input));
-            List.add(New_task);
-        }
-        //if the input is Deadline;
-        else if(First_Word.equals("deadline")){
-            New_task = new Deadline(Description(Input), Deadline_time(Input));
-            List.add(New_task);
-        }
-        //if the input is Event;
-        else if(First_Word.equals("event")){
-            New_task = new Event(Description(Input), Event_time(Input));
-            List.add(New_task);
-        }
-
-        Out_After_Added(New_task, First_Word, List);
     }
 
     //To check Done Number input is in correct format or not;
@@ -309,7 +86,7 @@ public class Duke {
 
         Task Deleted_Task = List.remove(DeleteNumber_Index - 1);
 
-        Out_After_Delete(Deleted_Task, List);
+        Apperance.Out_After_Delete(Deleted_Task, List);
     }
 
     //To compare input with enum list;
@@ -331,7 +108,7 @@ public class Duke {
 
         String In = new String(Input); //To store input into a String first;
 
-        Separated_Line();
+        Apperance.Separated_Line();
 
         String[] Input_Words = Input.split(" ");    //To split input by " " into String Array;
         String First_Word = Input_Words[0];     //To get the first word of input;
@@ -346,7 +123,7 @@ public class Duke {
                 case "todo":
                 case "event":
                 case "project":
-                    To_Add_New_Input_Into_List(First_Word, Input, Input_Words, List);
+                    Input_Action.To_Add_New_Input_Into_List(First_Word, Input, Input_Words, List);
                     break;
                 case "done":
                     Done_Number(List, Input_Words);
@@ -355,11 +132,11 @@ public class Duke {
                     Delete_Number(List, Input_Words);
                     break;
                 case "list":
-                    Print_List(List);
+                    Input_Action.Print_List(List);
                     break;
                 case "bye":
                     System.out.println("     Bye. Hope to see you again soon!");
-                    Separated_Line();
+                    Apperance.Separated_Line();
                     return;
                 default:
                     System.out.println("    Invalid Input! Please try again!");
@@ -386,7 +163,7 @@ public class Duke {
             System.out.println("    Input not valid, please try again!");
         }
 
-        Separated_Line();
+        Apperance.Separated_Line();
         chatting_Vector_Task(List);
     }
 
@@ -401,9 +178,9 @@ public class Duke {
 
         Vector<Task> List = new Vector<>();
 
-        Separated_Line();
-        Greeting();
-        Separated_Line();
+        Apperance.Separated_Line();
+        Apperance.Greeting();
+        Apperance.Separated_Line();
 
         chatting_Vector_Task(List);
     }
