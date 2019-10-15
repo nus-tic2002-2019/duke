@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.Scanner;
+//import java.util.ArrayList;
 
 public class Duke {
 
@@ -9,7 +10,9 @@ public class Duke {
     private static String userInput;
 
     private static String[] listArray = new String[100];
+//    private static ArrayList<String> listArray = new ArrayList<>();
     private static String[] todolistArray = new String[100];
+//    private  static ArrayList<String> todolistArray = new ArrayList<>();
 
     private static String task_words, by_words = " ";
     private static int task_stringIndex_After_taskWord = 0;
@@ -18,6 +21,8 @@ public class Duke {
 
     private static Task t = new Task(userInput); //****
     private static Task[] tasks_addTask = new Task[100];  //*****
+//    private static ArrayList<Task> tasks_addTask = new ArrayList<>();  //*****
+
     private static int taskCount_addTask = 0;
 
 
@@ -40,7 +45,7 @@ public class Duke {
 
         System.out.print("   " + seperatorLine2);
         System.out.println("     " + "Got it. I've added this task");
-        System.out.println("        " + "[" + t.getStatusIcon() + "]" + todolistArray[task_count]);
+        System.out.println("        " + "[" + t.getStatusIcon() + "]" + todolistArray[task_count] );
 
         System.out.println("     "+ "Now you have "+ (task_count + 1) + " tasks in the list.");
         System.out.print("   " + seperatorLine2);
@@ -50,6 +55,8 @@ public class Duke {
     public static void addTask(Task s) {
 
         tasks_addTask[taskCount_addTask] = s;
+//                tasks_addTask.add(s);
+
         todolistArray[taskCount_addTask] = tasks_addTask[taskCount_addTask].toString();
         taskCount_addTask++;
     }
@@ -60,10 +67,11 @@ public class Duke {
         System.out.print("   " + seperatorLine2);
 
         listArray[listCount] = userInput;
+//        listArray.add(userInput);
         listCount++;
     }
 
-    public static void echo_Added_List(Scanner input) {
+    public static void echo_Added_List(Scanner input) throws DukeException{
 
         boolean isBye = false;
         boolean isList;
@@ -76,6 +84,8 @@ public class Duke {
         while (!isBye) {
 
             userInput = input.nextLine();
+
+
             String[] words = userInput.split(" ");
 
             task_stringIndex_After_taskWord = userInput.indexOf(" ");
@@ -83,6 +93,18 @@ public class Duke {
             input_task();
 
             userInput = words[0];
+//            if(userInput.equals("todo") && words[1] == " " ) {
+//                throw new DukeException();
+//            }
+
+//            if (!userInput.equals("Bye")  ) {
+//                throw new DukeException();
+//            }
+
+//            if (!userInput.equals("todo ") || !userInput.equals("deadline ") || !userInput.equals("event ") ) {
+//                throw new DukeException();
+//            }
+
             isList = userInput.equals("list");
             isBye = userInput.equals("bye");
             isDone = userInput.equals("done");
@@ -91,6 +113,7 @@ public class Duke {
             isEvent = userInput.equals("event");
 
             if (isToDo) {
+
                  addTask(new Todo(task_words));
                  print_event();
             }
@@ -139,8 +162,12 @@ public class Duke {
             }
 
             else {
-                added_Print();
+                throw new DukeException();
             }
+
+//            else {
+//                added_Print();
+//            }
         }
     }
 
@@ -157,11 +184,27 @@ public class Duke {
                 + "What can I do for you");
         System.out.println(seperatorLine);
 
-        Scanner input = new Scanner(System.in);
+        boolean retry = true;
+        while (retry){
+            try{
+                Scanner input = new Scanner(System.in);
 
-        Arrays.fill(mark, "\u2718");  //initialize mark array = "x"
+                Arrays.fill(mark, "\u2718");  //initialize mark array = "x"
 
-        echo_Added_List(input);
+                echo_Added_List(input);
+                retry = false;
+            }
+            catch (DukeException e){
+                System.out.println(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+
+//                System.out.println("Please enter keywords \"bye\" again with spacebar");
+                retry = true;
+            }
+
+        }
+
+
+
     }
 }
 
