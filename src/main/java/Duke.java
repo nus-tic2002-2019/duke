@@ -1,8 +1,9 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
-    private static int counter = 1;
-    private static Task[] taskList = new Task[100];
+    private static int counter = 0;
+    private static ArrayList<Task> taskList = new ArrayList<Task>(100);
     public static void main(String[] args) {
         String logo = " ____        _        \n" 
                     + "|  _ \\ _   _| | _____ \n" 
@@ -28,7 +29,7 @@ public class Duke {
                 case"list":
 
                     System.out.println("Here are the tasks in your list:");
-                    printListFunction(taskList, counter);
+                    printListFunction();
                     break;
                 case "bye":
                     System.out.println("Bye. Hope to see you again soon!");
@@ -40,7 +41,7 @@ public class Duke {
                             throw new DukeException();
                         }
                         System.out.println("Nice! I've marked this task as done:");
-                        doneFunction(taskList, Integer.valueOf(lineArr[1]));
+                        doneFunction((Integer.valueOf(lineArr[1])-1));
                     }
                     catch (IndexOutOfBoundsException | DukeException e){
                         System.out.println("☹ OOPS!!! The description of a done cannot be empty.");
@@ -56,10 +57,21 @@ public class Duke {
                         }
                         storeFunction(new Todo(lineArr[1]));   
                     }
-                    catch(IndexOutOfBoundsException | DukeException e){
+                    catch(IndexOutOfBoundsException |DukeException e){
                         System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
                     }  
-                    break;       
+                    break;   
+                case "delete":
+                    try{ 
+                        if(lineArr[1] == ""){
+                            throw new DukeException();
+                        }
+                        deleteFunction((Integer.valueOf(lineArr[1])-1));   
+                    }
+                    catch(IndexOutOfBoundsException | DukeException e){
+                        System.out.println("☹ OOPS!!! The description of a delete cannot be empty.");
+                    }  
+                    break;     
                 case "deadline":
                     try{ 
                         if(lineArr[3] == ""){
@@ -92,28 +104,40 @@ public class Duke {
     //store user input into arr//
     /////////////////////////////
     public static void storeFunction(Task description){
-        taskList[counter] = description;
+        taskList.add(description);
         System.out.println("Got it. I've added this task:");
-        System.out.println("   " + taskList[counter].toString());
-        System.out.println("Now you have " + counter + " tasks in the list.");
+        System.out.println("   " + taskList.get(counter).toString());
         counter++; 
+        System.out.println("Now you have " + counter + " tasks in the list.");
+        
     }
 
     ////////////////////////////////
     //print out item in stored arr//
     //////////////////////////////// 
-    public static void printListFunction(Task[] taskList, int counter){
-        for(int i = 1; i < counter; i++){
-            System.out.println(i + "." + taskList[i].toString());
+    public static void printListFunction(){
+        for(int i = 0; i < counter; i++){
+            System.out.println((i+1) + "." + taskList.get(i).toString());
         }
     }
 
     //////////////
     //Done task///
     //////////////
-    public static void doneFunction(Task[] taskList, int listLocation){
-        Task t = taskList[listLocation];
+    public static void doneFunction(int listLocation){
+        Task t = taskList.get(listLocation);
         t.markAsDone();
         System.out.println(t.toString());
+    }
+
+    ///////////////
+    //Delete task//
+    ///////////////
+    public static void deleteFunction(int listLocation){
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("   " + taskList.get(listLocation).toString());
+        counter--;
+        System.out.println("Now you have " + counter + " tasks in the list.");
+        taskList.remove(listLocation);
     }
 }
