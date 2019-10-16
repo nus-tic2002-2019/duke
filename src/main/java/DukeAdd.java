@@ -1,7 +1,8 @@
 import java.util.Scanner;
 
-public class DukeAdd {
-    public static void DukeAdd (String input){
-        System.out.println(input);
+public class DukeAdd extends Duke {
+
+        public static void add(String input) {
+            System.out.println("added: " + input);
     }
 }

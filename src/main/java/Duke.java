@@ -1,4 +1,7 @@
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
     public static void main(String[] args) {
@@ -11,18 +14,31 @@ public class Duke {
         System.out.println("Hello I'm Duke");
         System.out.println("What can I do for you?");
 
-        boolean cont = true;
-        while(cont) { // level 1 - Echo
-            Scanner in = new Scanner(System.in);
-            String input = in.nextLine();
+        Scanner in = new Scanner(System.in);
+        String input = "";
+        String arrayOfList[] = new String[100];
+        int count = 0;
 
-            if (!input.toLowerCase().equals ("bye")){
-                DukeResponse.echo(input);
+        while(!input.toLowerCase().equals("bye")) {
+            input = in.nextLine();
+
+            if (input.equals("list")) {
+                for(int i =0; i<count; i++){
+                    System.out.println((i+1) + ". " + arrayOfList[i]);
+                    //arrayOfList[i]= in.nextLine();
+
+                }
             }
-            else
-                System.out.println("Bye. Hope to see you soon!");
 
+            else {
+                arrayOfList[count] = input;
+                    if (!input.toLowerCase().equals("bye")){
+                        DukeAdd.add(input);
+                        count++;
+                    }
+            }
         }
+        DukeResponse.bye(input);
     }
 }
 
