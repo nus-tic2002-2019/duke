@@ -24,4 +24,7 @@ public class Task {
         this.isDone = true;
         return "Nice! I've marked this task as done: " + "[\u2713]" + this.description;
     }
+    public String setDelete() {
+        return "Noted. I've removed this task:\n\t " + toString();
+    }
 }
