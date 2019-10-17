@@ -58,16 +58,16 @@ public class Duke {
         task_count++;
     }
 
-//    private static void print_delete_event(){
-//
-//        System.out.print("   " + seperatorLine2);
-//        System.out.println("     " + "Noted. I've removed this task");
-//        System.out.println("        " + "[" + t.getStatusIcon() + "]" + todolistArray.get(del_task_number) );
-//        System.out.println("     "+ "Now you have "+ (task_count-1 ) + " tasks in the list.");
-//        System.out.print("   " + seperatorLine2);
-//
-//        task_count--;
-//    }
+    private static void print_delete_event(){
+
+        System.out.print("   " + seperatorLine2);
+        System.out.println("     " + "Noted. I've removed this task");
+        System.out.println("        " + "[" + t.getStatusIcon() + "]" + todolistArray.get(del_task_number) );
+        System.out.println("     "+ "Now you have "+ (task_count-1 ) + " tasks in the list.");
+        System.out.print("   " + seperatorLine2);
+
+        task_count--;
+    }
 
     public static void addTask(Task s) {
 
@@ -176,14 +176,14 @@ public class Duke {
                 }
             }
 
-//            else if (isDelete) {
-//                try{
-//                    deleteTask(Integer.parseInt(task_words.trim()));
-//                }
-//                catch (NumberFormatException e) {
-//                    System.out.println("Please enter which integer after delete ");
-//                }
-//            }
+            else if (isDelete) {
+                try{
+                    deleteTask(Integer.parseInt(task_words.trim()));
+                }
+                catch (NumberFormatException e) {
+                    System.out.println("Please enter which integer after delete ");
+                }
+            }
 
             else if (isList){
                  int count_todo = task_count;
