@@ -1,7 +1,24 @@
-import java.io.*;
+package storage;
+
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
+
+import java.io.BufferedReader;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Storage {
+
+    private String filename;
+
+    public Storage(String filename){
+        this.filename = filename;
+    }
+
     public static void SaveFile(ArrayList<Task> t){
         try {
             FileOutputStream fout = new FileOutputStream("D:\\git\\output.txt");
@@ -17,6 +34,8 @@ public class Storage {
             System.out.println("File not found");
         }
     }
+
+
     public static void LoadFile(ArrayList<Task> t){
         try {
             BufferedReader br = new BufferedReader(new FileReader("D:\\git\\output.txt"));
@@ -29,19 +48,19 @@ public class Storage {
 
                 switch (command[0]) {
                     case "T":
-                        Duke.addTask(new Todo(command[2].trim()));
+                        t.add(new Todo(command[2].trim()));
                         if (command[1].equals("1")){
                             t.get(t.size() - 1).taskDone();
                         }
                         break;
                     case "E":
-                        Duke.addTask(new Event(command[2].trim(),command[3]));
+                        t.add(new Event(command[2].trim(),command[3]));
                         if (command[1].equals("1")){
                             t.get(t.size() - 1).taskDone();
                         }
                         break;
                     case "D":
-                        Duke.addTask(new Deadline(command[2].trim(),command[3]));
+                        t.add(new Deadline(command[2].trim(),command[3]));
                         if (command[1].equals("1")){
                             t.get(t.size() - 1).taskDone();
                         }
@@ -52,4 +71,5 @@ public class Storage {
             System.out.println("File not found");
         }
     }
+
 }

@@ -1,3 +1,5 @@
+package task;
+
 public class Task {
 
     protected String description;
@@ -24,3 +26,4 @@ public class Task {
         return "[" + (isDone ? "\u2713" : "\u2718") + "]"+ description ;
     }
 }
+

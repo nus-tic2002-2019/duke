@@ -1,5 +1,4 @@
-import java.io.*;
-import java.util.ArrayList;
+package exceptions;
 
 public class ErrType {
     public static Integer toInteger(String s, Integer taskNo) {
@@ -12,7 +11,7 @@ public class ErrType {
         } catch (NumberFormatException e) {
             System.out.println("\tOops!! Please type a task number.");
         } catch (DukeException e) {
-            System.out.println("\tOops!! Task number does not exist.");
+            System.out.println("\tOops!! task.Task number does not exist.");
         }
         return -1; //to indicate user input an out-of-range number
     }
