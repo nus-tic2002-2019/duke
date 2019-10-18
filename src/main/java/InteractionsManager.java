@@ -1,9 +1,12 @@
+import java.io.IOException;
 import java.util.Scanner;
 
+
 public class InteractionsManager{
-    public void start() throws DukeException {
+
+    public void start(Storage my_file) throws DukeException, IOException {
         System.out.println("     Hello! I'm Duke. What can I do for you?\n");
-        Operations operations = new Operations();
+        Operations operations = new Operations(my_file);
         while(true) {
             String userCommand = getUserCommand();
             if (userCommand.equals("bye")){
