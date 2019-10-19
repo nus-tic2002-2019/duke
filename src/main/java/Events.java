@@ -21,4 +21,11 @@ public class Events extends Task {
     public String toString() {
         return "[E] [" + super.getStatusIcon() +"]" + super.getDescription() + "(at: " + at + ")" ;
     }
+
+    @Override
+    public String writeToFile()
+    {
+        //return "E | " + isDone + " | " + this.getDescription();
+        return "E" + super.writeToFile() + super.getDescription() + " | " + at;
+    }
 }

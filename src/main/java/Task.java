@@ -21,9 +21,17 @@ public class Task {
         return description;
     }
 
-    @Override
+    //@Override
     public String toString(){
         return "[" + this.getStatusIcon() + "]" + this.getDescription();
     }
 
+    public String writeToFile()
+    {
+        //return "[" + this.getStatusIcon() + "]" + this.getDescription();
+        Integer intIsDone = isDone ? 1 : 0;
+        return " | " + intIsDone + " | ";
+
+        //return " | " + String.valueOf(int intIsDone = isDone ? 1 : 0) + " | ";
+    }
 }

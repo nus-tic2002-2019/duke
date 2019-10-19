@@ -19,4 +19,11 @@ public class Todo extends Task
     public String toString() {
         return "[T] [" + super.getStatusIcon() +"]" + super.getDescription();
     }
+
+    @Override
+    public String writeToFile()
+    {
+        //return "D | " + isDone + " | " + this.getDescription();
+        return "T" + super.writeToFile() + super.getDescription() ;
+    }
 }

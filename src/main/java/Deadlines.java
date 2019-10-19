@@ -22,4 +22,11 @@ public class Deadlines extends Task {
     public String toString() {
         return "[D] [" + super.getStatusIcon() +"]" + super.getDescription()  + "(by: " + by + ")" ;
     }
+
+    @Override
+    public String writeToFile()
+    {
+        //return "D | " + isDone + " | " + this.getDescription();
+        return "D" + super.writeToFile() + super.getDescription() + " | " + by;
+    }
 }
