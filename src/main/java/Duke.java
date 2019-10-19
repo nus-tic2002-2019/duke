@@ -27,6 +27,12 @@ public class Duke {
     public static String markAsDone(int task) {
         return tasks.get(task).setDone();
     }
+
+    public static String markAsDelete(int task) {
+        String output = "\t______________\n\t " + tasks.get(task).setDelete() +  "\n\t Now you have " + --counter + " task in the list." + "\n\t____";
+        tasks.remove(task);
+        return output;
+    }
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -45,20 +51,25 @@ public class Duke {
                 case "bye":  System.out.println("Bye. Hope to see you again soon!\n");
                     break;
                 case "todo": try {
-                    if ((line.substring(line.indexOf("todo")+5, line.length())).trim().equals("")) {
-                        throw new DukeException();
+                    if ((line.substring(line.indexOf(4, line.length())).trim().equals(""))) {
+                        throw new DukeException("todo");
                     }
-                    setTask(new Todo(line.substring(line.indexOf("todo") + 5, line.length())));
-                }   catch (IndexOutOfBoundsException | DukeException e) {
-                    System.out.println("OOPS!!! The description of a todo cannot be empty.");
+                    //setTask(new T
+                    setTask(new Todo(line.substring(5, line.length())));
+                }   catch (DukeException e) {
+                    //System.out.println("OOPS!!! The description of a
+                    System.out.println(e.getMessage());
                 }
                     break;
                 case "deadline": //setTasksList(new Deadline(line.substring(line.indexOf("deadline")+9, line.indexOf("by")-1), line.substring(line.indexOf("by")+3, line.length())));
                     try{
-                        if ((line.substring(line.indexOf("deadline")+9, line.length()).trim()).equals("")){
-                            throw new DukeException();
+                        if ((line.substring(8, line.length()).trim()).equals("")){
+                            throw new DukeException("deadline");
                         }
-                        setTask(new Deadline(line.substring(line.indexOf("deadline")+9, line.indexOf("by")-1), line.substring(line.indexOf("by")+3, line.length())));
+                        if (line.substring(line.indexOf("at")+2, line.length()).trim().equals("") || !(line.contains("at"))) {
+                                throw new DukeException("deadline", (line.substring(line.indexOf("by")+2, line.length()).trim()));
+                        }
+                        setTask(new Deadline(line.substring(9, line.indexOf("by")-1), line.substring(line.indexOf("by")+3, line.length())));
                     }
                     catch (IndexOutOfBoundsException | DukeException e){
                         System.out.println("\t________________\n\t OOPS!!! The description of a deadline cannot be empty.\n\t");
@@ -71,7 +82,7 @@ public class Duke {
                 case "done": //System.out.println(markAsDone(Integer.parseInt(line.split(" ")[1])-1));
                     try{
                         if ((line.substring(line.indexOf("done")+5, line.length()).trim()).equals("")){
-                            throw new DukeException();
+                            throw new DukeException("done");
                         }
                         System.out.println(markAsDone(Integer.parseInt(line.split(" ")[1])-1));
                     }
@@ -84,12 +95,28 @@ public class Duke {
                     break;
                 case "blah": try {
                     if ((line.substring(line.indexOf("blah") + 4, line.length()).trim()).equals("")) {
-                        throw new DukeException();
+                        throw new DukeException("blah");
                     }
                     System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
                     catch (Exception e) {                  //IndexOutOfBoundsException | DukeException e) {
                         System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    }
+                    break;
+                case "delete": try {
+                    if  ((line.substring(6, line.length()).trim()).equals("")) {
+                        throw new DukeException("delete");
+                    }
+                    System.out.println(markAsDelete(Integer.parseInt(line.split(" ")[1])-1));
+                }
+                    catch (DukeException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    catch (NumberFormatException e) {
+                        System.out.println("\t________________________\n\t OOPS!!! The task number must be a numerical value.\n\t_______");
+                    }
+                    catch (NullPointerException e) {
+                        System.out.println("\t________________________\n\t OOPS!!! The task list cannot be empty.\n\t_______");
                     }
                     break;
                 default: //setTasksList(new Task(line));

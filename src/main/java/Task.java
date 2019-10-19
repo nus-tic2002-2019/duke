@@ -4,7 +4,7 @@ public class Task {
     //protected boolean tobedo;
 
     public Task(String description) {
-        this.description = description;
+        this.description = description.trim();
         this.isDone = false;
     }
 
