@@ -30,6 +30,7 @@ public class Duke {
                         System.out.println(i+1 + ". " + line.get(i));
 
                     }
+                    System.out.println("Now you have " + count + " tasks in the list.");
                     System.out.println("_______________________________________________");
                 }
                 else if (arrOfString[0].equals("done"))
@@ -115,9 +116,14 @@ public class Duke {
                         throw new EmptyDescriptionException("Oops. The description of a done cannot be empty");
                     }
                     int index = Integer.parseInt(arrOfString[1]);
+                    System.out.println("_______________________________________________");
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(index + ". " + line.get(index-1));
                     line.remove(index-1);
                     count --;
-                    
+
+                    System.out.println("Now you have " + count + " tasks in the list.");
+                    System.out.println("_______________________________________________");
                 }
 
                 else if(!arrOfString[0].equals("bye"))
