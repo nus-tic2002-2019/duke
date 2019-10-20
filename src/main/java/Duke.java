@@ -108,6 +108,18 @@ public class Duke {
                     System.out.println("_______________________________________________");
                 }
 
+                else if (arrOfString[0].equals("delete"))
+                {
+                    if(arrOfString.length < 2)
+                    {
+                        throw new EmptyDescriptionException("Oops. The description of a done cannot be empty");
+                    }
+                    int index = Integer.parseInt(arrOfString[1]);
+                    line.remove(index-1);
+                    count --;
+                    
+                }
+
                 else if(!arrOfString[0].equals("bye"))
                 {
                     throw new InvalidCommandException();
