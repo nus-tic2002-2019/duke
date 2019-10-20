@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class Duke {
             isDone = true;
         }
         public String toString() { return getStatusIcon() + " " + getTask();}
+
     }
 /**********************************************************************************************************************
 * todo [Subclass] , Parent : Task
@@ -82,11 +84,7 @@ public class Duke {
 
         // Methods.
         public String toString() {
-            return "[E]"
-            + super.toString()
-            + " (at: "
-            + by
-            + " ";
+            return "[E]" + super.toString() + " (at: " + by +") ";
         }
     }
 
@@ -95,9 +93,271 @@ public class Duke {
         Todo taskAssigned = (Todo) abc;
     }
 
+/**********************************************************************************************************************
+ * list Function.
+ **********************************************************************************************************************/
+
+public static void list(ArrayList<Task> ultimateStorage, String userResponse) {
+
+    String graphicalFormatStart = ("    "
+            + "____________________________________________________________"
+            + "\n"
+            + "    ");
+
+    String graphicalFormatEnd = ("\n" + "    " + "____________________________________________________________");
+    String spaces = "    ";
+    String nextLine = "\n";
+
+    System.out.println(graphicalFormatStart);
+
+    for(Task ele : ultimateStorage) {
+        System.out.printf(spaces); //formatting.
+        if(ele instanceof Todo ) {
+            downcastToTodo(ele);
+            System.out.println(ultimateStorage.indexOf(ele)+1
+                    + "."
+                    + ele.toString()
+            );
+        } else {
+            // This could change into a function call printList. For reuse-and better code readability.
+            System.out.println(ultimateStorage.indexOf(ele)+1 + "."
+                    + ele.toString()
+            );
+        }
+    } System.out.println("    " + "____________________________________________________________");
+}
+
+/**********************************************************************************************************************
+ * Done Function.
+ **********************************************************************************************************************/
+
+public static void Done(ArrayList<Task> ultimateStorage, String userResponse) {
 
 
-    public static void main(String[] args) {
+    String graphicalFormatStart = ("    "
+            + "____________________________________________________________"
+            + "\n"
+            + "    ");
+
+    String graphicalFormatEnd = ("\n" + "    " + "____________________________________________________________");
+    String spaces = "    ";
+    String nextLine = "\n";
+
+    if(userResponse.matches(".*\\d.*")) {
+        // done 3 -> will get 3.
+        int value = Integer.parseInt(userResponse.replaceAll("[^0-9]", ""));
+        // real index in the array is in fact 2.
+        int realIndex = value - 1;
+        //for verification of the items.
+        //System.out.println(ultimateStorage.get(realIndex).getTask());
+        ultimateStorage.get(realIndex).markAsDone();
+        System.out.println(
+                graphicalFormatEnd + "\n"
+                        + spaces
+                        + "Nice! I've marked this task as done: \n"
+                        + spaces
+                        + ultimateStorage.get(realIndex).toString()
+                        + graphicalFormatEnd
+        );
+    }
+}
+
+/**********************************************************************************************************************
+ * Delete Function.
+ **********************************************************************************************************************/
+    public static void Delete(ArrayList<Task> ultimateStorage, String itemToDelete) {
+
+        String graphicalFormatStart = ("    "
+                + "____________________________________________________________"
+                + "\n"
+                + "    ");
+
+        String graphicalFormatEnd = ("\n" + "    " + "____________________________________________________________");
+        String spaces = "    ";
+        String nextLine = "\n";
+
+        String tempWord = "delete ";
+        String indexToDeleteStringFormat = itemToDelete.replaceAll(tempWord, "");
+        int value = Integer.parseInt(indexToDeleteStringFormat.replaceAll("[^0-9]", "")) - 1;
+
+        System.out.println(graphicalFormatStart
+                            + "Noted. I've removed this task: "
+                            + spaces + nextLine + spaces + "  "
+                            + ultimateStorage.get(value).toString()
+                          );
+        ultimateStorage.remove(value);
+        System.out.println(spaces + "Now you have " + ultimateStorage.size() + " in the list." + graphicalFormatEnd);
+    }
+
+
+/**********************************************************************************************************************
+ * parseStoreAndPrintEventsTask Function.
+ **********************************************************************************************************************/
+
+public static void parseStoreAndPrintEventTask(ArrayList<Task> ultimateStorage, String userResponse, String[] eventKeywords) {
+
+    String graphicalFormatStart = ("    "
+            + "____________________________________________________________"
+            + "\n"
+            + "    ");
+
+    String graphicalFormatEnd = ("\n" + "    " + "____________________________________________________________");
+    String spaces = "    ";
+    String nextLine = "\n";
+    Boolean eventKeywordFound = false;
+    String keyword = null;
+//    Boolean todoKeywordFound = false;
+//    Boolean deadlineKeywordFound = false;
+
+    for(String item : eventKeywords) {
+        if(userResponse.startsWith(item)) {
+            eventKeywordFound = true;
+            keyword = item;
+        }
+    }
+
+    if (eventKeywordFound) {
+        String reSentence = userResponse.replaceAll(keyword, "");
+        //To filter out relevant words.
+        String eventDesc = reSentence.substring(0,reSentence.indexOf("at") - 1);
+        String eventAt = reSentence.substring(reSentence.indexOf("at")+ 3);
+        Events event = new Events(eventDesc,eventAt);
+        ultimateStorage.add(event);
+
+        System.out.println(
+                graphicalFormatEnd
+                        + "\n"
+                        + spaces + "Got it. I've added this task: \n  " + spaces
+                        + ultimateStorage.get(ultimateStorage.indexOf(event)).toString()
+                        + "\n" + spaces + "Now you have " + ultimateStorage.size() + " tasks in the list."
+                        + graphicalFormatEnd
+        );
+    }
+}
+
+/**********************************************************************************************************************
+* parseStoreAndPrintTodoTask Function.
+**********************************************************************************************************************/
+
+    public static void parseStoreAndPrintTodoTask(ArrayList<Task> ultimateStorage, String userResponse, String[] todoKeywords) {
+
+        String graphicalFormatStart = ("    "
+                + "____________________________________________________________"
+                + "\n"
+                + "    ");
+
+        String graphicalFormatEnd = ("\n" + "    " + "____________________________________________________________");
+        String spaces = "    ";
+        String nextLine = "\n";
+        String keyword = null;
+        Boolean todoKeywordFound = false;
+//    Boolean deadlineKeywordFound = false;
+
+        for(String item : todoKeywords) {
+            if(userResponse.startsWith(item)) {
+                todoKeywordFound = true;
+                keyword = item;
+            }
+        }
+
+        if (todoKeywordFound) {
+            String reSentence = userResponse.replaceAll(keyword, "");
+            //To filter out relevant words.
+            Todo td = new Todo(reSentence);
+            ultimateStorage.add(td);
+            System.out.println(
+                    graphicalFormatEnd
+                            + "\n"
+                            + spaces + "Got it. I've added this task: \n  " + spaces
+                            + ultimateStorage.get(ultimateStorage.indexOf(td)).toString()
+                            + "\n" + spaces + "Now you have " + ultimateStorage.size() + " tasks in the list."
+                            + graphicalFormatEnd
+            );
+        }
+    }
+
+/**********************************************************************************************************************
+ * parseStoreAndPrintTodoTask Function.
+ **********************************************************************************************************************/
+
+public static void parseStoreAndPrintDeadlineTask(ArrayList<Task> ultimateStorage, String userResponse, String[] deadlineKeywords) {
+
+    String graphicalFormatStart = ("    "
+            + "____________________________________________________________"
+            + "\n"
+            + "    ");
+
+    String graphicalFormatEnd = ("\n" + "    " + "____________________________________________________________");
+    String spaces = "    ";
+    String nextLine = "\n";
+    String keyword = null;
+    Boolean deadlineKeywordFound = false;
+
+    for (String item : deadlineKeywords) {
+        if (userResponse.startsWith(item)) {
+            deadlineKeywordFound = true;
+            keyword = item;
+        }
+    }
+
+    String reSentence = userResponse.replaceAll(keyword, "");
+    // To filter out relevant words.
+    String deadlineDesc = reSentence.substring(0,reSentence.indexOf("by") - 1);
+    String by = reSentence.substring(reSentence.indexOf("by")+ 3);
+    //System.out.println(deadlineDesc);
+    //System.out.println(by);
+    Deadline deadline = new Deadline(deadlineDesc,by);
+    ultimateStorage.add(deadline);
+
+    System.out.println(
+            graphicalFormatEnd
+                    + "\n"
+                    + spaces + "Got it. I've added this task: \n  " + spaces
+                    + ultimateStorage.get(ultimateStorage.indexOf(deadline)).toString()
+                    + "\n" + spaces + "Now you have " + ultimateStorage.size() + " tasks in the list."
+                    + graphicalFormatEnd
+    );
+}
+
+/**********************************************************************************************************************
+ * Exceptions
+**********************************************************************************************************************/
+
+public static class DukeExceptions extends Exception {
+
+    public static boolean TodoError(String Sentence) {
+        String check = Sentence;
+        if (check.equals("todo") || check.equals("Todo") || check.equals("TODO")) {
+            return true;
+        } else return false;
+    }
+
+
+    public static boolean funnyWords(String word) {
+        ArrayList<String> funnyWords = new ArrayList<String>();
+        funnyWords.add("Blah");
+        funnyWords.add("blah");
+        funnyWords.add("BLAH");
+        funnyWords.add("bleh");
+        funnyWords.add("Bleh");
+
+        for (String item : funnyWords) {
+            if (word.equals(item)) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    public static boolean DeadlineError(String Sentence) {
+        String check = Sentence;
+        if (check.equals("deadline") || check.equals("Deadline") || check.equals("DEADLINE")) {
+            return true;
+        } else return false;
+    }
+}
+    public static void main(String[] args) throws DukeExceptions {
 
 /**********************************************************************************************************************
  * Variables.
@@ -116,8 +376,11 @@ public class Duke {
         Scanner scanInput = new Scanner(System.in);
         // 08-Sep-2019.
         Task[] content = new Task[100];
-        int counter = 0;
         ArrayList<Task> ultimateStorage = new ArrayList<Task>();
+        String[] eventKeywords = new String[]{"Event ", "event ", "EVENTS "};
+        String[] todoKeywords = new String[]{"Todo ", "todo ", "TODO "};
+        String[] deadlineKewords = new String[]{"Deadline ", "deadline ", "DEADLINE "};
+
 
 /**********************************************************************************************************************
  * Formatting
@@ -150,120 +413,63 @@ public class Duke {
             }
             // if response is "list"
             else if (userResponse.equals("list")) {
-                System.out.println(graphicalFormatStart);
-
-                for(Task ele : ultimateStorage) {
-                    System.out.printf(spaces); //formatting.
-                    if(ele instanceof Todo ) {
-                        downcastToTodo(ele);
-                        System.out.println(ultimateStorage.indexOf(ele)+1
-                            + "."
-                            + ele.toString()
-                        );
-                    } else {
-                    // This could change into a function call printList. For reuse-and better code readability.
-                    System.out.println(ultimateStorage.indexOf(ele)+1 + "."
-                              + ele.toString()
-                            );
-                    }
-                } System.out.println("    " + "____________________________________________________________");
-
-            } else if (userResponse.startsWith("done") || userResponse.startsWith("DONE") || userResponse.startsWith("Done")) {
-                if(userResponse.matches(".*\\d.*")) {
-                    // done 3 -> will get 3.
-                    int value = Integer.parseInt(userResponse.replaceAll("[^0-9]", ""));
-                    // real index in the array is in fact 2.
-                    int realIndex = value - 1;
-                    //for verification of the items.
-                    //System.out.println(ultimateStorage.get(realIndex).getTask());
-                    ultimateStorage.get(realIndex).markAsDone();
-                    System.out.println(
-                            graphicalFormatEnd + "\n"
-                            + spaces
-                            + "Nice! I've marked this task as done: \n"
-                            + spaces
-                            + ultimateStorage.get(realIndex).toString()
-                            + graphicalFormatEnd
-                            );
-                }
-            } else if ( userResponse.startsWith("event") || userResponse.startsWith("Event") || userResponse.startsWith("EVENT")) {
-
-                String tempWord = "event ";
-                String reSentence = userResponse.replaceAll(tempWord, "");
-//                System.out.println(reSentence);
-                // To filter out relevant words.
-                String eventDesc = reSentence.substring(0,reSentence.indexOf("at") - 1);
-                String eventAt = reSentence.substring(reSentence.indexOf("at")+ 3);
-//                System.out.println(eventDesc);
-//                System.out.println(eventAt);
-                Events event = new Events(eventDesc,eventAt);
-                ultimateStorage.add(event);
-
+                list(ultimateStorage,userResponse);
+            }
+            else if (userResponse.startsWith("DELETE") || userResponse.startsWith("Delete") || userResponse.startsWith("delete")) {
+                Delete(ultimateStorage,userResponse);
+            }
+            else if (userResponse.startsWith("done") || userResponse.startsWith("DONE") || userResponse.startsWith("Done")) {
+                Done(ultimateStorage, userResponse);
+            }
+            else if ( userResponse.startsWith("event") || userResponse.startsWith("Event") || userResponse.startsWith("EVENT")) {
+                parseStoreAndPrintEventTask(ultimateStorage,userResponse,eventKeywords);
+            }
+            else if (DukeExceptions.TodoError(userResponse)) { // Exceptions Handling TODO
                 System.out.println(
                         graphicalFormatEnd
+                        + "\n" + spaces
+                        +"OPSS Please type in a task for Todo!"
+                        + "\n"
+                        + graphicalFormatEnd);
+            }
+            else if (userResponse.startsWith("todo") || userResponse.startsWith("TODO") || userResponse.startsWith("Todo")) {
+                parseStoreAndPrintTodoTask(ultimateStorage,userResponse,todoKeywords);
+            }
+            else if (DukeExceptions.DeadlineError(userResponse)) { // Exceptions Handling DEADLINE
+                System.out.println(
+                        graphicalFormatEnd
+                                + "\n" + spaces
+                                +"OPSS Please type in a task for deadline!"
                                 + "\n"
-                                + spaces + "Got it. I've added this task: \n  " + spaces
-                                + ultimateStorage.get(counter).toString()
-                                + "\n" + spaces + "Now you have " + ultimateStorage.size() + " tasks in the list."
-                                + graphicalFormatEnd
-                );
-                counter++;
+                                + graphicalFormatEnd);
             }
 
-            else if (userResponse.startsWith("todo") || userResponse.startsWith("TODO") || userResponse.startsWith("Todo")) {
-
-                // Filter out todo and and add the rest into the array list.
-                String tempWord = "todo ";
-                String reSentence = userResponse.replaceAll(tempWord, "");
-                Todo td = new Todo(reSentence);
-                ultimateStorage.add(td);
-
-                System.out.println(
-                                graphicalFormatEnd
-                                + "\n"
-                                + spaces + "Got it. I've added this task: \n  " + spaces
-                                + ultimateStorage.get(counter).toString()
-                                + "\n" + spaces + "Now you have " + ultimateStorage.size() + " tasks in the list."
-                                + graphicalFormatEnd
-                );
-                counter++;
-            } else if (userResponse.startsWith("Deadline") || userResponse.startsWith("DEADLINE") || userResponse.startsWith("deadline")) {
-  // WHOLE PORTION FOR DEADLINE. very the nabey
-                String tempWord = "deadline ";
-                String reSentence = userResponse.replaceAll(tempWord, "");
-  // To filter out relevant words.
-                String deadlineDesc = reSentence.substring(0,reSentence.indexOf("by") - 1);
-                String by = reSentence.substring(reSentence.indexOf("by")+ 3);
-  //System.out.println(deadlineDesc);
-  //System.out.println(by);
-                Deadline deadline = new Deadline(deadlineDesc,by);
-                ultimateStorage.add(deadline);
-
-                System.out.println(
-                        graphicalFormatEnd
-                                + "\n"
-                                + spaces + "Got it. I've added this task: \n  " + spaces
-                                + ultimateStorage.get(counter).toString()
-                                + "\n" + spaces + "Now you have " + ultimateStorage.size() + " tasks in the list."
-                                + graphicalFormatEnd
-                );
-                counter++;
-            } else {
-                Task t = new Task(userResponse);
-                ultimateStorage.add(t);
-                System.out.println(
-                                graphicalFormatStart
-                                + "added: "
-                                + ultimateStorage.get(counter).getTask()
-                                + graphicalFormatEnd);
-                counter++;
+            else if (userResponse.startsWith("Deadline") || userResponse.startsWith("DEADLINE") || userResponse.startsWith("deadline")) {
+                parseStoreAndPrintDeadlineTask(ultimateStorage,userResponse,deadlineKewords);
+            }
+            else {
+                if(DukeExceptions.funnyWords(userResponse)) { // Exceptions Handling
+                    System.out.println(
+                            graphicalFormatEnd
+                            + "\n" + spaces
+                            + "\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :("
+                            + "\n"
+                            + graphicalFormatEnd);
+                }
+                else {
+                    Task t = new Task(userResponse);
+                    ultimateStorage.add(t);
+                    System.out.println(
+                            graphicalFormatStart
+                                    + "added: "
+                                    + ultimateStorage.get(ultimateStorage.indexOf(t)).getTask()
+                                    + graphicalFormatEnd);
+                }
             }
         }
         System.out.println(graphicalFormatStart
                 +"Bye. Hope to see you again soon!"
                 + graphicalFormatEnd);
-
-        content = Arrays.copyOf(content, counter);
         //System.out.println(Arrays.toString(content)); // use to check variables in arrays.
     }
 }
