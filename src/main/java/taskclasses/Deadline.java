@@ -1,8 +1,10 @@
 package taskclasses;
 
 public class Deadline extends Task {
-    public Deadline(String description, String by){
+    public Deadline(String description, String date, String time, String datetime){
         super(description, "D");
-        Time = by;
+        Time = time;
+        Date = date;
+        DateTime = datetime;
     }
 }

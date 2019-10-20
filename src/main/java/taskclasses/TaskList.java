@@ -4,7 +4,8 @@ import thrownexceptions.DeleteNumberException;
 import thrownexceptions.DoneNumberException;
 import ui.Ui;
 import java.util.Vector;
-import static taskclasses.InputInfor.*;
+import static parser.Parser.*;
+
 
 public class TaskList {
 
@@ -32,12 +33,19 @@ public class TaskList {
         }
         //if the input is Deadline;
         else if (First_Word.equals("deadline")) {
-            New_task = new Deadline(Description(Input), Deadline_time(Input));
+            String deadline_D = deadline_time(Input);
+            String date_D = date(deadline_D);
+            String time_D = time(deadline_D);
+            String datetime_D = datetime(date_D, time_D);
+            New_task = new Deadline(Description(Input), date_D, time_D, datetime_D);
             List.add(New_task);
         }
         //if the input is Event;
         else if (First_Word.equals("event")) {
-            New_task = new Event(Description(Input), Event_time(Input));
+            String datetime_D = Event_time(Input);
+            String date_D = date(datetime_D);
+            String time_D = time(datetime_D);
+            New_task = new Event(Description(Input), date_D, time_D, datetime_D);
             List.add(New_task);
         }
 

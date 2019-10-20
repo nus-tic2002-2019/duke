@@ -1,7 +1,7 @@
+import parser.Parser;
 import storage.StorageFile;
 import ui.Ui;
 import taskclasses.*;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -11,33 +11,29 @@ import thrownexceptions.*;
 
 import javax.naming.StringRefAddr;
 
-
 public class Duke {
 
     //Chatting body;
     public static void chatting_Vector_Task(Vector<Task> List) throws DukeException {
         String Ending = "bye";
+
         String Input;
 
         Scanner in = new Scanner(System.in);
         Input = in.nextLine();
 
-        String In = new String(Input); //To store input into a String first;
-
         Ui.Separated_Line();
 
         String[] Input_Words = Input.split(" ");
-        String First_Word = InputInfor.Input_Type(Input);
+        String First_Word = Parser.Input_Type(Input);
 
         try {
-            InputInfor.Input_Length_Checking(First_Word, Input_Words);
-
-            //String Compared_Result = matchName(First_Word);
+            Parser.Input_Length_Checking(First_Word, Input_Words);
 
             switch (First_Word){
                 case "todo":
                 case "event":
-                case "project":
+                case "deadline":
                     TaskList.To_Add_New_Input_Into_List(First_Word, Input, Input_Words, List);
                     break;
                 case "done":
@@ -91,7 +87,7 @@ public class Duke {
         Ui.Greeting();
         Ui.Separated_Line();
 
-        Vector<Task> List = new Vector<>();
+        Vector<Task> List;
         StorageFile TaskStorageFile = new StorageFile();
         List = TaskStorageFile.CopyToVector();
 

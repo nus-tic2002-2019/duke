@@ -1,15 +1,11 @@
 package taskclasses;
 
-import ui.Ui;
-
-import java.util.Vector;
-
-import static taskclasses.InputInfor.*;
-
 public class Task {
     protected String description;
     protected String type;
+    protected String Date;
     protected String Time;
+    protected String DateTime;
     public boolean isDone = false;
 
     public Task(){}

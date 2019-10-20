@@ -18,6 +18,7 @@ public class Ui {
     public static void Greeting() {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
+        System.out.println("(Date and time input format: /by(at): YYYY-MM-DD Hour(0-23):Minute(0-59)");
     }
 
     public static void Separated_Line(){
