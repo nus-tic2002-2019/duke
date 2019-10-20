@@ -16,11 +16,11 @@ public class Duke {
         ArrayList<Task> userList = new ArrayList<Task>(); //store tasks
         Task task = null;
 
-        boolean continueInput = true; //flag counter for switch case
+        boolean continueInput = true; //flag counter for switch case. If true, switch continues running. Else, abort.
 
         do {
             String input = read.nextLine();
-            String inputCommand = input.split(" ")[0];
+            String inputCommand = input.split(" ")[0]; //identifies command from first word
             switch (inputCommand) {
                 case "bye":
                     System.out.println("Bye! I better see you again soon!");
@@ -30,7 +30,7 @@ public class Duke {
                 case "help":
                     /*
                         Lists available commands for user.
-                        Reason for implementing this: just in case future work interviews request to see this.
+                        Reason for implementing this: for future work interviews.
                      */
                     System.out.println("[1] todo <task>: Enter a task.");
                     System.out.println("[2] deadline <task> /by <date>: Enter a task with deadline.");
@@ -41,6 +41,9 @@ public class Duke {
                     break;
 
                 case "list":
+                    /*
+                        Displays list of saved tasks.
+                     */
                     System.out.println("__________________________________________________________________");
                     System.out.println("Your current List of tasks:");
                     for (int i = 0; i < userList.size(); i++) {
@@ -50,20 +53,54 @@ public class Duke {
                     break;
 
                 case "done":
+                    /*
+                        Marks a task as done.
+                        Input is split to separate task number.
+                        Number passed to doneNum
+                        use (doneNum-1) to navigate to respective item in arraylist
+                     */
                     try {
                         if (input.equals("done")) {
-                            throw new DukeChildException.invalidInput("Task number required!");
+                            throw new DukeMainException.invalidInput("Task number required!");
                         }
-                        String[] split = input.split(" ");
+                        String[] split = input.split(" "); //split input
                         int doneNum = Integer.parseInt(split[1]); //storing list number
-                        //int doneNum = Integer.parseInt(input.substring(4));
                         task = userList.get(doneNum - 1);
                         task.markAsDone();
 
                         System.out.println("__________________________________________________________________");
                         System.out.println("Done!");
                         System.out.println("__________________________________________________________________");
-                    } catch (DukeChildException.invalidInput e) {
+                    } catch (DukeMainException.invalidInput e) {
+                        e.printStackTrace();
+                    }
+                    break;
+
+                case "delete":
+                    try {
+                        if (input.equals("delete")) {
+                            throw new DukeMainException.invalidInput("Task number required!");
+                        }
+                        String[] split = input.split(" ");
+                        int delNum = Integer.parseInt((split[1]));
+
+                        if (delNum > userList.size()) {
+                            throw new DukeMainException.invalidInput("Task number does not exist!");
+                        }
+
+                        if (delNum == 0) {
+                            throw new DukeMainException.invalidInput("Task number does not exist!");
+                        }
+
+                        System.out.println("__________________________________________________________________");
+                        System.out.println("Noted! I've removed this task: " + System.lineSeparator() + userList.get(delNum - 1).toString());
+
+                        userList.remove(delNum - 1);
+
+                        System.out.println("You now have " + userList.size() + " task(s) in the list.");
+                        System.out.println("__________________________________________________________________");
+
+                    } catch (DukeMainException.invalidInput e) {
                         e.printStackTrace();
                     }
                     break;
@@ -71,7 +108,7 @@ public class Duke {
                 case "todo":
                     try {
                         if (input.equals("todo")) {
-                            throw new DukeChildException.nullDescription("Task description required!");
+                            throw new DukeMainException.nullDescription("Task description required!");
                         }
                         String todo = input.substring(4);
                         Todo todoTask = new Todo(todo);
@@ -79,7 +116,7 @@ public class Duke {
                         System.out.println("__________________________________________________________________");
                         System.out.println("Okie dokie! Task added: " + System.lineSeparator() + todoTask.toString());
                         System.out.println("__________________________________________________________________");
-                    } catch (DukeChildException.nullDescription e) {
+                    } catch (DukeMainException.nullDescription e) {
                         e.printStackTrace();
                     }
                     break;
@@ -87,25 +124,25 @@ public class Duke {
                 case "deadline":
                     try{
                         if (input.equals("deadline")){
-                            throw new DukeChildException.nullDescription("Task description required!");
+                            throw new DukeMainException.nullDescription("Task description required!");
                         }
                         if (!input.contains("/by")){
-                            throw new DukeChildException.nullDescription("Description has invalid format!");
+                            throw new DukeMainException.nullDescription("Description has invalid format!");
                         }
                         if (input.equals("deadline /by")) {
-                            throw new DukeChildException.nullDescription("Description has invalid format!");
+                            throw new DukeMainException.nullDescription("Description has invalid format!");
                         }
                         if (input.split("/")[1].equals("by")) {
-                            throw new DukeChildException.nullDescription("Date required!");
+                            throw new DukeMainException.nullDescription("Date required!");
                         }
                         String[] dsplit = input.split("/");
                         String deadTask = dsplit[0];
                         String deadBy = dsplit[1];
 
-                        deadTask = deadTask.substring(9);
-                        deadBy = deadBy.substring(3);
-                        //System.out.println(deadTask);
-                        //System.out.println(deadBy);
+                        deadTask = deadTask.substring(9); //set start of string after "deadline"
+                        deadBy = deadBy.substring(3); //set start of string after "by"
+                        //System.out.println(deadTask); //check
+                        //System.out.println(deadBy); //check
 
                         Deadline deadline = new Deadline(deadTask, deadBy);
                         userList.add(deadline);
@@ -114,7 +151,7 @@ public class Duke {
                         System.out.println("Procrastination is forbidden. Deadline added: " + System.lineSeparator() + deadline.toString());
                         System.out.println("__________________________________________________________________");
 
-                    } catch (DukeChildException.nullDescription e) {
+                    } catch (DukeMainException.nullDescription e) {
                         e.printStackTrace();
                     }
                     break;
@@ -122,16 +159,16 @@ public class Duke {
                 case "event":
                     try {
                         if (input.equals("event")) {
-                            throw new DukeChildException.nullDescription("Task description required!");
+                            throw new DukeMainException.nullDescription("Task description required!");
                         }
                         if (!input.contains("/at")) {
-                            throw new DukeChildException.nullDescription("Description has invalid format!");
+                            throw new DukeMainException.nullDescription("Description has invalid format!");
                         }
                         if (input.equals("event /at")) {
-                            throw new DukeChildException.nullDescription("Description has invalid format!");
+                            throw new DukeMainException.nullDescription("Description has invalid format!");
                         }
                         if (input.split("/")[1].equals("at")) {
-                            throw new DukeChildException.nullDescription("Time or location required!");
+                            throw new DukeMainException.nullDescription("Time or location required!");
                         }
 
                         String[] esplit = input.split("/");
@@ -150,15 +187,15 @@ public class Duke {
                         System.out.println("Don't you DARE come late. Event added: " + System.lineSeparator() + event.toString());
                         System.out.println("__________________________________________________________________");
 
-                    } catch (DukeChildException.nullDescription e) {
+                    } catch (DukeMainException.nullDescription e) {
                         e.printStackTrace();
                     }
                     break;
 
                 default:
                     try {
-                        throw new DukeChildException.invalidInput("Invalid format! Enter 'help' for assistance");
-                    } catch (DukeChildException.invalidInput e) {
+                        throw new DukeMainException.invalidInput("Invalid format! Enter 'help' for assistance");
+                    } catch (DukeMainException.invalidInput e) {
                         e.printStackTrace();
                     }
                     continueInput = true;
