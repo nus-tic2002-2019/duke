@@ -1,4 +1,5 @@
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -11,7 +12,7 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         System.out.println("What can I do for you?");
         Scanner sc = new Scanner(System.in);
-        Task[] line = new Task[100];
+        ArrayList<Task> line = new ArrayList<Task>();
         String input = "";
         int count = 0;
         while (!input.equals("bye")) //if string doesn't equal to bye
@@ -26,7 +27,7 @@ public class Duke {
                     for (int i = 0; i < count; i++)
                     {
 
-                        System.out.println(i+1 + ". " + line[i]);
+                        System.out.println(i+1 + ". " + line.get(i));
 
                     }
                     System.out.println("_______________________________________________");
@@ -38,10 +39,10 @@ public class Duke {
                         throw new EmptyDescriptionException("Oops. The description of a done cannot be empty");
                     }
                     int index = Integer.parseInt(arrOfString[1]);
-                    line[index-1].markAsDone();
+                    line.get(index-1).markAsDone();
                     System.out.println("_______________________________________________");
                     System.out.println("Nice! I've marked this task as done: ");
-                    System.out.println("\t["+ line[index-1]);
+                    System.out.println("\t["+ line.get(index-1));
                     System.out.println("_______________________________________________");
                 }
 
@@ -52,10 +53,11 @@ public class Duke {
                         throw new EmptyDescriptionException("Oops. The description of a todo cannot be empty");
                     }
                     String replaceString = input.replace("todo ", "");
-                    line[count] = new Todo(replaceString, false);
+                    Todo t = new Todo(replaceString, false);
+                    line.add(t);
                     System.out.println("_______________________________________________");
                     System.out.println("Got it. I've added this task:");
-                    System.out.println("\t" + line[count]);
+                    System.out.println("\t" + line.get(count));
                     count ++;
                     System.out.println("Now you have " + count + " tasks in the list.");
                     System.out.println("_______________________________________________");
@@ -74,10 +76,11 @@ public class Duke {
                     {
                         throw new EmptyDescriptionException("Oops. The date of a event cannot be empty");
                     }
-                    line[count] = new Deadline(splitBy[0], false, splitBy[1]);
+                    Deadline d = new Deadline(splitBy[0], false, splitBy[1]);
+                    line.add(d);
                     System.out.println("_______________________________________________");
                     System.out.println("Got it. I've added this task:");
-                    System.out.println("\t" + line[count]);
+                    System.out.println("\t" + line.get(count));
                     count ++;
                     System.out.println("Now you have " + count + " tasks in the list.");
                     System.out.println("_______________________________________________");
@@ -95,10 +98,11 @@ public class Duke {
                     {
                         throw new EmptyDescriptionException("Oops. The date of a event cannot be empty");
                     }
-                    line [count] = new Event(splitAt[0], false, splitAt[1]);
+                    Event e = new Event(splitAt[0], false, splitAt[1]);
+                    line.add(e);
                     System.out.println("_______________________________________________");
                     System.out.println("Got it. I've added this task:");
-                    System.out.println("\t" + line[count]);
+                    System.out.println("\t" + line.get(count));
                     count ++;
                     System.out.println("Now you have " + count + " tasks in the list.");
                     System.out.println("_______________________________________________");
