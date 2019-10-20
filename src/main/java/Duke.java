@@ -108,7 +108,7 @@ public class Duke {
                     System.out.println("_______________________________________________");
                 }
 
-                else
+                else if(!arrOfString[0].equals("bye"))
                 {
                     throw new InvalidCommandException();
                 }
