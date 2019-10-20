@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Task {
     private String description;
     private boolean isDone;
@@ -7,34 +9,33 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getDescription() {return description;}
+    public String getDescription() {
+        return description;
+    }
 
     public void setIsDoneTrue() {isDone = true;}
 
     public String getStatusIcon() {return (isDone ? "\u2713" : "\u2718");}
 
-    public static void addTask(Task[] task, int size, Task t) {
-        task[size] = t;
-        System.out.println("added: " + task[size].getDescription());
-    }
-
-    public static void listTask(Task[] task, int size) {
+    public static void listTask(ArrayList<Task> task) {
         int i = 1;
-        if (size == 0) {
-            System.out.println("There's nothing in the list!");
-        } else {
-            System.out.println("Here are the tasks in your list:");
-            for (int j = 0; j<= size; j++/*Task content : task*/) {
-                if (i > size) {break;}
-                System.out.println(Integer.toString(i) + "." + "[" + task[j].getStatusIcon() + "] " + task[j].getDescription());
-                i++;
-            }
+        System.out.println("Here are the tasks in your list:");
+        for (Task t : task) {
+            //System.out.println(i + "." + "[" + t.getStatusIcon() + "] " + t.getDescription());
+            System.out.println(i + "." + t);
+            i++;
         }
     }
 
-    public static void doneTask(Task[] task, int taskItem) {
-        task[taskItem-1].setIsDoneTrue();
-        System.out.println("Nice! I've marked this task as done:" + System.lineSeparator() + " [" + task[taskItem-1].getStatusIcon() + "] " + task[taskItem-1].getDescription());
+    public static void doneTask(ArrayList<Task> task, int taskItem) {
+        task.get(taskItem - 1).setIsDoneTrue();
+        //System.out.println("Nice! I've marked this task as done:" + System.lineSeparator() + " [" + task.get(taskItem - 1).getStatusIcon() + "] " + task.get(taskItem - 1).getDescription());
+        System.out.println("Nice! I've marked this task as done:" + System.lineSeparator() + task.get(taskItem - 1));
+    }
+
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + getDescription();
     }
 
 }
