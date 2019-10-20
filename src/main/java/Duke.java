@@ -51,11 +51,17 @@ public class Duke {
         String textInput;
         while(!isExit) {
             try{
-                userInterface.showLine();
+
                 textInput = in.nextLine();
+                userInterface.showLine();
                 userInterface.dukeInput(tasks, textInput);
                 if (textInput.equalsIgnoreCase("bye")) isExit = true;
-            }catch (DukeException e){}
+            }catch (DukeException e){
+                userInterface.showUnknownCommand();
+            }
+            finally {
+                userInterface.showLine();
+            }
         }
     }
 
@@ -63,13 +69,13 @@ public class Duke {
 
        //userInterface = new Ui();
        //userInterface.showWelcome();
-        System.out.println("Choose 1 for Command Input, 2 for File input:");
-        String choiceInput = in.nextLine();
-        if (choiceInput.equals("1")) new Duke();
-        else if (choiceInput.equals("2")) new Duke("data/tasks.txt").run();
-        else System.out.println("Please choose 1 or 2");
+        //System.out.println("Choose 1 for Command Input, 2 for File input:");
+        //String choiceInput = in.nextLine();
+        //if (choiceInput.equals("1")) new Duke();
+        //else if (choiceInput.equals("2")) new Duke("data/tasks.txt").run();
+        //else System.out.println("Please choose 1 or 2");
 
-
+        new Duke("data/tasks.txt").run();
 
     }
 

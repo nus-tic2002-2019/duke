@@ -18,6 +18,6 @@ public class Event extends Task {
 
     @Override
     public String getDescription() {
-        return "[E]" + "[" + getStatusIcon() + "]" + super.getDescription() + " (by: " + at + ")";
+        return "[E]" + "[" + getStatusIcon() + "]" + super.getDescription() + " (at: " + at + ")";
     }
 }

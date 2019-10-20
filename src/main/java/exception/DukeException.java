@@ -27,8 +27,8 @@ public class DukeException extends Exception {
             case "/at":
                 System.out.println("☹ OOPS!!! You did not specify a specific start/end date/time for event. Please use /at date/time");
                 break;
-            default:
-                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+          //  default:
+            //    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 

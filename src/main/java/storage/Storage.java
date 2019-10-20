@@ -2,9 +2,8 @@ package storage;
 
 import exception.DukeException;
 import tasklist.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
+
 import java.util.Scanner;
 
 public class Storage {
@@ -42,5 +41,12 @@ public class Storage {
                     throw new DukeException(readFileArr[0]);
             }
         }
+    }
+
+    public void save(String fileName, String textInput) throws IOException{
+        FileWriter taskWrite = new FileWriter(fileName, true);
+        System.out.println(textInput);
+        //taskWrite.write (textInput);
+        taskWrite.close();
     }
 }

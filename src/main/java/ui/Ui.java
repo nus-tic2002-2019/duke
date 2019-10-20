@@ -26,31 +26,35 @@ public class Ui {
     }
 
     public void dukeGreet(){
-        System.out.println("    ________________________________________");
+
         System.out.println ("    Hello! I'm Duke");
         System.out.println ("    What can I do for you?");
-        System.out.println("    ________________________________________");
+
     }
 
     public void dukeBye(){
-        System.out.println("    ________________________________________");
+
         System.out.println("     Bye. Hope to see you again soon!");
-        System.out.println("    ________________________________________");
+
     }
 
     public void showLoadingError(){
-        System.out.println("    ________________________________________");
+
         System.out.println ("    File not located");
-        System.out.println("    ________________________________________");
+
+    }
+
+    public void showUnknownCommand(){
+        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
     public void dukeReply(ArrayList<Task> taskList){
 
-        System.out.println("    ________________________________________");
+
         System.out.println("     Got it. I've added this task: ");
         System.out.println("     " + taskList.get(taskList.size()-1).getDescription());
         System.out.println("     Now you have " + taskList.size() + " tasks in the list.");
-        System.out.println("    ________________________________________");
+
     }
 
     public void dukeInput (taskList tasks, String textInput) throws DukeException {
