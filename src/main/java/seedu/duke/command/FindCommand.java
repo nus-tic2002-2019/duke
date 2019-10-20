@@ -49,7 +49,7 @@ public class FindCommand extends Command{
 
         for(int i=0;i<taskList.getSize();i++){
             Task task = taskList.getTask(i);
-            if(task.description.contains(input)){
+            if(task.getDescription().contains(input)){
                 matchedTasks.add(task.toString());
                 isMatch = true;
             }

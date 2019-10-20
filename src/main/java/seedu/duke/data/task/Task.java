@@ -1,14 +1,14 @@
 package seedu.duke.data.task;
 
 public class Task {
-    public String description;
-    public boolean isDone;
+    private String description;
+    private boolean isDone;
     
     /** 
      * Constructs a new Task with the specified description and marking the done progress as not completed.
      * @param description   The description from the input by the user.
      */
-    public Task(String description) {
+    public Task(String description){
         this.description = description.trim();
         this.isDone = false;
     }
@@ -17,7 +17,7 @@ public class Task {
      * Returns the done status in a symbol format.
      * @return String   The done status in a symbol format with a tick symbol as done or a cross symbol as not done.
      */
-    public String getStatusIcon() {
+    public String getStatusIcon(){
         return (this.isDone ? "[\u2713] " : "[\u2718] ");
     }
 
@@ -27,6 +27,14 @@ public class Task {
      */
     public String toString(){
         return getStatusIcon() + this.description;
+    }
+
+    public String getDescription(){
+        return this.description;
+    }
+
+    public boolean getStatus(){
+        return this.isDone;
     }
 
     public void setDone(){

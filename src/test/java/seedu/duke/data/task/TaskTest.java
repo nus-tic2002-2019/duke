@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class TaskTest {
+public class TaskTest{
     @Test
     @DisplayName("Verifying the task functions.")
     public void TestToString() {

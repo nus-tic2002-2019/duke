@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class DeadlineTest {
+public class DeadlineTest{
     @Test
     @DisplayName("Inserting Deadline for Test Case 1 by 12/08/2019 0000H")
     public void TestToString() {

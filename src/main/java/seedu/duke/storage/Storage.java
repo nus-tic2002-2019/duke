@@ -18,24 +18,27 @@ import seedu.duke.data.task.TaskList;
 import seedu.duke.data.task.ToDo;
 
 public class Storage{
-    private String filePath;
     private File file;
     private Scanner fileReader;
-
-    public Storage(String filePath) {
-        try{
-        this.filePath = filePath;
+ 
+    /** 
+     * Constructs a new Storge and initialise with the specified file path for read/write controls.
+     * @param filePath  The file path of the file for storing the task list.
+     */
+    public Storage(String filePath){
         this.file = new File(filePath);
-        fileReader = new Scanner(file);
-        } catch (FileNotFoundException e){
-            createFileAndDirectory();
-        }
     }
-
+  
+    /** 
+     * Loads and initialise the task list from the file storage. 
+     * @return ArrayList<Task>  The task list stored in the file storage.
+     * @throws DukeException    If the file is empty or the file directory does not exist.
+     */
     public ArrayList<Task> load() throws DukeException{
         ArrayList<Task> taskList = new ArrayList<>();
         try{
             if(file.isFile() && file.exists() && file.canRead()){
+                fileReader = new Scanner(file);
                 while(fileReader.hasNextLine()){
                     String line = fileReader.nextLine();
                     String[] splitLine = line.split(" \\| ");
@@ -64,14 +67,17 @@ public class Storage{
                 }       
             }
             else{
-                throw new IOException();
+                throw new DukeException("The file is either empty or does not exists. Creating a new task list!");
             }
-        } catch(IOException | NullPointerException e){
+        } catch(FileNotFoundException | NullPointerException e){
             createFileAndDirectory();
         }
         return taskList;
     }
 
+    /**
+     * Creates a new file from the file directory specified by the user.
+     */
     public void createFileAndDirectory(){
         try {
             if(file.getParentFile().mkdirs()){
@@ -82,7 +88,11 @@ public class Storage{
             new IOException("The file " + file.getAbsolutePath() + " has encountered an error creating.");
         }
     }
-
+ 
+    /** 
+     * Saves the tasks from the current task list to the file specified by the user.  
+     * @throws IOException  If the application is unable to write to the
+     */
     public void saveToFile() throws DukeException, IOException{
         FileWriter fileWriter = new FileWriter(file.getAbsolutePath());
         String toAdd = "";
@@ -92,7 +102,7 @@ public class Storage{
             Task task = TaskList.getTask(i);
             String taskClass = "";
             int isDone = 0;
-            String description = task.description;
+            String description = task.getDescription();
             String date = "";
 
             if(task instanceof ToDo){
@@ -106,13 +116,13 @@ public class Storage{
                 taskClass = "D";
                 date = dateToString(((Deadline) task).by);
             }
-            if (task.isDone){
+            if (task.getStatus()){
                 isDone = 1;
             }
             else {
                 isDone = 0;
             }
-            if (date.equals("")){
+            if (date.isEmpty()){
                 toAdd += taskClass + " | " + Integer.toString(isDone) + " | " + description + "\n";
             }
             else {
@@ -126,7 +136,13 @@ public class Storage{
             throw new DukeException("The file " + file.getAbsolutePath() + " has encountered an error writing.");
         }
     }
-
+    
+    /** 
+     * Converts the String to a DateTime format.
+     * @param date              The date and time specified by the user.
+     * @return LocalDateTime    The date and time specified by the user in LocalDateTime format.
+     * @throws DukeException    If the date read from the file is in an invalid format.
+     */
     private LocalDateTime stringToDate(String date) throws DukeException{
         try{
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
@@ -136,6 +152,11 @@ public class Storage{
         }
     }
 
+    /** 
+     * Converts the date and time to String format.
+     * @param dateTime  The date and time of the task.
+     * @return String   The date and time of the task in String.
+     */
     public String dateToString(LocalDateTime dateTime){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
         return dateTime.format(formatter);

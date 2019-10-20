@@ -3,7 +3,7 @@ package seedu.duke.data.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Event extends Task {
+public class Event extends Task{
     public LocalDateTime at;
 
     /** 
@@ -11,7 +11,7 @@ public class Event extends Task {
      * @param description
      * @param at
      */
-    public Event(String description, LocalDateTime at) {
+    public Event(String description, LocalDateTime at){
         super(description);
         this.at = at;
     }
@@ -21,7 +21,7 @@ public class Event extends Task {
      * @return String   The event in a string format.
      */
     @Override
-    public String toString() {
+    public String toString(){
         return "[E]" + super.toString() + " (at: " + dateToString(at) + ")";
     }
 

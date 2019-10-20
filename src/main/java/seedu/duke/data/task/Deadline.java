@@ -3,7 +3,7 @@ package seedu.duke.data.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task {
+public class Deadline extends Task{
     public LocalDateTime by;
 
     /** 
@@ -11,7 +11,7 @@ public class Deadline extends Task {
      * @param description
      * @param by
      */
-    public Deadline(String description, LocalDateTime by) {
+    public Deadline(String description, LocalDateTime by){
         super(description);
         this.by = by;
     }
@@ -21,7 +21,7 @@ public class Deadline extends Task {
      * @return String   The deadline in a String format.
      */
     @Override
-    public String toString() {
+    public String toString(){
         return "[D]" + super.toString() + " (by: " + dateToString(by) + ")";
     }
 

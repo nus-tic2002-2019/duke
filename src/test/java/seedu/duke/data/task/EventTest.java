@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class EventTest {
+public class EventTest{
     @Test
     @DisplayName("Inserting Event for Final Examiniations at 4/12/2019 1300H")
     public void TestToString() {

@@ -11,7 +11,18 @@ import seedu.duke.command.FindCommand;
 import seedu.duke.command.ListCommand;
 import seedu.duke.exception.DukeException;
 
+    /**
+     * Parse the input of the user and runs the corresponding command.
+     */
+
 public class Parser{
+    
+    /** 
+     * Parse the input of the user and returns a command based on the input.
+     * @param userInput         The input given by the user.
+     * @return Command          The command with reference to the given input.
+     * @throws DukeException    When an invalid command is given.
+     */
     public static Command parseInput(String userInput) throws DukeException{
         String input = userInput;
 
