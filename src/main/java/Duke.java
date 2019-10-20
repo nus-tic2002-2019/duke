@@ -22,6 +22,9 @@ public class Duke {
             String input = read.nextLine();
             String inputCommand = input.split(" ")[0]; //identifies command from first word
             switch (inputCommand) {
+                case "save":
+                    writeToText.write(userList);
+                    break;
                 case "bye":
                     System.out.println("Bye! I better see you again soon!");
                     continueInput = false;
