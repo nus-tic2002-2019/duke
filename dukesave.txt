@@ -1,0 +1,4 @@
+        [✓][T] book1
+        [✘][T] book2
+        [✘][D] return book (by: Sunday)
+        [✘][D] return book (by: Mon)
