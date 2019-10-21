@@ -5,6 +5,10 @@ public class UI {
     public UI(){
 
     }
+
+    /**
+     * This display the project DUKE
+     */
     public void showWelcome() {
         String logo = " __        _        \n"
                 + "|  _ \\ _   | | __ \n"
@@ -62,5 +66,10 @@ public class UI {
 
     public void showError(String message) {
         System.out.println(message);
+    }
+
+    public void showFind(Tasklist tasks) {
+        System.out.println("Here are the matching tasks in your list: ");
+        showList(tasks);
     }
 }

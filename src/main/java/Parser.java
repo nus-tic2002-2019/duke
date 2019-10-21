@@ -39,6 +39,14 @@ public class Parser {
                     throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
                 break;
 
+            case "find":
+                if (command.length() > 5) {
+                    String find = command.substring(5);
+                    c = new FindCommand(find);
+                } else
+                    throw new DukeException("☹ OOPS!!! The find cannot be empty.");
+               break;
+
             case "event":
                 if (command.length() > 6) {
                     if (command.contains("/")) {
