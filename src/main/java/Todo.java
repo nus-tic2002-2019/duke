@@ -4,6 +4,10 @@ public class Todo extends Task {
         super(description);
     }
 
+    public void markAsDone() {
+        isDone = true;
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();
