@@ -271,7 +271,6 @@ public class Duke {
                 } catch (IOException e ) {
                     System.out.println("Something went wrong" + e.getMessage());
                 }
-//                break;
                 }
 
 //                default:

@@ -1,4 +1,4 @@
-        [✓][T] book1
-        [✘][T] book2
+        [✘][T] read
+        [✓][D] do homework (by: no idea :-p)
+        [✘][E] project meeting (at: Mon 2-4pm)
         [✘][D] return book (by: Sunday)
-        [✘][D] return book (by: Mon)
