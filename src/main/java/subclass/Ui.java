@@ -65,9 +65,9 @@ public class Ui {
         System.out.println("\t________________________________________________________________");
     }
 
-    /*public static void showError(String error_message) {
+    public static void showError(String error_message) {
         System.out.println("\t☹ OOPS!!! " + error_message);
-    }*/
+    }
 
     public static void goodBye() {
         System.out.println("\t\tBye. Hope to see you again soon!");
