@@ -1,4 +1,8 @@
 import java.util.Scanner;
+import task.Task;
+import task.Todo;
+import task.Deadlines;
+import task.Events;
 import java.util.ArrayList;
 
 public class Duke {
