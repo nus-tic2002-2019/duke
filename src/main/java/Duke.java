@@ -20,22 +20,30 @@ public class Duke {
         int count = 0;
 
         while(!input.toLowerCase().equals("bye")) {
+
             input = in.nextLine();
 
-            if (input.equals("list")) {
+            //split the string into two array
+            String[] values = input.split(" ");
+
+            //compare user input of the first array.
+            if (values[0].equals("list")) {
+                System.out.println("Here are the tasks in your list:");
                 for(int i =0; i<count; i++){
-                    System.out.println((i+1) + ". " + arrayOfList[i]);
-                    //arrayOfList[i]= in.nextLine();
+                    System.out.println((i+1) + "." + arrayOfList[i].toString());
 
                 }
             }
 
+
             else {
+
                 arrayOfList[count] = input;
-                    if (!input.toLowerCase().equals("bye")){
-                        DukeAdd.add(input);
-                        count++;
-                    }
+
+                if (!input.toLowerCase().equals("bye")){
+                    DukeAdd.add(input);
+                    count++;
+                }
             }
         }
         DukeResponse.bye(input);
