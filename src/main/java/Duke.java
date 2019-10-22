@@ -41,7 +41,7 @@ public class Duke {
 
     public static void main(String[] args) throws DukeException, todoException, IOException, ParseException {
         //load txt file
-        String file_path = "C:\\Users\\marcus.ng\\Desktop\\m\\m\\NUS\\TIC2002 Introduction to Software Engineering\\duke\\src\\main\\java\\taskList.txt";
+        String file_path = "/Users/marcus/Desktop/marcus/m/NUS/TIC2002 Introduction to Software Engineering/duke_new/src/main/java/taskList.txt";
         new Duke(file_path).run();
 
         //save Task.txt
