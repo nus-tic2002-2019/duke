@@ -26,6 +26,23 @@ public class Task {
         return _list_;
     }
 
+    public static String findTask(String input) {
+        String _list_ = "";
+        int num = 1;
+        int listLength = task_info.size();
+        for (int i=1; i <= listLength; i++) {
+            Task tmp = task_info.get(i-1);
+            String string_obj = tmp.toString();
+            boolean isContain = string_obj.contains(input);
+            if (isContain) {
+                _list_ += "\n\t" + num + ". " + tmp;
+                num++;
+
+            }
+        }
+        return _list_;
+    }
+
     public static String getOutput() {
         int num = 1;
         String _list_ = "";

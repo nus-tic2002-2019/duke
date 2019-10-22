@@ -4,4 +4,6 @@ T|1|swimming
 E|1|boxing match|Gym
 D|1|do math|23-Sep-19 08:00 PM
 E|1|Joker Movie|Cathay 7pm
-D|0|sample work|22-Oct-19 08:30 PM
+D|1|sample work|22-Oct-19 08:30 PM
+D|0|school work|25-Dec-19 10:30 AM
+E|0|work out|Gym
