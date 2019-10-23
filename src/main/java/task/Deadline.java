@@ -1,14 +1,19 @@
 package task;
 
-public class Deadline extends Task{
-    private static String description;
-    private static String by;
+import java.time.LocalDateTime;
 
-    public Deadline(String description, String by){
+/**
+ * Represent data structure to for Deadline command.
+ * It takes in a description and due date with time.
+ */
+public class Deadline extends Task{
+    private String description;
+    private LocalDateTime by;
+
+    public Deadline(String description, LocalDateTime by){
         super(description);
         this.by = by;
     }
-
 
     @Override
     public String toString() {

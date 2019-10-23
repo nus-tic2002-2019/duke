@@ -9,8 +9,12 @@ import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * Represent class of saving and loading task list from the hard disk.
+ */
 public class Storage {
 
     private String filename;
@@ -19,6 +23,10 @@ public class Storage {
         this.filename = filename;
     }
 
+    /**
+     * This method save user's task list to the hard disk.
+     * @param t : this is the data structure of user tasks.
+     */
     public static void SaveFile(ArrayList<Task> t){
         try {
             FileOutputStream fout = new FileOutputStream("D:\\git\\output.txt");
@@ -31,15 +39,19 @@ public class Storage {
             }
             fout.close();
         } catch (IOException e) {
-            System.out.println("File not found");
+            System.out.println("Cannot save file !");
         }
     }
 
-
+    /**
+     * This method load user's task list from hard disk to memory.
+     * @param t : this is the data structure of user tasks.
+     */
     public static void LoadFile(ArrayList<Task> t){
         try {
             BufferedReader br = new BufferedReader(new FileReader("D:\\git\\output.txt"));
 
+            LocalDateTime resultDateTime = null;
             String s;
 
             while ((s = br.readLine()) != null){
@@ -54,13 +66,15 @@ public class Storage {
                         }
                         break;
                     case "E":
-                        t.add(new Event(command[2].trim(),command[3]));
+                        resultDateTime = LocalDateTime.parse(command[3]);
+                        t.add(new Event(command[2].trim(),resultDateTime));
                         if (command[1].equals("1")){
                             t.get(t.size() - 1).taskDone();
                         }
                         break;
                     case "D":
-                        t.add(new Deadline(command[2].trim(),command[3]));
+                        resultDateTime = LocalDateTime.parse(command[3]);
+                        t.add(new Deadline(command[2].trim(),resultDateTime));
                         if (command[1].equals("1")){
                             t.get(t.size() - 1).taskDone();
                         }
@@ -68,8 +82,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            System.out.println("File not found");
+            System.out.println("File not found! Generate new file.");
         }
     }
-
 }

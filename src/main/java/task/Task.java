@@ -1,5 +1,8 @@
 package task;
 
+/**
+ * Represent the data structure to manage user's task list.
+ */
 public class Task {
 
     protected String description;

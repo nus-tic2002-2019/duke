@@ -7,23 +7,38 @@ import task.Task;
 import task.Todo;
 import ui.Ui;
 
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
+
+/**
+ * Represent class of Parse.
+ * Make sense of user input and update data into the data structure.
+ */
 public class Parse {
 
-    private boolean isExit ;
-    private Integer index;
+    private static boolean isExit ;
+    private static Integer index;
 
     public Parse(){
         this.isExit = false;
         this.index = 0;
     }
 
-    public Boolean isExit(){
+    public static Boolean isExit(){
         return isExit;
     }
 
+    /**
+     * This method will take in an user command from the console and either
+     * create new task item, update status or delete existing task.
+     * @param t : this is the data structure of user tasks.
+     */
     public void parser(ArrayList<Task> t){
 
         String user_input = "";
@@ -32,6 +47,9 @@ public class Parse {
         String command = "";
         String taskString = "";
         String timeString = "";
+
+        LocalDateTime resultDateTime = null;
+        LocalDateTime dummy = LocalDateTime.parse("1900-01-01T00:00"); //error flag
 
         Scanner in = new Scanner(System.in);
         user_input = in.nextLine();
@@ -48,15 +66,20 @@ public class Parse {
                     t.add(new Todo(taskString));
                     Ui.added(t, t.size());
                 }
-
                 break;
 
             case "deadline":
                 if (ErrType.TaskCheck(user_input) && ErrType.ScheduleCheck(user_input)) {
                     taskString = user_input.split("/")[0].replace("deadline", "").trim();
                     timeString = user_input.split("/")[1].replace("by", "").trim();
-                    t.add(new Deadline(taskString, timeString));
-                    Ui.added(t, t.size());
+                    resultDateTime = dateConverter(timeString);
+                    if (resultDateTime.equals(dummy)){
+                        System.out.println("Date is wrong");
+                        break;
+                    } else {
+                        t.add(new Deadline(taskString, resultDateTime)); //timeString
+                        Ui.added(t, t.size());
+                    }
                 }
                 break;
 
@@ -64,8 +87,14 @@ public class Parse {
                 if (ErrType.TaskCheck(user_input) && ErrType.ScheduleCheck(user_input)) {
                     taskString = user_input.split("/")[0].replace("event","").trim();
                     timeString = user_input.split("/")[1].replace("at", "").trim();
-                    t.add(new Event(taskString, timeString));
-                    Ui.added(t, t.size());
+                    resultDateTime = dateConverter(timeString);
+                    if (resultDateTime.equals(dummy)){
+                        System.out.println("Date is wrong");
+                        break;
+                    } else {
+                        t.add(new Event(taskString, resultDateTime)); //timeString
+                        Ui.added(t, t.size());
+                    }
                 }
                 break;
 
@@ -78,7 +107,7 @@ public class Parse {
                 Ui.done(t, idx);
                 t.get(idx - 1).taskDone();
 
-                this.index = idx;
+                index = idx;
                 break;
 
             case "delete":
@@ -103,7 +132,68 @@ public class Parse {
                 this.index = -1;
                 break;
         }
-        
     }
 
+    /**
+     * This method convert String date to a LocalDateTime object.
+     * It will check the format of date and time component.
+     * it checks for validity of date and time ie no alphabet and numbers within valid range.
+     * It accepts both yyyy-mm-dd hhmm and dd-mm-yyyy hhmm format.
+     * @param date  a string which suppose to represent a date with time
+     * @return  LocalDateTime object of the format yyyy-mm-ddThh:mm
+     */
+    public static LocalDateTime dateConverter(String date) {
+        LocalDateTime resultDateTime = LocalDateTime.parse("1900-01-01T00:00"); // flag to represent error
+        LocalDate resultDate = null;
+        String dateTemp = "";
+        String timeTemp = "";
+        String dateConfirm = "";
+        String timeMin = "";
+        String timeHrs = "";
+
+        dateTemp = date.split(" ")[0].replace("/","-"); // convert to 2019-02-02 form
+
+        if (ErrType.timeCheck(date)) { //check if there is a time component
+            timeTemp = date.split(" ")[1]; // if true, possibly there is time given
+            try {
+                timeHrs = timeTemp.substring(0,2);
+                timeMin = timeTemp.substring(2,4);
+            } catch (ArrayIndexOutOfBoundsException e1){
+                System.out.println("Not a valid time of format hhmm.");
+                return resultDateTime;
+            }
+        }
+
+        try {
+            resultDate = LocalDate.parse(dateTemp); //try original date form
+        } catch (DateTimeParseException e2) {
+            try {
+                // assume date format 31-12-2019 then change to this format 2019-12-31
+                dateConfirm = dateTemp.split("-")[2] + "-" + dateTemp.split("-")[1] + "-" + dateTemp.split("-")[0];
+            } catch ( ArrayIndexOutOfBoundsException e1){
+                System.out.println("Not a valid date of format yyyy-mm-dd");
+                return resultDateTime;
+            }
+            try {
+                //date swap successful, now parse the swapped date
+                resultDate = LocalDate.parse(dateConfirm);
+            }
+            catch (DateTimeParseException e3) {
+                //dateConfirm is not a date
+                System.out.println("Not a valid date of format yyyy-mm-dd.");
+                return resultDateTime;
+            }
+        }
+        // date format passed testing. to add time component behind date.
+        try {
+            resultDateTime = resultDate.atTime(Integer.parseInt(timeHrs), Integer.parseInt(timeMin) );
+        } catch (DateTimeException e4){
+            System.out.println("Not a valid time.");
+            return resultDateTime;
+        } catch (NumberFormatException e5){
+            System.out.println("Not a valid time, contains non-numbers");
+            return resultDateTime;
+        }
+        return resultDateTime;
+    }
 }

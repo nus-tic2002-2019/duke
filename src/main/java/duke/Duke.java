@@ -7,25 +7,13 @@ import ui.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * Represent a task scheduler using console for input of task and schedule
+ * and output task list and its status to the console.
+ */
 public class Duke {
 
     private static ArrayList<Task> tasklist = new ArrayList<Task>();
-    private Storage store ;
-
-    public Duke(String filename){
-        //ui = new ui.Ui();
-        store = new Storage(filename);
-/*        try {
-            tasks = new TaskList(storage.load());
-        } catch (exceptions.DukeException e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
-        } */
-    }
-
-    public void run(){
-        //ui.welcome();
-    }
 
     public static void main(String[] args) {
 
@@ -41,7 +29,7 @@ public class Duke {
 
         while (!isExit) {
             parser.parser(tasklist);
-            isExit = parser.isExit();
+            isExit = Parse.isExit();
         }
 
         store.SaveFile(tasklist);
