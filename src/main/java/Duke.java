@@ -4,7 +4,8 @@ import java.util.ArrayList;
 public class Duke {
     public static ArrayList<Task> task = new ArrayList<>();
 
-    public static void addTask(String line) {
+    public static void addTask(String line) throws DukeException {
+
         if (line.startsWith("todo")) {
             String todoTask = line.substring(5);
             Todo todo = new Todo(todoTask);
@@ -29,9 +30,10 @@ public class Duke {
             System.out.println(event);
             System.out.println("Now you have " + task.size() + " tasks in the list");
         } else {
-            Task t = new Task(line);
+            throw new DukeException();
+            /*Task t = new Task(line);
             task.add(t);
-            System.out.println("added: " + t.getDescription());
+            System.out.println("added: " + t.getDescription());*/
         }
     }
 
@@ -48,17 +50,24 @@ public class Duke {
             String line;
             Scanner in = new Scanner(System.in);
             line = in.nextLine();
-
-            if (line.equals("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
-                break;
-            } else if (line.equals("list")) {
-                Task.listTask(task);
-            } else if (line.startsWith("done")) {
-                int taskItem = Integer.parseInt(line.substring(5));
-                Task.doneTask(task, taskItem);
-            } else {
-                addTask(line);
+            try {
+                if (line.equals("bye")) {
+                    System.out.println("Bye. Hope to see you again soon!");
+                    break;
+                } else if (line.equals("list")) {
+                    Task.listTask(task);
+                } else if (line.startsWith("done")) {
+                    int taskItem = Integer.parseInt(line.substring(5));
+                    Task.doneTask(task, taskItem);
+                } else {
+                    addTask(line);
+                }
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("\u2639" + " OOPS!!! The description of a " + line  + " cannot be empty.");
+            } catch (DukeException e) {
+                System.out.println("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("\u2639" + " OOPS!!! It's either ArrayList is empty or the index entered is out of bound.");
             }
         }
     }
