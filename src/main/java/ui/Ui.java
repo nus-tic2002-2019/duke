@@ -96,4 +96,23 @@ public class Ui {
         LocalDateTime dateString = LocalDateTime.parse(timeString);
         return dateString.format(formatter);
     }
+
+    public static void singleList(ArrayList<Task> t, Integer index){
+        String timeString = "";
+        String command = t.get(index).toString().substring(1,2);
+        switch (command){
+            case ("D"):
+                timeString = t.get(index).toString().split("by:")[1].replace(")","");
+                break;
+            case ("E"):
+                timeString = t.get(index).toString().split("at:")[1].replace(")","");
+                break;
+        }
+        if (command.equals("T")) {
+            System.out.println("\t" + (index + 1) + "." + t.get(index));
+        } else {
+            System.out.println("\t" + (index + 1) + "." + t.get(index).toString().replace(timeString,customDate(timeString)));
+        }
+
+    }
 }

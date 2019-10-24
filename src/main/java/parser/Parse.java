@@ -122,6 +122,13 @@ public class Parse {
                 this.index = idx;
                 break;
 
+            case "find":
+                if (ErrType.TaskCheck(user_input)) {
+                    taskString = user_input.replace("find", "").trim();
+                    findTask(t, taskString);
+                }
+                break;
+
             case "bye": // "bye" command will end loop after looping back to while()
                 Ui.bye();
                 this.isExit = true;
@@ -195,5 +202,24 @@ public class Parse {
             return resultDateTime;
         }
         return resultDateTime;
+    }
+
+    public static void findTask(ArrayList<Task> t, String findString){
+        for (int i=0 ; i<t.size() ; i++ ){
+            String[] taskString = t.get(i).getDescription().split(" ");
+            Integer n = 0;
+            try {
+                while (true){
+                    if ( findString.equals(taskString[n]) ){
+                        Ui.singleList(t, i);
+                        //System.out.println("Found it" + t.get(i).getDescription());
+                    }
+                    n = n + 1;
+                }
+            } catch (ArrayIndexOutOfBoundsException e){
+                //System.out.println("error");
+            }
+            //System.out.println(t.get(i).getDescription());
+        }
     }
 }
