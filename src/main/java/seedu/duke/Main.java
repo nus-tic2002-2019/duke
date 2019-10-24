@@ -8,23 +8,19 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import seedu.duke.MainWindow;
-import seedu.duke.Duke;
-
 /**
  * A GUI for Duke using FXML.
  */
-public class Main extends Application {
-
+public class Main extends Application{
     private Duke duke = new Duke();
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage){
         try {
             stage.setTitle("Duke");
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
-            AnchorPane ap = fxmlLoader.load();
-            Scene scene = new Scene(ap);
+            AnchorPane anchorPane = fxmlLoader.load();
+            Scene scene = new Scene(anchorPane);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             stage.show();

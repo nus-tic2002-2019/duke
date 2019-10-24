@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'seedu.duke'
-version '0.1.0'
+version '0.1.7'
 
 repositories {
     mavenCentral()
@@ -23,6 +23,15 @@ dependencies {
 javafx {
     version = "11.0.2"
     modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'seedu.duke.Launcher'
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
 
 test {
