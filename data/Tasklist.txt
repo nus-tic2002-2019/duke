@@ -1,0 +1,5 @@
+T | true | read book
+D | false | return book | June 6th
+E | true | project meeting | Fri
+T | false | join sports club
+T | false | finish up TIC2002 Project

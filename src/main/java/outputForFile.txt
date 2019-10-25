@@ -19,23 +19,9 @@ Nice! I've marked this task as done:
 Got it. I've added this task:
   [T][?] join sports club
 Now you have 4 tasks in the list.
-Got it. I've added this task:
-  [T][?] borrow book
-Now you have 5 tasks in the list.
 Nice! I've marked this task as done:
-  [T][?] join sports club
-Here are the tasks in your list:
-1.[T][?] read book
-2.[D][?] return book (by: June 6th)
-3.[E][?] project meeting (at: Aug 6th 2-4pm)
-4.[T][?] join sports club
-5.[T][?] borrow book
-Noted. I've removed this task:
   [E][?] project meeting (at: Aug 6th 2-4pm)
-Now you have 4 tasks in the list.
-Here are the tasks in your list:
-1.[T][?] read book
-2.[D][?] return book (by: June 6th)
-3.[T][?] join sports club
-4.[T][?] borrow book
+Got it. I've added this task:
+  [T][?] finish up TIC2002 Project
+Now you have 5 tasks in the list.
 Bye. Hope to see you again soon!

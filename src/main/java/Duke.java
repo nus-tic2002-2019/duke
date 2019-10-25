@@ -1,4 +1,9 @@
 import java.io.File;
+import java.io.IOException;
+import java.io.FileWriter;
+import java.nio.file.FileSystem;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 //import java.util.Arrays;
 import java.util.ArrayList;
@@ -27,15 +32,25 @@ public class Duke {
         switch (actType) {
             case "todo":
                 arr.add(new Todo(newTask));
+                temp = "T | " + arr.get(ctr).done + " | " + newTask;
                 break;
             case "deadline":
                 arr.add(new Deadline(newTask.substring(0, pos-1), dateline));
+                temp = "D | " + arr.get(ctr).done + " | " + newTask.substring(0, pos-1) + " | " + dateline;
                 break;
             case "event":
                 arr.add(new Event(newTask.substring(0, pos-1), dateline));
+                temp = "E | " + arr.get(ctr).done + " | " + newTask.substring(0, pos-1)  + " | " + dateline;
                 break;
             default:
                 break;
+        }
+        //System.out.println("task status: " + arr.get(ctr).done);
+
+        try {
+            appendToFile("C:/Users/AmyK/OneDrive/Documents/NUS SCALE/TIC2002/duke/data/Tasklist.txt", temp + System.lineSeparator());
+        } catch (IOException e) {
+            System.out.println("Exception Handling: something went wrong");
         }
 
         System.out.println("Got it. I've added this task:\n  " + arr.get(ctr));
@@ -52,9 +67,30 @@ public class Duke {
         }
     }
 
-    public static void markDone(ArrayList<Task> arr, int taskNo) {
+    public static void markDone(ArrayList<Task> arr, int taskNo) throws IOException {
         arr.get(taskNo-1).isDone();
         System.out.println("Nice! I've marked this task as done:\n  " + arr.get(taskNo-1));
+        try {
+            Files.copy(Paths.get("C:/Users/AmyK/OneDrive/Documents/NUS SCALE/TIC2002/duke/data/Tasklist.txt"), Paths.get("C:/Users/AmyK/OneDrive/Documents/NUS SCALE/TIC2002/duke/data/tempTaskList.txt"));
+            File f = new File("C:/Users/AmyK/OneDrive/Documents/NUS SCALE/TIC2002/duke/data/tempTaskList.txt");
+            Scanner s = new Scanner(f);
+
+            writeToFile("C:/Users/AmyK/OneDrive/Documents/NUS SCALE/TIC2002/duke/data/Tasklist.txt", "");
+            int i = 0;
+            while (s.hasNext()) {
+                if (!arr.get(i).done) {
+                    appendToFile("C:/Users/AmyK/OneDrive/Documents/NUS SCALE/TIC2002/duke/data/Tasklist.txt", s.nextLine() + System.lineSeparator());
+                } else {
+                    appendToFile("C:/Users/AmyK/OneDrive/Documents/NUS SCALE/TIC2002/duke/data/Tasklist.txt", arr.get(i).getClass().getSimpleName() + " | " + arr.get(i).done + " | "+ arr.get(i).getTask() + System.lineSeparator());
+                    s.nextLine();
+                }
+                i++;
+            }
+            s.close();
+            Files.delete(Paths.get("C:/Users/AmyK/OneDrive/Documents/NUS SCALE/TIC2002/duke/data/tempTaskList.txt"));
+        } catch (IOException e) {
+            System.out.println("module: markDone: IOException captured.");
+        }
     }
 
     private static int taskDone(String userInput) {
@@ -76,6 +112,64 @@ public class Duke {
         }
     }
 
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    public static void appendToFile(String filePath, String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        fw.write(textToAppend);
+        fw.close();
+    }
+
+    public static ArrayList<Task> loadFromFile(String filePath) throws IOException {
+        ArrayList<Task> userArr = new ArrayList<>();
+        try {
+            File f = new File("C:/Users/AmyK/OneDrive/Documents/NUS SCALE/TIC2002/duke/data/TaskList.txt");
+            Scanner s = new Scanner(f);
+
+            int i = 0;
+            s.useDelimiter("\\s*\\|\\s*|\\r\\n");
+            while (s.hasNext()) {
+                //System.out.println(s.next());
+                String actType = s.next();
+                String taskStatus = s.next();
+                //String task = s.next();
+
+                switch (actType) {
+                    case "T":
+                        userArr.add(new Todo(s.next()));
+                        if (taskStatus.equals("true")) {
+                            userArr.get(i).isDone();
+                        }
+                        break;
+                    case "E":
+                        userArr.add(new Event(s.next(), s.next()));
+                        if (taskStatus.equals("true")) {
+                            userArr.get(i).isDone();
+                        }
+                        break;
+                    case "D":
+                        userArr.add(new Deadline(s.next(), s.next()));
+                        if (taskStatus.equals("true")) {
+                            userArr.get(i).isDone();
+                        }
+                        break;
+                    default:
+                        System.out.println("Error");
+                        break;
+                }
+                i++;
+            }
+            s.close();
+        } catch (IOException e) {
+            System.out.println("IOException error - Module: loadFromFile");
+        }
+        return userArr;
+    }
+
     public static void main(String[] args) {
 
         //System.out.println("Hello from\n" + logo);*/
@@ -84,16 +178,36 @@ public class Duke {
         System.out.println("Hello, I'm Duke.\nWhat can I do for you?");
 
         ArrayList<Task> userArr = new ArrayList<>();
-
+        try {
+            userArr = loadFromFile("C:/Users/AmyK/OneDrive/Documents/NUS SCALE/TIC2002/duke/data/TaskList.txt");
+        } catch (IOException e) {
+            System.out.println("System error: loadFromFile");
+        }
         int i = 0;
         userInput = in.nextLine();
         String temp = parseString(userInput, " ");
+
+        String filePath = "C:/Users/AmyK/OneDrive/Documents/NUS SCALE/TIC2002/duke/data/Tasklist.txt";
+        try {
+            File f = new File(filePath);
+            if (!f.exists()) {
+                f.createNewFile();
+                System.out.println("File created");
+            } else {
+                System.out.println("File exists in the system");
+            }
+        } catch (IOException ioEx){
+            //handle exception;
+        }
 
         while (!temp.equals("bye")) {
             switch(temp) {
                 case "done":
                     int taskNo = taskDone(userInput);
-                    markDone(userArr, taskNo);
+                    try {
+                        markDone(userArr, taskNo);
+                    } catch (IOException e) {
+                    }
                     break;
                 case "list":
                     listArr(userArr);
