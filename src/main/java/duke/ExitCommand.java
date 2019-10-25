@@ -1,5 +1,7 @@
+package duke;
+
 /**
- * Constructs a new ExitCommand and initialise with the specified isExit boolean value and input by the user.
+ * Constructs a new duke.ExitCommand and initialise with the specified isExit boolean value and input by the user.
  * @param   isExit  A boolean value whether if the exit condition is true.
  * @param   input   A String inputted by the user.
  */
@@ -12,7 +14,7 @@ public class ExitCommand extends Command{
 
     /**
      * @param tasks
-     * @param ui call UI class to display the message to user
+     * @param ui call duke.UI class to display the message to user
      * @param storage
      */
     @Override

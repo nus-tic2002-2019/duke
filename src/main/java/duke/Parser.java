@@ -1,3 +1,5 @@
+package duke;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -83,7 +85,7 @@ public class Parser {
                         throw new DukeException("☹ OOPS!!! Missing date/time for deadline.");
                 } else
                     throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
-                //c = new AddCommand();
+                //c = new duke.AddCommand();
                 break;
             default:
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");

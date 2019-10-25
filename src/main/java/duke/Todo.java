@@ -1,8 +1,10 @@
+package duke;
+
 public class Todo extends Task{
     protected String to;
 
     /**
-     * @param description Display the description of the user input of Todo
+     * @param description Display the description of the user input of duke.Todo
      */
     public Todo(String description) {
         super(description);

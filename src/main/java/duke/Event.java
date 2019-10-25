@@ -1,8 +1,9 @@
+package duke;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
-public class Event extends Task{
+public class Event extends Task {
     // Date time variable
     protected LocalDateTime at;
 

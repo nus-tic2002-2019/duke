@@ -1,3 +1,5 @@
+package duke;
+
 public class UpdateCommand extends Command{
     private int index;
 
