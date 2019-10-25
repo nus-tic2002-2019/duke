@@ -19,12 +19,13 @@ public class Duke {
         int count = 0;
         Scanner input = new Scanner(System.in);
         line = input.toString();
-        String [] linePart;
+        String[] linePart;
         linePart = line.split(" ", 2);
 
         boolean isExit = false;
         while (!isExit) {
-            line  = input.nextLine();
+            try {
+            line = input.nextLine();
             linePart = line.split(" ", 2);
             switch (line.split(" ")[0]) {
                 case "bye":
@@ -32,45 +33,37 @@ public class Duke {
                     return;
                 case "done":
                     int line_num = Integer.parseInt(line.split(" ")[1]);
-                    tasks[line_num-1].markAsDone();
+                    tasks[line_num - 1].markAsDone();
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("    [" +  tasks[line_num-1].getStatusIcon() + "]" +  tasks[line_num-1].getDescription());
+                    System.out.println("    [" + tasks[line_num - 1].getStatusIcon() + "]" + tasks[line_num - 1].getDescription());
                     break;
                 case "todo":
-                    addTask(new Todo(linePart[1]));
-                    break;
+                    if (linePart[1].isBlank()) {
+                        throw new ArrayIndexOutOfBoundsException();
+                    } else {
+                        addTask(new Todo(linePart[1]));
+                        break;
+                    }
                 case "deadline":
                     String DeadlineArr[] = linePart[1].split("/by", 2);
-                    addTask(new Deadlines(DeadlineArr[0],DeadlineArr[1])); ;
+                    addTask(new Deadlines(DeadlineArr[0], DeadlineArr[1]));
                     break;
                 case "event":
                     String EventArr[] = linePart[1].split("/at", 2);
-                    addTask(new Events(EventArr[0],EventArr[1])); ;
+                    addTask(new Events(EventArr[0], EventArr[1]));
                     break;
                 case "list":
                     GetList();
                     break;
                 default:
-                    tasks[count] = new Task(line);
-                    StoreList(tasks, line, count);
-                    count++;
-                    addTask(new Todo(line));
-                    break;
+                    throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");}
             }
-        }
-    }
-
-
-    public static Task[] StoreList(Task[] tasks, String line, int number) {
-        tasks[number] = new Task(line);
-        System.out.println("added:" + line);
-        return tasks;
-    }
-
-    public static void ReturnList(Task[] tasks, int number) {
-        for (int i = 0; i < number; i++) {
-            String icon = tasks[i].getStatusIcon();
-            System.out.println(i + 1 + "." + "[" + icon + "]" + tasks[i].getDescription());
+            catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("☹ OOPS!!! The description of a todo cannot be empty");
+            }
+            catch (DukeException e) {
+                System.out.println(e);
+            }
         }
     }
 
@@ -119,7 +112,6 @@ public class Duke {
         System.out.println("Now you have " + tCount + " tasks in the list");
         System.out.println("-----------------------------------------------");
     }
-
 }
 
 
