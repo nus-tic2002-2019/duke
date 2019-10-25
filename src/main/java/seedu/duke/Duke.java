@@ -16,7 +16,7 @@ public class Duke{
     /** 
      * Constructs a new Duke and initialised with UI, TaskList and Storge.
      */
-    public Duke() {
+    public Duke(){
         ui = new UI();
         try{
             storage = new Storage("data/taskList.txt");
@@ -30,17 +30,16 @@ public class Duke{
     /**
      * Runs the Duke program and process the input from the user with corresponding output.
      */
-    public void run() {
+    public void run(){
         ui.showWelcomeMessage();
         boolean isExit = false;
-        while (!isExit) {
-            try {
+        while (!isExit){
+            try{
                 String input = ui.readUserInput();
                 Command command = Parser.parseInput(input);
                 command.execute(taskList, ui, storage);
                 isExit = command.isExit;
-            }
-            catch (Exception e) {
+            } catch (Exception e){
                 ui.showError(e);
             }
         }
@@ -52,12 +51,12 @@ public class Duke{
      * @param input     The input given by the user.
      * @return String   The output response from Duke.
      */
-    String getResponse(String input) {
-        try {
+    String getResponse(String input){
+        try{
             Command command = Parser.parseInput(input);
             command.execute(taskList, ui, storage);
             return ui.showOutputToUser();
-        } catch (Exception e) {
+        } catch (Exception e){
             return ui.showError(e);
         }
     }
@@ -66,7 +65,7 @@ public class Duke{
      * The main method to run Duke.
      * @param args  The argument values provided by the user to run Duke.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args){
         new Duke().run();
     }
 }
