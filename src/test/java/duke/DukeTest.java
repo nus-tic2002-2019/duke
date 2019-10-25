@@ -1,6 +1,6 @@
 /**
  * Test all the functions.
- * @DisplauName Name of the testcase that are being tested
+ * @DisplayName Name of the testcase that are being tested
  * Deadline Test will test if the function for deadline is working
  * Delete Test will test if the function for delete is working
  * Todo Test will test if the function for todo is working
