@@ -1,3 +1,10 @@
+import ERROR_HANDLING.DukeException;
+import ERROR_HANDLING.InvalidCommandException;
+import TASK.Deadline;
+import TASK.Event;
+import TASK.Task;
+import TASK.Todo;
+
 import java.util.*;
 
 public class Duke {
@@ -16,7 +23,8 @@ public class Duke {
 
         Scanner in = new Scanner(System.in);
 //DEFINE Keyword
-        String keywords[] = {"done", "todo", "deadline", "event"};
+        // String keywords[] = {"done", "todo", "deadline", "event"};
+        HashMap<String, Command> keywords = new HashMap<String, Command>();
 
         String echo = " ";
         /* while(echo != null) {
@@ -29,44 +37,70 @@ public class Duke {
 //MAKE LIST
         ArrayList<Task> list = new ArrayList<Task>();
 
+        keywords.put("todo", new Command() {
+            public void run(String content) {
+                cmdTodo(content, list);
+            };
+        } );
+
 //USER INPUT
+
         while(echo != null) {
             echo = in.nextLine();
+            echo = echo.toLowerCase();
             echo = echo.trim();
 
-            if (echo.equals("list")) {
-                cmdPrintList(list);
-                continue;
+            String[] parts = echo.split(" ", 2);
+
+            if (keywords.containsKey(parts[0])){
+                keywords.get(parts[0]).run(echo);
             }
 
-            if (echo.contains("done")) {
-                cmdMarkDone(echo, list);
-                continue;
-            }
-//TODO contains is not very good : DONE
-            if (containsKeyword(echo, "todo")) {
-                cmdTodo(echo, list);
-                continue;
-            }
-            if (containsKeyword(echo, "deadline")) {
-                cmdDeadline(echo, list);
-                continue;
-            }
-            if (containsKeyword(echo, "event")) {
-                cmdEvent(echo, list);
-                continue;
-            }
+            try {
+                if (echo.equals("list")) {
+                    cmdPrintList(list);
+                    continue;
+                }
 
-            ///////////////////////
-            if (echo.equals("bye"))
-                break;
-            // list.add(new Task(echo));
-            // At level-4, I think original task input should no longer be allowed
-            // every task must be either todo or deadline or event
+                if (containsKeyword(echo, keywords)) {
+                    cmdMarkDone(echo, list);
+                    continue;
+                }
+
+                if (containsKeyword(echo, keywords)) {
+                    cmdTodo(echo, list);
+                    continue;
+                }
+                if (containsKeyword(echo, keywords)) {
+                    cmdDeadline(echo, list);
+                    continue;
+                }
+                if (containsKeyword(echo, keywords)) {
+                    cmdEvent(echo, list);
+                    continue;
+                }
+
+                ///////////////////////
+                if (echo.equals("bye"))
+                    break;
+                // list.add(new TASK.Task(echo));
+                // At level-4, I think original task input should no longer be allowed
+                // every task must be either todo or deadline or event
+
+                //make TASK.Task Class abstract
+            } catch (DukeException e) {
+                System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
         }
+
 
         System.out.println("\tBye. Hope to see you again soon!");
 
+    }
+
+    interface Command {
+        //void run();
+        void run(String content);
     }
 
     public static void cmdMarkDone(String echo, ArrayList<Task> list) {
@@ -109,11 +143,13 @@ public class Duke {
         System.out.println("\t  " + list.get(listIndex));
     }
 
-    public static boolean containsKeyword(String echo, String keyword) {
+    public static boolean containsKeyword(String echo, HashMap keywords) throws InvalidCommandException {
         String[] parts = echo.split(" ", 2);
-        if (parts[0].equals(keyword))
-            return true;
-        return false;
+
+        if (keywords.containsKey(parts[0])){
+            //keywords.get(parts[0]).run();
+        }
+        throw new InvalidCommandException();
     }
 
     public static String removeKeyword(String echo) {

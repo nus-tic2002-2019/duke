@@ -1,4 +1,6 @@
-public class Task {
+package TASK;
+
+public abstract class Task{
     private static int totalTask = 0;
     private int taskNumber = 0;
     private String content;
@@ -35,6 +37,7 @@ public class Task {
         completed = true;
         return;
     }
+
 
     @Override
     public String toString() {

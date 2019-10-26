@@ -1,3 +1,7 @@
+package TASK;
+
+import TASK.Task;
+
 public class Event extends Task {
     public Event (String content) {
         super(content);
@@ -13,3 +17,4 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (at: " + at + ")";
     }
 }
+
