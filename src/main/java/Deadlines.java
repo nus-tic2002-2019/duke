@@ -1,6 +1,7 @@
 public class Deadlines extends Task {
     protected boolean isDone;
     protected String by;
+    //private String by;
 
     public Deadlines(String description, String by) {
         super(description);
@@ -19,6 +20,7 @@ public class Deadlines extends Task {
     @Override
     public String toString(){
         return "[D] [" + super.getStatusIcon() + "]" + super.getDescription() + "(by: " + by + ")";
+        //return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
 }
