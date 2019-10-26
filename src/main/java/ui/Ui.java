@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Represent a class of user interface.
  * Display results and affirmation of user's command.
  */
-public class Ui {
+public class Ui{
     public Ui(){
     }
 
@@ -23,11 +23,51 @@ public class Ui {
         System.out.println("Hello from\n" + logo);
         System.out.println("\t--------------------------------------------------");
         System.out.println("\tHello! I'm duke.Duke\n\tWhat can I do for you?");
+        System.out.println("\tType help for help-page.");
         System.out.println("\t--------------------------------------------------");
-        System.out.println("\tPlease use the following format:");
-        System.out.println("\ttodo task description");
-        System.out.println("\tdeadline task description /by yyyy-mm-dd hhmm");
-        System.out.println("\tevent description /at yyyy-mm-dd hhmm");
+    }
+
+    /**
+     * This is an individual feature 2. It display a help page with all available
+     * commands and description.
+     *
+     */
+    public static void help(){
+        System.out.println("\t Welcome to the help page!");
+        System.out.println("\t Please use the following scheduler commands and format.");
+        System.out.println("\t|============================================================|");
+        System.out.println("\t| Command  | Task Description  | Prefix |      Date and time |");
+        System.out.println("\t|============================================================|");
+        System.out.println("\t| deadline | eg. submit report |  /by   |    2019-12-31 2359 |");
+        System.out.println("\t|          |                   |        | or 31-12-2019 2359 |");
+        System.out.println("\t|------------------------------------------------------------|");
+        System.out.println("\t| event    | eg. watch movie   |  /at   |    2019-12-31 2359 |");
+        System.out.println("\t|          |                   |        | or 31-12-2019 2359 |");
+        System.out.println("\t|------------------------------------------------------------|");
+        System.out.println("\t| todo     | eg. buy bread     |       not applicable        |");
+        System.out.println("\t|------------------------------------------------------------|\n");
+        System.out.println("\tExample:");
+        System.out.println("\tdeadline submit industrial report /by 2019-12-31 2359");
+        System.out.println("\ttodo buy bread and butter\n");
+        System.out.println("\t Additional helper commands.");
+        System.out.println("\t|=============================================================|");
+        System.out.println("\t| Command | Argument       | Description                      |");
+        System.out.println("\t|=============================================================|");
+        System.out.println("\t| done    | Task number    | to mark a task as completed      |");
+        System.out.println("\t|-------------------------------------------------------------|");
+        System.out.println("\t| delete  | Task number    | to delete a task                 |");
+        System.out.println("\t|-------------------------------------------------------------|");
+        System.out.println("\t| find    | keywords       | to find a keyword from task list |");
+        System.out.println("\t|-------------------------------------------------------------|");
+        System.out.println("\t| sort    | not applicable | sort task list by date           |");
+        System.out.println("\t|-------------------------------------------------------------|");
+        System.out.println("\t| list    | not applicable | list all tasks                   |");
+        System.out.println("\t|-------------------------------------------------------------|");
+        System.out.println("\t| help    | not applicable | display all commands and usage   |");
+        System.out.println("\t|-------------------------------------------------------------|");
+        System.out.println("\tExample:");
+        System.out.println("\tdone 12");
+        System.out.println("\tlist\n");
     }
 
     public static void invalid(){
@@ -66,22 +106,8 @@ public class Ui {
     public static void list(ArrayList<Task> t, Integer index){
         System.out.println("\t--------------------------------------------------");
         System.out.println("\tHere are the tasks in your list:");
-        String timeString = "";
-        for (int i = 0; i < index ; i++) {
-            String command = t.get(i).toString().substring(1,2);
-            switch (command){
-                case ("D"):
-                    timeString = t.get(i).toString().split("by:")[1].replace(")","");
-                    break;
-                case ("E"):
-                    timeString = t.get(i).toString().split("at:")[1].replace(")","");
-                    break;
-            }
-            if (command.equals("T")) {
-                System.out.println("\t" + (i + 1) + "." + t.get(i));
-            } else {
-                System.out.println("\t" + (i + 1) + "." + t.get(i).toString().replace(timeString,customDate(timeString)));
-            }
+        for ( int i = 0; i < index ; i++ ) {
+            singleList(t, i);
         }
         System.out.println("\t--------------------------------------------------");
     }
@@ -97,22 +123,28 @@ public class Ui {
         return dateString.format(formatter);
     }
 
-    public static void singleList(ArrayList<Task> t, Integer index){
+    /**
+     * This method will display a single line of task.
+     * @param t : this is the data structure of user tasks
+     * @param index : user's required task serial number.
+     */
+    public static void singleList(ArrayList<Task> t, Integer index) {
         String timeString = "";
-        String command = t.get(index).toString().substring(1,2);
-        switch (command){
+        String command = t.get(index).toString().substring(1, 2);
+        switch (command) {
             case ("D"):
-                timeString = t.get(index).toString().split("by:")[1].replace(")","");
+                timeString = t.get(index).toString().split("by:")[1].replace(")", "");
                 break;
             case ("E"):
-                timeString = t.get(index).toString().split("at:")[1].replace(")","");
+                timeString = t.get(index).toString().split("at:")[1].replace(")", "");
                 break;
         }
         if (command.equals("T")) {
-            System.out.println("\t" + (index + 1) + "." + t.get(index));
+            System.out.println("\t"+(index+1)+"."+t.get(index));
         } else {
-            System.out.println("\t" + (index + 1) + "." + t.get(index).toString().replace(timeString,customDate(timeString)));
+            System.out.println("\t"+(index+1)+"."+t.get(index).
+                                                  toString().
+                                                  replace(timeString, customDate(timeString)));
         }
-
     }
 }

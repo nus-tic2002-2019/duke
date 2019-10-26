@@ -15,8 +15,12 @@ public class Event extends Task{
         this.at = at;
     }
 
+    public LocalDateTime getDate(){
+        return at;
+    }
+
     @Override
-    public String toString() {
+    public String toString(){
         return "[E]" + super.toString() + "(at:" + at + ")";
     }
 }

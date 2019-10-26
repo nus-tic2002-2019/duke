@@ -1,31 +1,39 @@
 package task;
 
+import java.time.LocalDateTime;
+
 /**
  * Represent the data structure to manage user's task list.
  */
-public class Task {
+public class Task{
 
     protected String description;
     protected boolean isDone;
+    protected LocalDateTime date;
 
-    public Task(String description) {
+    public Task(String description){
         this.description = description;
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
+    public String getStatusIcon(){
         return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
     }
 
-    public String getDescription() {
+    public String getDescription(){
         return description;
+    }
+
+    public LocalDateTime getDate(){
+        return date;
     }
 
     public void taskDone(){
         this.isDone = true;
     }
+
     @Override
-    public String toString() {
+    public String toString(){
         return "[" + (isDone ? "\u2713" : "\u2718") + "]"+ description ;
     }
 }

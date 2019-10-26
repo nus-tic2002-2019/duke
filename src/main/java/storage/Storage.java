@@ -15,9 +15,9 @@ import java.util.ArrayList;
 /**
  * Represent class of saving and loading task list from the hard disk.
  */
-public class Storage {
+public class Storage{
 
-    private String filename;
+    private static String filename;
 
     public Storage(String filename){
         this.filename = filename;
@@ -29,17 +29,22 @@ public class Storage {
      */
     public static void SaveFile(ArrayList<Task> t){
         try {
-            FileOutputStream fout = new FileOutputStream("D:\\git\\output.txt");
-            for( Integer i=0 ; i<t.size() ; i++){
-                String s = t.get(i).toString().replace("\u2713","1" ).replace("\u2718","0").
-                        replaceAll("\\[","").replaceAll("]","|").replace("(by:","|").
-                        replace("(at:","|").replace(")","") + System.lineSeparator();
+            FileOutputStream fout = new FileOutputStream(filename);
+            for( int i=0 ; i<t.size() ; i++ ){
+                String s = t.get(i).toString().replace("\u2713","1" ).
+                                               replace("\u2718","0").
+                                               replaceAll("\\[","").
+                                               replaceAll("]","|").
+                                               replace("(by:","|").
+                                               replace("(at:","|").
+                                               replace(")","") +
+                                               System.lineSeparator();
                 byte b[]= s.getBytes();//converting string into byte array
                 fout.write(b);
             }
             fout.close();
-        } catch (IOException e) {
-            System.out.println("Cannot save file !");
+        } catch (IOException e){
+            System.out.println("\tOops!! Cannot save file !");
         }
     }
 
@@ -49,16 +54,18 @@ public class Storage {
      */
     public static void LoadFile(ArrayList<Task> t){
         try {
-            BufferedReader br = new BufferedReader(new FileReader("D:\\git\\output.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(filename));
 
             LocalDateTime resultDateTime = null;
-            String s;
+            String loadString;
 
-            while ((s = br.readLine()) != null){
+            while ( (loadString = br.readLine()) != null ){
 
-                String[] command = s.split("\\|",0);
+                // Example loadString = D|0|submit Java project|2018-01-30T14:30
+                //   command[x] --> x = 0|1|         2         |        3
+                String[] command = loadString.split("\\|",0);
 
-                switch (command[0]) {
+                switch ( command[0] ){
                     case "T":
                         t.add(new Todo(command[2].trim()));
                         if (command[1].equals("1")){
@@ -68,21 +75,21 @@ public class Storage {
                     case "E":
                         resultDateTime = LocalDateTime.parse(command[3]);
                         t.add(new Event(command[2].trim(),resultDateTime));
-                        if (command[1].equals("1")){
+                        if ( command[1].equals("1") ){
                             t.get(t.size() - 1).taskDone();
                         }
                         break;
                     case "D":
                         resultDateTime = LocalDateTime.parse(command[3]);
                         t.add(new Deadline(command[2].trim(),resultDateTime));
-                        if (command[1].equals("1")){
+                        if ( command[1].equals("1") ){
                             t.get(t.size() - 1).taskDone();
                         }
                         break;
                 }
             }
-        } catch (IOException e) {
-            System.out.println("File not found! Generate new file.");
+        } catch (IOException e){
+            System.out.println("\tOops!! File not found! Generate new file.");
         }
     }
 }
