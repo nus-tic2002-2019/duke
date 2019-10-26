@@ -8,7 +8,6 @@ public class Duke {
     //private static int Count = 0;
     //private static Scanner in = new Scanner(System.in);
 
-
     //level 3 -> level 6
     public static void addTask(Task t) {
         //tasks[Count] = t;
