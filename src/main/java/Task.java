@@ -35,4 +35,8 @@ public class Task {
         }
         else {System.out.print("(Done)");}
     }
+
+    public String getSaveFormat(){
+        return "";
+    }
 }

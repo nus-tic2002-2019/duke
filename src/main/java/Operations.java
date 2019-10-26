@@ -39,12 +39,15 @@ public class Operations {
 
         tasks.get(taskIndex).done = true;
         tasks.get(taskIndex).print();
-        my_file.updateFile(tasks);
+
     }
 
     public void delete(int listIndex) throws IOException {
         int taskIndex = listIndex-1;
         tasks.remove(taskIndex);
-        my_file.updateFile(tasks);
+    }
+
+    public void loadFromFile(){
+        //
     }
 }
