@@ -3,68 +3,88 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-
-    private static Task[] tasks = new Task[100];
-    private static int Count = 0;
+    private static ArrayList<Task> taskItems = new ArrayList<>();
+    //private static Task[] tasks = new Task[100];
+    //private static int Count = 0;
     //private static Scanner in = new Scanner(System.in);
 
 
-    //level 3
+    //level 3 -> level 6
     public static void addTask(Task t) {
-        tasks[Count] = t;
+        //tasks[Count] = t;
+        taskItems.add(t);
         System.out.println("\t--------------------------------------------------");
         System.out.println("added: " + t.getDescription());
         System.out.println("\t--------------------------------------------------");
-        Count++;
+        //Count++;
     }
 
     public static void displayTasks() {
         System.out.println("\t--------------------------------------------------");
-        for (int i = 0; i < Count; i++) {
+        //for (int i = 0; i < Count; i++) {
+        for (int i = 0; i < taskItems.size(); i++) {
             //System.out.println(i + 1 + ". [" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
-            System.out.println(i + 1 + ". " + tasks[i]);
+            //System.out.println(i + 1 + ". " + tasks[i]);
+            System.out.println(i + 1 + ". " + taskItems.get(i));
         }
         System.out.println("\t--------------------------------------------------");
     }
 
 
-
-    //level 4
+    //level 4 -> level 6
     public static void addTask(Todo t) {
-        tasks[Count] = t;
+        //tasks[Count] = t;
+        taskItems.add(t);
         System.out.println("\t--------------------------------------------------");
         System.out.println("Got it. I've added this task: ");
         System.out.println(t);
-        Count++;
-        System.out.println("Now you have " + Count + " tasks in the list");
+        //Count++;
+        //System.out.println("Now you have " + Count + " tasks in the list");
+        System.out.println("Now you have " + taskItems.size() + " tasks in the list");
         System.out.println("\t--------------------------------------------------");
     }
 
     public static void addTask(Deadlines t) {
-        tasks[Count] = t;
+        //tasks[Count] = t;
+        taskItems.add(t);
         System.out.println("\t--------------------------------------------------");
         System.out.println("Got it. I've added this task: ");
         System.out.println(t);
-        Count++;
-        System.out.println("Now you have " + Count + " tasks in the list");
+        //Count++;
+        //System.out.println("Now you have " + Count + " tasks in the list");
+        System.out.println("Now you have " + taskItems.size() + " tasks in the list");
         System.out.println("\t--------------------------------------------------");
     }
 
     public static void addTask(Events t) {
-        tasks[Count] = t;
+        //tasks[Count] = t;
+        taskItems.add(t);
         System.out.println("\t--------------------------------------------------");
         System.out.println("Got it. I've added this task: ");
         System.out.println(t);
-        Count++;
-        System.out.println("Now you have " + Count + " tasks in the list");
+        //Count++;
+        //System.out.println("Now you have " + Count + " tasks in the list");
+        System.out.println("Now you have " + taskItems.size() + " tasks in the list");
         System.out.println("\t--------------------------------------------------");
     }
 
     public static void markDone(int post) {
-        tasks[post - 1].markDone(true);
+        //tasks[post - 1].markDone(true);
+        taskItems.get(post - 1).markDone(true);
         System.out.println("\t--------------------------------------------------");
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("    [" + tasks[post - 1].getStatusIcon() + "] " + tasks[post - 1].getDescription());
+        //System.out.println("    [" + tasks[post - 1].getStatusIcon() + "] " + tasks[post - 1].getDescription());
+        System.out.println("    [" + taskItems.get(post - 1).getStatusIcon() + "] " + taskItems.get(post - 1).getDescription());
+        System.out.println("\t--------------------------------------------------");
+    }
+
+    public static void removeItem(int post){
+        System.out.println("\t--------------------------------------------------");
+        System.out.println("Noted. I've removed this task:");
+        //System.out.println("    [" + taskItems.get(post - 1).getStatusIcon() + "] " + taskItems.get(post - 1).toString());
+        System.out.println(taskItems.get(post - 1).toString());
+        taskItems.remove(post - 1);
+        System.out.println("Now you have " + taskItems.size() + " tasks in the list.");
         System.out.println("\t--------------------------------------------------");
     }
 
@@ -102,6 +122,12 @@ public class Duke {
                     default:
 
                         switch (line_arr[0].toUpperCase()) {
+                            case "DELETE":
+                                removeItem(Integer.parseInt(line_arr[1]));
+                                break;
+                            case "REMOVE":
+                                removeItem(Integer.parseInt(line_arr[1]));
+                                break;
                             case "DONE":
                                 markDone(Integer.parseInt(line_arr[1]));
                                 break;
