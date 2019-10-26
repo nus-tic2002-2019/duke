@@ -1,26 +1,53 @@
 import java.util.Scanner;
 
+
 public class Duke {
-    private static Task[] Tasks = new Task[100];
-    private static int numberOfTask = 0;
+    //private UI ui;
+    //private static int numberOfTask = 0;
+    //private static ArrayList<Task> Tasks = new ArrayList<>();
+
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Duke(String filePath) {
+        ui = new Ui();
+        tasks = new TaskList();
+        /*storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }*/
+    }
+
+    public void run() {
+        ui.showDukeWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                ui.showLine(); // show the divider line ("_______")
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (DukeException e) {
+                ui.showError(e.getMessage());
+            } finally {
+                ui.showLine();
+            }
+        }
+    }
 
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo +"What can I do for you?\n");
+        new Duke("data/tasks.txt").run();
 
-        Echo();
+        //Echo();
 
     }
-    public static void addTask(Task s){
-        Tasks[numberOfTask] = s;
-        numberOfTask++;
-        System.out.println("added: "+ s.getTask());
-    }
 
+/*
     public static void Echo() {
         String line;
         Scanner in = new Scanner(System.in);
@@ -37,7 +64,7 @@ public class Duke {
             itemName = line.substring(0, dividerPosition);
             }
 
-            /* switch (itemName) {
+             switch (itemName) {
                 case "bye":  monthString = "January";
                     break;
                 case "list":  monthString = "February";
@@ -64,26 +91,32 @@ public class Duke {
                     break;
                 default: monthString = "Invalid month";
                     break;
-            }*/
+            }
 
             if (s1.equalsIgnoreCase(line)) {
                 byebye = false;
             }
             else if(line.equalsIgnoreCase("list")){
                 for(int i = 0; i< numberOfTask; i++){
-                    System.out.println((i+1) + ". " + Tasks[i].toString());
+                    System.out.println((i+1) + ". " + Tasks.get(i).toString());
                 }
             }
             else if(itemName.equalsIgnoreCase("done")){
                 String taskNumber = line.substring(dividerPosition+1,line.length());
                 int taskIndex = Integer.parseInt(taskNumber)-1;
                 if(numberOfTask >=taskIndex + 1 && taskIndex >= 0) {
-                    Tasks[taskIndex].edit_done(true);
-                    System.out.println("Nice! I've marked this task as done: \n" + Tasks[taskIndex].toString());
+                    Tasks.get(taskIndex).edit_done(true);
+                    System.out.println("Nice! I've marked this task as done: \n" + Tasks.get(taskIndex).toString());
                 }
                 else{
                     System.out.println("Not such task");
                 }
+            }
+            else if(itemName.equalsIgnoreCase("delete")){
+                String taskNumber = line.substring(dividerPosition+1,line.length());
+                int taskIndex = Integer.parseInt(taskNumber)-1;
+                Tasks.remove(taskIndex);
+                numberOfTask--;
             }
             else if(itemName.equalsIgnoreCase("deadline")){
                 if(itemName.contains(" /by ")) {
@@ -95,7 +128,7 @@ public class Duke {
                 else{
                     addTask(new Task(line));
                 }
-                
+
             }
             else if(itemName.equalsIgnoreCase("event")){
                 if(itemName.contains(" /at ")){
@@ -118,5 +151,6 @@ public class Duke {
         }
         System.out.println("Bye. Hope to see you again soon!\n");
     }
+    */
 }
 
