@@ -26,7 +26,7 @@ public class Duke {
 //DEFINE Keyword
         HashMap<String, Command> keywords = new HashMap<String, Command>();
 
-        String echo = " ";
+        String userInput = " ";
 
 //MAKE LIST
         ArrayList<Task> list = new ArrayList<Task>();
@@ -57,27 +57,22 @@ public class Duke {
                 cmdEvent(content, list);
             };
         } );
-        keywords.put("bye", new Command() {
-            public void run(String content) {
-                System.out.println("\tBye. Hope to see you again soon!");
-            };
-        } );
-
-
-
+        
 //USER INPUT
 
-        while(echo != null) {
-            echo = in.nextLine();
-            echo = echo.toLowerCase();
-            echo = echo.trim();
+        while(userInput != null) {
+            userInput = in.nextLine();
+            userInput = userInput.toLowerCase();
+            userInput = userInput.trim();
 
-            String[] parts = echo.split(" ", 2);
+            String[] parts = userInput.split(" ", 2);
 
             if (keywords.containsKey(parts[0])){
-                keywords.get(parts[0]).run(echo);
+                keywords.get(parts[0]).run(userInput);
             }
 
+            if (userInput.equals("bye"))
+                break;
             /*
             try {
 
@@ -96,13 +91,13 @@ public class Duke {
         void run(String content);
     }
 
-    public static void cmdMarkDone(String echo, ArrayList<Task> list) {
-        int listIndex = getIntStringSpace(echo) - 1;
+    public static void cmdMarkDone(String userInput, ArrayList<Task> list) {
+        int listIndex = getIntStringSpace(userInput) - 1;
         list.get(listIndex).setcompleted();
         printMarkDone(list, listIndex);
     }
-    public static void cmdTodo(String echo, ArrayList<Task> list) {
-        String content = removeKeyword(echo);
+    public static void cmdTodo(String userInput, ArrayList<Task> list) {
+        String content = removeKeyword(userInput);
         list.add(new Todo(content));
         int index = list.get(0).getTotalTask() - 1;
         System.out.println("\tGot it. I've added this task: ");
@@ -110,8 +105,8 @@ public class Duke {
         System.out.printf("\tNow you have %d tasks in the list."
                 + System.lineSeparator(), list.get(0).getTotalTask());
     }
-    public static void cmdDeadline(String echo, ArrayList<Task> list) {
-        String content = removeKeyword(echo);
+    public static void cmdDeadline(String userInput, ArrayList<Task> list) {
+        String content = removeKeyword(userInput);
         String[] parts = content.split(" /by ");
         list.add(new Deadline(parts[0], parts[1]));
         int index = list.get(0).getTotalTask() - 1;
@@ -120,8 +115,8 @@ public class Duke {
         System.out.printf("\tNow you have %d tasks in the list."
                 + System.lineSeparator(), list.get(0).getTotalTask());
     }
-    public static void cmdEvent(String echo, ArrayList<Task> list) {
-        String content = removeKeyword(echo);
+    public static void cmdEvent(String userInput, ArrayList<Task> list) {
+        String content = removeKeyword(userInput);
         String[] parts = content.split(" /at ");
         list.add(new Event(parts[0], parts[1]));
         int index = list.get(0).getTotalTask() - 1;
@@ -137,8 +132,8 @@ public class Duke {
     }
 
     /*
-    public static boolean containsKeyword(String echo, HashMap keywords) throws InvalidCommandException {
-        String[] parts = echo.split(" ", 2);
+    public static boolean containsKeyword(String userInput, HashMap keywords) throws InvalidCommandException {
+        String[] parts = userInput.split(" ", 2);
 
         if (keywords.containsKey(parts[0])){
             return true;
@@ -147,16 +142,16 @@ public class Duke {
     }
      */
 
-    public static String removeKeyword(String echo) {
-        String[] parts = echo.split(" ", 2);
+    public static String removeKeyword(String userInput) {
+        String[] parts = userInput.split(" ", 2);
         return parts[1];
     }
 
 
-    public static int getIntStringSpace(String echo) {
-        //echo = echo.substring(echo.indexOf(" ") + 1); //split number str
-        echo = removeKeyword(echo);
-        return Integer.parseInt(echo); // get number
+    public static int getIntStringSpace(String userInput) {
+        //userInput = userInput.substring(userInput.indexOf(" ") + 1); //split number str
+        userInput = removeKeyword(userInput);
+        return Integer.parseInt(userInput); // get number
     }
 
     public static void cmdPrintList(ArrayList<Task> list) {
