@@ -145,13 +145,13 @@ public class Duke {
         }
         throw new InvalidCommandException();
     }
+     */
 
     public static String removeKeyword(String echo) {
         String[] parts = echo.split(" ", 2);
         return parts[1];
     }
 
-     */
 
     public static int getIntStringSpace(String echo) {
         //echo = echo.substring(echo.indexOf(" ") + 1); //split number str
