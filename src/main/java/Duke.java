@@ -1,9 +1,12 @@
 import jdk.jfr.Description;
 
 import javax.swing.*;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 public class Duke {
     private static int counter = 0;
     //private static Task[] taskList = new Task[100];
@@ -34,6 +37,7 @@ public class Duke {
         return output;
     }
     public static void main(String[] args) {
+
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -51,25 +55,25 @@ public class Duke {
                 case "bye":  System.out.println("Bye. Hope to see you again soon!\n");
                     break;
                 case "todo": try {
-                    if ((line.substring(line.indexOf(4, line.length())).trim().equals(""))) {
-                        throw new DukeException("todo");
+                    if ((line.substring(line.indexOf("todo")+5, line.length())).trim().equals("")){
+                        throw new DukeException();
                     }
                     //setTask(new T
-                    setTask(new Todo(line.substring(5, line.length())));
+                    setTask(new Todo(line.substring(line.indexOf("todo")+5, line.length())));
                 }   catch (DukeException e) {
-                    //System.out.println("OOPS!!! The description of a
-                    System.out.println(e.getMessage());
+                    System.out.println("OOPS!!! The description of a todo cannot be empty.");
+                    //System.out.println(e.getMessage());
                 }
                     break;
                 case "deadline": //setTasksList(new Deadline(line.substring(line.indexOf("deadline")+9, line.indexOf("by")-1), line.substring(line.indexOf("by")+3, line.length())));
                     try{
-                        if ((line.substring(8, line.length()).trim()).equals("")){
-                            throw new DukeException("deadline");
+                        if ((line.substring(line.indexOf("deadline")+9, line.length()).trim()).equals("")){
+                            throw new DukeException();
                         }
-                        if (line.substring(line.indexOf("at")+2, line.length()).trim().equals("") || !(line.contains("at"))) {
-                                throw new DukeException("deadline", (line.substring(line.indexOf("by")+2, line.length()).trim()));
-                        }
-                        setTask(new Deadline(line.substring(9, line.indexOf("by")-1), line.substring(line.indexOf("by")+3, line.length())));
+                        //if (line.substring(line.indexOf("at")+2, line.length()).trim().equals("") || !(line.contains("at"))) {
+                          //      throw new DukeException("deadline", (line.substring(line.indexOf("by")+2, line.length()).trim()));
+                        //}
+                        setTask(new Deadline(line.substring(line.indexOf("deadline")+9, line.indexOf("by")-1), line.substring(line.indexOf("by")+3, line.length())));
                     }
                     catch (IndexOutOfBoundsException | DukeException e){
                         System.out.println("\t________________\n\t OOPS!!! The description of a deadline cannot be empty.\n\t");
@@ -82,7 +86,7 @@ public class Duke {
                 case "done": //System.out.println(markAsDone(Integer.parseInt(line.split(" ")[1])-1));
                     try{
                         if ((line.substring(line.indexOf("done")+5, line.length()).trim()).equals("")){
-                            throw new DukeException("done");
+                            throw new DukeException();
                         }
                         System.out.println(markAsDone(Integer.parseInt(line.split(" ")[1])-1));
                     }
@@ -95,7 +99,7 @@ public class Duke {
                     break;
                 case "blah": try {
                     if ((line.substring(line.indexOf("blah") + 4, line.length()).trim()).equals("")) {
-                        throw new DukeException("blah");
+                        throw new DukeException();
                     }
                     System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
@@ -104,11 +108,11 @@ public class Duke {
                     }
                     break;
                 case "delete": try {
-                    if  ((line.substring(6, line.length()).trim()).equals("")) {
-                        throw new DukeException("delete");
+                    if  ((line.substring(line.indexOf("delete")+7, line.length()).trim()).equals("")) {
+                        throw new DukeException();
                     }
-                    System.out.println(markAsDelete(Integer.parseInt(line.split(" ")[1])-1));
-                }
+                        System.out.println(markAsDelete(Integer.parseInt(line.split(" ")[1])-1));
+                    }
                     catch (DukeException e) {
                         System.out.println(e.getMessage());
                     }
@@ -119,10 +123,30 @@ public class Duke {
                         System.out.println("\t________________________\n\t OOPS!!! The task list cannot be empty.\n\t_______");
                     }
                     break;
+                case "save": String file2 = "C:\\Users\\AdminCOOP\\Documents\\2019 Year 3 Sem 1\\TIC2002\\sample.txt"; 
+                    try {
+                        FileOutputStream output = new FileOutputStream(file2);
+                        for (int i = 0; i < counter; i++) {
+                            //writeToFile(file2,"." + tasks.get(i).toString());
+                            String temp = Integer.toString(i+1) + "." + tasks.get(i).toString() + System.lineSeparator();
+                            byte[] strToBytes = temp.getBytes();
+                            output.write(strToBytes);
+                        }
+                        output.close();
+                    } catch (IOException e) {
+                        System.out.println("Something is wrong: " + e.getMessage());
+                    }
+                    break;
                 default: //setTasksList(new Task(line));
                              System.out.println("added: " + line);
             }
         } while (!(line.equals("bye")));
+    }
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
     }
 }
 
