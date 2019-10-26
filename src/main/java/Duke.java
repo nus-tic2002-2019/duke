@@ -22,26 +22,48 @@ public class Duke {
         System.out.println("\tHello! I'm Duke \n\tWhat can I do for you?");
 
         Scanner in = new Scanner(System.in);
+
 //DEFINE Keyword
-        // String keywords[] = {"done", "todo", "deadline", "event"};
         HashMap<String, Command> keywords = new HashMap<String, Command>();
 
         String echo = " ";
-        /* while(echo != null) {
-            echo = in.nextLine();
-            if (echo.equals("bye")) // DO NOT use ==
-                break;
-            System.out.println("\t" + echo + "\n");
-        } */
 
 //MAKE LIST
         ArrayList<Task> list = new ArrayList<Task>();
 
+//Add new command TODO: make it a function?
+        keywords.put("list", new Command() {
+            public void run(String content) {
+                cmdPrintList(list);
+            };
+        } );
+        keywords.put("done", new Command() {
+            public void run(String content) {
+                cmdMarkDone(content, list);
+            };
+        } );
         keywords.put("todo", new Command() {
             public void run(String content) {
                 cmdTodo(content, list);
             };
         } );
+        keywords.put("deadline", new Command() {
+            public void run(String content) {
+                cmdDeadline(content, list);
+            };
+        } );
+        keywords.put("event", new Command() {
+            public void run(String content) {
+                cmdEvent(content, list);
+            };
+        } );
+        keywords.put("bye", new Command() {
+            public void run(String content) {
+                System.out.println("\tBye. Hope to see you again soon!");
+            };
+        } );
+
+
 
 //USER INPUT
 
@@ -56,41 +78,12 @@ public class Duke {
                 keywords.get(parts[0]).run(echo);
             }
 
+            /*
             try {
-                if (echo.equals("list")) {
-                    cmdPrintList(list);
-                    continue;
-                }
 
-                if (containsKeyword(echo, keywords)) {
-                    cmdMarkDone(echo, list);
-                    continue;
-                }
-
-                if (containsKeyword(echo, keywords)) {
-                    cmdTodo(echo, list);
-                    continue;
-                }
-                if (containsKeyword(echo, keywords)) {
-                    cmdDeadline(echo, list);
-                    continue;
-                }
-                if (containsKeyword(echo, keywords)) {
-                    cmdEvent(echo, list);
-                    continue;
-                }
-
-                ///////////////////////
-                if (echo.equals("bye"))
-                    break;
-                // list.add(new TASK.Task(echo));
-                // At level-4, I think original task input should no longer be allowed
-                // every task must be either todo or deadline or event
-
-                //make TASK.Task Class abstract
             } catch (DukeException e) {
                 System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-            }
+            } */
         }
 
 
@@ -143,11 +136,12 @@ public class Duke {
         System.out.println("\t  " + list.get(listIndex));
     }
 
+    /*
     public static boolean containsKeyword(String echo, HashMap keywords) throws InvalidCommandException {
         String[] parts = echo.split(" ", 2);
 
         if (keywords.containsKey(parts[0])){
-            //keywords.get(parts[0]).run();
+            return true;
         }
         throw new InvalidCommandException();
     }
@@ -156,6 +150,8 @@ public class Duke {
         String[] parts = echo.split(" ", 2);
         return parts[1];
     }
+
+     */
 
     public static int getIntStringSpace(String echo) {
         //echo = echo.substring(echo.indexOf(" ") + 1); //split number str
