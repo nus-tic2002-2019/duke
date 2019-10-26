@@ -16,7 +16,6 @@ import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-
 /**
  * Represent class of Parse.
  * Make sense of user input and update data into the data structure.
@@ -159,8 +158,8 @@ public class Parse{
         String timeMin = "";
         String timeHrs = "";
 
-        // convert to 2019-02-02 form
-        dateTemp = date.split(" ")[0].replace("/","-");
+        dateTemp = date.split(" ")[0];
+        assert dateTemp.length()==10:dateTemp.length(); //expected date of length 10chars
 
         if ( ErrType.isTime(date) ){ //check if there is a possible time
             timeTemp = date.split(" ")[1];
@@ -210,7 +209,6 @@ public class Parse{
         Boolean isFound = false;
         for ( int i=0 ; i<t.size() ; i++ ){
             int n = t.get(i).getDescription().indexOf(wordToFind);
-            //int n = taskString.indexOf(wordToFind);
             if (n>=0) {
                 Ui.singleList(t,i);
                 isFound=true;

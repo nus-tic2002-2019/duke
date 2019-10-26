@@ -67,7 +67,7 @@ public class ErrType{
      */
     public static Boolean isSchedule(String taskString){
         try {
-            String user_schedule = taskString.split("/")[1].replace("by ","");
+            String user_schedule = taskString.split("/")[1];
         } catch (ArrayIndexOutOfBoundsException e){
             System.out.println("\tOops!! Missing schedule.");
             return false;
