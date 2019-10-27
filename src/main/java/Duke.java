@@ -1,5 +1,7 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 
 public class Duke {
     public static void main(String[] args) {
@@ -15,16 +17,17 @@ public class Duke {
         System.out.println("What can I do for you?");
         split_line();
         ArrayList<Task> tasks = new ArrayList<Task>();
-        int size = 0;
-
-        chatting(tasks, size);
+        String filePath = "C:/Users/alienware/Desktop/TIC2002/duke/data/duke.txt";
+        FileReading.fileReading(filePath, tasks);
+        int size = tasks.size();
+        chatting(tasks, size, filePath);
     }
 
     public static void split_line() {
         System.out.println("--------------------------------------------------------");
     }
 
-    static void CheckFirstWord(String s) throws CommandException {
+    static void CheckFirstWord(String s) throws CommandException{
         if (!(s.equals("todo" ) || s.equals( "deadline") || s.equals( "event") || s.equals( "bye")
                 || s.equals( "list") || s.equals( "done") || s.equals("delete")))
             throw new CommandException();
@@ -52,11 +55,11 @@ public class Duke {
     }
 
     static void CheckNullNumber (String s1,  String s2) throws NullNumberException {
-        if (  (s1.equals("done") && s2.length() == 4) || (s1.equals("delete") && s2.length() == 8) )
+        if (  (s1.equals("done") && s2.length() == 4) || (s1.equals("delete") && s2.length() == 6) )
             throw new NullNumberException();
     }
 
-    public static void chatting(ArrayList<Task> tasks, int size) {
+    public static void chatting(ArrayList<Task> tasks, int size, String filePath) {
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
@@ -73,15 +76,15 @@ public class Duke {
         }
         catch (CommandException e) {
             System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-            chatting(tasks, size);
+            chatting(tasks, size, filePath);
         }
         catch (CommandAddException e) {
             System.out.println("☹ OOPS!!! Pls key in the description for the task");
-            chatting(tasks, size);
+            chatting(tasks, size, filePath);
         }
         catch (NullNumberException e) {
             System.out.println("☹ OOPS!!! Pls key in the number of the task");
-            chatting(tasks, size);
+            chatting(tasks, size, filePath);
         }
 
         if (line.toLowerCase().equals("bye")) {
@@ -93,7 +96,7 @@ public class Duke {
                 System.out.println(i + 1 + "." + tasks.get(i).toString());
             }
             split_line();
-            chatting(tasks, size);
+            chatting(tasks, size, filePath);
         } else if (first_word.equals("done")) {
             int index = Integer.parseInt(line.substring(5)) - 1;
             try{
@@ -101,42 +104,46 @@ public class Duke {
             }
             catch (CommandDoneException e){
                 System.out.println("☹ OOPS!!! The number of task is invalid! Please key in again!");
-                chatting(tasks, size);
+                chatting(tasks, size, filePath);
             }
             tasks.get(index).markAsDone();
+            FileSaving.saveFile(filePath, tasks);
             System.out.println("Nice! I've marked this task as done:");
             System.out.println("  " + tasks.get(index).toString());
             split_line();
-            chatting(tasks, size);
+            chatting(tasks, size, filePath);
         } else if (first_word.equals("todo")) {
-            Task t = new Todo(line.replace(s1[0] + " ", ""));
+            Task t = new Todo(s1[1]);
             tasks.add(t);
+            FileSaving.saveFile(filePath, tasks);
             size++;
             System.out.println("Got it. I've added this task: ");
             System.out.println("  " + t.toString());
             System.out.println("Now you have " + size + " tasks in the list.");
             split_line();
-            chatting(tasks, size);
+            chatting(tasks, size, filePath);
         } else if (first_word.equals("deadline")) {
             String time = s2[1].replace("by ", "");
             Task t = new Deadline(description, time);
             tasks.add(t);
+            FileSaving.saveFile(filePath, tasks);
             size++;
             System.out.println("Got it. I've added this task: ");
             System.out.println("  " + t.toString());
             System.out.println("Now you have " + size + " tasks in the list.");
             split_line();
-            chatting(tasks, size);
+            chatting(tasks, size, filePath);
         } else if (first_word.equals("event")) {
             String time = s2[1].replace("at ", "");
             Task t = new Event(description, time);
             tasks.add(t);
+            FileSaving.saveFile(filePath, tasks);
             size++;
             System.out.println("Got it. I've added this task: ");
             System.out.println("  " + t.toString());
             System.out.println("Now you have " + size + " tasks in the list.");
             split_line();
-            chatting(tasks, size);
+            chatting(tasks, size, filePath);
         } else if (first_word.equals("delete")) {
             int index = Integer.parseInt(line.substring(7)) - 1;
             try{
@@ -144,14 +151,16 @@ public class Duke {
             }
             catch (CommandDeleteException e){
                 System.out.println("☹ OOPS!!! The number of task is invalid! Please key in again!");
-                chatting(tasks, size);
+                chatting(tasks, size, filePath);
             }
             System.out.println("Noted. I've removed this task: ");
             System.out.println("  "  + tasks.get(index));
             tasks.remove(index);
+            FileSaving.saveFile(filePath, tasks);
             size--;
             System.out.println("Now you have " + size + " tasks in the list.");
-            chatting(tasks, size);
+            split_line();
+            chatting(tasks, size, filePath);
         }
     }
 }
