@@ -45,7 +45,7 @@ public class Ui{
         System.out.println("\t|          |                   |        | or 31-12-2019 2359 |");
         System.out.println("\t|------------------------------------------------------------|");
         System.out.println("\t| todo     | eg. buy bread     |       not applicable        |");
-        System.out.println("\t|------------------------------------------------------------|\n");
+        System.out.println("\t|------------------------------------------------------------|");
         System.out.println("\tExample:");
         System.out.println("\tdeadline submit industrial report /by 2019-12-31 2359");
         System.out.println("\ttodo buy bread and butter\n");

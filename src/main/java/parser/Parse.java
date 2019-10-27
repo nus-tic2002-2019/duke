@@ -38,11 +38,9 @@ public class Parse{
      * @param t : this is the data structure of user tasks.
      */
     public void parser(ArrayList<Task> t){
-
-        String user_input = "";
         Integer idx = 0;
-
         String command = "";
+        String user_input = "";
         String taskString = "";
         String timeString = "";
 
@@ -51,7 +49,12 @@ public class Parse{
 
         Scanner in = new Scanner(System.in);
         user_input = in.nextLine();
-        command = user_input.split(" ")[0].toLowerCase();
+
+        try {
+            command = user_input.split(" ")[0].toLowerCase();
+        } catch (ArrayIndexOutOfBoundsException e){
+            command = "";
+        }
 
         switch (command){
             case "list":
@@ -205,6 +208,11 @@ public class Parse{
         return resultDateTime;
     }
 
+    /**
+     * This method find keyword/s within all the task list.
+     * @param t : this is the data structure of user tasks
+     * @param wordToFind : user's keyword/s to search task list.
+     */
     public static void findKeyword(ArrayList<Task> t, String wordToFind){
         Boolean isFound = false;
         for ( int i=0 ; i<t.size() ; i++ ){

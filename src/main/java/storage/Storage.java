@@ -58,21 +58,32 @@ public class Storage{
 
             LocalDateTime resultDateTime = null;
             String loadString;
+            Integer numberOfVerticalBar = 0;
 
             while ( (loadString = br.readLine()) != null ){
 
                 // Example loadString = D|0|submit Java project|2018-01-30T14:30
                 //   command[x] --> x = 0|1|         2         |        3
+
                 String[] command = loadString.split("\\|",0);
 
                 switch ( command[0] ){
                     case "T":
+                        numberOfVerticalBar = loadString.indexOf("|",
+                                      loadString.indexOf("|",
+                                      loadString.indexOf("|")+1)+1);
+                        assert numberOfVerticalBar == -1: numberOfVerticalBar;
                         t.add(new Todo(command[2].trim()));
                         if (command[1].equals("1")){
                             t.get(t.size() - 1).taskDone();
                         }
                         break;
                     case "E":
+                        numberOfVerticalBar = loadString.indexOf("|",
+                                      loadString.indexOf("|",
+                                      loadString.indexOf("|",
+                                      loadString.indexOf("|")+1)+1)+1);
+                        assert numberOfVerticalBar == -1: numberOfVerticalBar;
                         resultDateTime = LocalDateTime.parse(command[3]);
                         t.add(new Event(command[2].trim(),resultDateTime));
                         if ( command[1].equals("1") ){
@@ -80,6 +91,11 @@ public class Storage{
                         }
                         break;
                     case "D":
+                        numberOfVerticalBar = loadString.indexOf("|",
+                                      loadString.indexOf("|",
+                                      loadString.indexOf("|",
+                                      loadString.indexOf("|")+1)+1)+1);
+                        assert numberOfVerticalBar == -1: numberOfVerticalBar;
                         resultDateTime = LocalDateTime.parse(command[3]);
                         t.add(new Deadline(command[2].trim(),resultDateTime));
                         if ( command[1].equals("1") ){
