@@ -44,8 +44,6 @@ public class Duke {
 
 //    private static Parser parser;
 
-
-
 //    private static void input_task(){
 //
 //        if (userInput.contains("/")) {
@@ -60,70 +58,70 @@ public class Duke {
 //        }
 //    }
 
-    private static void print_event(){
-        System.out.print("   " + seperatorLine2);
-        System.out.println("     " + "Got it. I've added this task");
-//           System.out.println("        " + "[" + t.getStatusIcon() + "]" + todolistArray[task_count] );
+//    private static void print_event(){
+//        System.out.print("   " + seperatorLine2);
+//        System.out.println("     " + "Got it. I've added this task");
+////           System.out.println("        " + "[" + t.getStatusIcon() + "]" + todolistArray[task_count] );
+////        System.out.println("        " + "[" + t.getStatusIcon() + "]" + todolistArray.get(task_count) );
+//
+//        System.out.println("        " + "[" + t.getStatusIcon() + "]" + TaskList.getTaskList(task_count));
+//
+//        System.out.println("     "+ "Now you have "+ (task_count + 1) + " tasks in the list.");
+//        System.out.print("   " + seperatorLine2);
+//        task_count++;
+//    }
 
-        System.out.println("        " + "[" + t.getStatusIcon() + "]" + todolistArray.get(task_count) );
-        System.out.println("        " + "[" + t.getStatusIcon() + "]" + TaskList.getTaskList(task_count));
+//    private static void print_delete_event(){
+//
+//        System.out.print("   " + seperatorLine2);
+//        System.out.println("     " + "Noted. I've removed this task");
+////        System.out.println("        " + "[" + t.getStatusIcon() + "]" + todolistArray.get(del_task_number) );
+//
+//        System.out.println("        " + "[" + t.getStatusIcon() + "]" + TaskList.getTaskList(del_task_number) );
+//
+//        System.out.println("     "+ "Now you have "+ (Ui.task_count-1 ) + " tasks in the list.");
+//        System.out.print("   " + seperatorLine2);
+//
+//        Ui.task_count--;
+//    }
 
+//    public static void addTask(Task s) {
 
-        System.out.println("     "+ "Now you have "+ (task_count + 1) + " tasks in the list.");
-        System.out.print("   " + seperatorLine2);
-        task_count++;
-    }
-
-    private static void print_delete_event(){
-
-        System.out.print("   " + seperatorLine2);
-        System.out.println("     " + "Noted. I've removed this task");
-//        System.out.println("        " + "[" + t.getStatusIcon() + "]" + todolistArray.get(del_task_number) );
-
-        System.out.println("        " + "[" + t.getStatusIcon() + "]" + TaskList.getTaskList(del_task_number) );
-
-        System.out.println("     "+ "Now you have "+ (task_count-1 ) + " tasks in the list.");
-        System.out.print("   " + seperatorLine2);
-
-        task_count--;
-    }
-
-    public static void addTask(Task s) {
-
-        tasks_addTask[taskCount_addTask] = s;
+//        tasks_addTask[taskCount_addTask] = s;
 //        tasks_addTask.add(s);
 //        todolistArray[taskCount_addTask] = tasks_addTask[taskCount_addTask].toString();
-        todolistArray.add(tasks_addTask[taskCount_addTask].toString());
-        taskCount_addTask++;
-    }
+
+//        todolistArray.add(tasks_addTask[taskCount_addTask].toString());
+//        taskCount_addTask++;
+//    }
 
 
-    public static void deleteTask(int del_task_number) {
-        del_task_number--;
-//        String remove_task = todolistArray.get(del_task_number);
-        String remove_task = TaskList.getTaskList(del_task_number);
-        print_delete_event();
+//    public static void deleteTask(int del_task_number) {
+//        del_task_number--;
+////        String remove_task = todolistArray.get(del_task_number);
+//        String remove_task = TaskList.getTaskList(del_task_number);
+//        print_delete_event();
+//
+////        todolistArray.remove(remove_task);
+//        TaskList.removeTaskList(del_task_number);
+//    }
 
-//        todolistArray.remove(remove_task);
-        TaskList.removeTaskList(del_task_number);
-    }
-
-    public static void doneTask(int done_task_number) {
-        t.markAsDone();
-
-        System.out.print("   " + seperatorLine2);
-        System.out.println("     " + "Nice! I've marked this task as done:");
-        System.out.print("        " + "[" + t.getStatusIcon() + "] ");
-        done_task_number = Integer.parseInt(userInput_taskWords[1]) - 1;
-//           System.out.println(listArray[doneNumber]);
-//           System.out.println(todolistArray[doneNumber]);
-
-//        System.out.println(todolistArray.get(done_task_number));
-        System.out.println(TaskList.getTaskList(done_task_number));
-
-        mark[done_task_number] = t.getStatusIcon();
-        System.out.print("   " + seperatorLine2);
-    }
+//    public static void doneTask(int done_task_number) {
+//        t.markAsDone();
+//
+//        System.out.print("   " + seperatorLine2);
+//        System.out.println("     " + "Nice! I've marked this task as done:");
+//        System.out.print("        " + "[" + t.getStatusIcon() + "] ");
+//        done_task_number = Integer.parseInt(userInput_taskWords[1]) - 1;
+////           System.out.println(listArray[doneNumber]);
+////           System.out.println(todolistArray[doneNumber]);
+//
+////        System.out.println(todolistArray.get(done_task_number));
+//        System.out.println(TaskList.getTaskList(done_task_number));
+//
+//        mark[done_task_number] = t.getStatusIcon();
+//        System.out.print("   " + seperatorLine2);
+//    }
 
 //    public static void added_Print(){
 //        System.out.print("   " + seperatorLine2);
@@ -199,14 +197,17 @@ public class Duke {
                 try{
                     if(userInput_taskWords[1] != "")
                         task_words = Parser.parseEventDeadlineTask(userInput);
-                        addTask(new Todo(task_words));
+//                        addTask(new Todo(task_words));
                         Task.addTask(new Todo(task_words));
 
 //                    addTask(new Todo(parser.task_words));
-                    print_event();
+
+//                    print_event();
+                    Ui.printEvent(t);
                 }
                 catch (IndexOutOfBoundsException e) {
                     Ui.todoError();
+
 //                System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
                 }
 //                break;
@@ -217,9 +218,10 @@ public class Duke {
                 try {
                     if (userInput_taskWords[1] != "") {
                         task_words = Parser.parseEventDeadlineTask(userInput);
-                        addTask(new Deadline(task_words, by_words));
+//                        addTask(new Deadline(task_words, by_words));
                         Task.addTask(new Deadline(task_words, by_words));
-                        print_event();
+//                        print_event();
+                        Ui.printEvent(t);
                     }
                 }
                 catch (IndexOutOfBoundsException e) {
@@ -234,9 +236,10 @@ public class Duke {
                 try {
                     if (userInput_taskWords[1] != "") {
                         task_words = Parser.parseEventDeadlineTask(userInput);
-                        addTask(new Event(task_words, by_words));
+//                        addTask(new Event(task_words, by_words));
                         Task.addTask(new Event(task_words, by_words));
-                        print_event();
+//                        print_event();
+                        Ui.printEvent(t);
                     }
                 }
                 catch (IndexOutOfBoundsException e) {
@@ -250,7 +253,9 @@ public class Duke {
             else if (isDelete) {
                 try{
                     task_words = Parser.parseEventDeadlineTask(userInput);
-                    deleteTask(Integer.parseInt(task_words.trim()));
+//                    deleteTask(Integer.parseInt(task_words.trim()));
+                      Ui.deleteTask(Integer.parseInt(task_words.trim()));
+
                 }
                 catch (NumberFormatException e) {
                     System.out.println("Please enter which integer after delete ");
@@ -260,13 +265,15 @@ public class Duke {
 
 //                case("list"):
             else if (isList){
-                 int count_todo = task_count;
+
+//                 int count_todo = task_count;
+                 int count_todo = Ui.task_count;
                  System.out.print("   " + seperatorLine2);
 
                  for (listPrint = 0; listPrint  < count_todo; listPrint++) {
 //                     System.out.println("        " + listNum + ". " + "[" + mark[listPrint] + "]"  + todolistArray[listPrint]);
 //                     System.out.println("        " + listNum + ". " + "[" + mark[listPrint] + "]"  + todolistArray.get(listPrint));
-                       System.out.println("        " + listNum + ". " + "[" + mark[listPrint] + "]"  + TaskList.getTaskList(listPrint));
+                       System.out.println("        " + listNum + ". " + "[" + Ui.mark[listPrint] + "]"  + TaskList.getTaskList(listPrint));
 
                      listNum++;
                  }
@@ -280,7 +287,8 @@ public class Duke {
                 try{
                     if (userInput_taskWords[1] != "") {
                         task_words = Parser.parseEventDeadlineTask(userInput);
-                        doneTask(Integer.parseInt(task_words.trim()));
+//                        doneTask(Integer.parseInt(task_words.trim()));
+                        Ui.doneTask(Integer.parseInt(task_words.trim()), userInput_taskWords[1]);
                     }
                 }
                 catch (IndexOutOfBoundsException e) {
@@ -311,8 +319,12 @@ public class Duke {
                     FileWriter fw = new FileWriter("/Volumes/Macintosh HD 1/Java Project-TIC2002-Duke/duke-project-chunygL/dukesave.txt");
                     File f = new File("dukesave.txt");
 //                    System.out.println("full path:" + f.getAbsolutePath());
-                    for(int i=0 ; i<todolistArray.size(); i++){
-                        fw.write("        " + "[" + mark[i] + "]" + todolistArray.get(i) + System.lineSeparator() );
+//                    for(int i=0 ; i<todolistArray.size(); i++){
+                    for(int i=0 ; i<TaskList.todoListArraySize(); i++){
+
+//                        fw.write("        " + "[" + mark[i] + "]" + todolistArray.get(i) + System.lineSeparator() );
+                        fw.write("        " + "[" + Ui.mark[i] + "]" + TaskList.getTaskList(i) + System.lineSeparator() );
+
                     }
                     System.out.println("File save successfully");
                     fw.close();
@@ -358,7 +370,7 @@ public class Duke {
             try{
                 Scanner input = new Scanner(System.in);
 
-                Arrays.fill(mark, "\u2718");  //initialize mark array = "x"
+                Arrays.fill(Ui.mark, "\u2718");  //initialize mark array = "x"
 
                 echo_Added_List(input);
             }

@@ -9,7 +9,6 @@ public class TaskList {
     private  static ArrayList<String> todoListArray = new ArrayList<>();
     String description;
 
-//    private static Task[] tasks_addTask = new Task[100];  //*****
 //    private static int taskCount_addTask = 0;
 //    private static int task_count = 0;
 //
@@ -19,6 +18,10 @@ public class TaskList {
 
     public static void addToTaskList(String addTaskToString){
         todoListArray.add(addTaskToString);
+    }
+
+    public static int todoListArraySize() {
+        return todoListArray.size();
     }
 
     public static String getTaskList(int task_counter) {
