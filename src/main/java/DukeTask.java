@@ -11,28 +11,32 @@ public class DukeTask extends Duke {
     }
 
     public void setDescription (String description){
+
         this.description = description;
     }
 
     public boolean getisDone(){
+
         return isDone;
     }
 
     public void setisDone(boolean isDone){
+
         this.isDone = isDone;
     }
 
     public String toString(){
-        return "[" + getStatusIcon() + "]" + getisDone();
+        //return "[" + getStatusIcon() + "]" + getisDone();
+        return "[" + getStatusIcon() + "]";
     }
 
     public String getStatusIcon(){
         // return tick or X symbol
-        return isDone ? "\u2713" : "\u2718";
+        return (isDone ? "\u2713" : "\u2718");
 
     }
 
     public void markAsDone(){
-       isDone = true;
+        isDone = true;
     }
 }

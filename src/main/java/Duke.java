@@ -16,7 +16,7 @@ public class Duke {
 
         Scanner in = new Scanner(System.in);
         String input = "";
-        String arrayOfList[] = new String[100];
+        DukeTask[] arrayOfList = new DukeTask[100];
         int count = 0;
 
         while(!input.toLowerCase().equals("bye")) {
@@ -27,23 +27,35 @@ public class Duke {
             String[] values = input.split(" ");
 
             //compare user input of the first array.
+
             if (values[0].equals("list")) {
+
                 System.out.println("Here are the tasks in your list:");
                 for(int i =0; i<count; i++){
-                    System.out.println((i+1) + "." + arrayOfList[i].toString());
-
+                    System.out.println((i+1) + "." + arrayOfList[i].toString()+ arrayOfList[i].description);
                 }
             }
 
-
             else {
+                //System.out.println("Here"+input);
+                arrayOfList[count] = new DukeTask(input, false);
 
-                arrayOfList[count] = input;
-
-                if (!input.toLowerCase().equals("bye")){
-                    DukeAdd.add(input);
+                if (!input.toLowerCase().equals("bye") && (!values[0].equals("done"))){
+                    //DukeAdd.add(input);
+                    System.out.println("added: " + arrayOfList[count].description);
                     count++;
+
                 }
+
+                if (values[0].equals("done")) {
+                    System.out.println("Nice! I've marked this task as done:");
+                    int j = Integer.parseInt(values[1])-1;
+                    int z = j;
+                    arrayOfList[j].markAsDone();
+                        System.out.println(arrayOfList[j].toString() + arrayOfList[z].description);
+
+                }
+
             }
         }
         DukeResponse.bye(input);
