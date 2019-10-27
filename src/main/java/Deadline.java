@@ -1,4 +1,6 @@
-public class Deadline extends Task{
+import Task.*;
+
+public class Deadline extends Task {
     protected boolean isDeadline;
     protected String by;
 

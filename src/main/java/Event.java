@@ -1,3 +1,5 @@
+import Task.*;
+
 public class Event extends Task {
 
     protected boolean isEvent;

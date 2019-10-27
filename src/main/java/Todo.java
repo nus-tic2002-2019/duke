@@ -1,10 +1,15 @@
+import Task.*;
+
 public class Todo extends Task {
 
     protected boolean isToDo;
 
     public Todo (String description) {
-        super(description);
-        isToDo = false;
+
+
+            super(description);
+            isToDo = false;
+
     }
 
     public void setToDo() {
