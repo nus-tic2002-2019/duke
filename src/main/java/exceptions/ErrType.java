@@ -47,12 +47,12 @@ public class ErrType{
 
     /**
      * This method checks for the presence of task description.
-     * @param taskString : user's task description with schedule.
+     * @param user_input : user's task description with schedule.
      * @return True when there is a task description.
      */
-    public static Boolean isTask(String taskString){
+    public static Boolean isTask(String user_input){
         try {
-            String user_task = taskString.split("/")[0].split(" ")[1];
+            String user_task = user_input.split("/")[0].split(" ")[1];
         } catch (ArrayIndexOutOfBoundsException e){
             System.out.println("\tOops!! Missing task/event.");
             return false;
@@ -62,12 +62,12 @@ public class ErrType{
 
     /**
      * This method checks for the presence of task schedule.
-     * @param taskString : user's task description with schedule.
+     * @param user_input : user's task description with schedule.
      * @return True when there is a task schedule.
      */
-    public static Boolean isSchedule(String taskString){
+    public static Boolean isSchedule(String user_input){
         try {
-            String user_schedule = taskString.split("/")[1];
+            String user_schedule = user_input.split("/")[1];
         } catch (ArrayIndexOutOfBoundsException e){
             System.out.println("\tOops!! Missing schedule.");
             return false;
