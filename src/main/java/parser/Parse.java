@@ -103,8 +103,8 @@ public class Parse{
                     System.out.println("\tOops!! Please key a valid task number.");
                     break;
                 }
-                Ui.done(t, idx);
                 t.get(idx - 1).taskDone();
+                Ui.done(t, idx);
                 break;
 
             case "delete":

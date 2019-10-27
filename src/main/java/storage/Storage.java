@@ -31,8 +31,8 @@ public class Storage{
         try {
             FileOutputStream fout = new FileOutputStream(filename);
             for( int i=0 ; i<t.size() ; i++ ){
-                String s = t.get(i).toString().replace("\u2713","1" ).
-                                               replace("\u2718","0").
+                String s = t.get(i).toString().replace("√","1" ).
+                                               replace("X","0").
                                                replaceAll("\\[","").
                                                replaceAll("]","|").
                                                replace("(by:","|").
