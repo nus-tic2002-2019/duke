@@ -1,3 +1,8 @@
+/*
+Done command, marking tasks in list as done when task(s) are completed
+ */
+
+
 package subclass;
 
 public class DoneCommand extends Command {

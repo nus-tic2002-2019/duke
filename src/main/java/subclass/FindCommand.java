@@ -1,3 +1,7 @@
+/*
+Find command, displaying tasks containing input words by user
+ */
+
 package subclass;
 
 public class FindCommand extends Command {

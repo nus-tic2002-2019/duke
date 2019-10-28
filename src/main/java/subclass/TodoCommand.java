@@ -1,3 +1,7 @@
+/*
+todo command, add tasks as todo (no date)
+ */
+
 package subclass;
 import java.io.IOException;
 

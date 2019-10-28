@@ -20,6 +20,8 @@ public class Parser {
                 return new DeleteCommand(false, input);
             case FindCommand.INPUT:
                 return new FindCommand(false, input);
+            case HelpCommand.INPUT:
+                return new HelpCommand(false, "");
             case ByeCommand.INPUT:
                 return new ByeCommand(true, "");
             default:
