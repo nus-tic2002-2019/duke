@@ -36,10 +36,26 @@ public class Storage {
             System.out.println("IO Exception found");
         }
     }
-/**
-    public ArrayList<Task> readFromFile(){
-        // Reads from this.f, and returns a ListArray of task objects.
-     //return new ArrayList<Task>;
+
+    public ArrayList<Task> readFromFile() throws FileNotFoundException {
+        // Returns an ArrayList<Task>. Reads from f.
+        ArrayList<Task> tasks = new ArrayList<>();
+        Scanner s = new Scanner(this.f);
+        System.out.println("storage.readFromFile() output is:");
+        while (s.hasNext()) {
+            // process each line with s.nextLine()
+            String currentLine = s.nextLine();
+            String[] arrayCurrentLine = currentLine.split("|");
+            // check what type of event
+            String taskType = arrayCurrentLine[0];
+            switch (taskType){
+                case "E":
+
+
+            }
+
+            System.out.println(s.nextLine());
+        }
+        return tasks;
     }
-*/
 }

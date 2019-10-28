@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -47,7 +48,8 @@ public class Operations {
         tasks.remove(taskIndex);
     }
 
-    public void loadFromFile(){
+    public void loadFromFile() throws FileNotFoundException {
+        my_file.readFromFile();
         //
     }
 }

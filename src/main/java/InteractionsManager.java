@@ -29,6 +29,9 @@ public class InteractionsManager{
                 int targetToDelete = Integer.parseInt(lastValue);
                 operations.delete(targetToDelete);
             }
+            else if (userCommand.equals("load")){
+                operations.loadFromFile();
+            }
             else{
                 // Check if user is adding ToDo, Deadline, or Event in Operations.java
                     String taskType = checkTaskType(userCommand);
