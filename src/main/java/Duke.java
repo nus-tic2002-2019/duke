@@ -1,6 +1,10 @@
 import javax.swing.*;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
+
+import java.nio.file.FileAlreadyExistsException;
 
 public class Duke {
 
@@ -8,7 +12,7 @@ public class Duke {
     public static ArrayList<String> type = new ArrayList<>();
     public static ArrayList<Boolean> mark = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException  {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -19,6 +23,7 @@ public class Duke {
         System.out.println("Hello! I'm Duke\nWhat can I do for you?");
 
         try {
+            load();
             while (printout(echo())) ;
         }
 
@@ -37,13 +42,13 @@ public class Duke {
               splitStr = userInput.split("\\s+");
               mark.set(Integer.valueOf(splitStr[1]) - 1, true);
           } else if (userInput.contains("delete")) {
-
+                 save();
           } else if ((!userInput.equals("list")) && (!userInput.equals("bye"))) {
               String typeS = getType(userInput);
 
-              userInput = userInput.replace("todo", "");
-              userInput = userInput.replace("deadline", "");
-              userInput = userInput.replace("event", "");
+              userInput = userInput.replace("todo ", "");
+              userInput = userInput.replace("deadline ", "");
+              userInput = userInput.replace("event ", "");
 
               if (userInput.isEmpty()) {
                   System.out.println("☹ OOPS!!! The description cannot be empty.");
@@ -62,8 +67,9 @@ public class Duke {
           return userInput;
       }
 
-    public static boolean printout(String userInput){
+    public static boolean printout(String userInput) throws DukeException {
         if(userInput.equals("bye")){
+            save();
             System.out.println("Bye. Hope to see you again soon!");
             return false;
         }
@@ -72,7 +78,7 @@ public class Duke {
 
                 for (int i = 0; i < list.size(); i++)
                 {
-                    System.out.println(i+1 + ". [" + type.get(type.size()-1) + "][" + getMark(mark.get(i))+ "] " + list.get(i));
+                    System.out.println(i+1 + ". [" + type.get(i) + "][" + getMark(mark.get(i))+ "] " + list.get(i));
                 }
         }
         else if(userInput.contains("done")) {
@@ -124,5 +130,58 @@ public class Duke {
             System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             throw new DukeException();
         }
+    }
+
+    public static void save() throws DukeException {
+
+        try {
+            FileOutputStream out = new FileOutputStream("C:\\Users\\User\\Desktop\\output.txt");
+
+            String line2save;
+            for( int i = 0 ; i < list.size() ; i++){
+
+                line2save = type.get(i) + " | " + mark.get(i)+ " | " + list.get(i).replace("("," | " ).replace(")","" );
+                line2save = line2save + System.lineSeparator();
+
+                //String s = list.get(i).toString();
+                byte b[]= line2save.getBytes();//converting string into byte array
+                out.write(b);
+            }
+            out.close();
+            System.out.println("File saved successfully.");
+        } catch (IOException e) {
+            System.out.println("File not found");
+        }
+    }
+
+    public static void load() throws DukeException {
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\User\\Desktop\\output.txt"));
+
+            String i;
+            String[] splitStr;
+
+            while((i = br.readLine()) != null) {
+
+                splitStr = i.split(" | ",0);
+                //System.out.println(i);
+                list.add(splitStr[4]);
+                mark.add(Boolean.parseBoolean(splitStr[2]));
+                /*if(splitStr[2] == "X")
+                    mark.add(false);
+                else
+                    mark.add(true);*/
+                type.add(splitStr[0]);
+                //System.out.println("here : " + splitStr[2]);
+                //System.out.println(Arrays.toString(splitStr));
+
+            }
+
+        } catch (IOException e) {
+            System.out.println("File not found");
+        } /*finally {
+            System.out.println("\tPrintout is for information only.File cannot merge with existing task.");
+        }*/
     }
 }
