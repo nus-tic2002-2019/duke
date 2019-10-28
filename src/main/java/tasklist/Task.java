@@ -22,4 +22,7 @@ public class Task {
         this.isDone = status;
     }
 
+    public boolean getStatus(){return isDone;}
+
+
 }

@@ -1,16 +1,14 @@
 package tasklist;
 
-import java.io.IOException;
+
 import java.util.ArrayList;
 
-import storage.Storage;
+
 import ui.Ui;
 
 public class taskList {
     private static ArrayList<Task> taskList = new ArrayList();
     private static Ui ui = new Ui();
-    private static String fileName = new String("data/tasks.txt");
-    private static Storage storage = new Storage(fileName);
 
     public static void displayList (){
         System.out.println("     Here are the tasks in your list:");
@@ -51,17 +49,15 @@ public class taskList {
 
     public static void addDeadlines (Deadlines dl){
         taskList.add(dl);
-        String details = dl.getDescription();
-        try{
-            storage.save(fileName, details);
-        } catch (IOException e){
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
         ui.dukeReply(taskList);
     }
 
     public static void addEvent (Event e){
         taskList.add(e);
         ui.dukeReply(taskList);
+    }
+
+    public static ArrayList<Task> getList (){
+        return taskList;
     }
 }
