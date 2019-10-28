@@ -1,3 +1,5 @@
+package task;
+
 public class Deadline extends Task {
 
     protected String by;
@@ -14,7 +16,7 @@ public class Deadline extends Task {
     public void print(){
         System.out.print("[D]: ");
         this.printDoneMessage();
-        System.out.print(this.description);
+        System.out.print(" " + this.description);
         System.out.print("by: " + by + "\n");
 
     }

@@ -1,3 +1,5 @@
+package task;
+
 public class Event extends Task {
 
     protected String at;
@@ -15,7 +17,7 @@ public class Event extends Task {
     public void print(){
         System.out.print("[E]: ");
         this.printDoneMessage();
-        System.out.print(this.description);
+        System.out.print(" " + this.description);
         System.out.print("at: " + at + "\n");
     }
 

@@ -1,9 +1,13 @@
+package main;
+
+import storage.Storage;
+import task.Task;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class Operations {
-    // operations class handles all interactions with the Task class.
+    // operations class handles all interactions with the task.Task class.
     private static ArrayList<Task> tasks = new ArrayList<>();
     int taskCounter = 0;
     Storage my_file;
@@ -31,14 +35,14 @@ public class Operations {
     }
 
     public String getDescription(int index){
-        return tasks.get(index).description;
+        return tasks.get(index).getDescription();
     }
 
     public void setDone(int listIndex) throws IOException {
         // tasks are 0 indexed, but are labelled 1,2,3... hence taskIndex = listIndex -1
         int taskIndex = listIndex-1;
 
-        tasks.get(taskIndex).done = true;
+        tasks.get(taskIndex).setDone(true);
         tasks.get(taskIndex).print();
 
     }
