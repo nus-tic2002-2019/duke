@@ -25,7 +25,7 @@ public class Duke{
 
         ui.welcome();
 
-        Storage store = new Storage("D:\\git\\output.txt");
+        Storage store = new Storage("D:\\output.txt");
 
         store.LoadFile(tasklist);
 

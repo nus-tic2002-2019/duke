@@ -119,7 +119,7 @@ public class Parse{
 
             case "find":
                 if ( ErrType.isTask(user_input) ){
-                    String wordToFind = user_input.replace("find", "").trim();
+                    String wordToFind = user_input.replace("find", "").trim().toLowerCase();
                     findKeyword(t, wordToFind);
                 }
                 break;
@@ -216,7 +216,7 @@ public class Parse{
     public static void findKeyword(ArrayList<Task> t, String wordToFind){
         Boolean isFound = false;
         for ( int i=0 ; i<t.size() ; i++ ){
-            int n = t.get(i).getDescription().indexOf(wordToFind);
+            int n = t.get(i).getDescription().toLowerCase().indexOf(wordToFind);
             if (n>=0) {
                 Ui.singleList(t,i);
                 isFound=true;

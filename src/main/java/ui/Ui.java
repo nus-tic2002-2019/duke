@@ -35,20 +35,26 @@ public class Ui{
     public static void help(){
         System.out.println("\t Welcome to the help page!");
         System.out.println("\t Please use the following scheduler commands and format.");
-        System.out.println("\t|============================================================|");
-        System.out.println("\t| Command  | Task Description  | Prefix |      Date and time |");
-        System.out.println("\t|============================================================|");
-        System.out.println("\t| deadline | eg. submit report |  /by   |    2019-12-31 2359 |");
-        System.out.println("\t|          |                   |        | or 31-12-2019 2359 |");
-        System.out.println("\t|------------------------------------------------------------|");
-        System.out.println("\t| event    | eg. watch movie   |  /at   |    2019-12-31 2359 |");
-        System.out.println("\t|          |                   |        | or 31-12-2019 2359 |");
-        System.out.println("\t|------------------------------------------------------------|");
-        System.out.println("\t| todo     | eg. buy bread     |       not applicable        |");
-        System.out.println("\t|------------------------------------------------------------|");
-        System.out.println("\tExample:");
-        System.out.println("\tdeadline submit industrial report /by 2019-12-31 2359");
-        System.out.println("\ttodo buy bread and butter\n");
+        System.out.println("\t|===============================================================|");
+        System.out.println("\t| Command  | Task Description  | Separator |      Date and time |");
+        System.out.println("\t|===============================================================|");
+        System.out.println("\t| deadline | eg. submit report |   /by     |    2019-12-31 2359 |");
+        System.out.println("\t|          |                   |           | or 31-12-2019 2359 |");
+        System.out.println("\t|---------------------------------------------------------------|");
+        System.out.println("\t| event    | eg. watch movie   |   /at     |    2019-12-31 2359 |");
+        System.out.println("\t|          |                   |           | or 31-12-2019 2359 |");
+        System.out.println("\t|---------------------------------------------------------------|");
+        System.out.println("\t| todo     | eg. buy bread     |          not applicable        |");
+        System.out.println("\t|---------------------------------------------------------------|");
+        System.out.println("\t| list     | example of a display list and its legend           |");
+        System.out.println("\t|          | [E][X]watch movie(at:Nov 15 2019 04:30 PM)         |");
+        System.out.println("\t|          | [E]: E,D and T denotes event, deadline and todo.   |");
+        System.out.println("\t|          | [X]: X and √ denotes outstanding and completed task|");
+        System.out.println("\t|---------------------------------------------------------------|");
+        System.out.println("\t Example:");
+        System.out.println("\t deadline submit industrial report /by 2019-12-31 2359");
+        System.out.println("\t todo buy bread and butter");
+        System.out.println("\t list\n");
         System.out.println("\t Additional helper commands.");
         System.out.println("\t|=============================================================|");
         System.out.println("\t| Command | Argument       | Description                      |");
@@ -61,13 +67,12 @@ public class Ui{
         System.out.println("\t|-------------------------------------------------------------|");
         System.out.println("\t| sort    | not applicable | sort task list by date           |");
         System.out.println("\t|-------------------------------------------------------------|");
-        System.out.println("\t| list    | not applicable | list all tasks                   |");
-        System.out.println("\t|-------------------------------------------------------------|");
         System.out.println("\t| help    | not applicable | display all commands and usage   |");
         System.out.println("\t|-------------------------------------------------------------|");
-        System.out.println("\tExample:");
-        System.out.println("\tdone 12");
-        System.out.println("\tlist\n");
+        System.out.println("\t Example:");
+        System.out.println("\t find watch movie");
+        System.out.println("\t sort");
+        System.out.println("\t done 12\n");
     }
 
     public static void invalid(){
