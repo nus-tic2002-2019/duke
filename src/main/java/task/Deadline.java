@@ -1,9 +1,10 @@
 package task;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
 
-    LocalDate date;
+    protected LocalDate date;
 
     /**
      * Constructor of Deadline
@@ -28,6 +29,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString(){
-        return "[D][" + getStatusIcon() + "] " + this.description + " (by: " + this.date + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
+        String date = this.date.format(formatter);
+        return "[D][" + getStatusIcon() + "] " + this.description + " (by: " + date + ")";
     }
 }

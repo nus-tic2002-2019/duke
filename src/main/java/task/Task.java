@@ -4,6 +4,7 @@ public class Task {
 
     protected String description;
     protected boolean isDone = false;
+    protected int priority = 0;
 
     /**
      * Constructor of Task

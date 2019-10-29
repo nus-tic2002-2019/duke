@@ -44,12 +44,12 @@ public class Parser {
         LocalDate date = null;
         switch(inputs[0]){
             case "todo":
-                output = new AddCommand(inputs[0], inputs[1]);
+                output = new AddCommand(inputs[0], inputs[1], Integer.parseInt(inputs[inputs.length - 1]));
                 break;
             case "event":
             case "deadline":
-                date = LocalDate.parse(args.substring(args.lastIndexOf("/by ") + 4));
-                output = new AddCommand(inputs[0], inputs[1], date);
+                date = LocalDate.parse(args.substring(args.lastIndexOf("/by ") + 4, args.length()-2));
+                output = new AddCommand(inputs[0], inputs[1], date, Integer.parseInt(inputs[inputs.length - 1]));
                 break;
             case "delete":
                 // try if delete never include the number
@@ -63,6 +63,9 @@ public class Parser {
                 break;
             case "list":
                 output = new ListCommand();
+                break;
+            case "find":
+                output = new FindCommand(inputs[0], inputs[1]);
                 break;
             default:
                 throw new IllegalStringException();

@@ -1,10 +1,11 @@
 package task;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
 
-    LocalDate date;
+    protected LocalDate date;
 
     /**
      * Constructor of Event
@@ -27,8 +28,12 @@ public class Event extends Task {
         this.date = date;
     }
 
+
+
     @Override
     public String toString(){
-        return "[E][" + getStatusIcon() + "] " + this.description + " (at: " + this.date + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
+        String date = this.date.format(formatter);
+        return "[E][" + getStatusIcon() + "] " + this.description + " (at: " + date + ")";
     }
 }

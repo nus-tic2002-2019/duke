@@ -15,8 +15,8 @@ public class AddCommand extends Command{
      * @param command
      * @param description
      */
-    public AddCommand(String command, String description){
-        super(command, description);
+    public AddCommand(String command, String description, int value){
+        super(command, description, value);
     }
 
     /**
@@ -25,8 +25,8 @@ public class AddCommand extends Command{
      * @param description
      * @param date
      */
-    public AddCommand(String command, String description, LocalDate date){
-        super(command, description, date);
+    public AddCommand(String command, String description, LocalDate date, int value){
+        super(command, description, date, value);
     }
 
     // do you really need to throw errors? or just inherit directly from the abstract class
