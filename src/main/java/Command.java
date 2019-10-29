@@ -1,3 +1,12 @@
+import duke.exception.CommandAddException;
+import duke.exception.CommandException;
+import duke.exception.InvalidNumberException;
+import duke.exception.NullNumberException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.util.ArrayList;
 
 public class Command {
@@ -8,7 +17,7 @@ public class Command {
         this.c = fullCommand;
         this.isExit = false;
     }
-    public static void CheckFirstWord(String s) throws CommandException{
+    public static void CheckFirstWord(String s) throws CommandException {
         if (!(s.equals("todo" ) || s.equals( "deadline") || s.equals( "event") || s.equals( "bye")
                 || s.equals( "list") || s.equals( "done") || s.equals("delete")))
             throw new CommandException();

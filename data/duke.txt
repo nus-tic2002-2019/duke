@@ -1,4 +1,3 @@
 T|1| join sports club
 E|1| gym| 4pm-5pm
 D|1| submit| friday
-E|0| party | 8pm-10pm
