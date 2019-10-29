@@ -1,17 +1,28 @@
-package Task;
+package task;
 
-import Task.Task;
+import java.time.LocalDate;
 
 public class Event extends Task {
 
-    String date;
+    LocalDate date;
 
-    public Event(String description, int value, String date){
+    /**
+     * Constructor of Event
+     * @param description
+     * @param value
+     * @param date
+     */
+    public Event(String description, int value, LocalDate date){
         super(description, value);
         this.date = date;
     }
 
-    public Event(String description, String date){
+    /**
+     * Constructor of Event
+     * @param description
+     * @param date
+     */
+    public Event(String description, LocalDate date){
         super(description, 0);
         this.date = date;
     }

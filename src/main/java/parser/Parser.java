@@ -2,11 +2,16 @@ package parser;
 
 import command.*;
 import error.*;
-import Task.*;
-
+import task.*;
+import java.time.LocalDate;
 
 public class Parser {
 
+    /**
+     * Parsing text file into Task
+     * @param command
+     * @return Task
+     */
     public static Task createTodo(String command){
         String[] components = command.split(" \\| ");
         Task result = null;
@@ -15,10 +20,10 @@ public class Parser {
                 result = new Todo(components[2], Integer.parseInt(components[1]));
                 break;
             case "D" :
-                result = new Deadline(components[2], Integer.parseInt(components[1]), components[3]);
+                result = new Deadline(components[2], Integer.parseInt(components[1]), LocalDate.parse(components[3]));
                 break;
             case "E" :
-                result =  new Event(components[2], Integer.parseInt(components[1]), components[3]);
+                result =  new Event(components[2], Integer.parseInt(components[1]), LocalDate.parse(components[3]));
                 break;
             default:
                 break;
@@ -26,16 +31,25 @@ public class Parser {
         return result;
     }
 
+    /**
+     * Parsing user-input commands into Command
+     * @param args
+     * @return Command
+     * @throws StringIndexOutOfBoundsException
+     * @throws IllegalStringException
+     */
     public static Command parse(String args) throws StringIndexOutOfBoundsException, IllegalStringException{
         String[] inputs = args.split(" ");
         Command output = null;
+        LocalDate date = null;
         switch(inputs[0]){
             case "todo":
                 output = new AddCommand(inputs[0], inputs[1]);
                 break;
             case "event":
             case "deadline":
-                output = new AddCommand(inputs[0], inputs[1], inputs[2]);
+                date = LocalDate.parse(args.substring(args.lastIndexOf("/by ") + 4));
+                output = new AddCommand(inputs[0], inputs[1], date);
                 break;
             case "delete":
                 // try if delete never include the number

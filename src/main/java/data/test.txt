@@ -1,0 +1,5 @@
+[T][✓] read book
+[D][✘] return book (by: 2019-12-01)
+[E][✘] project meeting (at: 2019-12-01)
+[T][✓] join sports club
+[D][✘] hw (by: 2019-10-08)

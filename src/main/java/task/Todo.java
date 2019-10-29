@@ -1,13 +1,20 @@
-package Task;
-
-import Task.Task;
+package task;
 
 public class Todo extends Task {
 
+    /**
+     * Constructor of Todo
+     * @param description
+     * @param value
+     */
     public Todo(String description, int value){
         super(description, value);
     }
 
+    /**
+     * Constructor of Todo
+     * @param description
+     */
     public Todo(String description){
         super(description, 0);
     }

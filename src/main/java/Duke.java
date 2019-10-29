@@ -35,8 +35,11 @@ public class Duke {
                 ui.showLine(); // show the divider line ("_______")
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
+                storage.save(tasks);
                 isExit = c.isExit();
             } catch (IllegalStringException e) {
+                ui.showError(e.getMessage());
+            } catch (IndexOutOfBoundsException e){
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();
