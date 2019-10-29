@@ -1,3 +1,5 @@
+package com.duke.exception;
+
 public class EmptyDescriptionException extends Exception{
      private String message;
 
