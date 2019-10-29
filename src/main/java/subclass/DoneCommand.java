@@ -1,8 +1,8 @@
-/*
-Done command, marking tasks in list as done when task(s) are completed
-Displays error if:
-    - no task index was entered
-    - task index entered was invalid
+/**
+ * Done command, marking tasks in list as done when task(s) are completed
+ * Displays error if:
+ *      no task index was entered
+ *      task index entered was invalid
  */
 
 

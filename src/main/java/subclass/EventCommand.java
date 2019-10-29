@@ -1,6 +1,6 @@
-/*
-Records event type tasks, records string after "event" command as task description, and day + time after "/at"
-Displays error when no input is entered after "event" command.
+/**
+ * Records event type tasks, records string after "event" command as task description, and day + time after "/at"
+ * Displays error when no input is entered after "event" command.
  */
 
 

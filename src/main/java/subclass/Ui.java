@@ -1,5 +1,5 @@
-/*
-    Ui class contains most of Duke's println results
+/**
+ * Ui class contains most of Duke's println results
  */
 
 package subclass;

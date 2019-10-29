@@ -1,5 +1,5 @@
-/*
-Deadline type tasks only accepts date of specified format
+/**
+ * Deadline type tasks only accepts date of specified format
  */
 
 package subclass;
