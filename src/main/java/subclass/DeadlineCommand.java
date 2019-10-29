@@ -1,3 +1,10 @@
+/*
+Deadline tasks records users input as description after "deadline" command, and also date of deadline after "/by"
+Display error when any of the following occurs:
+    -   no input entered after "deadline" command
+    -   date format entered after "/by" is wrong
+ */
+
 package subclass;
 
 import java.io.IOException;
@@ -5,7 +12,6 @@ import java.text.ParseException;
 
 public class DeadlineCommand extends Command {
     public static final String INPUT = "deadline";
-    //private Deadline deadline;
 
     public DeadlineCommand(boolean isExit, String input) {
         super(isExit, input);

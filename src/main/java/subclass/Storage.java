@@ -1,3 +1,9 @@
+/*
+Storage class includes methods involving saving of the task list entered by user and also loading of saved list in .txt file
+Reading of .txt file and loading it to Duke
+ */
+
+
 package subclass;
 
 import java.io.File;

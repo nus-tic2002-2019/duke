@@ -1,3 +1,7 @@
+/*
+    Ui class contains most of Duke's println results
+ */
+
 package subclass;
 
 import java.util.Scanner;

@@ -1,3 +1,8 @@
+/*
+Simple help menu display when "help" command is entered.
+ */
+
+
 package subclass;
 
 public class HelpCommand extends Command {

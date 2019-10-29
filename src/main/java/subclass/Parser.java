@@ -1,3 +1,8 @@
+/*
+Parsing commands to execution of respective type of task.
+Includes some simple parsing of string input.
+ */
+
 package subclass;
 
 public class Parser {

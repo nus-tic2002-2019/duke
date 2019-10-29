@@ -1,5 +1,7 @@
 /*
 todo command, add tasks as todo (no date)
+takes in user's input after "todo" as todo task description.
+Display error if no input is detected after "todo" command.
  */
 
 package subclass;
