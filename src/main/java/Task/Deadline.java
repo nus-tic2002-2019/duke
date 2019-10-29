@@ -1,4 +1,4 @@
-import Task.*;
+package Task;
 
 public class Deadline extends Task {
     protected boolean isDeadline;

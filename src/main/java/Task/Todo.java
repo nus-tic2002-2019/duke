@@ -1,10 +1,10 @@
-import Task.*;
+package Task;
 
 public class Todo extends Task {
 
     protected boolean isToDo;
 
-    public Todo (String description) {
+    public Todo(String description) {
 
 
             super(description);
