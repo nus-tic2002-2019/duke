@@ -13,6 +13,12 @@ public class Storage {
     public String filepath;
     public File f;
 
+    /**
+     * Duke is able to append added objects to a .txt file, as a way of "saving" to harddisk.
+     *
+     * @param filepath Expects a file "task_list.txt" in the path: /java/storage/task_list.txt
+     *                 Returns a FileNotFound error otherwise.
+     */
     public Storage(String filepath) {
         try {
             this.filepath=filepath;
@@ -25,6 +31,14 @@ public class Storage {
         }
     }
 
+    /**
+     * This method is called when objects are added to the Duke list.
+     * Newline is added to task_list.txt to reflect added object. Follows the format:
+     * Task type | Done or not done | task description | by when. For example:
+     * D|0|eat lunch | 3pm
+     * @param tasks Takes an ArrayList of tasks object, iterates through it, and appends to task_list.txt
+     * @throws IOException
+     */
     public void updateFile(ArrayList<Task> tasks) throws IOException {
         // function takes an ArrayList of tasks. Iterate through the tasklist and write to the text file.
 

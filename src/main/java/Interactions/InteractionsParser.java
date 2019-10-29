@@ -14,7 +14,12 @@ public class InteractionsParser {
         this.operations = operations;
     }
 
-    // no attributes, no constructor needed.
+    /**
+     * Starts the process of taking in user input, and parsing the user input.
+     * User inputs can cause Duke to create a Deadline, Event, or Todo object.
+     *
+     * @throws IOException If user input is not within expected parameters, this returns a FileNotFoundException, and Duke stops running.
+     */
     public void parse() throws IOException {
         while (true){
             String userCommand = getUserCommand();
