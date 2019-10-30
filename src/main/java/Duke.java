@@ -25,6 +25,28 @@ public class Duke {
         }
         printLine();
     }
+    public static void onload() throws FileNotFoundException {
+        File f = new File("duke.txt");
+        Scanner sc = new Scanner(f);
+        while(sc.hasNextLine()) {
+            String s = sc.nextLine();
+            String[] str = s.split(" \\| ");
+            String type = str[0];
+            if (type.equals("T")) {
+                Todo t = new Todo(str[2]);
+                if (Integer.parseInt(str[1]) == 1) t.setDone();
+                addTask(new ToDo(t));
+            } else if (type.equals("D")) {
+                Deadline d = new Deadline(str[2], str[3]);
+                if (Integer.parseInt(str[1]) == 1) d.setDone();
+                addTask(new Deadline(d));
+            } else {
+                Event e = new Event(str[2], str[3]);
+                if (Integer.parseInt(str[1]) == 1) e.setDone();
+                addTask(new Event(e));;
+            }
+        }
+    }
     
     public static void main(String[] args){
         String logo = " ____        _        \n"
@@ -35,6 +57,11 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
+        try {
+            onLoad();
+        } catch (FileNotFoundException ex) {
+
+        }
         Scanner myObj = new Scanner(System.in);
         String userInput;
         //int index = 0;
