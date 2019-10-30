@@ -1,10 +1,5 @@
-import ERROR_HANDLING.DukeException;
-import ERROR_HANDLING.InvalidCommandException;
-import TASK.Deadline;
-import TASK.Event;
-import TASK.Task;
-import TASK.Todo;
-
+import ERROR_HANDLING.*;
+import TASK.*;
 import java.util.*;
 
 public class Duke {
@@ -15,7 +10,7 @@ public class Duke {
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         Duke d = new Duke();
         //System.out.println(d);
 
@@ -23,15 +18,16 @@ public class Duke {
 
         Scanner in = new Scanner(System.in);
 
-//DEFINE Keyword
+// DEFINE Keyword
         HashMap<String, Command> keywords = new HashMap<String, Command>();
+        // String[] keywords = {"done", "list", "deadline", "event"};
 
-        String userInput = " ";
+        String userInput = new String();
 
-//MAKE LIST
+// MAKE LIST
         ArrayList<Task> list = new ArrayList<Task>();
 
-//Add new command TODO: make it a function?
+// Add new command TODO: make it a function?
         keywords.put("list", new Command() {
             public void run(String content) {
                 cmdPrintList(list);
@@ -44,41 +40,59 @@ public class Duke {
         } );
         keywords.put("todo", new Command() {
             public void run(String content) {
-                cmdTodo(content, list);
+                try{
+                    cmdTodo(content, list);
+                } catch (DukeException e) {
+                    System.out.println(e);
+                }
             };
         } );
         keywords.put("deadline", new Command() {
             public void run(String content) {
-                cmdDeadline(content, list);
+                try {
+                    cmdDeadline(content, list);
+                } catch (DukeException e) {
+                    System.out.println(e);
+                }
             };
         } );
         keywords.put("event", new Command() {
             public void run(String content) {
-                cmdEvent(content, list);
+                try {
+                    cmdEvent(content, list);
+                } catch (DukeException e){
+                    System.out.println(e);
+                }
+
             };
         } );
-        
-//USER INPUT
 
-        while(userInput != null) {
+// End adding commands
+
+// MAIN LOGIC
+// USER INPUT
+
+        while(!userInput.equals("bye")) {
             userInput = in.nextLine();
-            userInput = userInput.toLowerCase();
-            userInput = userInput.trim();
 
-            String[] parts = userInput.split(" ", 2);
-
-            if (keywords.containsKey(parts[0])){
-                keywords.get(parts[0]).run(userInput);
+            String firstWord = splitKeyword(userInput)[0];
+            // Some command is single word; Some command must have second part after space
+            String content = null;
+            if (splitKeyword(userInput).length != 1) {
+                content = splitKeyword(userInput)[1];
             }
 
-            if (userInput.equals("bye"))
-                break;
-            /*
             try {
+                if (!keywords.containsKey(firstWord)){
+                   throw new InvalidCommandException("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                }
+            } catch (DukeException ex) {
+                System.out.println(ex);
+                continue;
+            }
 
-            } catch (DukeException e) {
-                System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-            } */
+            keywords.get(firstWord).run(content);
+
         }
 
 
@@ -91,13 +105,47 @@ public class Duke {
         void run(String content);
     }
 
-    public static void cmdMarkDone(String userInput, ArrayList<Task> list) {
-        int listIndex = getIntStringSpace(userInput) - 1;
-        list.get(listIndex).setcompleted();
-        printMarkDone(list, listIndex);
+    public static String[] splitKeyword(String userInput) throws DukeException {
+        //command: list
+
+        userInput = userInput.toLowerCase();
+        userInput = userInput.trim();
+        String[] parts = userInput.split(" ", 2);
+        parts[0] = parts[0].trim();
+        if (parts.length != 1) {
+            parts[1] = parts[1].trim();
+        }
+
+        return parts;
     }
-    public static void cmdTodo(String userInput, ArrayList<Task> list) {
-        String content = removeKeyword(userInput);
+
+    public static String removeKeyword(String userInput) {
+        String[] parts = userInput.split(" ", 2);
+        return parts[1];
+    }
+
+
+    public static int getIntStringSpace(String userInput) {
+        //userInput = userInput.substring(userInput.indexOf(" ") + 1); //split number str
+        userInput = removeKeyword(userInput);
+        return Integer.parseInt(userInput); // get number
+    }
+
+    public static void cmdMarkDone(String content, ArrayList<Task> list) throws NumberFormatException {
+        try {
+            int listIndex = Integer.parseInt(content) - 1;
+            list.get(listIndex).setcompleted();
+            printMarkDone(list, listIndex);
+        } catch (NumberFormatException ex) {
+            System.out.println("\t☹ OOPS!!! I'm sorry, please input a valid Task No. :-(");
+        }
+    }
+    public static void cmdTodo(String content, ArrayList<Task> list) throws NullContentException {
+        //String content = removeKeyword(userInput);
+
+        if (content == null) {
+            throw new NullContentException("\t ☹ OOPS!!! The description of a todo cannot be empty.");
+        }
         list.add(new Todo(content));
         int index = list.get(0).getTotalTask() - 1;
         System.out.println("\tGot it. I've added this task: ");
@@ -105,8 +153,11 @@ public class Duke {
         System.out.printf("\tNow you have %d tasks in the list."
                 + System.lineSeparator(), list.get(0).getTotalTask());
     }
-    public static void cmdDeadline(String userInput, ArrayList<Task> list) {
-        String content = removeKeyword(userInput);
+    public static void cmdDeadline(String content, ArrayList<Task> list) throws NullContentException {
+        //String content = removeKeyword(userInput);
+        if (content == null) {
+            throw new NullContentException("\t ☹ OOPS!!! The description of a deadline cannot be empty.");
+        }
         String[] parts = content.split(" /by ");
         list.add(new Deadline(parts[0], parts[1]));
         int index = list.get(0).getTotalTask() - 1;
@@ -115,8 +166,11 @@ public class Duke {
         System.out.printf("\tNow you have %d tasks in the list."
                 + System.lineSeparator(), list.get(0).getTotalTask());
     }
-    public static void cmdEvent(String userInput, ArrayList<Task> list) {
-        String content = removeKeyword(userInput);
+    public static void cmdEvent(String content, ArrayList<Task> list) throws NullContentException {
+        //String content = removeKeyword(userInput);
+        if (content == null) {
+            throw new NullContentException("\t ☹ OOPS!!! The description of a event cannot be empty.");
+        }
         String[] parts = content.split(" /at ");
         list.add(new Event(parts[0], parts[1]));
         int index = list.get(0).getTotalTask() - 1;
@@ -142,17 +196,6 @@ public class Duke {
     }
      */
 
-    public static String removeKeyword(String userInput) {
-        String[] parts = userInput.split(" ", 2);
-        return parts[1];
-    }
-
-
-    public static int getIntStringSpace(String userInput) {
-        //userInput = userInput.substring(userInput.indexOf(" ") + 1); //split number str
-        userInput = removeKeyword(userInput);
-        return Integer.parseInt(userInput); // get number
-    }
 
     public static void cmdPrintList(ArrayList<Task> list) {
         System.out.println("\tHere are the tasks in your list: ");
@@ -165,7 +208,7 @@ public class Duke {
 
 
     /*
-    @Override
+    @Ovoutide
     public String toString() {
         return "|"  + logo + "|" ;
     } */
