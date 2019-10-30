@@ -43,7 +43,7 @@ public class Duke {
                 try{
                     cmdTodo(content, list);
                 } catch (DukeException e) {
-                    System.out.println(e);
+                    System.out.println("\t☹ OOPS!!! The description of a todo cannot be empty.");
                 }
             };
         } );
@@ -52,7 +52,7 @@ public class Duke {
                 try {
                     cmdDeadline(content, list);
                 } catch (DukeException e) {
-                    System.out.println(e);
+                    System.out.println("\t☹ OOPS!!! The description of a deadline cannot be empty.");
                 }
             };
         } );
@@ -61,7 +61,7 @@ public class Duke {
                 try {
                     cmdEvent(content, list);
                 } catch (DukeException e){
-                    System.out.println(e);
+                    System.out.println("\t☹ OOPS!!! The description of a event cannot be empty.");
                 }
 
             };
@@ -84,10 +84,10 @@ public class Duke {
 
             try {
                 if (!keywords.containsKey(firstWord)){
-                   throw new InvalidCommandException("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                   throw new InvalidCommandException();
                 }
             } catch (DukeException ex) {
-                System.out.println(ex);
+                System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 continue;
             }
 
@@ -144,7 +144,7 @@ public class Duke {
         //String content = removeKeyword(userInput);
 
         if (content == null) {
-            throw new NullContentException("\t ☹ OOPS!!! The description of a todo cannot be empty.");
+            throw new NullContentException();
         }
         list.add(new Todo(content));
         int index = list.get(0).getTotalTask() - 1;
@@ -156,7 +156,7 @@ public class Duke {
     public static void cmdDeadline(String content, ArrayList<Task> list) throws NullContentException {
         //String content = removeKeyword(userInput);
         if (content == null) {
-            throw new NullContentException("\t ☹ OOPS!!! The description of a deadline cannot be empty.");
+            throw new NullContentException();
         }
         String[] parts = content.split(" /by ");
         list.add(new Deadline(parts[0], parts[1]));
@@ -169,7 +169,7 @@ public class Duke {
     public static void cmdEvent(String content, ArrayList<Task> list) throws NullContentException {
         //String content = removeKeyword(userInput);
         if (content == null) {
-            throw new NullContentException("\t ☹ OOPS!!! The description of a event cannot be empty.");
+            throw new NullContentException();
         }
         String[] parts = content.split(" /at ");
         list.add(new Event(parts[0], parts[1]));
