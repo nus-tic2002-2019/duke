@@ -60,7 +60,7 @@ public class Duke {
         try {
             onLoad();
         } catch (FileNotFoundException ex) {
-
+            System.out.println(ex.getMessage());
         }
         Scanner myObj = new Scanner(System.in);
         String userInput;
