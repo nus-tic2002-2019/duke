@@ -1,5 +1,3 @@
-T | true | read book
-D | false | return book | June 6th
-E | true | project meeting | Fri
-T | false | join sports club
-T | false | finish up TIC2002 Project
+E | false | Seven Worlds One Planet  | 2 nov
+T | true | finish up week 8 tasks
+D | false | database project  | 6 nov
