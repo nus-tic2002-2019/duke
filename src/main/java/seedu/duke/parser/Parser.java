@@ -9,6 +9,7 @@ import seedu.duke.command.DeleteCommand;
 import seedu.duke.command.DoneCommand;
 import seedu.duke.command.FindCommand;
 import seedu.duke.command.ListCommand;
+import seedu.duke.command.ScheduleCommand;
 import seedu.duke.exception.DukeException;
 
     /**
@@ -43,6 +44,8 @@ public class Parser{
                 return new ByeCommand(true, "");
             case FindCommand.INPUT_WORD:
                 return new FindCommand(false, input);
+            case ScheduleCommand.INPUT_WORD:
+                return new ScheduleCommand(false, input);
             default:
                 throw new DukeException("I'm sorry, but I don't know what that means :-(");   
         }

@@ -25,6 +25,15 @@ public class Event extends Task{
         return "[E]" + super.toString() + " (at: " + dateToString(at) + ")";
     }
 
+    
+    /** 
+     * @return LocalDateTime
+     */
+    @Override
+    public LocalDateTime getDateTime(){
+        return this.at;
+    }
+
     /** 
      * Converts the LocalDateTime object of a Event to a String object with the format (d/MM/yyyy HHmm);
      * @param dateTime  The date and time of the event in a specified date and time format.

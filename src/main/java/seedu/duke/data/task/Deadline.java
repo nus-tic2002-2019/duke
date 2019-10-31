@@ -26,6 +26,14 @@ public class Deadline extends Task{
     }
 
     /** 
+     * @return LocalDateTime
+     */
+    @Override
+    public LocalDateTime getDateTime(){
+        return this.by;
+    }
+
+    /** 
      * Converts the LocalDateTime object of a Deadline to a String object with the format (d/MM/yyyy HHmm);
      * @param dateTime  The date and time of the deadline in a specified date and time format.
      * @return String   The date and time for the deadline.
