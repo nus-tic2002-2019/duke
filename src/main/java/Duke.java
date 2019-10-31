@@ -10,7 +10,7 @@ public class Duke {
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
 
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args) throws Exception {
         Duke d = new Duke();
         //System.out.println(d);
 
@@ -28,13 +28,19 @@ public class Duke {
         ArrayList<Task> list = new ArrayList<Task>();
 
 // Add new command TODO: make it a function?
+        keywords.put("bye", new Command() {
+            public void run(String content) {
+                // Do absolutely nothing
+            }; 
+        } );
+
         keywords.put("list", new Command() {
             public void run(String content) {
                 cmdPrintList(list);
             };
         } );
         keywords.put("done", new Command() {
-            public void run(String content) {
+            public void run(String content) throws Exception {
                 cmdMarkDone(content, list);
             };
         } );
@@ -102,7 +108,7 @@ public class Duke {
 
     interface Command {
         //void run();
-        void run(String content);
+        void run(String content) throws Exception;
     }
 
     public static String[] splitKeyword(String userInput) throws DukeException {
@@ -131,13 +137,18 @@ public class Duke {
         return Integer.parseInt(userInput); // get number
     }
 
-    public static void cmdMarkDone(String content, ArrayList<Task> list) throws NumberFormatException {
+    public static void cmdMarkDone(String content, ArrayList<Task> list) throws Exception {
         try {
             int listIndex = Integer.parseInt(content) - 1;
+            if (listIndex < 0 || listIndex > list.size()) {
+                throw new IndexOutOfBoundsException();
+            }
             list.get(listIndex).setcompleted();
             printMarkDone(list, listIndex);
-        } catch (NumberFormatException ex) {
-            System.out.println("\t☹ OOPS!!! I'm sorry, please input a valid Task No. :-(");
+        } catch (NumberFormatException e) {
+            System.out.println("\t☹ OOPS!!! please input a Task Number instead ~");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("\t☹ OOPS!!! please input a valid Task No. ~");
         }
     }
     public static void cmdTodo(String content, ArrayList<Task> list) throws NullContentException {
@@ -153,6 +164,7 @@ public class Duke {
         System.out.printf("\tNow you have %d tasks in the list."
                 + System.lineSeparator(), list.get(0).getTotalTask());
     }
+
     public static void cmdDeadline(String content, ArrayList<Task> list) throws NullContentException {
         //String content = removeKeyword(userInput);
         if (content == null) {
@@ -166,6 +178,7 @@ public class Duke {
         System.out.printf("\tNow you have %d tasks in the list."
                 + System.lineSeparator(), list.get(0).getTotalTask());
     }
+
     public static void cmdEvent(String content, ArrayList<Task> list) throws NullContentException {
         //String content = removeKeyword(userInput);
         if (content == null) {
