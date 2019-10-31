@@ -1,99 +1,92 @@
-import java.util.Scanner;
-import task.Task;
-import task.Todo;
-import task.Deadlines;
-import task.Events;
-import java.util.ArrayList;
-
 public class Duke {
-    private static void DukeReply(String replies) { // DukeReplying format, only changing variable is replies/ input from main function.
-        System.out.println("\t________________________________________________________________\n" + "\t" + replies + "\n\t________________________________________________________________\n");
+
+    public static void main(String[] args) throws DukeException {
+        run();
     }
 
-    private static String DukeList(ArrayList<Task> history) throws DukeException { // Listing function: go through every string element and concatenate them together to become a huge string return the huge string back to main function.
-        if (history.size() == 0) {
-            throw new DukeException();
-        }
-        int index = 1;
-        String answer = "";
-        for (int i = 0; i < history.size(); i++) {
-            answer = (answer + index + "." + history.get(i).getType() + history.get(i).getTaskStatus() + " " + history.get(i).getTask() + " " + history.get(i).getDetails());
-            index++;
-            if (i== history.size()-1){
-                continue;
+    public static void run() throws DukeException {
+        Ui ui = new Ui();
+        TaskLists taskList = new TaskLists();
+        boolean online = true;
+        String command = null;
+        String message = null;
+        ui.showWelcomeMessage();
+        while (online) {
+            try {
+                message = ui.readCommand();
+                command = new Parser().parseInput(message);
+                switch (command) {
+                    case "todo":
+                        try {
+                            taskList.addToDo(message);
+                        } catch (StringIndexOutOfBoundsException e) {
+                            ui.showToDoEmptyError();
+                            break;
+                        }
+                        ui.showTaskAdded(taskList.displayLatestTask(), taskList.getSize());
+                        break;
+                    case "deadline":
+                        try {
+                            taskList.addDeadline(message);
+                        } catch (StringIndexOutOfBoundsException e) {
+                            ui.showDeadlineEmptyError();
+                            break;
+                        }
+                        ui.showTaskAdded(taskList.displayLatestTask(), taskList.getSize());
+                        break;
+                    case "event":
+                        try {
+                            taskList.addEvent(message);
+                        } catch (StringIndexOutOfBoundsException e) {
+                            ui.showEventEmptyError();
+                            break;
+                        }
+                        ui.showTaskAdded(taskList.displayLatestTask(), taskList.getSize());
+                        break;
+                    case "list":
+                        try {
+                            ui.showList(taskList.displayList());
+                        } catch (DukeExceptionEmptyList e) {
+                            ui.showListEmptyError();
+                            break;
+                        }
+                        break;
+                    case "delete":
+                        try {
+                            ui.showDeletedTask(taskList.deleteTask(message), taskList);
+                        } catch (DukeExceptionInvalidTaskInputFormat e) {
+                            ui.showInvalidTaskFormatError();
+                            break;
+                        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                            ui.showInvalidTaskNumberError();
+                            break;
+                        }
+                        break;
+                    case "done":
+                        try {
+                            ui.showDoneTask(taskList.doneTask(message));
+                        } catch (DukeExceptionInvalidTaskInputFormat e) {
+                            ui.showInvalidTaskFormatError();
+                            break;
+                        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                            ui.showInvalidTaskNumberError();
+                            break;
+                        }
+                        break;
+                    case "bye":
+                        online = false;
+                        ui.showOffline();
+                        break;
+                    default:
+                        ui.showUnknownInputError();
+                }
+            } catch (DukeException e) {
+                ui.showInputError();
             }
-            answer += "\n\t";
-        }
-        return answer;
-    }
-
-    private static String DukeListDone(ArrayList<Task> listing, int index) {
-        listing.get(index - 1).setTaskDone();
-        return listing.get(index - 1).getType() + listing.get(index - 1).getTaskStatus() + " " + listing.get(index - 1).getTask();
-    }
-
-    private static String DukeDone(ArrayList<Task> history, String input) throws DukeExceptionInvalidTaskNumberDone {
-        if (input.length() < 5 || input.charAt(4) != ' ' || input.charAt(5) == ' ') { // Handling errors: When user types done1 done2 or done   2
-            throw new DukeExceptionInvalidTaskNumberDone();
-        }
-        String number = input.substring(5);
-        try {
-            int index = Integer.parseInt(number);
-        }
-        catch (NumberFormatException e) {
-            return "Please enter a valid number";
-        }
-        int index = Integer.parseInt(number);
-        if (index > history.size()) { //Handling Errors: When user keys in index which is more than the list it has.
-            throw new DukeExceptionInvalidTaskNumberDone();
-        } else {
-            history.get(index-1).setTaskDone();
-            return "Nice! I've marked this task as done: \n\t" + DukeDisplayTask(history, index-1);
         }
     }
-
-    private static String DukeDelete(ArrayList<Task> history, String input) throws DukeExceptionInvalidTaskNumberDone {
-        if (input.length() < 7 || input.charAt(6) != ' ' || input.charAt(7) == ' ') { // Handling errors: When user types done1 done2 or done   2
-            throw new DukeExceptionInvalidTaskNumberDone();
-        }
-        String number = input.substring(7);
-        try {
-            int index = Integer.parseInt(number);
-        }
-        catch (NumberFormatException e) {
-            return "Please enter a valid number";
-        }
-        int index = Integer.parseInt(number);
-        if (index > history.size()) {
-            throw new DukeExceptionInvalidTaskNumberDone();
-        } else {
-            index = index -1;
-            String removed = "Noted. I've removed this task: \n\t\t" + DukeDisplayTask(history, index);
-            history.remove(index);
-            removed = removed + "\n\tNow you have " + history.size() + " tasks in the list.";
-            return removed;
-        }
-    }
-
-    private static void enterTodo(ArrayList<Task> history, String input, int count) {
-        history.add(count, new Todo(input.substring(5)));
-    }
-
-    private static void enterDeadline(ArrayList<Task> history, String input, int count) {
-        int idx = input.indexOf('/');
-        history.add(count, new Deadlines(input.substring(9, idx - 1), input.substring(idx + 4)));
-    }
-
-    private static void enterEvent(ArrayList<Task> history, String input, int count) {
-        int idx = input.indexOf('/');
-        history.add(count, new Events(input.substring(6, idx - 1), input.substring(idx + 4)));
-    }
-
-    private static String DukeDisplayTask(ArrayList<Task> history, int number) {
-        return history.get(number).getType() + history.get(number).getTaskStatus() + " " + history.get(number).getTask() + " " + history.get(number).getDetails();
-    }
-
-    public static void main(String[] args) {
+}
+/*  public static void main(String[] args) {
         ArrayList<Task> history = new ArrayList<Task>();
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -117,7 +110,7 @@ public class Duke {
                 try {
                     DukeReply(DukeDone(history, input));
                 }
-                catch (DukeExceptionInvalidTaskNumberDone e) {
+                catch (DukeExceptionInvalidTaskInputFormat e) {
                     DukeReply("You've entered an invalid number of task list, please enter a valid task number again.");
                 }
                 continue;
@@ -135,7 +128,7 @@ public class Duke {
                 try {
                     DukeReply(DukeDelete(history, input));
                 }
-                catch (DukeExceptionInvalidTaskNumberDone e) {
+                catch (DukeExceptionInvalidTaskInputFormat e) {
                     DukeReply("You've entered an invalid number of task list, please enter a valid task number again.");
                 }
                 continue;
@@ -175,6 +168,88 @@ public class Duke {
         }
     }
 }
+    /* private static String DukeList(ArrayList<Task> history) throws DukeException { // Listing function: go through every string element and concatenate them together to become a huge string return the huge string back to main function.
+         if (history.size() == 0) {
+             throw new DukeException();
+         }
+         int index = 1;
+         String answer = "";
+         for (int i = 0; i < history.size(); i++) {
+             answer = (answer + index + "." + history.get(i).getType() + history.get(i).getTaskStatus() + " " + history.get(i).getTask() + " " + history.get(i).getDetails());
+             index++;
+             if (i == history.size() - 1) {
+                 continue;
+             }
+             answer += "\n\t";
+         }
+         return answer;
+     }
+
+     private static String DukeListDone(ArrayList<Task> listing, int index) {
+         listing.get(index - 1).setTaskDone();
+         return listing.get(index - 1).getType() + listing.get(index - 1).getTaskStatus() + " " + listing.get(index - 1).getTask();
+     }
+
+     private static String DukeDone(ArrayList<Task> history, String input) throws DukeExceptionInvalidTaskInputFormat {
+         if (input.length() < 5 || input.charAt(4) != ' ' || input.charAt(5) == ' ') { // Handling errors: When user types done1 done2 or done   2
+             throw new DukeExceptionInvalidTaskInputFormat();
+         }
+         String number = input.substring(5);
+         try {
+             int index = Integer.parseInt(number);
+         } catch (NumberFormatException e) {
+             return "Please enter a valid number";
+         }
+         int index = Integer.parseInt(number);
+         if (index > history.size()) { //Handling Errors: When user keys in index which is more than the list it has.
+             throw new DukeExceptionInvalidTaskInputFormat();
+         } else {
+             history.get(index - 1).setTaskDone();
+             return "Nice! I've marked this task as done: \n\t" + DukeDisplayTask(history, index - 1);
+         }
+     }
+
+     private static String DukeDelete(ArrayList<Task> history, String input) throws DukeExceptionInvalidTaskInputFormat {
+         if (input.length() < 7 || input.charAt(6) != ' ' || input.charAt(7) == ' ') { // Handling errors: When user types done1 done2 or done   2
+             throw new DukeExceptionInvalidTaskInputFormat();
+         }
+         String number = input.substring(7);
+         try {
+             int index = Integer.parseInt(number);
+         } catch (NumberFormatException e) {
+             return "Please enter a valid number";
+         }
+         int index = Integer.parseInt(number);
+         if (index > history.size()) {
+             throw new DukeExceptionInvalidTaskInputFormat();
+         } else {
+             index = index - 1;
+             String removed = "Noted. I've removed this task: \n\t\t" + DukeDisplayTask(history, index);
+             history.remove(index);
+             removed = removed + "\n\tNow you have " + history.size() + " tasks in the list.";
+             return removed;
+         }
+     }
+
+     private static void enterTodo(ArrayList<Task> history, String input, int count) {
+         history.add(count, new Todo(input.substring(5)));
+     }
+
+     private static void enterDeadline(ArrayList<Task> history, String input, int count) {
+         int idx = input.indexOf('/');
+         history.add(count, new Deadlines(input.substring(9, idx - 1), input.substring(idx + 4)));
+     }
+
+     private static void enterEvent(ArrayList<Task> history, String input, int count) {
+         int idx = input.indexOf('/');
+         history.add(count, new Events(input.substring(6, idx - 1), input.substring(idx + 4)));
+     }
+
+     private static String DukeDisplayTask(ArrayList<Task> history, int number) {
+         return history.get(number).getType() + history.get(number).getTaskStatus() + " " + history.get(number).getTask() + " " + history.get(number).getDetails();
+     }
+ */
+
 /* idea from improvement to this chatbot
 1. Wrap around function if input more than 100 entries?
 2. Wrap around or ignore entry?
@@ -186,4 +261,5 @@ we will leave it to the future.
  */
 
 
-/* Splitted the new taskings, to implement error handling for each task input*/
+/* Splitted the new taskings, to implement error handling for each task input
+ * To check on ui.showinputerror and unknownerrorinput usage*/
