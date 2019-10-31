@@ -1,5 +1,5 @@
 import java.util.*;
-
+import java.io.*;
 import MyClasses.*;
 
 public class Duke {
@@ -39,6 +39,16 @@ public class Duke {
 
     public static void AddTask(TaskList task) {
         tasks.add(task);
+    }
+
+    private static void SaveFile(String Filename) throws IOException {
+        File myFile = new File(Filename + ".txt");
+
+        FileWriter fw = new FileWriter(myFile.getAbsolutePath());
+        for (TaskList task : tasks) {
+            fw.write(task.save() + "\n");
+        }
+        fw.close();
     }
 
     public static boolean Task(String Cmmd) {
@@ -114,6 +124,15 @@ public class Duke {
                     System.out.println("OOPS! the task number you specified does not exists");
                 }
                 break;
+            case "save":
+            case "save file":
+                try {
+                    SaveFile("Duke_Save_File");
+                } catch (IOException e) {
+                    System.out.println(e);
+                }
+                break;
+
             default:
                 System.out.println("OOPS!! I'm Sorry. I do not know what you meant by " + Cmmd + " (╥﹏╥) .");
                 PrintHL();
@@ -121,7 +140,7 @@ public class Duke {
         return true;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         init();
         while (Task(ReadText())) ;
     }
