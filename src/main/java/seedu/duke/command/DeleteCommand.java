@@ -30,7 +30,7 @@ public class DeleteCommand extends Command{
      */
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeEmptyException, DukeException, IOException{
-        if(input.split(" ")[1].trim().isEmpty()){
+        if(input.substring(6).trim().isEmpty()){
             throw new DukeException("The selector of a delete cannot be empty.");
         }
         try{

@@ -69,7 +69,7 @@ public class Storage{
             else{
                 throw new DukeException("The file is either empty or does not exists. Creating a new task list!");
             }
-        } catch(FileNotFoundException | NullPointerException e){
+        } catch(FileNotFoundException | DukeException | NullPointerException e){
             createFileAndDirectory();
         }
         return taskList;
