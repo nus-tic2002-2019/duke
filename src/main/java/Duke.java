@@ -12,6 +12,8 @@ import thrownexceptions.*;
 
 import javax.naming.StringRefAddr;
 
+import static taskclasses.TaskList.ToDoAfter_Task;
+
 public class Duke {
 
     //Chatting body;
@@ -20,14 +22,16 @@ public class Duke {
      * The inter-action UI with user
      * @param List Task List
      */
-    private static void chatting_Vector_Task(Vector<Task> List) {
+    private static void chatting_Vector_Task(Vector<Task> List, Vector<Task> ToDoAfterList) throws InputDateTimeTooEarly {
         String Ending = "bye";
         String Input;
         String Date_Type, Time_Type;
 
         try {
             Date_Type = Parser.Date_Display_Format();
+            Ui.Separated_Line();
             Time_Type = Parser.Time_Display_Format();
+            Ui.Separated_Line();
 
             Scanner in = new Scanner(System.in);
             Input = in.nextLine();
@@ -75,6 +79,9 @@ public class Duke {
                             search_type = search_Time.nextLine();
                             TaskList.Print_List_Time(List, search_type, Date_Type, Time_Type);
                     }
+                    break;
+                case "ToDoAfter":
+                    ToDoAfter_Task(ToDoAfterList, List);
                     break;
                 default:
                     System.out.println("    Invalid Input! Please try again!");
@@ -130,21 +137,24 @@ public class Duke {
         }
 
         Ui.Separated_Line();
-        chatting_Vector_Task(List);
+        chatting_Vector_Task(List, ToDoAfterList);
     }
 
     //Main;
-    public static void main(String[] args) throws IOException, DecoderUnknownError, EncoderUnknowError {
+    public static void main(String[] args) throws IOException, DecoderUnknownError, EncoderUnknowError, FilePathNotFound, InvalidStorageFilePathException, InputDateTimeTooEarly {
         Ui.LoginFace();
         Ui.Separated_Line();
         Ui.Greeting();
         Ui.Separated_Line();
 
         Vector<Task> List;
+        Vector<Task> ToDoAfterList;
         StorageFile TaskStorageFile = new StorageFile();
+        StorageFile TaskToDoList = new StorageFile("data/ToDoAfterList.txt");
         List = TaskStorageFile.CopyToVector();
+        ToDoAfterList = TaskStorageFile.CopyToVector();
 
-        chatting_Vector_Task(List);
+        chatting_Vector_Task(List, ToDoAfterList);
 
         TaskStorageFile.TransferToFile(List);
     }

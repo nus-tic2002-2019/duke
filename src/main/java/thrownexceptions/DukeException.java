@@ -7,6 +7,8 @@ public class DukeException extends Exception {
         First_Word = first_word;
     }
 
+    public DukeException(){}
+
     public static String getFirst_Word(){
         return First_Word;
     }

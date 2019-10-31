@@ -148,7 +148,7 @@ public class StorageFile {
                 throw new DecoderUnknownError();
         }
 
-        task_Vector.UpdateisDone(status);
+        task_Vector.UpdateIsDone(status);
 
         return task_Vector;
     }

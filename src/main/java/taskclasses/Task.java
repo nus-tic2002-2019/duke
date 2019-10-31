@@ -8,7 +8,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Task {
-    protected String description;
+    private String description;
     protected String type;
     protected DateTime Deadline_timing;
     protected DateTime Starting;
@@ -129,7 +129,7 @@ public class Task {
      * To update the task's status;
      * @param current the boolean input, current is the new status which needs to be update to isDone in Task;
      */
-    public void UpdateisDone(boolean current){
+    public void UpdateIsDone(boolean current){
         this.isDone = current;
     }
 }

@@ -47,16 +47,24 @@ public class DateTime {
     /**
      * To compare the input date and time is after the DateTime creation date and time;
      * @param input the date and time which going to compare in LocalDateTime type;
-     * @return return boolean result, true if the input is not before DateTime creation;
      * @throws InputDateTimeTooEarly If the input is before creation datetime, throw the error;
      */
-    public static boolean Comparation(LocalDateTime input) throws InputDateTimeTooEarly {
-        if(input.isAfter(DateTime_Creation)){
-            return true;
-        }
-        else {
+    public static void Comparision(LocalDateTime input) throws InputDateTimeTooEarly {
+        if(!input.isAfter(DateTime_Creation)){
             throw new InputDateTimeTooEarly();
         }
+    }
+
+    /**
+     * To compare the input date and time is after the DateTime creation date and time;
+     * @param date the date which going to compare current date(LocalDate.now());
+     * @throws InputDateTimeTooEarly If the input is before creation datetime, throw the error;
+     */
+    public static boolean Comparision(String date) throws InputDateTimeTooEarly {
+        LocalDate localDate = LocalDate.now();
+        LocalDate input_date = LocalDate.parse(date);
+
+        return !input_date.isBefore(localDate);
     }
 
     /**
