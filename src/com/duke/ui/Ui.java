@@ -1,6 +1,6 @@
 package com.duke.ui;
 
-public class TextUi {
+public class Ui {
 
 
     private static final String SEPARATE_LINE="_________________________________________________";

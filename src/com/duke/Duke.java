@@ -3,11 +3,8 @@ package com.duke;
 import com.duke.exception.EmptyDescriptionException;
 import com.duke.exception.UndefinedTaskException;
 import com.duke.storage.Storage;
-import com.duke.task.Deadline;
-import com.duke.task.Events;
-import com.duke.task.Task;
-import com.duke.task.Todo;
-import com.duke.ui.TextUi;
+import com.duke.task.*;
+import com.duke.ui.Ui;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,16 +13,33 @@ import java.util.Scanner;
 public class Duke {
 
 
-    private TextUi ui;
+    private Ui ui;
     private Storage storage;
+    private TaskList tasks;
 
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+    }
 
 
 
 
     static String separateLine="_____________________________________________";
     private static List<Task> list = new ArrayList<Task>();
+
+
     public static void main(String[] args) {
+
+        new Duke("data/tasks.txt").run();
+
+
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
