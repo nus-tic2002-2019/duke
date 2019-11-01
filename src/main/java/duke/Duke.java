@@ -54,8 +54,6 @@ public class Duke {
             ui.showLine();
             try{
                 CheckWord(fullCommand[0]);
-
-
                 Command c = parser.parse(fullCommand);
                 ui.printCommand(c.run(fullCommand));
                 isExit = c.isExit();
