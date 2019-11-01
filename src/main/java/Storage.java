@@ -12,12 +12,9 @@ import java.io.FileOutputStream;
 public class Storage {
 
     public static void loadFile(String filePath, ArrayList<Task> tasks) {
-
         try {
-
             BufferedReader br = new BufferedReader(new FileReader(filePath));
             String s;
-
             while ((s = br.readLine()) != null) {
                 String[] command = s.split("\\|", 0);
 
@@ -39,14 +36,12 @@ public class Storage {
                         break;
                 }
             }
-
         } catch (IOException e) {
             System.out.println("File not found");
         }
     }
 
     public static void saveFile(String filePath, ArrayList<Task> tasks){
-
         try {
             FileOutputStream out = new FileOutputStream(filePath);
             for( int i=0 ; i<tasks.size() ; i++ ){
@@ -65,4 +60,5 @@ public class Storage {
             System.out.println("Oops!! Cannot save file !");
         }
     }
+
 }

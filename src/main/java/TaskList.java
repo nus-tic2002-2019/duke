@@ -6,7 +6,7 @@ import duke.task.Todo;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Tasklist {
+public class TaskList {
 
     public static void done_command (ArrayList<Task> tasks, String filePath, String fullCommand) {
         tasks.get(Parser.taskNumber(fullCommand)).markAsDone();
@@ -61,4 +61,18 @@ public class Tasklist {
             }
         }
     }
+
+    public static void find_command (ArrayList<Task> tasks, String fullCommand){
+        System.out.println("Here are the matching tasks in your list:");
+        int index = 1;
+        String description = Parser.description(fullCommand);
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).toString().contains(description)) {
+                System.out.println(index + "." + tasks.get(i).toString());
+                index++;
+            }
+        }
+    }
+
 }
+

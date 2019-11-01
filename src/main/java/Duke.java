@@ -6,12 +6,12 @@ public class Duke {
     private ArrayList<Task> tasks;
     private String filePath;
 
-    public Duke(String filePath){
+    private Duke(String filePath){
         this.tasks = new ArrayList<Task>();;
         this.filePath = filePath;
     }
 
-    public void run(){
+    private void run(){
         UI.welcome();
         Storage.loadFile(filePath, tasks);
         boolean isExit = false;
