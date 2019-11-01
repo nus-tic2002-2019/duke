@@ -30,10 +30,9 @@ public class UI {
     }
 
     public static void add_message(Task t, int size){
-        int new_size = size+1;
         System.out.println("Got it. I've added this task: ");
         System.out.println("  " + t.toString());
-        System.out.println("Now you have " + new_size + " tasks in the list.");
+        System.out.println("Now you have " + size + " tasks in the list.");
     }
 
     public static void done_message(ArrayList<Task> tasks, int index){
@@ -41,11 +40,11 @@ public class UI {
         System.out.println("  " + tasks.get(index).toString());
     }
 
-    public static void delete_message(ArrayList<Task> tasks, int index, int size){
-        int new_size = size - 1;
+    public static void delete_message(ArrayList<Task> tasks, int index){
+        int size = tasks.size() - 1;
         System.out.println("Noted. I've removed this task: ");
         System.out.println("  "  + tasks.get(index));
-        System.out.println("Now you have " + new_size + " tasks in the list.");
+        System.out.println("Now you have " + size + " tasks in the list.");
     }
 
     public static void bye_message(){

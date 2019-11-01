@@ -1,17 +1,27 @@
 package duke.task;
 
-import duke.task.Task;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Deadline extends Task {
-    protected String by;
+    protected String date;
+    protected Date by;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String date, Date by) {
         super(description);
+        this.date = date;
         this.by = by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + by + ")";
+        SimpleDateFormat format = new SimpleDateFormat ("MMM d yyyy");
+        String dateString = format.format(by);
+        return "[D]" + super.toString() + " (by: " + dateString + ")";
+    }
+
+    @Override
+    public String save_toString() {
+        return "[D]" + super.toString() + "(by: " + date + ")";
     }
 }

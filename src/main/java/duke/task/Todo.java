@@ -1,7 +1,5 @@
 package duke.task;
 
-import duke.task.Task;
-
 public class Todo extends Task {
 
     public Todo(String description){
@@ -10,6 +8,10 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
+        return "[T]" + super.toString();
+    }
+
+    public String save_toString(){
         return "[T]" + super.toString();
     }
 }

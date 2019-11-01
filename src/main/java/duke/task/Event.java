@@ -1,17 +1,27 @@
 package duke.task;
 
-import duke.task.Task;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Event extends Task {
-    private String at;
+    protected String date;
+    protected Date at;
 
-    public Event(String description, String at){
+    public Event (String description, String date, Date at) {
         super(description);
+        this.date = date;
         this.at = at;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(at: " + at + ")";
+        SimpleDateFormat format = new SimpleDateFormat ("MMM d yyyy");
+        String dateString = format.format(at);
+        return "[E]" + super.toString() + " (at: " + dateString + ")";
+    }
+
+    @Override
+    public String save_toString() {
+        return "[E]" + super.toString() + "(at: " + date + ")";
     }
 }

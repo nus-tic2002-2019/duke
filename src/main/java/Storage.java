@@ -24,17 +24,17 @@ public class Storage {
                 switch (command[0].trim()) {
                     case "T":
                         tasks.add(new Todo(command[2].trim()));
-                        if (command[1].trim().equals("1"))
+                        if (command[1].trim().equals("\u2713"))
                             tasks.get(tasks.size() - 1).markAsDone();
                         break;
                     case "E":
-                        tasks.add(new Event(command[2].trim(), command[3].trim()));
-                        if (command[1].trim().equals("1"))
+                        tasks.add(new Event(command[2].trim(), command[3].trim(), Parser.converted_date(command[3].trim())));
+                        if (command[1].trim().equals("\u2713"))
                             tasks.get(tasks.size() - 1).markAsDone();
                         break;
                     case "D":
-                        tasks.add(new Deadline(command[2].trim(), command[3].trim()));
-                        if (command[1].trim().equals("1"))
+                        tasks.add(new Deadline(command[2].trim(), command[3].trim(), Parser.converted_date(command[3].trim())));
+                        if (command[1].trim().equals("\u2713"))
                             tasks.get(tasks.size() - 1).markAsDone();
                         break;
                 }
@@ -50,8 +50,7 @@ public class Storage {
         try {
             FileOutputStream out = new FileOutputStream(filePath);
             for( int i=0 ; i<tasks.size() ; i++ ){
-                String s = tasks.get(i).toString().replace("\u2713","1" ).
-                        replace("\u2718","0").
+                String s = tasks.get(i).save_toString().
                         replaceAll("\\[","").
                         replaceAll("]","|").
                         replace("(by:","|").
