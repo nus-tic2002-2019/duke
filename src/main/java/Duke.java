@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import Tasks.*;
 
+
 public class Duke {
     static final String line = "    ____________________________________________________________";
    // public static ArrayList<String> list = new ArrayList<>();  // ArrayList to store userInputs
@@ -29,6 +30,15 @@ public class Duke {
         System.out.println("     Hello! I'm Duke");
         System.out.println("     What can I do for you?");
         printLines(line);
+
+
+
+
+        String [] a = new String[2];
+
+        a[0] = "a";
+
+        System.out.println(a.length);
     }
 
     public static boolean echo(){
@@ -59,12 +69,35 @@ public class Duke {
                 printLines(line);
                 System.out.println("     Got it. I've added this task:");
                // tasklist.get(tasklist.size()) = new toDos(userInput, true);
-                tasklist.add(new toDos(userInput));
+                tasklist.add(new toDos(parse(userInput)[1]));
                 //.set()
-                System.out.println("      " + tasklist.get(tasklist.size()-1).getDescription());
+                System.out.println("       " + tasklist.get(tasklist.size()-1).getDescription());
                 System.out.println("     Now you have " + tasklist.size() + " tasks in the list.");
                 printLines(line);
                 break;
+
+            case "deadline" :
+                String des = userInput.substring(userInput.indexOf("deadline")+9, userInput.indexOf("by")-1);
+                String by = userInput.substring(userInput.indexOf("by")+3, userInput.length());
+                System.out.println(by);
+                printLines(line);
+                System.out.println("     Got it. I've added this task:");
+                tasklist.add(new Deadlines(des, by));
+//                System.out.println("       " + tasklist.get(tasklist.size()-1).getDescription());
+                System.out.println("       " + tasklist.get(tasklist.size()-1).toString());
+                System.out.println("     Now you have " + tasklist.size() + " tasks in the list.");
+                printLines(line);
+                break;
+
+            case "event" :
+                printLines(line);
+                System.out.println("      Got it. I've added this task:");
+                tasklist.add(new Events(parse(userInput)[1]));
+                System.out.println("       " + tasklist.get(tasklist.size()-1).getDescription());
+                System.out.println("     Now you have " + tasklist.size() + " tasks in the list.");
+                printLines(line);
+                break;
+
 
             case "bye" :
                 System.out.println(userInput);
@@ -110,7 +143,7 @@ public class Duke {
         System.out.println("     Here are the tasks in your list:");
         for(int i = 0; i < tasklist.size(); i++){
             int idx = i+1;
-            System.out.println("     "+ idx + ". " + tasklist.get(i).getDescription() );
+            System.out.println("     "+ idx + ". " + tasklist.get(i).toString() );
         }
         printLines(line);
     }

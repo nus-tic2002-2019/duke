@@ -11,9 +11,8 @@ public class Task {
 
     //Getters
 
-
     public String getDescription(){
-        return getStatus() + getStatusIcon() + this.description;
+        return getStatus() + getStatusIcon() + " " + this.description;
     }
 
     //Setters
@@ -30,34 +29,18 @@ public class Task {
         return (isDone ? "[" + "\u2713" + "]": "["+"\u2718"+"]"); //return tick or X symbols
     }
 
-    // Additional Methods
-//    public void addTasks(String task){
-//        taskList.add(task);
-//    }
-
     public void markAsDone(){
         this.isDone = true;
-
     }
-
-//    public void getStatus(String status){
-//        switch (status){
-//            case "T" :
-//                System.out.println("[T]");
-//                break;
-//            case "D" :
-//                System.out.println("[D]");
-//                break;
-//            case "E" :
-//                System.out.println("[E]");
-//                break;
-//        }
-//    }
 
     public String getStatus(){return "";};
 
     public void markAsUndone(){
         this.isDone = false;
+    }
+
+    public String toString() {
+        return this.getStatusIcon() + this.description;
     }
 
 }
