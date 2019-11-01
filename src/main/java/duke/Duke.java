@@ -4,10 +4,14 @@ import command.Command;
 import javafx.scene.control.Label;
 import parser.Parser;
 import storage.Storage;
+import task.Originator;
 import task.TaskList;
 import ui.Ui;
 import exception.DukeException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -62,13 +66,17 @@ public class Duke extends Application {
      * to perform the respective tasks.
      * */
     public void run() throws IOException{
+        List<Originator.Memento> savedStates = new ArrayList<Originator.Memento>();
+        Originator originator = new Originator();
         ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                Parser.parse(fullCommand);
-                Command c = Parser.parse(fullCommand);
+                Parser.parse(fullCommand, savedStates);
+                Command c = Parser.parse(fullCommand, savedStates);
+                originator.set(state + 1);
+                savedStates.add(originator.saveToMemento());
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit;
 

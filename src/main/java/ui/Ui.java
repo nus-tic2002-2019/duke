@@ -25,7 +25,9 @@ public class Ui {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        System.out.println("Hello! I'm duke.Duke\nWhat can I do for you?");
+        System.out.println("What can I do for you?");
+        showUserLine();
+        System.out.println("Before you begin, you may type 'help' to find the list of commands.");
         showUserLine();
     }
     /**
