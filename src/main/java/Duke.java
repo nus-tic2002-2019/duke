@@ -1,20 +1,34 @@
 import ERROR_HANDLING.*;
 import TASK.*;
+
+import java.io.IOException;
 import java.util.*;
+import STORAGE.*;
+import UI.*;
 
 public class Duke {
-
     String logo = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
 
-    public static void main(String[] args) throws Exception {
-        Duke d = new Duke();
-        //System.out.println(d);
+    private Storage storage;
+    private Message ui;
 
-        System.out.println("\tHello! I'm Duke \n\tWhat can I do for you?");
+    public Duke(){
+        ui = new Message();
+
+        try {
+            storage = new Storage("data/taskSheet.txt");
+        } catch (IOException ioe) {
+            System.out.println("\tFile Error!");
+        }
+
+    };
+
+    public void start() throws Exception {
+        ui.showGreetingMessage();
 
         Scanner in = new Scanner(System.in);
 
@@ -31,7 +45,7 @@ public class Duke {
         keywords.put("bye", new Command() {
             public void run(String content) {
                 // Do absolutely nothing
-            }; 
+            };
         } );
 
         keywords.put("list", new Command() {
@@ -90,7 +104,7 @@ public class Duke {
 
             try {
                 if (!keywords.containsKey(firstWord)){
-                   throw new InvalidCommandException();
+                    throw new InvalidCommandException();
                 }
             } catch (DukeException ex) {
                 System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -101,9 +115,12 @@ public class Duke {
 
         }
 
+        ui.showExitMessage();
 
-        System.out.println("\tBye. Hope to see you again soon!");
+    }
 
+    public static void main(String[] args) throws Exception {
+        new Duke().start();
     }
 
     interface Command {

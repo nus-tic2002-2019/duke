@@ -1,7 +1,5 @@
 package TASK;
 
-import TASK.Task;
-
 public class Deadline extends Task {
     public Deadline (String content) {
         super(content);

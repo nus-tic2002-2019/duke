@@ -1,7 +1,5 @@
 package TASK;
 
-import TASK.Task;
-
 public class Event extends Task {
     public Event (String content) {
         super(content);
