@@ -23,4 +23,14 @@ public class Deadlines extends Task {
         return "[D]" + "[" + getStatusIcon() + "]" + super.getDescription() + " (by: " + by + ")";
     }
 
+    public String deadlineDescription(){
+        return super.getDescription();
+    }
+
+    public String getBy(){
+        return by;
+    }
+
+
+
 }

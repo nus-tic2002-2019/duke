@@ -3,12 +3,16 @@ package ui;
 import tasklist.*;
 import exception.DukeException;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import storage.Storage;
 
 public class Ui {
     public Ui(){
 
     }
+    private static String fileName = "data/tasks.txt";
+    private static Storage storage = new Storage(fileName);
 
     public void showLine(){
         System.out.println("    ________________________________________");
@@ -26,31 +30,35 @@ public class Ui {
     }
 
     public void dukeGreet(){
-        System.out.println("    ________________________________________");
+
         System.out.println ("    Hello! I'm Duke");
         System.out.println ("    What can I do for you?");
-        System.out.println("    ________________________________________");
+
     }
 
     public void dukeBye(){
-        System.out.println("    ________________________________________");
+
         System.out.println("     Bye. Hope to see you again soon!");
-        System.out.println("    ________________________________________");
+
     }
 
     public void showLoadingError(){
-        System.out.println("    ________________________________________");
+
         System.out.println ("    File not located");
-        System.out.println("    ________________________________________");
+
+    }
+
+    public void showUnknownCommand(){
+        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
     public void dukeReply(ArrayList<Task> taskList){
 
-        System.out.println("    ________________________________________");
+
         System.out.println("     Got it. I've added this task: ");
         System.out.println("     " + taskList.get(taskList.size()-1).getDescription());
         System.out.println("     Now you have " + taskList.size() + " tasks in the list.");
-        System.out.println("    ________________________________________");
+
     }
 
     public void dukeInput (taskList tasks, String textInput) throws DukeException {
@@ -71,18 +79,40 @@ public class Ui {
                 case "todo":
                     if (textInputArr[1].isEmpty()) throw new DukeException("todo");
                     taskList.addTodo(new Todo(textInputArr[1]));
+                    /*try{
+                        storage.save(fileName,"T", textInputArr[1], " ", false);
+                    } catch (IOException e){
+                        System.out.println("Something went wrong: " + e.getMessage());
+                    }*/
                     break;
                 case "deadline":
                     if (textInputArr[1].isEmpty()) throw new DukeException("deadline");
                     String textDeadline[] = textInputArr[1].split("/by", 2);
                     if (textDeadline.length < 2) throw new DukeException("/by");
                     tasks.addDeadlines(new Deadlines(textDeadline[0], textDeadline[1]));
+                    /*try{
+                        storage.save(fileName,"D", textDeadline[0], textDeadline[1], false);
+                    } catch (IOException e){
+                        System.out.println("Something went wrong: " + e.getMessage());
+                    }*/
                     break;
                 case "event":
                     if (textInputArr[1].isEmpty()) throw new DukeException("event");
                     String textEvent[] = textInputArr[1].split("/at", 2);
                     if (textEvent.length < 2) throw new DukeException("/at");
                     tasks.addEvent(new Event(textEvent[0], textEvent[1]));
+                    /*try{
+                        storage.save(fileName,"E", textEvent[0], textEvent[1], false);
+                    } catch (IOException e){
+                        System.out.println("Something went wrong: " + e.getMessage());
+                    }*/
+                    break;
+                case "save":
+                    try{
+                        storage.saveList(fileName, tasks);
+                    } catch (IOException e){
+                        System.out.println("Something went wrong: " + e.getMessage());
+                    }
                     break;
                 case "bye":
                     dukeBye();
