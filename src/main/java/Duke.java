@@ -1,13 +1,16 @@
 import duke.task.Task;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Duke {
     private ArrayList<Task> tasks;
     private String filePath;
-
+    /**
+     * Create new Duke with file address for loading and saving.
+     * @param filePath file address.
+     * */
     private Duke(String filePath){
-        this.tasks = new ArrayList<Task>();;
+        this.tasks = new ArrayList<>();;
         this.filePath = filePath;
     }
 
@@ -23,7 +26,7 @@ public class Duke {
                 c.execute(tasks, filePath);
                 isExit = c.isExit;
             } catch (Exception e) {
-                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             } finally {
                 UI.split_line();
             }

@@ -4,13 +4,19 @@ import duke.task.Task;
 import duke.task.Todo;
 
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.io.FileOutputStream;
-
+/**
+ * Stores method to deal with loading and saving from file.
+ * */
 public class Storage {
-
+    /**
+     * Load file to new Duke task list.
+     * @param filePath file address.
+     * @param tasks task list to be loaded.
+     * */
     public static void loadFile(String filePath, ArrayList<Task> tasks) {
         try {
             BufferedReader br = new BufferedReader(new FileReader(filePath));
@@ -40,7 +46,11 @@ public class Storage {
             System.out.println("File not found");
         }
     }
-
+    /**
+     * Save updates to file.
+     * @param filePath file address.
+     * @param tasks task list to be saved.
+     * */
     public static void saveFile(String filePath, ArrayList<Task> tasks){
         try {
             FileOutputStream out = new FileOutputStream(filePath);

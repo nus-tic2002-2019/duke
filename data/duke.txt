@@ -1,4 +1,3 @@
-T|✓| join sports club
-D|✘| do homework | 09-11-2019
-D|✘| return book | 05-11-2019
-E|✓| party | 06-11-2019
+T|✘| join sports club
+E|✓| party | 05-11-2019
+D|✓| return book | 09-11-2019
