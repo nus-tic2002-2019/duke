@@ -1,0 +1,6 @@
+[D][✘] submit report by 1 (by: 2019 5pm)
+[D][✘] retun book by 2 (by: 2019 4pm)
+[E][✘] maths class on  (by: 2019 7-9pm)
+[E][✘] team project meeting on  (by: 2019 2-4pm)
+[D][✘] team project meeting on  (by: 2019 2-4pm)
+[T][✘] reading 
