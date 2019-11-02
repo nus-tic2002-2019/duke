@@ -1,15 +1,14 @@
-public class Deadlines extends Task {
+package Tasklist;
 
+public class Todo extends Task
+{
     protected boolean isDone;
-    protected String by;
 
-    public  Deadlines(String description, String by)
+    public Todo(String description)
     {
         super(description);
         isDone=false;
-        this.by = by;
     }
-
     public void setDone(boolean done) {
         isDone = done;
     }
@@ -20,13 +19,13 @@ public class Deadlines extends Task {
 
     @Override
     public String toString() {
-        return "[D] [" + super.getStatusIcon() +"]" + super.getDescription()  + "(by: " + by + ")" ;
+        return "[T] [" + super.getStatusIcon() +"]" + super.getDescription();
     }
 
     @Override
     public String writeToFile()
     {
         //return "D | " + isDone + " | " + this.getDescription();
-        return "D" + super.writeToFile() + super.getDescription() + " | " + by;
+        return "T" + super.writeToFile() + super.getDescription() ;
     }
 }
