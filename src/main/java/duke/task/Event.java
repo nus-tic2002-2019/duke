@@ -24,6 +24,14 @@ public class Event extends Time {
             throw new DukeCheckLineException();
         }
     }
+
+    /**
+     * To generate a Event detail and store in the tasks list according to user input.
+     *
+     * @param tasks the list of tasks;
+     * @param storage to save the event detail of the task.
+     * @return a command which generates events task.
+     */
     public static Command getCommand(TaskList tasks, Storage storage){
         return fullCommand ->{
 
@@ -49,6 +57,11 @@ public class Event extends Time {
         };
     }
 
+    /**
+     * Return a list of strings that can be saved.
+     *
+     * @return a task list for saving.
+     */
     @Override
     public List<String> getList(){
         List<String> list = new ArrayList<>();
@@ -58,6 +71,12 @@ public class Event extends Time {
 
         return list;
     }
+
+    /**
+     * Return a list of strings to user.
+     *
+     * @return this string task.
+     */
     @Override
     public String toString(){
         return "[E]" + super.toString() + " (at: " + convertTimeString() + ")";

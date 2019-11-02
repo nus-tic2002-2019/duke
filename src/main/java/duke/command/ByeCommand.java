@@ -18,7 +18,7 @@ public class ByeCommand implements Command {
     /**
      * Return true to exit the program
      *
-     * @return true when execute "bye" command to exit the program.
+     * @return true when execute this command to exit the program.
      */
     @Override
     public boolean isExit(){

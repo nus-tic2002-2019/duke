@@ -11,9 +11,21 @@ class Time extends Task {
         super(description);
         time = LocalDateTime.parse(timeString, formatter);
     }
+
+    /**
+     * To convert the time for saving.
+     *
+     * @return time as a string.
+     */
     String convertSaveTimeString(){
         return formatter.format(time);
     }
+
+    /**
+     * Attache a converted time string to display to the user.
+     *
+     * @return time as a string.
+     */
     String convertTimeString(){
         return DateTimeFormatter.ofPattern("MMM d yyyy HHmm").format(time);
     }

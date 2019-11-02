@@ -16,8 +16,17 @@ public class DoneCommand implements Command {
         this.storage = storage;
     }
 
+    /**
+     *Marks the task as done and returns the message to user.
+     *
+     * @param fullCommand array of command from the user input.
+     * @return a message to user.
+     * @throws NumberFormatException catch a error if the user input is not a number.
+     * @throws IndexOutOfBoundsException catch a error if the input index is out of bound.
+     * @throws IOException if the task cannot be recorded.
+     */
     @Override
-    public List<String> run(String[] fullCommand) throws DukeException, IOException {
+    public List<String> run(String[] fullCommand) throws NumberFormatException, IndexOutOfBoundsException, IOException {
         try {
             Task markItem = tasks.get(Integer.parseInt(fullCommand[1]) - 1);
             markItem.markAsDone();

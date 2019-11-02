@@ -19,9 +19,20 @@ public class Ui {
 
     private Scanner in = new Scanner(System.in);
 
+    /**
+     * Return whether there is another line of input.
+     *
+     * @return whether there is another line of input.
+     */
     boolean hasNextLine(){
         return in.hasNextLine();
     }
+
+    /**
+     * Read a line from the user input.
+     *
+     * @return next line of input.
+     */
     String readCommand(){
 
         return in.nextLine();
@@ -33,9 +44,22 @@ public class Ui {
         showLine();
     }
 
+    /**
+     * Show an error message.
+     *
+     * @param message error message.
+     */
     public void showError(String message){
+        showLine();
         System.out.println(message);
+        showLine();
     }
+
+    /**
+     * Show output of a list messages.
+     *
+     * @param messages the list of messages.
+     */
     public static void printCommand(List<String> messages){
         for (String message : messages){
             System.out.println(message);

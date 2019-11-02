@@ -14,8 +14,14 @@ public class ListCommand implements Command {
         this.tasks = tasks;
     }
 
+    /**
+     * Return a message with the task list.
+     *
+     * @param fullCommand array of command from the user input.
+     * @return message to the user.
+     */
     @Override
-    public List<String> run(String[] fullCommand) throws DukeException, IOException {
+    public List<String> run(String[] fullCommand) {
         List<String> messages = new ArrayList<>();
         messages.add("    Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++){

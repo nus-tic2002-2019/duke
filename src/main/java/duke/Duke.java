@@ -13,6 +13,11 @@ public class Duke {
     private Ui ui;
     private Parser parser;
 
+    /**
+     * Constructs Duke application.
+     *
+     * @param filePath the file path of the save file for tasks storage.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         Storage storage = new Storage(filePath);
@@ -46,6 +51,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Run Duke application.
+     */
     public void run(){
         ui.showWelcome();
         boolean isExit = false;
@@ -71,6 +79,7 @@ public class Duke {
             }
         }
     }
+
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();
     }

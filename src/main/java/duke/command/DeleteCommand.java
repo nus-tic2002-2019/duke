@@ -14,8 +14,18 @@ public class DeleteCommand implements Command {
         this.tasks = tasks;
         this.storage = storage;
     }
+
+    /**
+     * Remove a task according to the index input by the user.
+     *
+     * @param fullCommand array of command from the user input.
+     * @return message to the user.
+     * @throws NumberFormatException catch a error if the user input is not a number.
+     * @throws IndexOutOfBoundsException catch a error if the input index is out of bound.
+     * @throws IOException if the task cannot be recorded.
+     */
     @Override
-    public List<String> run(String[] fullCommand) throws IOException {
+    public List<String> run(String[] fullCommand) throws NumberFormatException, IndexOutOfBoundsException, IOException {
         try {
             Task deleteItem = tasks.remove(Integer.parseInt(fullCommand[1]) - 1);
             storage.store(tasks.ConvertAsLines());
