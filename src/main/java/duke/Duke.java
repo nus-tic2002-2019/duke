@@ -27,7 +27,7 @@ import javafx.scene.image.ImageView;
 /**
  *Represents the creation of the chat-bot.
  * */
-public class Duke extends Application {
+public class Duke extends Application{
 
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -37,7 +37,6 @@ public class Duke extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-
     /**
      * Creation of variables such as storage,
      * task-list
@@ -68,15 +67,17 @@ public class Duke extends Application {
     public void run() throws IOException{
         List<Originator.Memento> savedStates = new ArrayList<Originator.Memento>();
         Originator originator = new Originator();
+        int state=0;
         ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                Parser.parse(fullCommand, savedStates);
-                Command c = Parser.parse(fullCommand, savedStates);
-                originator.set(state + 1);
-                savedStates.add(originator.saveToMemento());
+                Parser.parse(fullCommand,savedStates, originator, tasks,state);
+                Command c = Parser.parse(fullCommand,savedStates, originator,tasks,state);
+                originator.set(state);
+                state+=1;
+                savedStates.add(originator.saveToMemento(tasks.getTaskList()));
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit;
 
@@ -135,23 +136,23 @@ public class Duke extends Application {
     }
 
 
-     @Override
+    @Override
     public void start(Stage stage) {
         //Step 1. Formatting the window to look as expected.
-         scrollPane = new ScrollPane();
-         dialogContainer = new VBox();
-         scrollPane.setContent(dialogContainer);
+        scrollPane = new ScrollPane();
+        dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
 
-         userInput = new TextField();
-         sendButton = new Button("Send");
+        userInput = new TextField();
+        sendButton = new Button("Send");
 
-         AnchorPane mainLayout = new AnchorPane();
-         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
-         scene = new Scene(mainLayout);
+        scene = new Scene(mainLayout);
 
-         stage.setScene(scene);
-         stage.show();
+        stage.setScene(scene);
+        stage.show();
         //...
 
         //Step 2. Formatting the window to look as expected
@@ -185,27 +186,28 @@ public class Duke extends Application {
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
-         sendButton.setOnMouseClicked((event) -> {
-             dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-             userInput.clear();
-         });
+        sendButton.setOnMouseClicked((event) -> {
+            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+            userInput.clear();
+        });
 
-         userInput.setOnAction((event) -> {
-             dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-             userInput.clear();
-         });
-         //Scroll down to the end every time dialogContainer's height changes.
-         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+        userInput.setOnAction((event) -> {
+            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+            userInput.clear();
+        });
+        //Scroll down to the end every time dialogContainer's height changes.
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
-         //Part 3. Add functionality to handle user input.
-         sendButton.setOnMouseClicked((event) -> {
-             handleUserInput();
-         });
+        //Part 3. Add functionality to handle user input.
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
 
-         userInput.setOnAction((event) -> {
-             handleUserInput();
-         });
-     }
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+    }
+
 
 
 }

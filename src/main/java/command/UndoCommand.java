@@ -10,8 +10,8 @@ import java.util.List;
 
 public class UndoCommand extends Command {
 
-    public UndoCommand(String fullCommand, List<Originator.Memento> savedStates, Originator originator) {
-        originator.restoreFromMemento(savedStates.get(1));
+    public UndoCommand(String fullCommand, List<Originator.Memento> savedStates, Originator originator, TaskList taskList, int state) {
+        originator.restoreFromMemento(savedStates.get(state-2),taskList);
     }
 
     /**
