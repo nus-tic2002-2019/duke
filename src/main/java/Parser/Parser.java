@@ -15,7 +15,7 @@ public class Parser {
 
     public static Task t = new Task("");
     private static String task_words, by_words = " ";
-    private static int listPrint, listNum = 1, doneNumber = 1;
+    private static int listPrint, listPrintFind, listNum = 1, doneNumber = 1;
     private static int task_stringIndex_After_taskWord = 0;
 
 
@@ -121,6 +121,25 @@ public class Parser {
                         } catch (IOException e) {
                             System.out.println("Something went wrong" + e.getMessage());
                         }
+                        break;
+
+                    case ("find"):
+
+                        int count_todo_find = Ui.task_count;
+                        System.out.println(Ui.seperatorLine2);
+                        System.out.println("Here are the matching task in your list");
+
+                        task_words = Parser.parseEventDeadlineTask(full_user_input);
+                        task_words = task_words.trim();
+                        for (listPrintFind = 0; listPrintFind < count_todo_find; listPrintFind++) {
+                            if(TaskList.getTaskList(listPrintFind).contains(task_words)){
+                                System.out.println("        " + listNum + ". " + "[" + Ui.mark[listPrintFind] + "]" + TaskList.getTaskList(listPrintFind));
+                            }
+
+                            listNum++;
+                        }
+                        listNum = 1;
+                        System.out.println(Ui.seperatorLine2);
                         break;
 
                     case ("bye"):
