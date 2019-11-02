@@ -31,12 +31,14 @@ public class Storage {
                             tasks.get(tasks.size() - 1).markAsDone();
                         break;
                     case "E":
-                        tasks.add(new Event(command[2].trim(), command[3].trim(), Parser.converted_date(command[3].trim())));
+                        tasks.add(new Event(command[2].trim(), command[3].trim(),
+                                Parser.convertDate(command[3].trim())));
                         if (command[1].trim().equals("\u2713"))
                             tasks.get(tasks.size() - 1).markAsDone();
                         break;
                     case "D":
-                        tasks.add(new Deadline(command[2].trim(), command[3].trim(), Parser.converted_date(command[3].trim())));
+                        tasks.add(new Deadline(command[2].trim(), command[3].trim(),
+                                Parser.convertDate(command[3].trim())));
                         if (command[1].trim().equals("\u2713"))
                             tasks.get(tasks.size() - 1).markAsDone();
                         break;

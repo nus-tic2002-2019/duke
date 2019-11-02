@@ -50,7 +50,7 @@ public class Parser {
      * @param date date in string.
      * @return date in Date.
      * */
-    public static Date converted_date(String date) {
+    public static Date convertDate(String date) {
         SimpleDateFormat format = new SimpleDateFormat ("dd-MM-yyyy");
         Date covertDate;
         try {

@@ -1,6 +1,6 @@
 import duke.task.Task;
 
-import java.util.*;
+import java.util.ArrayList;
 
 public class Duke {
     private ArrayList<Task> tasks;
@@ -10,7 +10,7 @@ public class Duke {
      * @param filePath file address.
      * */
     private Duke(String filePath){
-        this.tasks = new ArrayList<>();;
+        this.tasks = new ArrayList<>();
         this.filePath = filePath;
     }
 
@@ -22,13 +22,13 @@ public class Duke {
             try {
                 String line = UI.readCommand();
                 Command c = new Command(line);
-                UI.split_line();
+                UI.splitLine();
                 c.execute(tasks, filePath);
                 isExit = c.isExit;
             } catch (Exception e) {
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             } finally {
-                UI.split_line();
+                UI.splitLine();
             }
         }
     }

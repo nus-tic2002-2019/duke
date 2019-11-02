@@ -22,19 +22,22 @@ public class Command {
     private static void CheckFirstWord(String s) throws CommandException {
         if ( !(s.equals("todo" ) || s.equals( "deadline") || s.equals( "event")
                 || s.equals( "bye") || s.equals( "list") || s.equals( "done")
-                || s.equals("delete") || s.equals("find")) )
+                || s.equals("delete") || s.equals("find")) ) {
             throw new CommandException();
+        }
     }
 
     private static void CheckNumber(int size, int index) throws InvalidNumberException {
-        if (index >= size || index < 0)
+        if (index >= size || index < 0) {
             throw new InvalidNumberException();
+        }
     }
 
     private static void CheckElement(String command) throws LackOfElementException {
         if (  command.equals("todo") || command.equals("deadline") || command.equals("event")
-                || command.equals("done")|| command.equals("delete") || command.equals("find") )
+                || command.equals("done")|| command.equals("delete") || command.equals("find") ) {
             throw new LackOfElementException();
+        }
     }
     /**
      * Execute new command.
@@ -53,17 +56,17 @@ public class Command {
 
         switch (command){
             case "bye":
-                UI.bye_message();
+                UI.byeMessage();
                 isExit = true;
                 break;
             case "list":
-                UI.list_message(tasks);
+                UI.listMessage(tasks);
                 break;
             case "done":
                 try {
                     CheckElement(fullCommand);
                     CheckNumber(size, Parser.taskNumber(fullCommand));
-                    TaskList.done_command(tasks, filePath, fullCommand);
+                    TaskList.doneCommand(tasks, filePath, fullCommand);
                 } catch (LackOfElementException e) {
                     System.out.println("OOPS!!! Pls key in the number of the task");
                 } catch (InvalidNumberException e) {
@@ -74,7 +77,7 @@ public class Command {
                 try {
                     CheckElement(fullCommand);
                     CheckNumber(size, Parser.taskNumber(fullCommand));
-                    TaskList.delete_command(tasks, filePath, fullCommand);
+                    TaskList.deleteCommand(tasks, filePath, fullCommand);
                 } catch (LackOfElementException e) {
                     System.out.println("OOPS!!! Pls key in the number of the task");
                 } catch (InvalidNumberException e) {
@@ -84,7 +87,7 @@ public class Command {
             case "todo":
                 try {
                     CheckElement(fullCommand);
-                    TaskList.addTodo_command(tasks, filePath, fullCommand);
+                    TaskList.addTodoCommand(tasks, filePath, fullCommand);
                 } catch (LackOfElementException e) {
                     System.out.println("OOPS!!! Pls key in the description for the task");
                 }
@@ -92,7 +95,7 @@ public class Command {
             case "deadline":
                 try {
                     CheckElement(fullCommand);
-                    TaskList.addDeadline_command(tasks, filePath, fullCommand);
+                    TaskList.addDeadlineCommand(tasks, filePath, fullCommand);
                 } catch (LackOfElementException e) {
                     System.out.println("OOPS!!! Pls key in the description for the task");
                 }
@@ -100,7 +103,7 @@ public class Command {
             case "event":
                 try {
                     CheckElement(fullCommand);
-                    TaskList.addEvent_command(tasks, filePath, fullCommand);
+                    TaskList.addEventCommand(tasks, filePath, fullCommand);
                 } catch (LackOfElementException e) {
                     System.out.println("OOPS!!! Pls key in the description for the task");
                 }
@@ -108,7 +111,7 @@ public class Command {
             case "find":
                 try {
                     CheckElement(fullCommand);
-                    TaskList.find_command(tasks, fullCommand);
+                    TaskList.findCommand(tasks, fullCommand);
                 } catch (LackOfElementException e) {
                     System.out.println("OOPS!!! Pls key in the description for finding");
                 }

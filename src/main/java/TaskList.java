@@ -15,10 +15,10 @@ public class TaskList {
      * @param filePath file address.
      * @param fullCommand user full command.
      * */
-    public static void done_command (ArrayList<Task> tasks, String filePath, String fullCommand) {
+    public static void doneCommand (ArrayList<Task> tasks, String filePath, String fullCommand) {
         tasks.get(Parser.taskNumber(fullCommand)).markAsDone();
         Storage.saveFile(filePath, tasks);
-        UI.done_message(tasks, Parser.taskNumber(fullCommand));
+        UI.doneMessage(tasks, Parser.taskNumber(fullCommand));
     }
     /**
      * Method to deal with delete.
@@ -26,9 +26,9 @@ public class TaskList {
      * @param filePath file address to be updated.
      * @param fullCommand user full command.
      * */
-    public static void delete_command (ArrayList<Task> tasks, String filePath, String fullCommand) {
+    public static void deleteCommand (ArrayList<Task> tasks, String filePath, String fullCommand) {
         int index = Parser.taskNumber(fullCommand);
-        UI.delete_message(tasks, index);
+        UI.deleteMessage(tasks, index);
         tasks.remove(index);
         Storage.saveFile(filePath, tasks);
     }
@@ -38,12 +38,12 @@ public class TaskList {
      * @param filePath file address to be updated.
      * @param fullCommand user full command.
      * */
-    public static void addTodo_command (ArrayList<Task> tasks, String filePath, String fullCommand) {
+    public static void addTodoCommand (ArrayList<Task> tasks, String filePath, String fullCommand) {
         String description = Parser.description(fullCommand);
         Task t = new Todo(description);
         tasks.add(t);
         Storage.saveFile(filePath, tasks);
-        UI.add_message(t, tasks.size());
+        UI.addMessage(t, tasks.size());
     }
     /**
      * Method to deal with add Deadline.
@@ -51,18 +51,18 @@ public class TaskList {
      * @param filePath file address to be updated.
      * @param fullCommand user full command.
      * */
-    public static void addDeadline_command (ArrayList<Task> tasks, String filePath, String fullCommand){
+    public static void addDeadlineCommand (ArrayList<Task> tasks, String filePath, String fullCommand){
         String description = Parser.description(fullCommand);
         String date = Parser.date(fullCommand);
         if (!date.equals("0")) {
-            Date by = Parser.converted_date(date);
-            if (by.before(new Date()))
+            Date by = Parser.convertDate(date);
+            if (by.before(new Date())) {
                 System.out.println("Deadline date cannot be earlier than now!");
-            if (by.after(new Date())) {
+            } else {
                 Task t = new Deadline(description, date, by);
                 tasks.add(t);
                 Storage.saveFile(filePath, tasks);
-                UI.add_message(t, tasks.size());
+                UI.addMessage(t, tasks.size());
             }
         }
     }
@@ -72,18 +72,18 @@ public class TaskList {
      * @param filePath file address to be updated.
      * @param fullCommand user full command.
      * */
-    public static void addEvent_command (ArrayList<Task> tasks, String filePath, String fullCommand){
+    public static void addEventCommand (ArrayList<Task> tasks, String filePath, String fullCommand){
         String description = Parser.description(fullCommand);
         String date = Parser.date(fullCommand);
         if (!date.equals("0")) {
-            Date at = Parser.converted_date(date);
-            if (at.before(new Date()))
+            Date at = Parser.convertDate(date);
+            if (at.before(new Date())) {
                 System.out.println("Event date cannot be earlier than now!");
-            if (at.after(new Date())) {
+            } else {
                 Task t = new Event(description, date, at);
                 tasks.add(t);
                 Storage.saveFile(filePath, tasks);
-                UI.add_message(t, tasks.size());
+                UI.addMessage(t, tasks.size());
             }
         }
     }
@@ -92,7 +92,7 @@ public class TaskList {
      * @param tasks task list for finding.
      * @param fullCommand user full command.
      * */
-    public static void find_command (ArrayList<Task> tasks, String fullCommand){
+    public static void findCommand (ArrayList<Task> tasks, String fullCommand){
         System.out.println("Here are the matching tasks in your list:");
         int index = 1;
         String description = Parser.description(fullCommand);
