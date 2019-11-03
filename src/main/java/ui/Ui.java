@@ -79,48 +79,38 @@ public class Ui {
                 case "todo":
                     if (textInputArr[1].isEmpty()) throw new DukeException("todo");
                     taskList.addTodo(new Todo(textInputArr[1]));
-                    /*try{
-                        storage.save(fileName,"T", textInputArr[1], " ", false);
-                    } catch (IOException e){
-                        System.out.println("Something went wrong: " + e.getMessage());
-                    }*/
                     break;
                 case "deadline":
                     if (textInputArr[1].isEmpty()) throw new DukeException("deadline");
                     String textDeadline[] = textInputArr[1].split("/by", 2);
                     if (textDeadline.length < 2) throw new DukeException("/by");
                     tasks.addDeadlines(new Deadlines(textDeadline[0], textDeadline[1]));
-                    /*try{
-                        storage.save(fileName,"D", textDeadline[0], textDeadline[1], false);
-                    } catch (IOException e){
-                        System.out.println("Something went wrong: " + e.getMessage());
-                    }*/
                     break;
                 case "event":
                     if (textInputArr[1].isEmpty()) throw new DukeException("event");
                     String textEvent[] = textInputArr[1].split("/at", 2);
                     if (textEvent.length < 2) throw new DukeException("/at");
                     tasks.addEvent(new Event(textEvent[0], textEvent[1]));
-                    /*try{
-                        storage.save(fileName,"E", textEvent[0], textEvent[1], false);
-                    } catch (IOException e){
-                        System.out.println("Something went wrong: " + e.getMessage());
-                    }*/
                     break;
-                case "save":
+               /* case "save":
                     try{
                         storage.saveList(fileName, tasks);
                     } catch (IOException e){
                         System.out.println("Something went wrong: " + e.getMessage());
                     }
-                    break;
+                    break;*/
                 case "bye":
                     dukeBye();
                     break;
                 default:
                     throw new DukeException(textInputArr[1]);
             }
-        } catch (IndexOutOfBoundsException e){
+            storage.saveList(fileName, tasks);
+        }
+        catch (IOException e){
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+        catch (IndexOutOfBoundsException e){
             throw new DukeException(textInputArr[0]);
         }
         catch (DukeException e){

@@ -20,4 +20,9 @@ public class Event extends Task {
     public String getDescription() {
         return "[E]" + "[" + getStatusIcon() + "]" + super.getDescription() + " (at: " + at + ")";
     }
+
+    public String saveToFile(){
+        int taskStatus = isDone ? 1:0;
+        return "E | " + taskStatus + " | " + super.getDescription() + " | " + at + "\r";
+    }
 }

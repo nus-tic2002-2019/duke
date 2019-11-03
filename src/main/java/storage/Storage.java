@@ -55,40 +55,14 @@ public class Storage {
     }
 
     public void saveList(String fileName, taskList tasks) throws IOException{
-      // FileWriter taskSave = new FileWriter(fileName);
+      FileWriter taskSave = new FileWriter(fileName);
         ArrayList<Task> taskList = tasks.getList();
         for (Task eachTask:taskList){
-            c = eachTask.getClass();
+            //System.out.println(eachTask.saveToFile());
+            taskSave.write(eachTask.saveToFile());
 
-            switch(eachTask.getClass().getSimpleName()){
-                case "Todo":
-                    taskDescription = eachTask.getDescription().substring(6);
-                    System.out.println(taskDescription);
-                    break;
-                case "Deadlines":
-                    indexOfBracket = eachTask.getDescription().indexOf("(");
-                    indexOfDate = eachTask.getDescription().indexOf(":");
-                    indexOfEndBracket = eachTask.getDescription().indexOf(")");
-                    taskDescription = eachTask.getDescription().substring(6,indexOfBracket);
-                    taskDate = eachTask.getDescription().substring(indexOfDate+1, indexOfEndBracket);
-                    statusValue = eachTask.getStatus() ? 1:0;
-                    System.out.println("D | " + statusValue + " | " + taskDescription + " | " + taskDate);
-                    break;
-                case "Event":
-                    indexOfBracket = eachTask.getDescription().indexOf("(");
-                    indexOfDate = eachTask.getDescription().indexOf(":");
-                    indexOfEndBracket = eachTask.getDescription().indexOf(")");
-                    taskDescription = eachTask.getDescription().substring(6,indexOfBracket);
-                    taskDate = eachTask.getDescription().substring(indexOfDate+1, indexOfEndBracket);
-                    statusValue = eachTask.getStatus() ? 1:0;
-                    System.out.println("E | " + statusValue + " | " + taskDescription + " | " + taskDate);
-                    System.out.println(taskDescription + statusValue);
-                    break;
-            }
-            //System.out.println(eachTask.getDescription() + eachTask.getClass().getSimpleName());
-            //taskSave.write("\r\n" + task);
         }
-      //  taskSave.close();
+      taskSave.close();
     }
 }
 

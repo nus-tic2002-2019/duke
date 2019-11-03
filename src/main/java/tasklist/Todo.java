@@ -19,4 +19,9 @@ public class Todo extends Task {
         return "[T]" + "[" + getStatusIcon() + "]" + super.getDescription();
     }
 
+    public String saveToFile(){
+        int taskStatus = isDone ? 1:0;
+        return "T | " + taskStatus + " | " + super.getDescription() + "\r";
+    }
+
 }

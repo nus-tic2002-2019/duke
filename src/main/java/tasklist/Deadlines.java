@@ -31,6 +31,11 @@ public class Deadlines extends Task {
         return by;
     }
 
+    public String saveToFile(){
+        int taskStatus = isDone ? 1:0;
+        return "D | " + taskStatus + " | " + super.getDescription() + " | " + by + "\r";
+    }
+
 
 
 }
