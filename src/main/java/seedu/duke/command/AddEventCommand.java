@@ -56,6 +56,7 @@ public class AddEventCommand extends Command{
                     String date = String.join(" ", Arrays.copyOfRange(input.split(" "), index, input.split(" ").length));
                     event = new Event (description, stringToDate(date));
                     taskList.addToTaskList(event);
+                    assert taskList.getSize() > 0;
                     ui.setOutput(MESSAGE_ADD_EVENT_SUCCESS + event.toString() + "\n\t Now you have " + taskList.getSize() + " tasks in the list.");
                     storage.saveToFile();
                 }

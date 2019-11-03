@@ -38,6 +38,7 @@ public class AddToDoCommand extends Command{
         }
         todo = new ToDo(input.substring(5));
         taskList.addToTaskList(todo);
+        assert taskList.getSize() > 0;
         ui.setOutput(MESSAGE_ADD_TODO_SUCCESS + todo.toString() + "\n\t Now you have " + taskList.getSize() + " tasks in the list.");
         storage.saveToFile();
     }

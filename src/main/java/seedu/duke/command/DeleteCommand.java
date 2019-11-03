@@ -33,6 +33,11 @@ public class DeleteCommand extends Command{
         if(input.substring(6).trim().isEmpty()){
             throw new DukeException("The selector of a delete cannot be empty.");
         }
+        if(taskList.getSize() == 0){
+            throw new DukeException("The tasks list cannot be empty.");
+        }
+
+        assert taskList.getSize() > 0;
         try{
         index = prepareIndex(input);
         ui.setOutput(MESSAGE_DELETE_SUCCESS + taskList.getTask(index).toString());
@@ -40,8 +45,6 @@ public class DeleteCommand extends Command{
         storage.saveToFile();
         } catch (NumberFormatException e){
             throw new DukeException("The task selected must be a numerical value.");
-        } catch (IndexOutOfBoundsException e){
-            throw new DukeException("The tasks list cannot be empty.");
         }
     }
     

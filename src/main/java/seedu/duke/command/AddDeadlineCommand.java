@@ -58,6 +58,7 @@ public class AddDeadlineCommand extends Command{
                     String date = String.join(" ", Arrays.copyOfRange(input.split(" "), index, input.split(" ").length));
                     deadline = new Deadline(description, stringToDate(date));
                     taskList.addToTaskList(deadline);
+                    assert taskList.getSize() > 0;
                     ui.setOutput(MESSAGE_ADD_DEADLINE_SUCCESS + deadline.toString() + "\n\t Now you have " + taskList.getSize() + " tasks in the list.");
                     storage.saveToFile();
                 }

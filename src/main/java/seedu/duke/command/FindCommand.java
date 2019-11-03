@@ -41,6 +41,7 @@ public class FindCommand extends Command{
             throw new DukeException("The tasks list cannot be empty.");
         }
 
+        assert taskList.getSize() > 0;
         input = input.substring(5);
         boolean isMatch = false;
         List<String> matchedTasks = new ArrayList<>();
