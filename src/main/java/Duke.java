@@ -1,9 +1,42 @@
-import java.lang.reflect.Array;
+import java.io.FileWriter;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Scanner;
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.io.IOException;
+import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Duke {
+
+    public static final String LOGO =
+            " ____        _        \n"
+                    + "|  _ \\ _   _| | _____ \n"
+                    + "| | | | | | | |/ / _ \\\n"
+                    + "| |_| | |_| |   <  __/\n"
+                    + "|____/ \\__,_|_|\\_\\___|\n";
+
+    public static final String DIVIDER = "\n" + "    " + "____________________________________________________________" + "\n" + "    ";
+    public static final String graphicalFormatStart = ("    " + "____________________________________________________________" + "\n" + "    ");
+    public static final String graphicalFormatEnd = ("\n" + "    " + "____________________________________________________________");
+
+//    String line = "____________________________________________________________";
+//    String spaces = "    ";
+//    String nextLine = "\n";
+
+/**********************************************************************************************************************
+ * Public UI class.
+ **********************************************************************************************************************/
+    public static void textUI() {
+
+        System.out.print(
+                "Hello from" + "\n" + LOGO + DIVIDER
+                + "Hello! I'm Duke" + "\n" + "    "
+                + "What can I do for you?" +
+                DIVIDER);
+    }
 
 /**********************************************************************************************************************
 * Task Class [Superclass]
@@ -30,7 +63,7 @@ public class Duke {
         }
         public String toString() { return getStatusIcon() + " " + getTask();}
 
-    }
+}
 /**********************************************************************************************************************
 * todo [Subclass] , Parent : Task
 **********************************************************************************************************************/
@@ -66,6 +99,7 @@ public class Duke {
         public String toString() {
             return "[D]" + super.toString() + " (by: " + by + ")";
         }
+        public String getBy() {return by;}
     }
 
 /**********************************************************************************************************************
@@ -86,12 +120,29 @@ public class Duke {
         public String toString() {
             return "[E]" + super.toString() + " (at: " + by +") ";
         }
+        public String getBy() {return by;}
     }
-
 // My arraylist was of type Task. Hence to access subclasses, downcasting is required to access the subclass-methods.
     public static void downcastToTodo(Task abc) {
         Todo taskAssigned = (Todo) abc;
     }
+    public static void downcastToDeadline(Task abc) {
+        Deadline taskAssigned = (Deadline) abc;
+    }
+    public static void downcastToEvents(Task abc) {
+        Events taskAssigned = (Events) abc;
+    }
+    public static Todo downcastToTodo_1(Task abc) {
+        return (Todo) abc;
+    }
+    public static Deadline downcastToDeadline_1(Task abc) {
+        return (Deadline) abc;
+    }
+
+    public static Events downcastToEvents_1(Task abc) {
+        return (Events) abc;
+    }
+
 
 /**********************************************************************************************************************
  * list Function.
@@ -118,6 +169,16 @@ public static void list(ArrayList<Task> ultimateStorage, String userResponse) {
                     + "."
                     + ele.toString()
             );
+        } else if (ele instanceof Deadline) {
+            downcastToDeadline(ele);
+            System.out.println(ultimateStorage.indexOf(ele)+1
+                    + "."
+                    + ele.toString());
+        } else if (ele instanceof Events) {
+            downcastToEvents(ele);
+            System.out.println(ultimateStorage.indexOf(ele) + 1
+                    + "."
+                    + ele.toString());
         } else {
             // This could change into a function call printList. For reuse-and better code readability.
             System.out.println(ultimateStorage.indexOf(ele)+1 + "."
@@ -217,21 +278,34 @@ public static void parseStoreAndPrintEventTask(ArrayList<Task> ultimateStorage, 
     }
 
     if (eventKeywordFound) {
+        Boolean duplicates = false;
         String reSentence = userResponse.replaceAll(keyword, "");
         //To filter out relevant words.
         String eventDesc = reSentence.substring(0,reSentence.indexOf("at") - 1);
         String eventAt = reSentence.substring(reSentence.indexOf("at")+ 3);
         Events event = new Events(eventDesc,eventAt);
-        ultimateStorage.add(event);
 
-        System.out.println(
-                graphicalFormatEnd
-                        + "\n"
-                        + spaces + "Got it. I've added this task: \n  " + spaces
-                        + ultimateStorage.get(ultimateStorage.indexOf(event)).toString()
-                        + "\n" + spaces + "Now you have " + ultimateStorage.size() + " tasks in the list."
-                        + graphicalFormatEnd
-        );
+        for (Task task : ultimateStorage) {
+            if (event.getTask().equals(task.getTask())){
+                System.out.println(spaces + "You have the same task in list. It's a duplicate!" + nextLine
+                        + graphicalFormatEnd);
+                duplicates = true;
+            }
+        }
+
+        if(!duplicates) {
+
+            ultimateStorage.add(event);
+
+            System.out.println(
+                    graphicalFormatEnd
+                            + "\n"
+                            + spaces + "Got it. I've added this task: \n  " + spaces
+                            + ultimateStorage.get(ultimateStorage.indexOf(event)).toString()
+                            + "\n" + spaces + "Now you have " + ultimateStorage.size() + " tasks in the list."
+                            + graphicalFormatEnd
+            );
+        }
     }
 }
 
@@ -251,6 +325,7 @@ public static void parseStoreAndPrintEventTask(ArrayList<Task> ultimateStorage, 
         String nextLine = "\n";
         String keyword = null;
         Boolean todoKeywordFound = false;
+        Boolean duplicates = false;
 //    Boolean deadlineKeywordFound = false;
 
         for(String item : todoKeywords) {
@@ -264,15 +339,26 @@ public static void parseStoreAndPrintEventTask(ArrayList<Task> ultimateStorage, 
             String reSentence = userResponse.replaceAll(keyword, "");
             //To filter out relevant words.
             Todo td = new Todo(reSentence);
-            ultimateStorage.add(td);
-            System.out.println(
-                    graphicalFormatEnd
-                            + "\n"
-                            + spaces + "Got it. I've added this task: \n  " + spaces
-                            + ultimateStorage.get(ultimateStorage.indexOf(td)).toString()
-                            + "\n" + spaces + "Now you have " + ultimateStorage.size() + " tasks in the list."
-                            + graphicalFormatEnd
-            );
+
+            for (Task task : ultimateStorage) {
+                if (td.getTask().equals(task.getTask())){
+                    System.out.println(spaces + "You have the same task in list. It's a duplicate!" + nextLine
+                                        + graphicalFormatEnd);
+                    duplicates = true;
+                }
+            }
+
+            if(!duplicates) {
+                ultimateStorage.add(td);
+                System.out.println(
+                        graphicalFormatEnd
+                                + "\n"
+                                + spaces + "Got it. I've added this task: \n  " + spaces
+                                + ultimateStorage.get(ultimateStorage.indexOf(td)).toString()
+                                + "\n" + spaces + "Now you have " + ultimateStorage.size() + " tasks in the list."
+                                + graphicalFormatEnd
+                );
+            }
         }
     }
 
@@ -280,7 +366,7 @@ public static void parseStoreAndPrintEventTask(ArrayList<Task> ultimateStorage, 
  * parseStoreAndPrintTodoTask Function.
  **********************************************************************************************************************/
 
-public static void parseStoreAndPrintDeadlineTask(ArrayList<Task> ultimateStorage, String userResponse, String[] deadlineKeywords) {
+public static void  parseStoreAndPrintDeadlineTask(ArrayList<Task> ultimateStorage, String userResponse, String[] deadlineKeywords) {
 
     String graphicalFormatStart = ("    "
             + "____________________________________________________________"
@@ -292,6 +378,7 @@ public static void parseStoreAndPrintDeadlineTask(ArrayList<Task> ultimateStorag
     String nextLine = "\n";
     String keyword = null;
     Boolean deadlineKeywordFound = false;
+    Boolean duplicates = false;
 
     for (String item : deadlineKeywords) {
         if (userResponse.startsWith(item)) {
@@ -304,21 +391,40 @@ public static void parseStoreAndPrintDeadlineTask(ArrayList<Task> ultimateStorag
     // To filter out relevant words.
     String deadlineDesc = reSentence.substring(0,reSentence.indexOf("by") - 1);
     String by = reSentence.substring(reSentence.indexOf("by")+ 3);
+
+    int year = Integer.parseInt(by.substring(0,4));
+    int month = Integer.parseInt(by.substring(5,7));
+    LocalDate today = LocalDate.now();
+
+
     //System.out.println(deadlineDesc);
-    //System.out.println(by);
+
     Deadline deadline = new Deadline(deadlineDesc,by);
-    ultimateStorage.add(deadline);
 
-    System.out.println(
-            graphicalFormatEnd
-                    + "\n"
-                    + spaces + "Got it. I've added this task: \n  " + spaces
-                    + ultimateStorage.get(ultimateStorage.indexOf(deadline)).toString()
-                    + "\n" + spaces + "Now you have " + ultimateStorage.size() + " tasks in the list."
-                    + graphicalFormatEnd
-    );
+/************************************************************************
+ * Check if there is duplicates.
+************************************************************************/
+
+    for (Task task : ultimateStorage) {
+        if (deadline.getTask().equals(task.getTask())){
+            System.out.println(spaces + "You have the same task in list. It's a duplicate!" + nextLine
+                    + graphicalFormatEnd);
+            duplicates = true;
+        }
+    }
+    if(!duplicates) {
+        ultimateStorage.add(deadline);
+
+        System.out.println(
+                graphicalFormatEnd
+                        + "\n"
+                        + spaces + "Got it. I've added this task: \n  " + spaces
+                        + ultimateStorage.get(ultimateStorage.indexOf(deadline)).toString()
+                        + "\n" + spaces + "Now you have " + ultimateStorage.size() + " tasks in the list."
+                        + graphicalFormatEnd
+        );
+    }
 }
-
 /**********************************************************************************************************************
  * Exceptions
 **********************************************************************************************************************/
@@ -357,8 +463,18 @@ public static class DukeExceptions extends Exception {
         } else return false;
     }
 }
-    public static void main(String[] args) throws DukeExceptions {
 
+/**********************************************************************************************************************
+* Exceptions
+***********************************************************************************************************************/
+
+private static void writeToFile(String filePath, String textToAdd) throws IOException {
+    FileWriter fw = new FileWriter(filePath);
+    fw.write(textToAdd);
+    fw.close();
+}
+
+    public static void main(String[] args) throws DukeExceptions, IOException {
 /**********************************************************************************************************************
  * Variables.
  **********************************************************************************************************************/
@@ -380,30 +496,21 @@ public static class DukeExceptions extends Exception {
         String[] eventKeywords = new String[]{"Event ", "event ", "EVENTS "};
         String[] todoKeywords = new String[]{"Todo ", "todo ", "TODO "};
         String[] deadlineKewords = new String[]{"Deadline ", "deadline ", "DEADLINE "};
+        //writeToFile test = new writeToFile();
+        String pathToStore = "C:/Users/Lucas/Desktop/Duke/dukey.txt";
 
 
-/**********************************************************************************************************************
+
+/*********************************************************
  * Formatting
- **********************************************************************************************************************/
+ *********************************************************/
 
-        String graphicalFormatStart = ("    "
-                + "____________________________________________________________"
-                + "\n"
-                + "    ");
+        textUI();
 
-        String graphicalFormatEnd = ("\n" + "    " + "____________________________________________________________");
-
-        System.out.println("Hello from" + nextLine + logo);
-        System.out.println(spaces + line);
-        System.out.println(spaces
-                +"Hello! I'm Duke"
-                + nextLine + spaces
-                + "What can I do for you?"
-                + nextLine + spaces + line);
-
-/**********************************************************************************************************************
- * Level One + Level Two + To be honest... all the levels are in between being mixed up..
- **********************************************************************************************************************/
+/*********************************************************
+ * Level One + Level Two + To be honest...
+ * all the levels are in between being mixed up..
+ *********************************************************/
 
         while (true) {
             String userResponse = scanInput.nextLine();
@@ -443,7 +550,6 @@ public static class DukeExceptions extends Exception {
                                 + "\n"
                                 + graphicalFormatEnd);
             }
-
             else if (userResponse.startsWith("Deadline") || userResponse.startsWith("DEADLINE") || userResponse.startsWith("deadline")) {
                 parseStoreAndPrintDeadlineTask(ultimateStorage,userResponse,deadlineKewords);
             }
@@ -470,6 +576,70 @@ public static class DukeExceptions extends Exception {
         System.out.println(graphicalFormatStart
                 +"Bye. Hope to see you again soon!"
                 + graphicalFormatEnd);
-        //System.out.println(Arrays.toString(content)); // use to check variables in arrays.
+
+
+ /*********************************************************
+ * Write to File.
+ *********************************************************/
+        File file = new File(pathToStore);
+        if (file.createNewFile()) {
+            System.out.println("File is created!");
+        } else {
+            System.out.println("File already exists.");
+        }
+
+        FileWriter writer = new FileWriter(file);
+
+        try {
+            for(Task task: ultimateStorage) {
+
+                int doneStatus = 0;
+                if (task.isDone) {
+                    doneStatus = 1;
+                } else {
+                    doneStatus = 0;
+                }
+                if (task.getClass().getSimpleName().equals("Todo")) {
+                    writer.write(
+                                "Todo    "
+                                    + " | "
+                                    + doneStatus +  " | "
+                                    + task.getTask()
+                                    + System.lineSeparator());
+                }
+                else if (task.getClass().getSimpleName().equals("Deadline")) {
+                    Deadline temp = downcastToDeadline_1(task);
+                    writer.write(
+                                "Deadline"
+                                    + " | "
+                                    + doneStatus +  " | "
+                                    + temp.getTask() + " | "
+                                    + temp.getBy()
+                                    + System.lineSeparator());
+                }
+                else if (task.getClass().getSimpleName().equals("Events")) {
+                    Events temp = downcastToEvents_1(task);
+                    writer.write(
+                            "Events  "
+                                    + " | "
+                                    + doneStatus +  " | "
+                                    + temp.getTask() + " | "
+                                    + temp.getBy()
+                                    + System.lineSeparator());
+                } else {
+                    writer.write("Normal  "
+                            + " | "
+                            + doneStatus +  " | "
+                            + task.getTask() + " | "
+                            + System.lineSeparator());
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+        writer.close();
+
+//        System.out.println(Arrays.toString(content)); // use to check variables in arrays.
+//        test.writeToFile(ultimateStorage);
     }
 }
