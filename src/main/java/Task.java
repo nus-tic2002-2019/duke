@@ -1,4 +1,7 @@
-public class Task {
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Task implements Serializable {
     protected String taskName;
     protected boolean taskDone;
 
@@ -42,5 +45,19 @@ public class Task {
     public void markAsDone()
     {
         taskDone = true;
+    }
+
+    @Override
+    public void write(FileWriter storage) throws IOException {
+        storage.write(taskName + "\n");
+        if(taskDone)
+        {
+            storage.write("true\n");
+        }
+        else
+        {
+            storage.write("false\n");
+        }
+
     }
 }
