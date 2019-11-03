@@ -10,8 +10,8 @@ import java.util.Date;
 
 
 public class Deadline extends Task {
-    protected Date date_by;
-    SimpleDateFormat format1 = new SimpleDateFormat("dd-MMM-yy hh:mm a");
+    private Date date_by;
+    private SimpleDateFormat format1 = new SimpleDateFormat("dd-MMM-yy hh:mm a");
 
     public Deadline(String description, String by) throws ParseException {
         super(description);

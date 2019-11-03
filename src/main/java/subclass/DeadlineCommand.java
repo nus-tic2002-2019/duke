@@ -13,7 +13,7 @@ import java.text.ParseException;
 public class DeadlineCommand extends Command {
     public static final String INPUT = "deadline";
 
-    public DeadlineCommand(boolean isExit, String input) {
+    DeadlineCommand(boolean isExit, String input) {
         super(isExit, input);
     }
 

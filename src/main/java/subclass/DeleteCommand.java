@@ -4,7 +4,7 @@ public class DeleteCommand extends Command {
     public static final String INPUT = "delete";
     //private int task_no;
 
-    public DeleteCommand(boolean isExit, String input) {
+    DeleteCommand(boolean isExit, String input) {
         super(isExit, input);
     }
 
