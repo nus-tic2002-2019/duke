@@ -1,4 +1,6 @@
-public class DukeChildException {
+package DukeExceptions;
+
+public class DukeMainException {
 
     //command entered without description
     public static class nullDescription extends DukeBaseException {

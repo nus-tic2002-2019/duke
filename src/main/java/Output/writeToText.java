@@ -1,3 +1,7 @@
+package Output;
+
+import DukeItems.Task;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;

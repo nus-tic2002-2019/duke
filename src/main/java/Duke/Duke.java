@@ -1,5 +1,13 @@
+package Duke;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+import DukeExceptions.DukeMainException;
+import DukeItems.Deadline;
+import DukeItems.Event;
+import DukeItems.Task;
+import DukeItems.Todo;
+import Output.writeToText;
 
 public class Duke {
 
@@ -64,7 +72,7 @@ public class Duke {
                      */
                     try {
                         if (input.equals("done")) {
-                            throw new DukeMainException.invalidInput("Task number required!");
+                            throw new DukeMainException.invalidInput("DukeItems.Task number required!");
                         }
                         String[] split = input.split(" "); //split input
                         int doneNum = Integer.parseInt(split[1]); //storing list number
@@ -82,17 +90,17 @@ public class Duke {
                 case "delete":
                     try {
                         if (input.equals("delete")) {
-                            throw new DukeMainException.invalidInput("Task number required!");
+                            throw new DukeMainException.invalidInput("DukeItems.Task number required!");
                         }
                         String[] split = input.split(" ");
                         int delNum = Integer.parseInt((split[1]));
 
                         if (delNum > userList.size()) {
-                            throw new DukeMainException.invalidInput("Task number does not exist!");
+                            throw new DukeMainException.invalidInput("DukeItems.Task number does not exist!");
                         }
 
                         if (delNum == 0) {
-                            throw new DukeMainException.invalidInput("Task number does not exist!");
+                            throw new DukeMainException.invalidInput("DukeItems.Task number does not exist!");
                         }
 
                         System.out.println("__________________________________________________________________");
@@ -111,13 +119,13 @@ public class Duke {
                 case "todo":
                     try {
                         if (input.equals("todo")) {
-                            throw new DukeMainException.nullDescription("Task description required!");
+                            throw new DukeMainException.nullDescription("DukeItems.Task description required!");
                         }
                         String todo = input.substring(4);
                         Todo todoTask = new Todo(todo);
                         userList.add(todoTask);
                         System.out.println("__________________________________________________________________");
-                        System.out.println("Okie dokie! Task added: " + System.lineSeparator() + todoTask.toString());
+                        System.out.println("Okie dokie! DukeItems.Task added: " + System.lineSeparator() + todoTask.toString());
                         System.out.println("__________________________________________________________________");
                     } catch (DukeMainException.nullDescription e) {
                         e.printStackTrace();
@@ -127,7 +135,7 @@ public class Duke {
                 case "deadline":
                     try{
                         if (input.equals("deadline")){
-                            throw new DukeMainException.nullDescription("Task description required!");
+                            throw new DukeMainException.nullDescription("DukeItems.Task description required!");
                         }
                         if (!input.contains("/by")){
                             throw new DukeMainException.nullDescription("Description has invalid format!");
@@ -151,7 +159,7 @@ public class Duke {
                         userList.add(deadline);
 
                         System.out.println("__________________________________________________________________");
-                        System.out.println("Procrastination is forbidden. Deadline added: " + System.lineSeparator() + deadline.toString());
+                        System.out.println("Procrastination is forbidden. DukeItems.Deadline added: " + System.lineSeparator() + deadline.toString());
                         System.out.println("__________________________________________________________________");
 
                     } catch (DukeMainException.nullDescription e) {
@@ -162,7 +170,7 @@ public class Duke {
                 case "event":
                     try {
                         if (input.equals("event")) {
-                            throw new DukeMainException.nullDescription("Task description required!");
+                            throw new DukeMainException.nullDescription("DukeItems.Task description required!");
                         }
                         if (!input.contains("/at")) {
                             throw new DukeMainException.nullDescription("Description has invalid format!");
@@ -187,7 +195,7 @@ public class Duke {
                         userList.add(event);
 
                         System.out.println("__________________________________________________________________");
-                        System.out.println("Don't you DARE come late. Event added: " + System.lineSeparator() + event.toString());
+                        System.out.println("Don't you DARE come late. DukeItems.Event added: " + System.lineSeparator() + event.toString());
                         System.out.println("__________________________________________________________________");
 
                     } catch (DukeMainException.nullDescription e) {
