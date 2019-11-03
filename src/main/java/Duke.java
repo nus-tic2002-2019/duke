@@ -498,7 +498,7 @@ private static void writeToFile(String filePath, String textToAdd) throws IOExce
         String[] deadlineKewords = new String[]{"Deadline ", "deadline ", "DEADLINE "};
         //writeToFile test = new writeToFile();
         String pathToStore = "C:/Users/Lucas/Desktop/Duke/dukey.txt";
-
+        Boolean duplicates = false;
 
 
 /*********************************************************
@@ -564,12 +564,23 @@ private static void writeToFile(String filePath, String textToAdd) throws IOExce
                 }
                 else {
                     Task t = new Task(userResponse);
-                    ultimateStorage.add(t);
-                    System.out.println(
-                            graphicalFormatStart
-                                    + "added: "
-                                    + ultimateStorage.get(ultimateStorage.indexOf(t)).getTask()
+
+                    for (Task task : ultimateStorage) {
+
+                        if (t.getTask().equals(task.getTask())){
+                            System.out.println(spaces + "You have the same task in list. It's a duplicate!" + nextLine
                                     + graphicalFormatEnd);
+                            duplicates = true;
+                        }
+                    }
+                    if(!duplicates) {
+                        ultimateStorage.add(t);
+                        System.out.println(
+                                graphicalFormatStart
+                                        + "added: "
+                                        + ultimateStorage.get(ultimateStorage.indexOf(t)).getTask()
+                                        + graphicalFormatEnd);
+                    }
                 }
             }
         }
