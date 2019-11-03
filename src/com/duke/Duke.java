@@ -1,7 +1,10 @@
 package com.duke;
 
+import com.duke.commands.Command;
+import com.duke.exception.DukeException;
 import com.duke.exception.EmptyDescriptionException;
 import com.duke.exception.UndefinedTaskException;
+import com.duke.parser.Parser;
 import com.duke.storage.Storage;
 import com.duke.task.*;
 import com.duke.ui.Ui;
@@ -90,6 +93,24 @@ public class Duke {
             }
 
 
+    }
+
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                ui.showLine(); // show the divider line ("_______")
+                Command c = Parser.parse(fullCommand);
+                c.execute();
+                isExit = c.isExit();
+            } catch (DukeException e) {
+                ui.showError(e.getMessage());
+            } finally {
+                ui.showLine();
+            }
+        }
     }
 
     private static void addTask(String inputString) throws EmptyDescriptionException, UndefinedTaskException {

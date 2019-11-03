@@ -2,6 +2,7 @@ package com.duke.storage;
 
 import com.duke.task.TaskList;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -24,7 +25,12 @@ public class Storage {
 
     }
 
-    public void load(){
+    public TaskList load(){
+
+        if (!Files.exists(path) || !Files.isRegularFile(path)) {
+            return new TaskList();
+        }
+        return TaskListDecoder.decodeTaskList()
 
     }
 
