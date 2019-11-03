@@ -4,6 +4,8 @@ import duke.command.*;
 import duke.task.*;
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
+import java.text.ParseException;
+
 import duke.task.ToDo;
 
 public class Duke {
@@ -39,6 +41,8 @@ public class Duke {
         parser.capture("done", new DoneCommand(tasks,storage));
         parser.capture("delete", new DeleteCommand(tasks, storage));
         parser.capture("bye", new ByeCommand());
+        parser.capture("find", new FindCommand(tasks));
+        parser.capture("view", new ViewSchedulesCommand(tasks));
     }
 
     static void CheckWord(String keyword)throws DukeCheckLineException{
@@ -46,7 +50,8 @@ public class Duke {
         if (!keyword.equals("list") && !keyword.equals("bye")
                 && !keyword.equals("todo") && !keyword.equals("done")
                 && !keyword.equals("event") && !keyword.equals("deadline")
-                && !keyword.equals("delete")){
+                && !keyword.equals("delete") && !keyword.equals("find")
+                && !keyword.equals("view")){
             throw new DukeCheckLineException();
         }
     }
@@ -74,6 +79,8 @@ public class Duke {
 
                 ui.showError("    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
 
+            } catch (ParseException e) {
+                e.printStackTrace();
             } finally{
                 ui.showLine();
             }

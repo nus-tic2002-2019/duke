@@ -26,6 +26,46 @@ public class DeleteCommand implements Command {
      */
     @Override
     public List<String> run(String[] fullCommand) throws NumberFormatException, IndexOutOfBoundsException, IOException {
+        String indexNumber = fullCommand[1];
+        try {
+
+            if (indexNumber.contains(",")) {
+                String[] indexList = indexNumber.split(",");
+                int j = 1;
+                for (int i = 0; i <= indexList.length; i++) {
+
+                    System.out.println(Integer.parseInt(indexList[i]) - j);
+                    //Task deleteItem = tasks.remove(Integer.parseInt(indexList[i]) - j);
+                    int k = Integer.parseInt(indexList[i]);
+                    //tasks.remove(Integer.parseInt(indexList[i]) - j);
+                    tasks.remove(k - j);
+                    storage.store(tasks.ConvertAsLines());
+                    j++;
+                }
+            } else if (indexNumber.contains("-")){
+                String[] indexList = indexNumber.split("-");
+                int firstIndex = Integer.parseInt(indexList[0]);
+                int lastIndex = Integer.parseInt(indexList[1]);
+                //System.out.println(firstIndex);
+                //System.out.println(lastIndex);
+                int j = 1;
+                for (int i = firstIndex; i <= lastIndex; i++){
+                    tasks.remove(i - j);
+                    storage.store(tasks.ConvertAsLines());
+                    j++;
+                }
+            }else {
+                tasks.remove(Integer.parseInt(fullCommand[1]) - 1);
+                storage.store(tasks.ConvertAsLines());
+            }
+            return List.of("    Noted. I've removed the task item: " + System.lineSeparator() + "    " + fullCommand[1]);
+        }catch (NumberFormatException e){
+            return List.of("    ☹ OOPS!!! This is not a number: " + fullCommand[1]);
+        } catch (IndexOutOfBoundsException e){
+            return List.of("    ☹ OOPS!!! The index out of bound: " + fullCommand[1]);
+        }
+
+/*
         try {
             Task deleteItem = tasks.remove(Integer.parseInt(fullCommand[1]) - 1);
             storage.store(tasks.ConvertAsLines());
@@ -35,5 +75,7 @@ public class DeleteCommand implements Command {
         }catch (IndexOutOfBoundsException e){
             return List.of("    ☹ OOPS!!! The index out of bound: " + fullCommand[1]);
         }
+
+ */
     }
 }

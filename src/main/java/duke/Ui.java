@@ -50,9 +50,9 @@ public class Ui {
      * @param message error message.
      */
     public void showError(String message){
-        showLine();
+
         System.out.println(message);
-        showLine();
+
     }
 
     /**
