@@ -1,7 +1,6 @@
 package duke.command;
 
 import duke.Storage;
-import duke.task.Task;
 import duke.task.TaskList;
 import java.io.IOException;
 import java.util.List;
@@ -35,9 +34,7 @@ public class DeleteCommand implements Command {
                 for (int i = 0; i <= indexList.length; i++) {
 
                     System.out.println(Integer.parseInt(indexList[i]) - j);
-                    //Task deleteItem = tasks.remove(Integer.parseInt(indexList[i]) - j);
                     int k = Integer.parseInt(indexList[i]);
-                    //tasks.remove(Integer.parseInt(indexList[i]) - j);
                     tasks.remove(k - j);
                     storage.store(tasks.ConvertAsLines());
                     j++;
@@ -46,8 +43,6 @@ public class DeleteCommand implements Command {
                 String[] indexList = indexNumber.split("-");
                 int firstIndex = Integer.parseInt(indexList[0]);
                 int lastIndex = Integer.parseInt(indexList[1]);
-                //System.out.println(firstIndex);
-                //System.out.println(lastIndex);
                 int j = 1;
                 for (int i = firstIndex; i <= lastIndex; i++){
                     tasks.remove(i - j);
@@ -65,17 +60,5 @@ public class DeleteCommand implements Command {
             return List.of("    ☹ OOPS!!! The index out of bound: " + fullCommand[1]);
         }
 
-/*
-        try {
-            Task deleteItem = tasks.remove(Integer.parseInt(fullCommand[1]) - 1);
-            storage.store(tasks.ConvertAsLines());
-            return List.of("    Noted. I've removed this task: " + System.lineSeparator() + "    " + deleteItem);
-        }catch (NumberFormatException e){
-            return List.of("    ☹ OOPS!!! This is not a number: " + fullCommand[1]);
-        }catch (IndexOutOfBoundsException e){
-            return List.of("    ☹ OOPS!!! The index out of bound: " + fullCommand[1]);
-        }
-
- */
     }
 }
