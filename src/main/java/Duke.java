@@ -33,7 +33,7 @@ public class Duke {
                 isExit = c.isExit;
             } catch (IOException | DukeException | ParseException | todoException e) {
                 Ui.showLine();
-                ui.displayError();
+                Ui.displayError();
                 Ui.showLine();
             }
         }

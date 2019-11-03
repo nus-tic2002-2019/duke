@@ -30,6 +30,7 @@ public class Task {
         String _list_ = "";
         int num = 1;
         int listLength = task_info.size();
+        assert listLength > 0;
         for (int i=1; i <= listLength; i++) {
             Task tmp = task_info.get(i-1);
             String string_obj = tmp.toString();
