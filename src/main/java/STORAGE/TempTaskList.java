@@ -2,11 +2,15 @@ package STORAGE;
 
 import TASK.*;
 import java.util.ArrayList;
+import UI.Message;
 
 public class TempTaskList {
     private ArrayList<Task> list;
+    private Message ui;
+
     public TempTaskList() {
         list = new ArrayList<Task>();
+        ui = new Message();
     }
 
     public Task get(int index) {
@@ -19,12 +23,7 @@ public class TempTaskList {
         return list.size();
     }
     public void print(){
-        System.out.println("\tHere are the tasks in your list: ");
-        int taskNumber = 1;
-        for (Task task : list) {
-            System.out.printf("\t%d.%s" + System.lineSeparator(),taskNumber, task);
-            ++taskNumber;
-        }
+        ui.printTaskList(list);
     }
 
 }
