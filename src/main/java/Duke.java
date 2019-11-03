@@ -1,5 +1,6 @@
 import ERROR_HANDLING.*;
 import TASK.*;
+import COMMAND.*;
 
 import java.io.IOException;
 import java.util.*;
@@ -123,10 +124,6 @@ public class Duke {
         new Duke().start();
     }
 
-    interface Command {
-        //void run();
-        void run(String content) throws Exception;
-    }
 
     public static String[] splitKeyword(String userInput) throws DukeException {
         //command: list

@@ -1,5 +1,9 @@
 package ERROR_HANDLING;
 
+/**
+ * This Exception triggered when no matched Keyword in the command list
+ */
+
 public class InvalidCommandException extends DukeException {
     public InvalidCommandException() {
         super();

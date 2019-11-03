@@ -1,10 +1,6 @@
 package COMMAND;
 
-public class Command {
-
-    public Command() {
-
+public interface Command {
+    default void run(String content) throws Exception {
     }
-
-    
 }

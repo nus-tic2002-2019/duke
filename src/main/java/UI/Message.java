@@ -16,6 +16,13 @@ public class Message {
         this.out = out;
     }
 
+    /*
+    public String readCommand () {
+
+
+    }
+     */
+
     public void showGreetingMessage () {
         System.out.println("\tHey! Duke here, What can I do for you?");
     }
