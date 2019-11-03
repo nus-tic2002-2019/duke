@@ -22,7 +22,7 @@ public class Parser {
      * @throws DukeException The error which the input is not correct.
      */
     public static void Input_Length_Checking(String First_Word, String[] Input_Words) throws DukeException {
-        if(!First_Word.equals("list") && !First_Word.equals("bye") && Input_Words.length == 1){
+        if(!First_Word.equals("list") && !First_Word.equals("bye") && !First_Word.equals("search") && Input_Words.length == 1){
             throw new DukeException(First_Word);
         }
     }
@@ -92,7 +92,9 @@ public class Parser {
         DateTime deadline;
 
         deadline = task.getDeadline_timing();
-        date =  deadline.getDate_Input().format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        LocalDate localDate= deadline.getDate_Input();
+        date =  localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        //System.out.println(date);
 
         switch (START_END){
             case "start":
@@ -182,7 +184,7 @@ public class Parser {
         month = Month.getMonth_FullName(MONTH);
         day = Days.getDay(DAY);
 
-        date = day + "of" + month + YEAR;
+        date = day + " of " + month + " " + YEAR;
 
         return date;
     }
@@ -257,7 +259,7 @@ public class Parser {
             ET = ET + "59:59:99";
         }
 
-        return ET;
+        return ET.trim();
     }
 
     /**
@@ -270,7 +272,7 @@ public class Parser {
         String Starting;
         int Dash_index = time.lastIndexOf(" -> ");
 
-        Starting = time.substring(0, Dash_index);
+        Starting = time.substring(0, Dash_index).trim();
 
         return Starting;
     }
@@ -284,17 +286,33 @@ public class Parser {
         String Ending;
         int Dash_index = time.lastIndexOf(" -> ");
 
-        Ending = time.substring(Dash_index+4);
+        Ending = time.substring(Dash_index+4).trim();
 
         return Ending;
     }
 
     /**
-     * Extract date information from input String
+     * Extract starting date information from input String
      * @param datetime Input time information in String which be extract from customer input information;
      * @return return date inforamtion of the input/task;
      */
     public static String date(String datetime){
+
+        return datetime.substring(0, 10);
+    }
+
+    /**
+     * Extract ending date information from input String
+     * @param startingDate The starting date string.
+     * @param datetime Input time information in String which be extract from customer input information;
+     * @return return date inforamtion of the input/task;
+     */
+    public static String date(String startingDate, String datetime){
+
+        if(datetime.length() < 6){
+            return startingDate;
+        }
+
         return datetime.substring(0, 10);
     }
 
@@ -303,7 +321,12 @@ public class Parser {
      * @param datetime date and time information extracted from customer input information;
      * @return return time in String;
      */
-    public static String time(String datetime){ return datetime.substring(11); }
+    public static String time(String datetime){
+        if(datetime.length() < 6){
+            return datetime;
+        }
+        return datetime.substring(11);
+    }
 
     /**
      * Extract date and time inforamtion from the input String and combine together in the format: "date time"
