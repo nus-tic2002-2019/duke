@@ -6,6 +6,9 @@ public class DukeException extends Exception {
 
     public DukeException(String textInput){
         switch(textInput) {
+            case "missingDescription":
+                System.out.println ("☹ OOPS!!! The description cannot be empty.");
+                break;
             case "done":
                 System.out.println("☹ OOPS!!! You must indicate which task is done");
                 break;
@@ -27,8 +30,8 @@ public class DukeException extends Exception {
             case "/at":
                 System.out.println("☹ OOPS!!! You did not specify a specific start/end date/time for event. Please use /at date/time");
                 break;
-          //  default:
-            //    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            default:
+                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 

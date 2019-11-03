@@ -2,13 +2,23 @@ package tasklist;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 import ui.Ui;
 
 public class taskList {
-    private static ArrayList<Task> taskList = new ArrayList();
+    private static ArrayList<Task> taskList;
     private static Ui ui = new Ui();
+
+    public taskList(){
+        taskList = new ArrayList();
+    }
+
+    public taskList(List<Task> loadTasks){
+        taskList = new ArrayList();
+        taskList.addAll(loadTasks);
+    }
 
     public static void displayList (){
         System.out.println("     Here are the tasks in your list:");

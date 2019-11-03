@@ -1,5 +1,6 @@
 package ui;
 
+import parser.Parser;
 import tasklist.*;
 import exception.DukeException;
 
@@ -61,20 +62,20 @@ public class Ui {
 
     }
 
-    public void dukeInput (taskList tasks, String textInput) throws DukeException {
-        String textInputArr[] = textInput.split(" ",2);
+    /*public void dukeInput (taskList tasks, String textInput) throws DukeException {
+        String[] textInputArr = textInput.split(" ",2);
         try {
             switch (textInputArr[0]) {
                 case "list":
-                    tasks.displayList();
+                    taskList.displayList();
                     break;
                 case "done":
                     if (textInputArr[1].isEmpty()) throw new DukeException("done");
-                    tasks.markInList(textInputArr[1]);
+                    taskList.markInList(textInputArr[1]);
                     break;
                 case "delete":
                     if (textInputArr[1].isEmpty()) throw new DukeException("delete");
-                    tasks.deleteFromList(textInputArr[1]);
+                    taskList.deleteFromList(textInputArr[1]);
                     break;
                 case "todo":
                     if (textInputArr[1].isEmpty()) throw new DukeException("todo");
@@ -82,23 +83,16 @@ public class Ui {
                     break;
                 case "deadline":
                     if (textInputArr[1].isEmpty()) throw new DukeException("deadline");
-                    String textDeadline[] = textInputArr[1].split("/by", 2);
+                    String[] textDeadline = textInputArr[1].split("/by", 2);
                     if (textDeadline.length < 2) throw new DukeException("/by");
-                    tasks.addDeadlines(new Deadlines(textDeadline[0], textDeadline[1]));
+                    taskList.addDeadlines(new Deadlines(textDeadline[0], textDeadline[1]));
                     break;
                 case "event":
                     if (textInputArr[1].isEmpty()) throw new DukeException("event");
-                    String textEvent[] = textInputArr[1].split("/at", 2);
+                    String[] textEvent = textInputArr[1].split("/at", 2);
                     if (textEvent.length < 2) throw new DukeException("/at");
-                    tasks.addEvent(new Event(textEvent[0], textEvent[1]));
+                    taskList.addEvent(new Event(textEvent[0], textEvent[1]));
                     break;
-               /* case "save":
-                    try{
-                        storage.saveList(fileName, tasks);
-                    } catch (IOException e){
-                        System.out.println("Something went wrong: " + e.getMessage());
-                    }
-                    break;*/
                 case "bye":
                     dukeBye();
                     break;
@@ -117,7 +111,47 @@ public class Ui {
             //do we need anything here
         }
 
-    }
+    }*/
+    public void dukeInput (taskList tasks, String textInput) throws DukeException {
+       Parser processCommand = new Parser(textInput);
+        try {
+            switch (processCommand.getValidCommand()) {
+                case "list":
+                    taskList.displayList();
+                    break;
+                case "done":
+                    taskList.markInList(processCommand.getListIndex());
+                    break;
+                case "delete":
+                    taskList.deleteFromList(processCommand.getListIndex());
+                    break;
+                case "todo":
+                    taskList.addTodo(new Todo(processCommand.getTodoDescription()));
+                    break;
+                case "deadline":
+                    taskList.addDeadlines(new Deadlines(processCommand.getDeadlineDescription(), processCommand.getDeadlineDate()));
+                    break;
+                case "event":
+                    taskList.addEvent(new Event(processCommand.getEventDescription(), processCommand.getEventDate()));
+                    break;
+                case "bye":
+                    dukeBye();
+                    break;
+                default:
+                    throw new DukeException(textInput);
+            }
+            storage.saveList(fileName, tasks);
+        }
+        catch (IOException e){
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+        catch (ArrayIndexOutOfBoundsException e){
+            throw new DukeException(processCommand.getValidCommand());
+        }
+        catch (DukeException e){
+            //do we need anything here
+        }
 
+    }
 
 }
