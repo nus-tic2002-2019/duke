@@ -12,12 +12,21 @@ import java.util.ArrayList;
  * Stores method to deal with loading and saving from file.
  * */
 public class Storage {
+    protected String filePath;
+    protected boolean isLoad;
+    /**
+     * Create new Storage.
+     * @param filePath file address.
+     * */
+    public Storage(String filePath){
+        this.filePath = filePath;
+        this.isLoad = true;
+    }
     /**
      * Load file to new Duke task list.
-     * @param filePath file address.
      * @param tasks task list to be loaded.
      * */
-    public static void loadFile(String filePath, ArrayList<Task> tasks) {
+    public void loadFile(ArrayList<Task> tasks) {
         try {
             BufferedReader br = new BufferedReader(new FileReader(filePath));
             String s;
@@ -45,15 +54,18 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
+            UI.splitLine();
             System.out.println("File not found");
+            System.out.println("Pls key in the correct file address with '//'" );
+            UI.splitLine();
+            isLoad = false;
         }
     }
     /**
      * Save updates to file.
-     * @param filePath file address.
      * @param tasks task list to be saved.
      * */
-    public static void saveFile(String filePath, ArrayList<Task> tasks){
+    public void saveFile(ArrayList<Task> tasks){
         try {
             FileOutputStream out = new FileOutputStream(filePath);
             for( int i=0 ; i<tasks.size() ; i++ ){
@@ -69,7 +81,9 @@ public class Storage {
             }
             out.close();
         } catch (IOException e){
-            System.out.println("Oops!! Cannot save file !");
+            UI.splitLine();
+            System.out.println("Oops!! Cannot save file!");
+            UI.splitLine();
         }
     }
 

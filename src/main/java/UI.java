@@ -18,6 +18,15 @@ public class UI {
         System.out.println("Hello from\n" + logo);
         splitLine();
         System.out.println("Hello! I'm Duke");
+        System.out.println("Pls key in the file address with '//'");
+        splitLine();
+    }
+    /**
+     * Prints the message to ask for command after loading file successfully.
+     * */
+    public static void askCommand() {
+        splitLine();
+        System.out.println("Load file successfully!");
         System.out.println("What can I do for you?");
         splitLine();
     }

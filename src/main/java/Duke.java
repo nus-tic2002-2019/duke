@@ -15,25 +15,31 @@ public class Duke {
     }
 
     private void run(){
-        UI.welcome();
-        Storage.loadFile(filePath, tasks);
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String line = UI.readCommand();
-                Command c = new Command(line);
-                UI.splitLine();
-                c.execute(tasks, filePath);
-                isExit = c.isExit;
-            } catch (Exception e) {
-                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
-            } finally {
-                UI.splitLine();
+        Storage storage = new Storage(filePath);
+        storage.loadFile(tasks);
+        if (storage.isLoad) {
+            UI.askCommand();
+            boolean isExit = false;
+            while (!isExit) {
+                try {
+                    String line = UI.readCommand();
+                    Command c = new Command(line);
+                    UI.splitLine();
+                    c.execute(tasks, storage);
+                    isExit = c.isExit;
+                } catch (Exception e) {
+                    System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                } finally {
+                    UI.splitLine();
+                }
             }
+        } else {
+            new Duke(UI.readCommand()).run();
         }
     }
 
     public static void main(String[] args) {
-        new Duke("C:/Users/alienware/Desktop/TIC2002/duke/data/duke.txt").run();
+        UI.welcome();
+        new Duke(UI.readCommand()).run();
     }
 }

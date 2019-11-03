@@ -12,46 +12,46 @@ public class TaskList {
     /**
      * Method to deal with done.
      * @param tasks task list to be updated.
-     * @param filePath file address.
+     * @param storage file address.
      * @param fullCommand user full command.
      * */
-    public static void doneCommand (ArrayList<Task> tasks, String filePath, String fullCommand) {
+    public static void doneCommand (ArrayList<Task> tasks, Storage storage, String fullCommand) {
         tasks.get(Parser.taskNumber(fullCommand)).markAsDone();
-        Storage.saveFile(filePath, tasks);
+        storage.saveFile(tasks);
         UI.doneMessage(tasks, Parser.taskNumber(fullCommand));
     }
     /**
      * Method to deal with delete.
      * @param tasks task list to be updated.
-     * @param filePath file address to be updated.
+     * @param storage file address to be updated.
      * @param fullCommand user full command.
      * */
-    public static void deleteCommand (ArrayList<Task> tasks, String filePath, String fullCommand) {
+    public static void deleteCommand (ArrayList<Task> tasks, Storage storage, String fullCommand) {
         int index = Parser.taskNumber(fullCommand);
         UI.deleteMessage(tasks, index);
         tasks.remove(index);
-        Storage.saveFile(filePath, tasks);
+        storage.saveFile(tasks);
     }
     /**
      * Method to deal with add Todo.
      * @param tasks task list to be updated.
-     * @param filePath file address to be updated.
+     * @param storage file address to be updated.
      * @param fullCommand user full command.
      * */
-    public static void addTodoCommand (ArrayList<Task> tasks, String filePath, String fullCommand) {
+    public static void addTodoCommand (ArrayList<Task> tasks, Storage storage, String fullCommand) {
         String description = Parser.description(fullCommand);
         Task t = new Todo(description);
         tasks.add(t);
-        Storage.saveFile(filePath, tasks);
+        storage.saveFile(tasks);
         UI.addMessage(t, tasks.size());
     }
     /**
      * Method to deal with add Deadline.
      * @param tasks task list to be updated.
-     * @param filePath file address to be updated.
+     * @param storage file address to be updated.
      * @param fullCommand user full command.
      * */
-    public static void addDeadlineCommand (ArrayList<Task> tasks, String filePath, String fullCommand){
+    public static void addDeadlineCommand (ArrayList<Task> tasks, Storage storage, String fullCommand){
         String description = Parser.description(fullCommand);
         String date = Parser.date(fullCommand);
         if (!date.equals("0")) {
@@ -61,7 +61,7 @@ public class TaskList {
             } else {
                 Task t = new Deadline(description, date, by);
                 tasks.add(t);
-                Storage.saveFile(filePath, tasks);
+                storage.saveFile(tasks);
                 UI.addMessage(t, tasks.size());
             }
         }
@@ -69,10 +69,10 @@ public class TaskList {
     /**
      * Method to deal with add Event.
      * @param tasks task list to be updated.
-     * @param filePath file address to be updated.
+     * @param storage file address to be updated.
      * @param fullCommand user full command.
      * */
-    public static void addEventCommand (ArrayList<Task> tasks, String filePath, String fullCommand){
+    public static void addEventCommand (ArrayList<Task> tasks, Storage storage, String fullCommand){
         String description = Parser.description(fullCommand);
         String date = Parser.date(fullCommand);
         if (!date.equals("0")) {
@@ -82,7 +82,7 @@ public class TaskList {
             } else {
                 Task t = new Event(description, date, at);
                 tasks.add(t);
-                Storage.saveFile(filePath, tasks);
+                storage.saveFile(tasks);
                 UI.addMessage(t, tasks.size());
             }
         }

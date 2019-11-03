@@ -42,9 +42,9 @@ public class Command {
     /**
      * Execute new command.
      * @param tasks task list to be updated
-     * @param filePath file address to be updated
+     * @param storage file address to be updated
      * */
-    public void execute(ArrayList<Task> tasks, String filePath){
+    public void execute(ArrayList<Task> tasks, Storage storage){
         String command = Parser.command(fullCommand);
         int size = tasks.size();
 
@@ -66,7 +66,7 @@ public class Command {
                 try {
                     CheckElement(fullCommand);
                     CheckNumber(size, Parser.taskNumber(fullCommand));
-                    TaskList.doneCommand(tasks, filePath, fullCommand);
+                    TaskList.doneCommand(tasks, storage, fullCommand);
                 } catch (LackOfElementException e) {
                     System.out.println("OOPS!!! Pls key in the number of the task");
                 } catch (InvalidNumberException e) {
@@ -77,7 +77,7 @@ public class Command {
                 try {
                     CheckElement(fullCommand);
                     CheckNumber(size, Parser.taskNumber(fullCommand));
-                    TaskList.deleteCommand(tasks, filePath, fullCommand);
+                    TaskList.deleteCommand(tasks, storage, fullCommand);
                 } catch (LackOfElementException e) {
                     System.out.println("OOPS!!! Pls key in the number of the task");
                 } catch (InvalidNumberException e) {
@@ -87,7 +87,7 @@ public class Command {
             case "todo":
                 try {
                     CheckElement(fullCommand);
-                    TaskList.addTodoCommand(tasks, filePath, fullCommand);
+                    TaskList.addTodoCommand(tasks, storage, fullCommand);
                 } catch (LackOfElementException e) {
                     System.out.println("OOPS!!! Pls key in the description for the task");
                 }
@@ -95,7 +95,7 @@ public class Command {
             case "deadline":
                 try {
                     CheckElement(fullCommand);
-                    TaskList.addDeadlineCommand(tasks, filePath, fullCommand);
+                    TaskList.addDeadlineCommand(tasks, storage, fullCommand);
                 } catch (LackOfElementException e) {
                     System.out.println("OOPS!!! Pls key in the description for the task");
                 }
@@ -103,7 +103,7 @@ public class Command {
             case "event":
                 try {
                     CheckElement(fullCommand);
-                    TaskList.addEventCommand(tasks, filePath, fullCommand);
+                    TaskList.addEventCommand(tasks, storage, fullCommand);
                 } catch (LackOfElementException e) {
                     System.out.println("OOPS!!! Pls key in the description for the task");
                 }
