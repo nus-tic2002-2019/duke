@@ -15,9 +15,12 @@ public class Duke {
             + "|____/ \\__,_|_|\\_\\___|\n";
 
     private Storage storage;
+    private TempTaskList list;
     private Message ui;
 
+
     public Duke(){
+        list = new TempTaskList();
         ui = new Message();
 
         try {
@@ -40,7 +43,7 @@ public class Duke {
         String userInput = new String();
 
 // MAKE LIST
-        ArrayList<Task> list = new ArrayList<Task>();
+        //ArrayList<Task> list = new ArrayList<Task>();
 
 // Add new command TODO: make it a function?
         keywords.put("bye", new Command() {
@@ -51,7 +54,7 @@ public class Duke {
 
         keywords.put("list", new Command() {
             public void run(String content) {
-                cmdPrintList(list);
+                list.print();
             };
         } );
         keywords.put("done", new Command() {
@@ -151,7 +154,7 @@ public class Duke {
         return Integer.parseInt(userInput); // get number
     }
 
-    public static void cmdMarkDone(String content, ArrayList<Task> list) throws Exception {
+    public static void cmdMarkDone(String content, TempTaskList list) throws Exception {
         try {
             int listIndex = Integer.parseInt(content) - 1;
             if (listIndex < 0 || listIndex > list.size()) {
@@ -165,13 +168,14 @@ public class Duke {
             System.out.println("\t☹ OOPS!!! please input a valid Task No. ~");
         }
     }
-    public static void cmdTodo(String content, ArrayList<Task> list) throws NullContentException {
+    public static void cmdTodo(String content, TempTaskList list) throws NullContentException {
         //String content = removeKeyword(userInput);
 
         if (content == null) {
             throw new NullContentException();
         }
-        list.add(new Todo(content));
+
+        list.set(new Todo(content));
         int index = list.get(0).getTotalTask() - 1;
         System.out.println("\tGot it. I've added this task: ");
         System.out.println("\t  " + list.get(index));
@@ -179,13 +183,13 @@ public class Duke {
                 + System.lineSeparator(), list.get(0).getTotalTask());
     }
 
-    public static void cmdDeadline(String content, ArrayList<Task> list) throws NullContentException {
+    public static void cmdDeadline(String content, TempTaskList list) throws NullContentException {
         //String content = removeKeyword(userInput);
         if (content == null) {
             throw new NullContentException();
         }
         String[] parts = content.split(" /by ");
-        list.add(new Deadline(parts[0], parts[1]));
+        list.set(new Deadline(parts[0], parts[1]));
         int index = list.get(0).getTotalTask() - 1;
         System.out.println("\tGot it. I've added this task: ");
         System.out.println("\t  " + list.get(index));
@@ -193,13 +197,13 @@ public class Duke {
                 + System.lineSeparator(), list.get(0).getTotalTask());
     }
 
-    public static void cmdEvent(String content, ArrayList<Task> list) throws NullContentException {
+    public static void cmdEvent(String content, TempTaskList list) throws NullContentException {
         //String content = removeKeyword(userInput);
         if (content == null) {
             throw new NullContentException();
         }
         String[] parts = content.split(" /at ");
-        list.add(new Event(parts[0], parts[1]));
+        list.set(new Event(parts[0], parts[1]));
         int index = list.get(0).getTotalTask() - 1;
         System.out.println("\tGot it. I've added this task: ");
         System.out.println("\t  " + list.get(index));
@@ -207,7 +211,7 @@ public class Duke {
                 + System.lineSeparator(), list.get(0).getTotalTask());
     }
 
-    public static void printMarkDone(ArrayList<Task> list, int listIndex) {
+    public static void printMarkDone(TempTaskList list, int listIndex) {
         System.out.println("\tNice! I've marked this task as done: ");
         System.out.println("\t  " + list.get(listIndex));
     }
@@ -223,7 +227,7 @@ public class Duke {
     }
      */
 
-
+/*
     public static void cmdPrintList(ArrayList<Task> list) {
         System.out.println("\tHere are the tasks in your list: ");
         int taskNumber = 1;
@@ -232,7 +236,7 @@ public class Duke {
             ++taskNumber;
         }
     }
-
+*/
 
     /*
     @Ovoutide
