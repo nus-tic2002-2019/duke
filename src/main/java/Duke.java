@@ -1,16 +1,20 @@
-public class Duke {
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
-    public static void main(String[] args) throws DukeException {
+public class Duke {
+    public static void main(String[] args) throws DukeException, IOException {
         run();
     }
 
-    public static void run() throws DukeException {
+    public static void run() throws DukeException, IOException {
         Ui ui = new Ui();
         TaskLists taskList = new TaskLists();
+        Storage textFile = new Storage();
         boolean online = true;
         String command = null;
         String message = null;
         ui.showWelcomeMessage();
+        textFile.readFile(taskList);
         while (online) {
             try {
                 message = ui.readCommand();
@@ -19,6 +23,7 @@ public class Duke {
                     case "todo":
                         try {
                             taskList.addToDo(message);
+                            textFile.saveFile(taskList.getList());
                         } catch (StringIndexOutOfBoundsException e) {
                             ui.showToDoEmptyError();
                             break;
@@ -28,6 +33,7 @@ public class Duke {
                     case "deadline":
                         try {
                             taskList.addDeadline(message);
+                            textFile.saveFile(taskList.getList());
                         } catch (StringIndexOutOfBoundsException e) {
                             ui.showDeadlineEmptyError();
                             break;
@@ -37,6 +43,7 @@ public class Duke {
                     case "event":
                         try {
                             taskList.addEvent(message);
+                            textFile.saveFile(taskList.getList());
                         } catch (StringIndexOutOfBoundsException e) {
                             ui.showEventEmptyError();
                             break;
@@ -54,6 +61,7 @@ public class Duke {
                     case "delete":
                         try {
                             ui.showDeletedTask(taskList.deleteTask(message), taskList);
+                            textFile.saveFile(taskList.getList());
                         } catch (DukeExceptionInvalidTaskInputFormat e) {
                             ui.showInvalidTaskFormatError();
                             break;
@@ -65,6 +73,7 @@ public class Duke {
                     case "done":
                         try {
                             ui.showDoneTask(taskList.doneTask(message));
+                            break;
                         } catch (DukeExceptionInvalidTaskInputFormat e) {
                             ui.showInvalidTaskFormatError();
                             break;
@@ -72,7 +81,6 @@ public class Duke {
                             ui.showInvalidTaskNumberError();
                             break;
                         }
-                        break;
                     case "bye":
                         online = false;
                         ui.showOffline();
@@ -82,8 +90,11 @@ public class Duke {
                 }
             } catch (DukeException e) {
                 ui.showInputError();
+            } catch (IOException e) {
+                ui.showFileError();
             }
         }
+        textFile.saveFile(taskList.getList());
     }
 }
 /*  public static void main(String[] args) {

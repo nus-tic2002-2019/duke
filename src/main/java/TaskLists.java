@@ -18,6 +18,10 @@ public class TaskLists {
         return list.size();
     }
 
+    public ArrayList<Task> getList(){
+        return this.list;
+    }
+
     public boolean isEmpty() {
         return this.list.isEmpty();
     }

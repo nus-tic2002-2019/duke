@@ -95,4 +95,9 @@ public class Ui {
         String errorMessage = "You've entered an invalid value for Task, please key in valid task number.\n";
         System.out.println(showLine() + errorMessage + showLine());
     }
+
+    public void showFileError() {
+        String errorMessage = "Duke is unable to read your file, please check your input filepath again.";
+        System.out.println(showLine() + errorMessage + showLine());
+    }
 }
