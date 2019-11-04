@@ -15,7 +15,7 @@ public class Ui {
                                     + "| |_| | |_| |   <  __/\n"
                                     + "|____/ \\__,_|_|\\_\\___|\n";
 
-    private static final String ERROR_LOADING_MSG="Failed to load this Duke Application from storage file."
+    private static final String ERROR_LOADING_MSG="Failed to load this Duke Application from storage file.";
     public Ui() {
         this(System.in, System.out);
     }

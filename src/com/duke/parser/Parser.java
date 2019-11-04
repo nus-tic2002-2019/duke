@@ -25,7 +25,7 @@ public class Parser {
 
 
 
-    public static Command parse(String inputCommand) {
+    public Command parse(String inputCommand) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(inputCommand.trim());
 //        if (!matcher.matches()) {
 //            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -75,6 +75,8 @@ public class Parser {
     }
 
     private Command prepareDone(String args) {
+        final int targetIndex = parseArgsAsDisplayedIndex(args);
+        return new DoneCommand(targetIndex);
     }
 
 
@@ -99,4 +101,4 @@ public class Parser {
 
 
 }
-}
+

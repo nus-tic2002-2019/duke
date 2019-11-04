@@ -29,7 +29,19 @@ public class TaskList {
         taskList.add(toAdd);
     }
 
+    public Task getTaskByIdx(int taskIdx){
+        return taskList.get(taskIdx-1);
+    }
+
     public void removeTask(Task toRemove){
         taskList.remove(toRemove);
+    }
+
+    public void removeTask(int toRemoveIdx){
+        taskList.remove(toRemoveIdx);
+    }
+
+    public int getSize(){
+        return taskList.size();
     }
 }

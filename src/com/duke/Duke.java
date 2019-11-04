@@ -1,6 +1,7 @@
 package com.duke;
 
 import com.duke.commands.Command;
+import com.duke.commands.ExitCommand;
 import com.duke.exception.DukeException;
 import com.duke.exception.EmptyDescriptionException;
 import com.duke.exception.UndefinedTaskException;
@@ -30,30 +31,10 @@ public class Duke {
             tasks = new TaskList();
         }
     }
-
-
-
-
-    static String separateLine="_____________________________________________";
-    private static List<Task> list = new ArrayList<Task>();
-
-
     public static void main(String[] args) {
-
         new Duke("data/tasks.txt").run();
-
-
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println(separateLine);
-        System.out.println("Hello! I am Duke\nWhat can I do for you?");
-        System.out.println(separateLine);
-
-
+        //original
+        /*
             String line = "";
             Scanner in = new Scanner(System.in);
             while (!(line = in.nextLine()).equals("bye")) {
@@ -92,7 +73,7 @@ public class Duke {
                 System.exit(0);
             }
 
-
+         */
     }
 
     public void run() {
@@ -102,9 +83,9 @@ public class Duke {
             try {
                 String fullCommand = ui.readCommand();
                 ui.showLine(); // show the divider line ("_______")
-                Command c = Parser.parse(fullCommand);
+                Command c = new Parser().parse(fullCommand);
                 c.execute();
-                isExit = c.isExit();
+                isExit = ExitCommand.isExit(c);
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
             } finally {
@@ -112,7 +93,8 @@ public class Duke {
             }
         }
     }
-
+    //original
+    /*
     private static void addTask(String inputString) throws EmptyDescriptionException, UndefinedTaskException {
 
         try {
@@ -153,4 +135,6 @@ public class Duke {
         }
 
     }
+
+     */
 }
