@@ -3,21 +3,21 @@ import java.io.*;
 
 
 public class Storage {
-    private File f;
 
-    public static final String DEFAULT_FILE_PATH = "data/taskSheet.txt";
+    private static final String DEFAULT_NAME = "demo";
+
+    private File file;
 
     public Storage () throws IOException {
-        this(DEFAULT_FILE_PATH);
+        this(DEFAULT_NAME);
     }
-    public Storage (String path) throws IOException {
-        f = new File(path);
-        if (f.createNewFile()) {
-            System.out.println("\tnew file created!");
-        } else {
-            System.out.println("\tFile exists!");
-        }
+    public Storage (String name) throws IOException {
+        String path = "data/taskSheet_" + name + ".txt";
+        file = new File(path);
     }
 
+    public File get() {
+        return file;
+    }
 
 }

@@ -1,32 +1,21 @@
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import ERROR_HANDLING.*;
 import COMMAND.*;
 import STORAGE.*;
 import UI.*;
+import PARSER.*;
 
 public class Duke {
-    String logo = " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n"
-            + "|____/ \\__,_|_|\\_\\___|\n";
 
-    private Storage storage;
+    private Storage file;
     private Message ui;
     private CommandList keywords;
 
 
-    public Duke(){
+    public Duke() throws Exception{
         ui = new Message();
         keywords = new CommandList();
-
-        try {
-            storage = new Storage("data/taskSheet.txt");
-        } catch (IOException ioe) {
-            System.out.println("\tFile Error!");
-        }
-
     };
 
     public static void main(String[] args) throws Exception {
@@ -38,13 +27,24 @@ public class Duke {
         ui.showGreetingMessage();
 
         Scanner in = new Scanner(System.in);
-
         String userInput = new String();
+
+        String username = in.nextLine();
+        String filename = Parser.convertFileName(username);
+
+        try {
+            file = new Storage(filename);
+            if (file.get().createNewFile()) {
+                ui.newUser();
+            } else {
+                ui.existingUser(username);
+            }
+        } catch (IOException e) {
+            ui.errorFileMessage();
+        }
 
 
 // MAIN LOGIC
-// USER INPUT
-
         while(!userInput.equals("bye")) {
             userInput = in.nextLine();
 

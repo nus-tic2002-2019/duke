@@ -1,11 +1,8 @@
 package COMMAND;
 import java.util.HashMap;
-import ERROR_HANDLING.DukeException;
-import ERROR_HANDLING.NullContentException;
+import ERROR_HANDLING.*;
 import STORAGE.TempTaskList;
-import TASK.Deadline;
-import TASK.Event;
-import TASK.Todo;
+import TASK.*;
 import UI.*;
 
 
@@ -49,8 +46,10 @@ public class CommandList {
             public void run(String content) {
                 try {
                     cmdDeadline(content, list);
-                } catch (DukeException e) {
+                } catch (NullContentException e) {
                     ui.emptyTaskMessage ();
+                } catch (InvalidCommandException e) {
+                    ui.dlInvalidFormatMessage();
                 }
             };
         } );
@@ -58,8 +57,10 @@ public class CommandList {
             public void run(String content) {
                 try {
                     cmdEvent(content, list);
-                } catch (DukeException e){
+                } catch (NullContentException e){
                     ui.emptyTaskMessage ();
+                } catch (InvalidCommandException e) {
+                    ui.evInvalidFormatMessage();
                 }
             };
         } );
@@ -73,6 +74,9 @@ public class CommandList {
         return keywords.containsKey(keyword);
     }
 
+    public void  add(String keyword, Command method) {
+        keywords.put(keyword, method);
+    }
     public Command delete(String keyword) {
         return keywords.remove(keyword);
     }
@@ -106,7 +110,7 @@ public class CommandList {
             ui.doneValidTaskNoMessage();
         }
     }
-    private void cmdTodo(String content, TempTaskList list) throws NullContentException {
+    private void cmdTodo(String content, TempTaskList list) throws DukeException {
         //String content = removeKeyword(userInput);
 
         if (content == null) {
@@ -118,10 +122,13 @@ public class CommandList {
         ui.addTaskMessage(list.get(index), list.get(0).getTotalTask());
     }
 
-    private void cmdDeadline(String content, TempTaskList list) throws NullContentException {
+    private void cmdDeadline(String content, TempTaskList list) throws NullContentException, InvalidCommandException {
         //String content = removeKeyword(userInput);
         if (content == null) {
             throw new NullContentException();
+        }
+        if (!content.contains(" /by ")) {
+            throw new InvalidCommandException();
         }
         String[] parts = content.split(" /by ");
         list.set(new Deadline(parts[0], parts[1]));
@@ -129,10 +136,13 @@ public class CommandList {
         ui.addTaskMessage(list.get(index), list.get(0).getTotalTask());
     }
 
-    private void cmdEvent(String content, TempTaskList list) throws NullContentException {
+    private void cmdEvent(String content, TempTaskList list) throws NullContentException, InvalidCommandException {
         //String content = removeKeyword(userInput);
         if (content == null) {
             throw new NullContentException();
+        }
+        if (!content.contains(" /at ")) {
+            throw new InvalidCommandException();
         }
         String[] parts = content.split(" /at ");
         list.set(new Event(parts[0], parts[1]));

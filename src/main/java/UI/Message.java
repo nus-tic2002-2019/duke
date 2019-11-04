@@ -29,7 +29,7 @@ public class Message {
         if (list.size() == 0) {
             System.out.println("\tCheers, you have a free day!"
                     + System.lineSeparator()
-                    + "\tWanna drop things in your mind?");
+                    + "\tFree to dump things from your mind");
             return;
         }
         System.out.println("\tHere are the tasks in your list: ");
@@ -49,11 +49,11 @@ public class Message {
         System.out.println("\tNice! I've marked this task as done: ");
         System.out.println("\t  " + task);
     }
-    public void showGreetingMessage () {
-        System.out.println("\tHey! Duke here, What can I do for you?");
+    public void dlInvalidFormatMessage () {
+        System.out.println("\t☹ OOPS!!! Separate content and date with \" /by \" ");
     }
-    public void showExitMessage () {
-        System.out.println("\tBye. Hope to see you again soon!");
+    public void evInvalidFormatMessage () {
+        System.out.println("\t☹ OOPS!!! Separate content and time block with \" /at \" ");
     }
     public void emptyTaskMessage () {
         System.out.println("\t☹ OOPS!!! The description of a task cannot be empty.");
@@ -62,10 +62,33 @@ public class Message {
         System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(" );
     }
     public void doneTaskNoMessage () {
-        System.out.println("\t☹ OOPS!!! please input a Task Number instead ~");
+        System.out.println("\t☹ OOPS!!! Please input a Task Number instead ~");
     }
     public void doneValidTaskNoMessage () {
-        System.out.println("\t☹ OOPS!!! please input a valid Task No. ~");
+        System.out.println("\t☹ OOPS!!! Please input a valid Task No. ~");
+    }
+    public void errorFileMessage () {
+        System.out.println("\t☹ OOPS!!! Error occurred to get the file :-(");
+    }
+    public void existingUser (String username) {
+        System.out.println("\tWelcome back, " + username);
+    }
+    public void newUser () {
+        System.out.println("\tNew user registered \\^o^/");
+    }
+
+    public void showGreetingMessage () {
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+        System.out.println(logo);
+        System.out.println("\t    \\   / ");
+        System.out.println("\tHey! \\ / here, What's your username?");
+    }
+    public void showExitMessage () {
+        System.out.println("\tBye. Hope to see you again soon!");
     }
 
 }
