@@ -13,45 +13,50 @@ public class TaskList{
     }
  
     /** 
-     * @param tasks
-     * @return 
+     * Constructs a new task list and initialise with the specified task list.
+     * @param tasks Task list specified by the user.
      */
     public TaskList(ArrayList<Task> tasks){
         this.taskList = tasks;
     }
    
     /** 
-     * @param task
+     * Adds a task to the task list.
+     * @param task  The task that is required to be added to the task list.
      */
     public void addToTaskList(Task task){
         this.taskList.add(task);
     }
  
     /** 
-     * @param task
-     * @return Task
+     * Deletes a task from the task list.
+     * @param task  The task that is required to be removed from the task list.
+     * @return Task The task that was removed from the task list.
      */
     public Task deleteFromTaskList(int task){
         return this.taskList.remove(task);
     }
  
     /** 
-     * @return int
+     * Returns the size of the current task list.
+     * @return int  The size of the current task list.
      */
     public static int getSize(){
         return taskList.size();
     }
   
     /** 
-     * @param task
-     * @return Task
+     * Returns the task from the specified index from the task list.
+     * @param task  The index the task is located at.
+     * @return Task The task at the specified index.
      */
     public static Task getTask(int task){
         return taskList.get(task);
     }
    
     /** 
-     * @return ArrayList<Task>
+     * Returns all the task in an ArrayList format.
+     * @return ArrayList<Task>  The list of tasks in an ArrayList format.
      */
     public ArrayList<Task> getAllTasks(){
         return taskList;

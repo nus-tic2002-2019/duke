@@ -44,7 +44,6 @@ public class Duke{
             }
         }
     }
-
     
     /** 
      * Obtains the response of Duke with reference to the input and returns the output as text to the user.
