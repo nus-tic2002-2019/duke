@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,6 +54,31 @@ public class TaskList implements Serializable{
         for(int i=0; i<line.size(); i++)
         {
             line.get(i).write(storage); //write entire task list to storage
+        }
+    }
+
+    @Override
+    public void read(BufferedReader fileRead) throws IOException {
+        String type = null;
+        line.clear();
+        while ((type = fileRead.readLine()) != null) {
+            if (type.equals("T")) {
+                Todo t = new Todo();
+                t.read(fileRead);
+                line.add(t);
+                count++;
+            } else if (type.equals("D")) {
+                Deadline d = new Deadline();
+                d.read(fileRead);
+                line.add(d);
+                count++;
+            } else if (type.equals("E")) {
+                Event e;
+                e = new Event();
+                e.read(fileRead);
+                line.add(e);
+                count++;
+            }
         }
     }
 }

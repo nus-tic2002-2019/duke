@@ -8,6 +8,10 @@ public class Todo extends Task {
         super(taskName, taskDone); // calls the parent constructor
     }
 
+    public Todo() {
+        super();
+    }
+
     public String toString()
     {
         return "[T]" + super.toString();

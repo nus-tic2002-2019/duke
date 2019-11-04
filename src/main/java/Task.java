@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -9,6 +11,10 @@ public class Task implements Serializable {
     {
         this.taskName = taskName;
         this.taskDone = taskDone;
+    }
+
+    public Task() {
+
     }
 
     public String getTaskName()
@@ -59,5 +65,20 @@ public class Task implements Serializable {
             storage.write("false\n");
         }
 
+    }
+
+    @Override
+    public void read(BufferedReader fileRead) throws IOException
+    {
+        taskName = fileRead.readLine();
+        String done = fileRead.readLine();
+        if(done.equals("true"))
+        {
+            taskDone = true;
+        }
+        else
+        {
+            taskDone = false;
+        }
     }
 }

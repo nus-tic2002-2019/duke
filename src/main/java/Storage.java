@@ -1,5 +1,7 @@
-import java.io.FileWriter;
-import java.io.IOException;
+import javafx.scene.control.ButtonBar;
+
+import java.io.*;
+import java.lang.invoke.SwitchPoint;
 
 public class Storage {
 
@@ -24,7 +26,37 @@ public class Storage {
                 }
             }
 
+        }
+
+    public void load(String filename, Serializable serializable)
+    {
+        BufferedReader r = null;
+        File file = new File(filename);
+        if(!file.exists())
+        {
+            return;
+        }
+        try
+        {
+            r = new BufferedReader(new FileReader(file));
+            serializable.read(r);
 
         }
+        catch (FileNotFoundException e)
+        {
+          e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        } finally
+        {
+            try {
+                r.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }

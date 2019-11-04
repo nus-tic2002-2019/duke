@@ -1,3 +1,4 @@
+import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -9,6 +10,10 @@ public class Deadline extends Task{
             this.by = by;
         }
 
+    public Deadline() {
+        super();
+    }
+
     public String toString()
     {
         return "[D]" + super.toString() + " (by: "+ by + ")";
@@ -18,5 +23,12 @@ public class Deadline extends Task{
         super.write(storage);
         storage.write(by + "\n");
     }
+
+    public void read(BufferedReader fileRead) throws IOException
+    {
+        super.read(fileRead);
+        by = fileRead.readLine();
+    }
+
     }
 

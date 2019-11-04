@@ -1,3 +1,4 @@
+import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -9,7 +10,11 @@ public class Event extends Task{
             this.at = at;
         }
 
-        public String toString()
+    public Event() {
+        super();
+    }
+
+    public String toString()
         {
             return "[E]" + super.toString() + " (at: "+ at + ")";
         }
@@ -18,6 +23,12 @@ public class Event extends Task{
         storage.write("E\n"); //to represent as todo
         super.write(storage);
         storage.write(at + "\n");
+    }
+
+    public void read(BufferedReader fileRead) throws IOException
+    {
+        super.read(fileRead);
+        at = fileRead.readLine();
     }
 
 }
