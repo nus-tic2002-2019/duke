@@ -1,9 +1,9 @@
+package duke;
+
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TaskList implements Serializable{
     ArrayList<Task> line = new ArrayList<Task>();

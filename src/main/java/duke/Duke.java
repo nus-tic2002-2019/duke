@@ -1,6 +1,4 @@
-import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.Scanner;
+package duke;
 
 public class Duke {
     public static void main(String[] args) {

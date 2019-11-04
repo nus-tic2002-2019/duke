@@ -1,34 +1,36 @@
+package duke;
+
 import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Event extends Task{
-        protected String at;
-        public Event (String taskName, boolean taskDone, String at)
+public class Deadline extends Task{
+    protected String by;
+    public Deadline (String taskName, boolean taskDone, String by)
         {
             super(taskName, taskDone); // calls the parent constructor
-            this.at = at;
+            this.by = by;
         }
 
-    public Event() {
+    public Deadline() {
         super();
     }
 
     public String toString()
-        {
-            return "[E]" + super.toString() + " (at: "+ at + ")";
-        }
-
+    {
+        return "[D]" + super.toString() + " (by: "+ by + ")";
+    }
     public void write(FileWriter storage) throws IOException {
-        storage.write("E\n"); //to represent as todo
+        storage.write("D\n"); //to represent as todo
         super.write(storage);
-        storage.write(at + "\n");
+        storage.write(by + "\n");
     }
 
     public void read(BufferedReader fileRead) throws IOException
     {
         super.read(fileRead);
-        at = fileRead.readLine();
+        by = fileRead.readLine();
     }
 
-}
+    }
+
