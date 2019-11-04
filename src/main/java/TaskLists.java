@@ -58,7 +58,12 @@ public class TaskLists {
 
     public void addDeadline(String message) {
         int index = message.indexOf('/');
-        list.add(new Deadlines(message.substring(9, index - 1), message.substring(index + 4)));
+        boolean readFromFile = false;
+        if (message.charAt(0) == '_'){
+            readFromFile = true;
+            message = message.substring(1);
+        }
+        list.add(new Deadlines(message.substring(9, index - 1), message.substring(index + 4), readFromFile));
     }
 
     public void addEvent(String message) {

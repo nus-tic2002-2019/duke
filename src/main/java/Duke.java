@@ -2,11 +2,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Duke {
-    public static void main(String[] args) throws DukeException, IOException {
+    public static void main(String[] args) throws IOException, DukeException {
         run();
     }
 
-    public static void run() throws DukeException, IOException {
+    public static void run() throws IOException, DukeException {
         Ui ui = new Ui();
         TaskLists taskList = new TaskLists();
         Storage textFile = new Storage();
@@ -14,7 +14,11 @@ public class Duke {
         String command = null;
         String message = null;
         ui.showWelcomeMessage();
-        textFile.readFile(taskList);
+        try {
+            textFile.readFile(taskList);
+        } catch (DukeException a) {
+            ui.showInputError();
+        }
         while (online) {
             try {
                 message = ui.readCommand();
@@ -88,8 +92,6 @@ public class Duke {
                     default:
                         ui.showUnknownInputError();
                 }
-            } catch (DukeException e) {
-                ui.showInputError();
             } catch (IOException e) {
                 ui.showFileError();
             }
@@ -97,6 +99,7 @@ public class Duke {
         textFile.saveFile(taskList.getList());
     }
 }
+
 /*  public static void main(String[] args) {
         ArrayList<Task> history = new ArrayList<Task>();
         String logo = " ____        _        \n"

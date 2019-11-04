@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.Scanner;
 
 import task.*;
 
@@ -26,11 +25,14 @@ public class Storage {
     }
 
 
-    public void readFile(TaskLists tasks) throws IOException {
+    public void readFile(TaskLists tasks) throws IOException,DukeException {
         BufferedReader s = null;
         s = new BufferedReader(new FileReader(DEFAULT_PATH));
         String input = null;
         while ((input = s.readLine()) != null) {
+            if (input.charAt(0) != 'T' || input.charAt(0) != 'E' || input.charAt(0) != 'D'){
+                throw new DukeException();
+            }
             char status = input.charAt(3);
             switch (Character.toString(input.charAt(0))) {
                 case "T":
@@ -53,7 +55,7 @@ public class Storage {
                 case "D":
                     input = input.substring(5);
                     input = input.replace("|", "/by");
-                    tasks.addDeadline("deadline" + input);
+                    tasks.addDeadline("_deadline" + input);
                     if (status == '1') {
                         int index = tasks.getSize() - 1;
                         tasks.getList().get(index).setTaskDone();

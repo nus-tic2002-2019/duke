@@ -57,7 +57,7 @@ public class Ui {
     }
 
     public void showInputError() { //can be for files input
-        String errorMessage = "Please type a valid input\n";
+        String errorMessage = "There is something wrong with the previous file, please check the content\n\tof the file. I'm unable to load the past task list.\n";
         System.out.println(showLine() + errorMessage + showLine());
     }
 
