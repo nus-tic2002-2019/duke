@@ -1,3 +1,10 @@
+/**
+ * Duke class, main() is located here
+ * Ensures execution of Duke program as long as isExit is false
+ * @param isExit tells program to exit, set to false by default
+ * Writes tasks entered by user at the end of program right before exiting
+ */
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;

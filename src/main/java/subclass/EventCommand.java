@@ -1,6 +1,8 @@
 /**
  * Records event type tasks, records string after "event" command as task description, and day + time after "/at"
  * Displays error when no input is entered after "event" command.
+ * @param input is entered by user after "event" command
+ * @param at is date-time/place entered by user after "/at" keyword in command
  */
 
 
@@ -12,7 +14,6 @@ import java.text.ParseException;
 
 public class EventCommand extends Command {
     public static final String INPUT = "event";
-    //private Event event;
 
     public EventCommand(boolean isExit, String input) {
         super(isExit, input);

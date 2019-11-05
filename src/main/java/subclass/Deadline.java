@@ -1,5 +1,8 @@
 /**
  * Deadline type tasks only accepts date of specified format
+ * @param format1 defines what format the date input by user is
+ * @return Deadline object added successfully into list
+ * @throws java.text.ParseException if incorrect date format is entered
  */
 
 package subclass;

@@ -1,5 +1,6 @@
-/*
-Displaying full list of tasks entered by user
+/**
+ * Displaying full list of tasks entered by user
+ * Executing getList() method from Task class when "list" command is entered
  */
 
 package subclass;

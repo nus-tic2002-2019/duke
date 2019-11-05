@@ -1,3 +1,11 @@
+/**
+ * Delete command class
+ * @param input is input entered by user after "delete" command
+ * @throws subclass.DukeException if "delete" command is entered without index
+ * @throws java.lang.AssertionError when index entered after "delete" command is lesser than 0
+ */
+
+
 package subclass;
 
 public class DeleteCommand extends Command {

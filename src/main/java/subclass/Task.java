@@ -1,6 +1,12 @@
+/**
+ * Task class adding of tasks
+ * @param description is the input from user after command entered
+ * Methods like getList() and findTask() are also included in this class
+ * @param taskNo represents the index the specific task is at on the list displayed after performing getList() or "list" command
+ */
+
 package subclass;
 
-import java.util.Arrays;
 import java.util.ArrayList;
 
 public class Task {

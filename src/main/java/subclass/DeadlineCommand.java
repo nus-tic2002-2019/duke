@@ -1,8 +1,12 @@
-/*
-Deadline tasks records users input as description after "deadline" command, and also date of deadline after "/by"
-Display error when any of the following occurs:
-    -   no input entered after "deadline" command
-    -   date format entered after "/by" is wrong
+/**
+ *  Deadline tasks records users input as description after "deadline" command, and also date of deadline after "/by"
+ * @param input is entered by user after "deadline" command
+ * @param by is date-time entered by user after "/by" keyword in the input
+ *
+ *
+ * Display error when any of the following occurs:
+ *     @throws java.io.IOException when no input entered after "deadline" command
+ *     @throws java.text.ParseException when date format entered after "/by" is wrong
  */
 
 package subclass;
