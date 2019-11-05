@@ -1,5 +1,6 @@
 package com.duke.storage;
 
+import com.duke.exception.IllegalValueException;
 import com.duke.task.TaskList;
 
 import java.io.IOException;
@@ -44,6 +45,8 @@ public class Storage {
             return TaskListDecoder.decodeTaskList(Files.readAllLines(path));
         }catch (IOException ioe){
             throw new StorageOperationException("Loading went wrong");
+        }catch (IllegalValueException ive){
+            throw new StorageOperationException("File contains incorrect format.");
         }
 
     }

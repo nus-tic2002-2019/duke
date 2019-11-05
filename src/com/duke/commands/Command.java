@@ -25,5 +25,9 @@ public class Command {
     public void execute() {
     }
 
+    public void setData(TaskList taskList){
+        this.taskList=taskList;
+    }
+
 
 }

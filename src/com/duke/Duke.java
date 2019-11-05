@@ -26,7 +26,8 @@ public class Duke {
     }
     public static void main(String[] args) {
         //new Duke("data/tasks.txt").run();
-        new Duke("C:\\Users\\RuiTing\\Desktop\\NUS-Module\\Year2-Sem1\\TIC2002-Introductionto Software Engineering\\Duke\\data\\duke.txt").run();
+//        new Duke("C:\\Users\\RuiTing\\Desktop\\NUS-Module\\Year2-Sem1\\TIC2002-Introductionto Software Engineering\\Duke\\data\\duke.txt").run();
+        new Duke("D:\\NUS-Module\\NUS-Module\\Year2-Sem1\\TIC2002-Introductionto Software Engineering\\Duke\\data\\duke.txt").run();
 
         //original
         /*
@@ -79,7 +80,9 @@ public class Duke {
                 String fullCommand = ui.readCommand();
                 ui.showLine(); // show the divider line ("_______")
                 Command c = new Parser().parse(fullCommand);
+                c.setData(tasks);
                 c.execute();
+                storage.save(tasks);
                 isExit = ExitCommand.isExit(c);
             } catch (Exception e) {
                 ui.showError(e.getMessage());

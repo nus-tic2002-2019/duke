@@ -1,6 +1,7 @@
 package com.duke.storage;
 
 import com.duke.task.*;
+import com.duke.exception.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ public class TaskListDecoder {
                                                                        "[|](?<taskDesc>[^|]+)" +
                                                                        "[|](?<time>[^|]+)");
 
-    public static TaskList decodeTaskList(List<String> encodedTasklist){
+    public static TaskList decodeTaskList(List<String> encodedTasklist) throws IllegalValueException {
 
         final List<Task> decodedTasks = new ArrayList<>();
         for (String encodedTask : encodedTasklist){
@@ -28,22 +29,25 @@ public class TaskListDecoder {
     }
 
 
-    private static Task decodeTaskFromString(String encodedTask){
-         final Matcher matcherTodo= TODO_TXT_FILE_FORMAT.matcher(encodedTask.trim());
-         final Matcher matcherDeadline=DEADLINE_TXT_FILE_FORMAT.matcher(encodedTask.trim());
-         final Matcher matcherEvent=EVENT_TXT_FILE_FORMAT.matcher(encodedTask.trim());
-         if(matcherTodo.matches()){
-                 return new Todo(matcherTodo.group("taskDesc"),"1".equals(matcherTodo.group("isDone")));
-         }
-       else if(matcherDeadline.matches()){
-            return new Deadline(matcherDeadline.group("taskDesc"),matcherDeadline.group("time"),
-                    "1".equals(matcherDeadline.group("isDone")));
-        }
-       // remember add exception later
-        else //if(matcherEvent.matches()){
-            return new Events(matcherEvent.group("taskDesc"),matcherDeadline.group("time"),
-                    "1".equals(matcherEvent.group("isDone")));
-        }
+    private static Task decodeTaskFromString(String encodedTask) throws IllegalValueException{
+        final Matcher matcherTodo = TODO_TXT_FILE_FORMAT.matcher(encodedTask.trim());
+        final Matcher matcherDeadline = DEADLINE_TXT_FILE_FORMAT.matcher(encodedTask.trim());
+        final Matcher matcherEvent = EVENT_TXT_FILE_FORMAT.matcher(encodedTask.trim());
+
+            if (matcherTodo.matches()) {
+                return new Todo(matcherTodo.group("taskDesc"), "1".equals(matcherTodo.group("isDone")));
+            } else if (matcherDeadline.matches()) {
+                return new Deadline(matcherDeadline.group("taskDesc"), matcherDeadline.group("time"),
+                        "1".equals(matcherDeadline.group("isDone")));
+            }
+            // remember add exception later
+            else if (matcherEvent.matches()) {
+                return new Events(matcherEvent.group("taskDesc"), matcherEvent.group("time"),
+                        "1".equals(matcherEvent.group("isDone")));
+            }
+            else throw new IllegalValueException("No match, please check your txt file format");
+
+    }
 
 
 

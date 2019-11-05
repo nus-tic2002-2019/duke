@@ -84,14 +84,22 @@ public class Parser {
     }
 
     private Command prepareDone(String args) {
-        final int targetIndex = parseArgsAsDisplayedIndex(args);
-        return new DoneCommand(targetIndex);
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(args);
+            return new DoneCommand(targetIndex);
+        }catch (ParseException pe){
+            return new IncorrectCommand("Error");
+        }
     }
 
 
     private Command prepareDelete(String args) {
-        final int targetIndex = parseArgsAsDisplayedIndex(args);
-        return new DeleteCommand(targetIndex);
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(args);
+            return new DeleteCommand(targetIndex);
+        }catch (ParseException pe){
+            return  new IncorrectCommand("Error");
+        }
     }
 
 
@@ -101,12 +109,24 @@ public class Parser {
      * @param args arguments string to parse as index number
      * @return the parsed index number
      */
-    private int parseArgsAsDisplayedIndex(String args)  {
+    private int parseArgsAsDisplayedIndex(String args) throws ParseException{
         final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(args.trim());
-
+        if(!matcher.matches()){
+            throw   new  ParseException("Could not match to the correct index.");
+        }
         return Integer.parseInt(matcher.group("targetIndex"));
     }
 
+
+
+    /**
+     * Signals that the user input could not be parsed.
+     */
+    public static class ParseException extends Exception {
+        ParseException(String message) {
+            super(message);
+        }
+    }
 
 
 }
