@@ -2,17 +2,10 @@ package com.duke;
 
 import com.duke.commands.Command;
 import com.duke.commands.ExitCommand;
-import com.duke.exception.DukeException;
-import com.duke.exception.EmptyDescriptionException;
-import com.duke.exception.UndefinedTaskException;
 import com.duke.parser.Parser;
 import com.duke.storage.Storage;
-import com.duke.task.*;
+import com.duke.task.TaskList;
 import com.duke.ui.Ui;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class Duke {
 
@@ -26,13 +19,15 @@ public class Duke {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
+        } catch (Exception e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
     }
     public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
+        //new Duke("data/tasks.txt").run();
+        new Duke("C:\\Users\\RuiTing\\Desktop\\NUS-Module\\Year2-Sem1\\TIC2002-Introductionto Software Engineering\\Duke\\data\\duke.txt").run();
+
         //original
         /*
             String line = "";
@@ -86,7 +81,7 @@ public class Duke {
                 Command c = new Parser().parse(fullCommand);
                 c.execute();
                 isExit = ExitCommand.isExit(c);
-            } catch (DukeException e) {
+            } catch (Exception e) {
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();

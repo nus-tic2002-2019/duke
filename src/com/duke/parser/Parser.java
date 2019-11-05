@@ -27,9 +27,10 @@ public class Parser {
 
     public Command parse(String inputCommand) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(inputCommand.trim());
-//        if (!matcher.matches()) {
-//            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-//        }
+        if (!matcher.matches()) {
+            return new IncorrectCommand("This is a incorrect format, " +
+                    " you may type the list to see all the commands.");
+        }
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
@@ -65,11 +66,19 @@ public class Parser {
     }
     private Command prepareAddDeadline(String args) {
         final Matcher matcher= TASK_TYPE_DEADLINE_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand("This is a incorrect format, " +
+                    " you may type the list to see all the commands.");
+        }
         return new AddCommand(new Deadline(matcher.group("deadlineDesc"),
                                            matcher.group("byTime")));
     }
     private Command prepareAddEvent(String args) {
         final Matcher matcher= TASK_TYPE_EVENT_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand("This is a incorrect format, " +
+                    " you may type the list to see all the commands.");
+        }
         return new AddCommand(new Events(matcher.group("eventDesc"),
                                          matcher.group("atTime")));
     }

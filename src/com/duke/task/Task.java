@@ -3,6 +3,8 @@ package com.duke.task;
 public class Task {
     protected String description;
     protected boolean isDone;
+    private String taskTime="Dummy";
+    private static final String TASK_TYPE="A";
 
     public Task(String description) {
         this.description = description;
@@ -24,6 +26,17 @@ public class Task {
 
     public String getDescription() {
         return description;
+    }
+
+    public boolean isDone(){
+        return isDone;
+    }
+
+    public String getTaskType(){
+        return TASK_TYPE;
+    }
+    public String getTaskTime(){
+        return taskTime;
     }
 
     @Override
