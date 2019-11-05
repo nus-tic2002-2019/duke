@@ -5,6 +5,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/***
+ * created class for task actions
+ */
 public class TaskList implements Serializable{
     ArrayList<Task> line = new ArrayList<Task>();
     int count = 0;
@@ -23,18 +26,35 @@ public class TaskList implements Serializable{
         line.add(t);
     }
 
+    /***
+     * create new task
+     * @param x
+     * @param done
+     */
     public void newTodoTask(String x, boolean done) {
         Todo t = new Todo(x, done);
         line.add(t);
         count++;
     }
 
+    /***
+     * create new deadline task
+     * @param name
+     * @param done
+     * @param by
+     */
     public void newDeadlineTask(String name, boolean done, String by) {
         Deadline d = new Deadline(name, false, by);
         line.add(d);
         count++;
     }
 
+    /***
+     * create new event task
+     * @param name
+     * @param done
+     * @param at
+     */
     public void newEventTask(String name, boolean done, String at)
     {
         Event e = new Event(name, false, at);
@@ -42,13 +62,22 @@ public class TaskList implements Serializable{
         count ++;
     }
 
-
+    /***
+     * remove task from task list
+     * @param index
+     * @return
+     */
     public Task removeTask(int index) {
         count --;
         return line.remove(index-1);
 
     }
 
+    /***
+     * add task list into storage
+     * @param storage
+     * @throws IOException
+     */
     @Override
     public void write(FileWriter storage) throws IOException {
         for(int i=0; i<line.size(); i++)
@@ -57,6 +86,11 @@ public class TaskList implements Serializable{
         }
     }
 
+    /***
+     * read task list
+     * @param fileRead
+     * @throws IOException
+     */
     @Override
     public void read(BufferedReader fileRead) throws IOException {
         String type = null;
@@ -81,4 +115,11 @@ public class TaskList implements Serializable{
             }
         }
     }
+
+//    public void newTodoTask(String x, boolean done, String recurringFrequency)
+ //   {
+ //       Todo t = new Todo(x, done, recurringFrequency);
+//        line.add(t);
+ //       count++;
+  //  }
 }

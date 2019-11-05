@@ -3,7 +3,11 @@ package duke;
 import java.io.*;
 
 public class Storage {
-
+    /***
+     * method to initalize storage saving
+     * @param filename
+     * @param serializable
+     */
         public void save(String filename, Serializable serializable)
         {
             FileWriter storage = null;
@@ -26,6 +30,12 @@ public class Storage {
             }
 
         }
+
+    /***
+     * method to initialize loading the file in storage
+     * @param filename
+     * @param serializable
+     */
 
     public void load(String filename, Serializable serializable)
     {

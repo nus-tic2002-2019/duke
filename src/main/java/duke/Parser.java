@@ -1,8 +1,17 @@
 package duke;
 
+import java.time.DateTimeException;
+import java.time.format.DateTimeParseException;
+
 public class Parser
 {
-
+    /***
+     * to parse command into dukeapp
+     * @param input
+     * @param ui
+     * @param line
+     * @param storage
+     */
     public void parseCommand(String input, UI ui, TaskList line, Storage storage)
     {
 
@@ -31,8 +40,19 @@ public class Parser
                     {
                         throw new EmptyDescriptionException("Oops. The description of a todo cannot be empty");
                     }
-                    String replaceString = input.replace("todo ", "");
-                    line.newTodoTask(replaceString, false);
+                    String replaceString2 = input.replace("event", "");
+                    String [] splitAt = replaceString2.split(" /every ");
+                    if(splitAt.length >1)//if there is an every
+                    {
+                        String recurringFrequency = splitAt[1];
+                        String replaceString = input.replace("todo ", "");
+                        line.newTodoTask(splitAt[0], false);
+                    }
+                    else //if there isn't recurring
+                    {
+                        String replaceString = input.replace("todo ", "");
+                        line.newTodoTask(replaceString, false);
+                    }
                     ui.printTodo(line, line.getCount()-1);
                     storage.save("listData.txt", line);
 
@@ -95,6 +115,10 @@ public class Parser
             catch (EmptyDescriptionException e)
             {
                 System.out.println(e.getMessage());
+            }
+            catch(DateTimeParseException e)
+            {
+                System.out.println("date not recognized. Please input in this format: yyyy-mm-dd ");
             }
 
         }
