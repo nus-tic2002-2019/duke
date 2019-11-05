@@ -20,12 +20,6 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
 
-    /**
-     * Sets up the required objects, loads up the data from the storage file, and prints the welcome message.
-     *
-     * @param filename arguments supplied by the user before the program launch
-     *
-     */
     public Duke(String filename){
         this.ui = new Ui();
         this.storage = new Storage(filename);

@@ -1,7 +1,7 @@
 package ui;
 
 import task.Task;
-import tasklist.*;
+import tasklist.TaskList;
 
 import java.util.Scanner;
 
