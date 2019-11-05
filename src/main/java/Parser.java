@@ -25,6 +25,9 @@ public class Parser {
         if (userInput.contains("event")) {
             command = "event";
         }
+        if (userInput.contains("find")) {
+            command = "find";
+        }
         if (userInput.contains("do") && userInput.contains("after")) {
             command = "doAfter";
         }

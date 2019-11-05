@@ -51,6 +51,11 @@ public class Ui {
         System.out.println(showLine() + listTask + showLine());
     }
 
+    public void showFindResult(String list) {
+        String listResult = "Here are the matching tasks in your list:\n\t" + list + "\n";
+        System.out.println(showLine() + listResult + showLine());
+    }
+
     public void showOffline() {
         String goodbye = "Bye. Hope to see you again soon!\n";
         System.out.println(showLine() + goodbye + showLine());

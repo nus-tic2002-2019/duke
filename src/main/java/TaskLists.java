@@ -40,6 +40,21 @@ public class TaskLists {
         return answer;
     }
 
+    public String findTask(String message) throws DukeExceptionEmptyList {
+        TaskLists foundResult = new TaskLists();
+        if (isEmpty()) {
+            throw new DukeExceptionEmptyList();
+        }
+        message = message.substring(5);
+        System.out.println(message);
+        for (int i = 0; i < getSize(); i++) {
+            if (this.list.get(i).getDescription().contains(message)) {
+                foundResult.list.add(this.list.get(i));
+            }
+        }
+        return foundResult.displayList();
+    }
+
     public String displayLatestTask() {
         int number = getSize() - 1;
         return list.get(number).getType() + list.get(number).getTaskStatus() + " " + list.get(number).getTask() + " " + list.get(number).getDetails();
