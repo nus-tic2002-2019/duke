@@ -1,8 +1,23 @@
 package parser;
 
-import command.*;
-import error.*;
-import task.*;
+import command.AddDeadlineCommand;
+import command.AddEventCommand;
+import command.AddToDoCommand;
+import command.DeleteCommand;
+import command.ExitCommand;
+import command.DoneCommand;
+import command.ListCommand;
+import command.FindCommand;
+import command.Command;
+import task.Todo;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import error.IllegalStringException;
+import error.InvalidPriorityException;
+import error.MissingIndexException;
+import error.MissingDateException;
+
 
 import java.time.format.DateTimeParseException;
 import java.time.LocalDate;
@@ -28,25 +43,25 @@ public class Parser {
             MissingDateException{
         String[] inputs = args.split(" ");
         switch(inputs[0]){
-            case AddToDoCommand.COMMAND_WORD:
-                return prepareTodo(inputs);
-            case AddEventCommand.COMMAND_WORD:
-                return prepareEvent(args, inputs);
-            case AddDeadlineCommand.COMMAND_WORD:
-                return prepareDeadline(args, inputs);
-            case DeleteCommand.COMMAND_WORD:
-                // try if delete never include the number
-                return prepareDel(inputs);
-            case ExitCommand.COMMAND_WORD:
-                return prepareExit();
-            case DoneCommand.COMMAND_WORD:
-                return prepareDone(inputs);
-            case ListCommand.COMMAND_WORD:
-                return prepareList();
-            case FindCommand.COMMAND_WORD:
-                return prepareFind(inputs);
-            default:
-                throw new IllegalStringException("Invalid Command: Please refer to the API to find the list of legal commands.");
+        case AddToDoCommand.COMMAND_WORD:
+            return prepareTodo(inputs);
+        case AddEventCommand.COMMAND_WORD:
+            return prepareEvent(args, inputs);
+        case AddDeadlineCommand.COMMAND_WORD:
+            return prepareDeadline(args, inputs);
+        case DeleteCommand.COMMAND_WORD:
+            // try if delete never include the number
+            return prepareDel(inputs);
+        case ExitCommand.COMMAND_WORD:
+            return prepareExit();
+        case DoneCommand.COMMAND_WORD:
+            return prepareDone(inputs);
+        case ListCommand.COMMAND_WORD:
+            return prepareList();
+        case FindCommand.COMMAND_WORD:
+            return prepareFind(inputs);
+        default:
+            throw new IllegalStringException("Invalid Command: Please refer to the API to find the list of legal commands.");
         }
     }
 
@@ -176,17 +191,17 @@ public class Parser {
         String[] components = command.split(" \\| ");
         Task result = null;
         switch(components[0]){
-            case "T" :
-                result = new Todo(components[2], Integer.parseInt(components[1]));
-                break;
-            case "D" :
-                result = new Deadline(components[2], Integer.parseInt(components[1]), LocalDate.parse(components[3]));
-                break;
-            case "E" :
-                result =  new Event(components[2], Integer.parseInt(components[1]), LocalDate.parse(components[3]));
-                break;
-            default:
-                break;
+        case "T" :
+            result = new Todo(components[2], Integer.parseInt(components[1]) ,Integer.parseInt(components[3]));
+            break;
+        case "D" :
+            result = new Deadline(components[2], Integer.parseInt(components[1]), LocalDate.parse(components[3]), Integer.parseInt(components[4]));
+            break;
+        case "E" :
+            result =  new Event(components[2], Integer.parseInt(components[1]), LocalDate.parse(components[3]), Integer.parseInt(components[4]));
+            break;
+        default:
+            break;
         }
         return result;
     }

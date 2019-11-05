@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
-import tasklist.*;
+import tasklist.TaskList;
 import java.io.FileWriter;
 import java.io.IOException;
-import task.*;
 
 public class Storage {
 
@@ -28,6 +27,7 @@ public class Storage {
      * @throws IOException
      */
     private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        assert !filePath.isEmpty();
         FileWriter fw = new FileWriter(filePath);
         fw.write(textToAdd);
         fw.close();
@@ -39,6 +39,7 @@ public class Storage {
      * @throws FileNotFoundException
      */
     public ArrayList<String> load() throws FileNotFoundException {
+        assert !filename.isEmpty();
         ArrayList<String> output = new ArrayList<>();
         File f = new File(filename);
         Scanner s = new Scanner(f);

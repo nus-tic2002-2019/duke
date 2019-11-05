@@ -1,10 +1,10 @@
 package command;
 
-import task.*;
-import error.*;
+import task.Task;
+import task.Todo;
 import tasklist.TaskList;
-import ui.*;
-import storage.*;
+import storage.Storage;
+import ui.Ui;
 
 //break this from AddCommand so as to increase coupling
 public class AddToDoCommand extends Command{
@@ -16,7 +16,7 @@ public class AddToDoCommand extends Command{
      *
      * @param description and priority
      */
-    public AddToDoCommand(String description, int priority){
+    public AddToDoCommand(String description, int priority) {
         super(description, priority);
     }
 
@@ -29,7 +29,7 @@ public class AddToDoCommand extends Command{
      * @param storage
      */
     public void execute(TaskList task, Ui ui, Storage storage){
-                Task insert = new Todo(description);
+                Task insert = new Todo(description, priority);
                 task.addTask(insert);
                 ui.showAdd(insert, task);
         }

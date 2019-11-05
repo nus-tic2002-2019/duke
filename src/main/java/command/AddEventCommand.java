@@ -1,10 +1,10 @@
 package command;
 
-import task.*;
-import error.*;
+import task.Event;
+import task.Task;
 import tasklist.TaskList;
-import ui.*;
-import storage.*;
+import storage.Storage;
+import ui.Ui;
 
 import java.time.LocalDate;
 

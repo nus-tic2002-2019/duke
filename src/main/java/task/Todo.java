@@ -14,6 +14,19 @@ public class Todo extends Task {
     }
 
     /**
+     * Constructor of Todo with all attributes
+     *
+     * @param description
+     * @param value
+     * @param done
+     *
+     */
+    public Todo(String description, int done, int value) {
+        super(description, done);
+        this.priority = value;
+    }
+
+    /**
      * Constructor of Todo
      *
      * @param description

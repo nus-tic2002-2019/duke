@@ -1,9 +1,10 @@
 package command;
 
+import error.IllegalStringException;
+import storage.Storage;
 import tasklist.TaskList;
-import ui.*;
-import storage.*;
-import error.*;
+import ui.Ui;
+
 
 public class ExitCommand extends Command {
 

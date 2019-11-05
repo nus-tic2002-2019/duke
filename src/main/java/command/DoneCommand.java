@@ -1,9 +1,9 @@
 package command;
 
+import error.IllegalStringException;
 import tasklist.TaskList;
-import ui.*;
-import storage.*;
-import error.*;
+import storage.Storage;
+import ui.Ui;
 
 public class DoneCommand extends Command {
 

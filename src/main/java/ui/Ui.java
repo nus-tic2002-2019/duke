@@ -33,7 +33,7 @@ public class Ui {
 
     /**
      * Return the appropriate error message
-     * @param String msg
+     * @param msg
      */
     public void showError(String msg){
         System.out.println(msg);
@@ -41,8 +41,8 @@ public class Ui {
 
     /**
      * Return the add UI whenever AddCommand is invoked
-     * @param Task insert
-     * @param TaskList store
+     * @param insert
+     * @param store
      */
     public void showAdd(Task insert, TaskList store){
         System.out.println("    ____________________________________________________________\n" +
@@ -54,8 +54,8 @@ public class Ui {
 
     /**
      * Return the delete UI whenever DeleteCommand is invoked
-     * @param Task insert
-     * @param TaskList store
+     * @param insert
+     * @param store
      */
     public void showDelete(Task insert, TaskList store){
         System.out.println("    ____________________________________________________________\n" +
