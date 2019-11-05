@@ -46,7 +46,6 @@ public class ScheduleCommand extends Command{
             throw new DukeException("The tasks list cannot be empty.");
         }
         
-        assert taskList.getSize() > 0;
         input = input.substring(9);
         date = stringToDate(input);
         boolean isMatch = false;

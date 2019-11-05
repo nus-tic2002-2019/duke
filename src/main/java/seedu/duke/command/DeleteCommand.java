@@ -37,7 +37,6 @@ public class DeleteCommand extends Command{
             throw new DukeException("The tasks list cannot be empty.");
         }
 
-        assert taskList.getSize() > 0;
         try{
         index = prepareIndex(input);
         ui.setOutput(MESSAGE_DELETE_SUCCESS + taskList.getTask(index).toString());

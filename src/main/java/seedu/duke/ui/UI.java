@@ -18,7 +18,7 @@ public class UI{
      * @return String   The welcome message of Duke.
      */
     public String showWelcomeMessage(){
-        return "Hello! I'm Duke\n\tWhat can I do for you?";
+        return "Hello! I'm Duke\nWhat can I do for you?";
     }
 
     /** 

@@ -63,4 +63,16 @@ public class DialogBox extends HBox {
         diaglogBox.flip();
         return diaglogBox;
     }
+
+    
+    /** 
+     * Returns the welcome message of Duke.
+     * @param img           The directory image of Duke.
+     * @return DialogBox    The welcome message of Duke with the image of Duke.
+     */
+    public static DialogBox showWelcomeMessage(Image img){
+        var diaglogBox = new DialogBox("Hello! I'm Duke\nWhat can I do for you?", img);
+        diaglogBox.flip();
+        return diaglogBox;
+    }
 }
