@@ -21,7 +21,7 @@ public class Duke {
         }
         while (online) {
             try {
-                message = ui.readCommand();
+                message = ui.readCommand().trim();
                 command = new Parser().parseInput(message);
                 switch (command) {
                     case "todo":
@@ -50,6 +50,16 @@ public class Duke {
                             textFile.saveFile(taskList.getList());
                         } catch (StringIndexOutOfBoundsException e) {
                             ui.showEventEmptyError();
+                            break;
+                        }
+                        ui.showTaskAdded(taskList.displayLatestTask(), taskList.getSize());
+                        break;
+                    case "doAfter":
+                        try {
+                            taskList.addDoAfter(message);
+                            textFile.saveFile(taskList.getList());
+                        } catch (StringIndexOutOfBoundsException e) {
+                            ui.showDoAfterEmptyError();
                             break;
                         }
                         ui.showTaskAdded(taskList.displayLatestTask(), taskList.getSize());

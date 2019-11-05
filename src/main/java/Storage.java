@@ -18,7 +18,7 @@ public class Storage {
         for (int j = 0; j < list.size(); j++) {
             s = s + list.get(j).getType() + " " + list.get(j).getTaskStatus() + " " + list.get(j).getTask() + " " + list.get(j).getDetails() + System.lineSeparator();
             s = s.replace("(by:", "|").replace("(at:", "|").replace(")", "").replaceAll("\\[", "").
-                    replaceAll("]", "|").replace("\u2713", "1").replace("\u2718", "0");
+                    replaceAll("]", "|").replace("\u2713", "1").replace("\u2718", "0").replace("after","|");
         }
         fw.write(s);
         fw.close();
@@ -56,6 +56,15 @@ public class Storage {
                     input = input.substring(5);
                     input = input.replace("|", "/by");
                     tasks.addDeadline("_deadline" + input);
+                    if (status == '1') {
+                        int index = tasks.getSize() - 1;
+                        tasks.getList().get(index).setTaskDone();
+                    }
+                    break;
+                case "A":
+                    input = input.substring(5);
+                    input = input.replace("|", "after");
+                    tasks.addDoAfter("_do" + input);
                     if (status == '1') {
                         int index = tasks.getSize() - 1;
                         tasks.getList().get(index).setTaskDone();

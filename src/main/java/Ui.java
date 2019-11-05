@@ -81,6 +81,11 @@ public class Ui {
         System.out.println(showLine() + errorMessage + showLine());
     }
 
+    public void showDoAfterEmptyError() {
+        String errorMessage = "\u2639 OOPS!!! The description/date of the task cannot be empty.\n";
+        System.out.println(showLine() + errorMessage + showLine());
+    }
+
     public void showListEmptyError() {
         String errorMessage = "\u2639 You have an empty list.\n";
         System.out.println(showLine() + errorMessage + showLine());

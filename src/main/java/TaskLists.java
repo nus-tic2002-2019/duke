@@ -1,7 +1,4 @@
-import task.Task;
-import task.ToDo;
-import task.Deadlines;
-import task.Events;
+import task.*;
 
 import java.util.ArrayList;
 
@@ -18,7 +15,7 @@ public class TaskLists {
         return list.size();
     }
 
-    public ArrayList<Task> getList(){
+    public ArrayList<Task> getList() {
         return this.list;
     }
 
@@ -59,7 +56,7 @@ public class TaskLists {
     public void addDeadline(String message) {
         int index = message.indexOf('/');
         boolean readFromFile = false;
-        if (message.charAt(0) == '_'){
+        if (message.charAt(0) == '_') {
             readFromFile = true;
             message = message.substring(1);
         }
@@ -69,6 +66,16 @@ public class TaskLists {
     public void addEvent(String message) {
         int index = message.indexOf('/');
         list.add(new Events(message.substring(6, index - 1), message.substring(index + 4)));
+    }
+
+    public void addDoAfter(String message) {
+        int index = message.toLowerCase().indexOf("after");
+        boolean readFromFile = false;
+        if (message.charAt(0) == '_') {
+            readFromFile = true;
+            message = message.substring(1);
+        }
+        list.add(new DoAfter(message.substring(3, index - 1), message.substring(index + 6), readFromFile));
     }
 
     public String deleteTask(String message) throws DukeExceptionInvalidTaskInputFormat {
