@@ -1,3 +1,5 @@
+package tasks;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -10,7 +12,6 @@ public class TaskList {
     public ArrayList<Task> getList() {
         return userArr;
     }
-
 
     public void addTasks(String task) {
         userArr.add(new Todo(task));

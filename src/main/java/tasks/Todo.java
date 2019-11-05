@@ -1,3 +1,5 @@
+package tasks;
+
 public class Todo extends Task {
     private boolean type = false;
 

@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import tasks.*;
 
 public class Storage {
     private String filePath;
@@ -91,7 +92,7 @@ public class Storage {
         if (actionType.equals("done") || actionType.equals("delete")) {
             temp = textToAppend + System.lineSeparator();
         } else {
-            temp = map.get(actionType) + " | " + userArr.get(taskNo).done + textToAppend + System.lineSeparator();
+            temp = map.get(actionType) + " | " + userArr.get(taskNo).getDone() + textToAppend + System.lineSeparator();
         }
 
         FileWriter fw = new FileWriter(filePath, true);
@@ -109,12 +110,12 @@ public class Storage {
             writeToFile("");
             int i = 0;
             while (s.hasNext()) {
-                if (!userArr.get(i).done) {
+                if (!userArr.get(i).getDone()) {
                     String temp = "";
                     appendToFile(actionType, 0 , s.nextLine());
                 } else {
                     String a = userArr.get(num-1).getClass().getSimpleName().toLowerCase();
-                    String temp = map.get(a) + " | " + userArr.get(num-1).done + " | " + userArr.get(num-1).getTask();
+                    String temp = map.get(a) + " | " + userArr.get(num-1).getDone() + " | " + userArr.get(num-1).getTask();
                     appendToFile(actionType, 0 , temp);
                     s.nextLine();
                 }

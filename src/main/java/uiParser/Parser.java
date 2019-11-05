@@ -1,6 +1,6 @@
-import java.io.IOException;
-import java.util.Arrays;
+package uiParser;
 import java.util.ArrayList;
+import exceptions.*;
 
 public class Parser {
     private String actionType;
