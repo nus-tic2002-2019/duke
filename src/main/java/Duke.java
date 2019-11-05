@@ -54,7 +54,7 @@ public class Duke{
             } 
             
             if  ( line.startsWith("deadline ")){
-                words = line.replaceFirst("deadline ", "").split("/at",0);
+                words = line.replaceFirst("deadline ", "").split("/by",0);
                 Tasks.add(new Deadline(words[0],words[1]));
                 addresponse(Tasks.get(Tasks.size()-1).printTask(),Tasks.size());
                 continue;
