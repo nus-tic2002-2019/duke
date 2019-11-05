@@ -2,9 +2,14 @@ package exception;
 
 public class DukeException extends Exception {
 
-    public DukeException(){}
+    public DukeException(String message){
+        super(message);
+    }
 
-    public DukeException(String textInput){
+}
+
+/*
+* public DukeException(String textInput){
         switch(textInput) {
             case "missingDescription":
                 System.out.println ("☹ OOPS!!! The description cannot be empty.");
@@ -34,6 +39,4 @@ public class DukeException extends Exception {
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
-
-
-}
+* */

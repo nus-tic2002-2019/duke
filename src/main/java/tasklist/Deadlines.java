@@ -2,25 +2,29 @@ package tasklist;
 
 import tasklist.Task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadlines extends Task {
     protected String by;
+    protected LocalDate Date;
 
-    public Deadlines(String description, String by){
+    public Deadlines(String description, LocalDate Date){
 
         super(description);
-        this.by = by;
+        this.Date = Date;
     }
 
-    public Deadlines(String description, String by, boolean isDone){
+    public Deadlines(String description, LocalDate Date, boolean isDone){
 
         super(description);
-        this.by = by;
+        this.Date = Date;
         super.isDone = isDone;
     }
 
     @Override
     public String getDescription() {
-        return "[D]" + "[" + getStatusIcon() + "]" + super.getDescription() + " (by: " + by + ")";
+        return "[D]" + "[" + getStatusIcon() + "]" + super.getDescription() + " (by:" + Date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     public String deadlineDescription(){
@@ -33,7 +37,7 @@ public class Deadlines extends Task {
 
     public String saveToFile(){
         int taskStatus = isDone ? 1:0;
-        return "D | " + taskStatus + " | " + super.getDescription() + " | " + by + "\r";
+        return "D | " + taskStatus + " | " + super.getDescription() + " | " + Date + "\r";
     }
 
 

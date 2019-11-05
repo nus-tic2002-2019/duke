@@ -49,8 +49,8 @@ public class Ui {
 
     }
 
-    public void showUnknownCommand(){
-        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+    public void showError(String errorMsg){
+        System.out.println(errorMsg);
     }
 
     public void dukeReply(ArrayList<Task> taskList){
@@ -138,7 +138,7 @@ public class Ui {
                     dukeBye();
                     break;
                 default:
-                    throw new DukeException(textInput);
+                    throw new DukeException("Unknown Command");
             }
             storage.saveList(fileName, tasks);
         }
@@ -146,7 +146,7 @@ public class Ui {
             System.out.println("Something went wrong: " + e.getMessage());
         }
         catch (ArrayIndexOutOfBoundsException e){
-            throw new DukeException(processCommand.getValidCommand());
+            throw new DukeException("Unknown Command");
         }
         catch (DukeException e){
             //do we need anything here

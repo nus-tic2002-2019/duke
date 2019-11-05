@@ -40,7 +40,8 @@ public class Duke {
                 userInterface.dukeInput(tasks, textInput);
                 if (textInput.equalsIgnoreCase("bye")) isExit = true;
             }catch (DukeException e){
-                //userInterface.showUnknownCommand();
+                userInterface.showError(e.getMessage());
+
             }
             finally {
                 userInterface.showLine();
