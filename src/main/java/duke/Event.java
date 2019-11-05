@@ -18,7 +18,13 @@ public class Event extends Task{
             this.at = LocalDate.parse(at, formatter);
 
         }
+    public Event (String taskName, boolean taskDone, LocalDate date)
+    {
+        super(taskName, taskDone); // calls the parent constructor
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+        at = date;
 
+    }
     /***
      * default constructor
      */

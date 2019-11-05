@@ -3,6 +3,7 @@ package duke;
 import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /***
@@ -61,7 +62,12 @@ public class TaskList implements Serializable{
         line.add(e);
         count ++;
     }
-
+    public void newEventTask(String name, boolean done, LocalDate date)
+    {
+        Event e = new Event(name, false, date);
+        line.add(e);
+        count ++;
+    }
     /***
      * remove task from task list
      * @param index

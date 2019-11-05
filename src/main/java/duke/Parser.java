@@ -1,6 +1,8 @@
 package duke;
 
 import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Parser
@@ -86,9 +88,39 @@ public class Parser
                     {
                         throw new EmptyDescriptionException("Oops. The date of a event cannot be empty");
                     }
-                    line.newEventTask(splitAt[0], false, splitAt[1]);
-                    ui.printEvent(line, line.getCount()-1);
-                    storage.save("listData.txt", line);
+                    String[] repeatChunk = splitAt[1].split("/repeat");
+                    if (repeatChunk.length == 1)
+                    {
+                        if (replaceString.contains("/repeat"))
+                        {
+                            throw new EmptyDescriptionException("Oops. Please place the amount of days between each repeated event. e.g. /repeat");
+                        }
+                        line.newEventTask(splitAt[0], false, splitAt[1]);
+                        ui.printEvent(line, line.getCount() - 1);
+                        storage.save("listData.txt", line);
+                    }
+                    else
+                    {
+                        String[] timesChunk = repeatChunk[1].split("/times");
+                        if (timesChunk.length == 1)
+                        {
+                            throw new EmptyDescriptionException("Oops. Please place number of times event is to be repeated. e.g. /times");
+                        }
+                        String daysString = timesChunk[0].trim();
+                        int days = Integer.parseInt(daysString); // get number of days
+                        String timesString = timesChunk[1].trim();
+                        int times = Integer.parseInt(timesString);
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+                        LocalDate date = LocalDate.parse(repeatChunk[0].trim(), formatter);
+                        for(int i =0; i<times; i++)
+                        {
+                            line.newEventTask(splitAt[0], false, date);
+                             date= date.plusDays(days);
+                            ui.printEvent(line, line.getCount() - 1);
+                        }
+                        storage.save("listData.txt", line);
+
+                    }
                 }
 
                 else if (arrOfString[0].equals("delete"))
