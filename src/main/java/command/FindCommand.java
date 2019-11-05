@@ -6,11 +6,13 @@ import tasklist.TaskList;
 import ui.Ui;
 
 public class FindCommand extends Command {
+
+    public static final String COMMAND_WORD = "find";
     /**
      * Constructor of List Command
      */
-    public FindCommand(String command, String description){
-        super(command, description);
+    public FindCommand(String description){
+        super(description);
     }
 
     /**
@@ -24,7 +26,7 @@ public class FindCommand extends Command {
     public void execute(TaskList task, Ui ui, Storage storage) throws StringIndexOutOfBoundsException, IllegalStringException {
         String content = null;
         for(int i = 0; i < task.getSize(); i++){
-            content = task.getTask(i).getDescription();
+            content = task.getTask(i).toString();
             if (content.indexOf(description)>= 0){
                 ui.showToUser(Integer.toString(i) + ": " + content);
             }

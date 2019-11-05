@@ -7,13 +7,14 @@ import error.*;
 
 public class DoneCommand extends Command {
 
+    public static final String COMMAND_WORD = "done";
+
     /**
      * Constructor for Done Command
-     * @param command
      * @param index
      */
-    public DoneCommand(String command, int index){
-        super(command, index);
+    public DoneCommand(int index){
+        super(index);
     }
 
     /**

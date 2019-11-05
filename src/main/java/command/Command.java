@@ -9,54 +9,33 @@ import java.time.LocalDate;
 
 public abstract class Command {
 
-    protected String command;
     protected String description;
-    protected LocalDate date;
     protected int index;
     protected int priority;
     protected boolean isExit = false;
 
     /**
      * Constructor for command and description
-     * @param command
      * @param description
      */
-    public Command(String command, String description) {
-        this.command = command;
+    public Command(String description) {
         this.description = description;
     }
 
     /**
      * Constructor for command value and description
-     * @param command
      * @param description
      */
-    public Command(String command, String description, int value) {
-        this.command = command;
+    public Command(String description, int value) {
         this.description = description;
-        this.priority = value;
-    }
-
-    /**
-     * Constructor for command, description and date
-     * @param command
-     * @param description
-     * @param date
-     */
-    public Command(String command, String description, LocalDate date, int value) {
-        this.command = command;
-        this.description = description;
-        this.date = date;
         this.priority = value;
     }
 
     /**
      * Constructor for command and index
-     * @param command
      * @param index
      */
-    public Command(String command, int index){
-        this.command = command;
+    public Command(int index){
         this.index = index;
     }
 
@@ -99,12 +78,5 @@ public abstract class Command {
         return this.description;
     };
 
-    /**
-     * Get date
-     * @return LocalDate
-     */
-    public LocalDate getDate(){
-        return this.date;
-    }
 
 }

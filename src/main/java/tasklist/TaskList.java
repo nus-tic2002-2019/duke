@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class TaskList {
 
-    protected ArrayList<Task> store = new ArrayList<>();
+    private ArrayList<Task> store = new ArrayList<>();
 
     /**
      * Constructor that will take in a list of user inputs and store the command into an ArrayList

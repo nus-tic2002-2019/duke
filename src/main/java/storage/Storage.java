@@ -11,7 +11,7 @@ import task.*;
 
 public class Storage {
 
-    protected String filename;
+    private String filename;
 
     /**
      * Constructor of Storage

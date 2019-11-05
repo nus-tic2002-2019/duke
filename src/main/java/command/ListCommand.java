@@ -7,6 +7,8 @@ import error.*;
 
 public class ListCommand extends Command {
 
+    public static final String COMMAND_WORD = "list";
+
     /**
      * Constructor of List Command
      */

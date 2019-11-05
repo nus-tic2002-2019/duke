@@ -4,7 +4,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
 
-    protected LocalDate date;
+    private LocalDate date;
 
     /**
      * Constructor of Deadline
@@ -22,15 +22,16 @@ public class Deadline extends Task {
      * @param Description
      * @param date
      */
-    public Deadline(String Description, LocalDate date){
+    public Deadline(String Description, LocalDate date, int priority){
         super(Description, 0);
         this.date = date;
+        this.priority = priority;
     }
 
     @Override
     public String toString(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
         String date = this.date.format(formatter);
-        return "[D][" + getStatusIcon() + "] " + this.description + " (by: " + date + ")";
+        return "[D][" + getStatusIcon() + "] " + this.description + " (by: " + date + " Priority: " + priority + ")";
     }
 }

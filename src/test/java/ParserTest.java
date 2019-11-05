@@ -1,7 +1,7 @@
+import command.Command;
 import error.IllegalStringException;
 import org.junit.jupiter.api.Test;
 import parser.Parser;
-import command.Command;
 
 import java.time.LocalDate;
 

@@ -1,5 +1,4 @@
-[T][✓] read book
-[D][✘] return book (by: Dec 1 2019)
-[E][✘] project meeting (at: Dec 1 2019)
-[T][✓] join sports club
-[D][✘] hw (by: Oct 10 2019)
+[T][✘] read book(Priority: 1)
+[D][✘] return book (by: Dec 1 2019 Priority: 0)
+[E][✘] project meeting (at: Dec 1 2019 Priority: 0)
+[T][✘] join sports club(Priority: 1)

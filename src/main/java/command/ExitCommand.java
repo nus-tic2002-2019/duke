@@ -7,12 +7,12 @@ import error.*;
 
 public class ExitCommand extends Command {
 
+    public static final String COMMAND_WORD = "bye";
     /**
-     * Constructor
-     * @param value
+     * Constructor to exit the program
      */
-    public ExitCommand(boolean value){
-        super(value);
+    public ExitCommand(){
+        super(true);
     }
 
     /**
