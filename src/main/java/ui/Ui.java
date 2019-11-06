@@ -65,6 +65,14 @@ public class Ui {
                 "    ____________________________________________________________");
     }
 
+
+    public void showChange(Task insert){
+        System.out.println("    ____________________________________________________________\n" +
+                "     Noted. I've changed the priority for this task: \n" +
+                "          " + insert.toString() + "\n" +
+                "    ____________________________________________________________");
+    }
+
     /**
      * Return message UI to user
      * @param msg

@@ -35,6 +35,14 @@ public class Todo extends Task {
         super(description, 0);
     }
 
+    /**
+     * Setter of priority value
+     * @param value
+     */
+    public void setPriority(int value){
+        this.priority = value;
+    }
+
     @Override
     public String toString() {
         return "[T][" + getStatusIcon() + "] " + this.description + "(Priority: " + priority + ")";

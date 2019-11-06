@@ -41,4 +41,12 @@ public class Task {
         System.out.printf("\n");
     }
 
+    /**
+     * Setter of priority value
+     * @param value
+     */
+    public void setPriority(int value){
+        this.priority = value;
+    }
+
 }

@@ -42,7 +42,13 @@ public class Event extends Task {
         this.priority = priority;
     }
 
-
+    /**
+     * Setter of priority value
+     * @param value
+     */
+    public void setPriority(int value){
+        this.priority = value;
+    }
 
     @Override
     public String toString(){

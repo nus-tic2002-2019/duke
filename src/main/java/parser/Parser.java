@@ -8,6 +8,7 @@ import command.ExitCommand;
 import command.DoneCommand;
 import command.ListCommand;
 import command.FindCommand;
+import command.ChangeCommand;
 import command.Command;
 import task.Todo;
 import task.Deadline;
@@ -60,6 +61,8 @@ public class Parser {
             return prepareList();
         case FindCommand.COMMAND_WORD:
             return prepareFind(inputs);
+        case ChangeCommand.COMMAND_WORD:
+            return prepareChange(inputs);
         default:
             throw new IllegalStringException("Invalid Command: Please refer to the API to find the list of legal commands.");
         }
@@ -74,7 +77,11 @@ public class Parser {
      */
     private static Command prepareTodo(String[] inputs) throws InvalidPriorityException{
         try{
-            final String description =  inputs[1];
+            String description = inputs[1];
+            for(int i = 2; i < inputs.length - 1; i++){
+                System.out.println(inputs[i]);
+                description += " " + inputs[i];
+            }
             final int priorityValue = Integer.parseInt(inputs[inputs.length - 1]);
             return new AddToDoCommand(description, priorityValue);
         } catch (NumberFormatException e){
@@ -131,6 +138,22 @@ public class Parser {
         try{
             final int index = Integer.parseInt(inputs[1]) - 1;
             return new DeleteCommand(index);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new MissingIndexException("Invalid Index: Please remember to key in the index you want to mark as done");
+        }
+
+    }
+
+    /**
+     * Parses arguments in the context of delete command
+     * @param inputs
+     * @return the prepared command
+     */
+    private static Command prepareChange(String[] inputs) throws MissingIndexException{
+        try{
+            final int index = Integer.parseInt(inputs[1]) - 1;
+            final int priorityValue = Integer.parseInt(inputs[2]);
+            return new ChangeCommand(index, priorityValue);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new MissingIndexException("Invalid Index: Please remember to key in the index you want to mark as done");
         }
