@@ -29,7 +29,7 @@ public class Storage {
         s = new BufferedReader(new FileReader(DEFAULT_PATH));
         String input = null;
         while ((input = s.readLine()) != null) {
-            if (input.charAt(0) == 'T' || input.charAt(0) == 'E' || input.charAt(0) == 'D') {
+            if (input.charAt(0) == 'T' || input.charAt(0) == 'E' || input.charAt(0) == 'D' || input.charAt(0) == 'A') {
                 char status = input.charAt(3);
                 switch (Character.toString(input.charAt(0))) {
                     case "T":

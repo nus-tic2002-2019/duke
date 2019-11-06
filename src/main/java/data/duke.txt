@@ -2,3 +2,8 @@ T| 0 | hello
 T| 0 | what 
 E| 0 | hello | home
 T| 0 | hi 
+D| 0 | what | 01 Sep 2017 1000
+D| 0 | wash shirt | 07 Nov 2019 2134
+D| 0 | here | 08 Nov 2019 2138
+A| 0 | this | 07 Nov 2019 2153
+A| 0 | this | 07 Nov 2019 2156
