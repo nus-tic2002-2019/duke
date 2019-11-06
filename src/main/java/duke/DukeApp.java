@@ -4,8 +4,7 @@ package duke;
 public class DukeApp {
     UI ui;
     Storage storage = new Storage();
-    public DukeApp()
-    {
+    public DukeApp() {
         ui = new UI();
     }
 
@@ -19,11 +18,10 @@ public class DukeApp {
         TaskList line = new TaskList();
         storage.load("listData.txt", line);
 
-        while (!input.equals("bye")) //if string doesn't equal to bye
-        {
+        //if string doesn't equal to bye
+        while (!input.equals("bye")) {
             input = ui.getUserInput();
             parser.parseCommand(input, ui, line, storage);
-
         }
         ui.printBye();
     }

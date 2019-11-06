@@ -9,8 +9,7 @@ public class Todo extends Task {
      * @param taskName
      * @param taskDone
      */
-    public Todo (String taskName, boolean taskDone)
-    {
+    public Todo (String taskName, boolean taskDone) {
         super(taskName, taskDone); // calls the parent constructor
     }
 
@@ -21,16 +20,11 @@ public class Todo extends Task {
         super();
     }
 
-  //  public Todo(String x, boolean done, String recurringFrequency) {
-  //      super(x,done,recurringFrequency);
-  //  }
-
     /***
      * converting todo task input into string format
      * @return
      */
-    public String toString()
-    {
+    public String toString() {
         return "[T]" + super.toString();
     }
     public void write(FileWriter storage) throws IOException {

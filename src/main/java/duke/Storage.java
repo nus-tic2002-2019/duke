@@ -37,29 +37,23 @@ public class Storage {
      * @param serializable
      */
 
-    public void load(String filename, Serializable serializable)
-    {
+    public void load(String filename, Serializable serializable) {
         BufferedReader r = null;
         File file = new File(filename);
-        if(!file.exists())
-        {
+        if(!file.exists()) {
             return;
         }
-        try
-        {
+        try {
             r = new BufferedReader(new FileReader(file));
             serializable.read(r);
 
         }
-        catch (FileNotFoundException e)
-        {
+        catch (FileNotFoundException e) {
           e.printStackTrace();
         }
-        catch (IOException e)
-        {
+        catch (IOException e) {
             e.printStackTrace();
-        } finally
-        {
+        } finally {
             try {
                 r.close();
             } catch (IOException e) {

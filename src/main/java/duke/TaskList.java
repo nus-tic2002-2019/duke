@@ -57,14 +57,12 @@ public class TaskList implements Serializable{
      * @param done
      * @param at
      */
-    public void newEventTask(String name, boolean done, String at)
-    {
+    public void newEventTask(String name, boolean done, String at) {
         Event e = new Event(name, false, at);
         line.add(e);
         count ++;
     }
-    public void newEventTask(String name, boolean done, LocalDate date)
-    {
+    public void newEventTask(String name, boolean done, LocalDate date) {
         Event e = new Event(name, false, date);
         line.add(e);
         count ++;
@@ -80,14 +78,11 @@ public class TaskList implements Serializable{
 
     }
 
-    public TaskList find(String keyword)
-    {
+    public TaskList find(String keyword) {
         System.out.println(keyword);
         TaskList results = new TaskList();
-        for(int i= 0; i<line.size(); i++)
-        {
-            if(line.get(i).contains(keyword))
-            {
+        for(int i= 0; i<line.size(); i++) {
+            if(line.get(i).contains(keyword)) {
                 results.add(line.get(i));
             }
 
@@ -102,8 +97,7 @@ public class TaskList implements Serializable{
      */
     @Override
     public void write(FileWriter storage) throws IOException {
-        for(int i=0; i<line.size(); i++)
-        {
+        for(int i=0; i<line.size(); i++) {
             line.get(i).write(storage); //write entire task list to storage
         }
     }
@@ -138,10 +132,4 @@ public class TaskList implements Serializable{
         }
     }
 
-//    public void newTodoTask(String x, boolean done, String recurringFrequency)
- //   {
- //       Todo t = new Todo(x, done, recurringFrequency);
-//        line.add(t);
- //       count++;
-  //  }
 }

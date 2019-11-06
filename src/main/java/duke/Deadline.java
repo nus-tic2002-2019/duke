@@ -11,11 +11,10 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task{
     protected LocalDate by;
-    public Deadline (String taskName, boolean taskDone, String by)
-        {
-            super(taskName, taskDone); // calls the parent constructor
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
-            this.by = LocalDate.parse(by, formatter);
+    public Deadline (String taskName, boolean taskDone, String by) {
+        super(taskName, taskDone); // calls the parent constructor
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+        this.by = LocalDate.parse(by, formatter);
         }
 
     /***
@@ -29,8 +28,7 @@ public class Deadline extends Task{
      * to return input as a converted string output
      * @return
      */
-    public String toString()
-    {
+    public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
         return "[D]" + super.toString() + " (by: "+ by.format(formatter) + ")";
     }
@@ -51,8 +49,7 @@ public class Deadline extends Task{
      * @param fileRead
      * @throws IOException
      */
-    public void read(BufferedReader fileRead) throws IOException
-    {
+    public void read(BufferedReader fileRead) throws IOException {
         super.read(fileRead);
         String date = fileRead.readLine();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");

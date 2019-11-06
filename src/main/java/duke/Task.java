@@ -7,7 +7,6 @@ import java.io.IOException;
 public class Task implements Serializable {
     protected String taskName;
     protected boolean taskDone;
-//    protected String frequency;
 
     public Task (String taskName, boolean taskDone)
     {
@@ -19,7 +18,6 @@ public class Task implements Serializable {
     {
         this.taskName = taskName;
         this.taskDone = taskDone;
-    //    this.frequency = frequency;
     }
 
     public Task() {
@@ -30,8 +28,7 @@ public class Task implements Serializable {
      * method to get taskname variable
      * @return
      */
-    public String getTaskName()
-    {
+    public String getTaskName() {
         return taskName;
     }
 
@@ -39,8 +36,7 @@ public class Task implements Serializable {
      * method to set task name
      * @param taskName
      */
-    public void setTaskName(String taskName)
-    {
+    public void setTaskName(String taskName) {
         this.taskName = taskName;
     }
 
@@ -48,8 +44,7 @@ public class Task implements Serializable {
      * method to get taskdone variable
      * @return
      */
-    public boolean getTaskDone()
-    {
+    public boolean getTaskDone() {
         return taskDone;
     }
 
@@ -57,8 +52,7 @@ public class Task implements Serializable {
      * method to set task done variable
      * @param taskDone
      */
-    public void setTaskDone(boolean taskDone)
-    {
+    public void setTaskDone(boolean taskDone) {
         this.taskDone = taskDone;
     }
 
@@ -66,13 +60,8 @@ public class Task implements Serializable {
      * to return input as a converted string output
      * @return
      */
-    public String toString()
-    {
+    public String toString() {
         String s = "[" + getStatusIcon() + "] " + taskName;
-     //   if(!frequency.equals(""))
-    //    {
-   //         s += " /every " + frequency;
-  //      }
         return s;
 
     }
@@ -81,16 +70,14 @@ public class Task implements Serializable {
      * method to get status icon
      * @return
      */
-    public String getStatusIcon()
-    {
+    public String getStatusIcon() {
         return (taskDone ? "\u2713" : "\u2718"); //return tick or X symbols
     }
 
     /***
      * method to set task done to true
      */
-    public void markAsDone()
-    {
+    public void markAsDone() {
         taskDone = true;
     }
 
@@ -99,8 +86,7 @@ public class Task implements Serializable {
      * @param keyword
      * @return
      */
-    public boolean contains(String keyword)
-    {
+    public boolean contains(String keyword) {
         return taskName.contains(keyword);
     }
 
@@ -112,15 +98,11 @@ public class Task implements Serializable {
     @Override
     public void write(FileWriter storage) throws IOException {
         storage.write(taskName + "\n");
-        if(taskDone)
-        {
+        if(taskDone) {
             storage.write("true\n");
-        }
-        else
-        {
+        } else {
             storage.write("false\n");
         }
-   //     storage.write(frequency + "\n");
     }
 
     /***
@@ -129,18 +111,14 @@ public class Task implements Serializable {
      * @throws IOException
      */
     @Override
-    public void read(BufferedReader fileRead) throws IOException
-    {
+    public void read(BufferedReader fileRead) throws IOException {
         taskName = fileRead.readLine();
         String done = fileRead.readLine();
-        if(done.equals("true"))
-        {
+        if(done.equals("true")) {
             taskDone = true;
         }
-        else
-        {
+        else {
             taskDone = false;
         }
-        //frequency = fileRead.readLine();
     }
 }
