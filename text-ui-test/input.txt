@@ -1,0 +1,7 @@
+invalid command
+todo homework
+deadline homework by tomorrow
+deadline homework /by tomorrow
+done 1
+list
+bye

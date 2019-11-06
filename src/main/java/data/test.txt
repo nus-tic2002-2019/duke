@@ -1,0 +1,7 @@
+[T][✓] read book(Priority: 1)
+[D][✘] return book (by: Dec 1 2019 Priority: 3)
+[E][✘] project meeting (at: Dec 1 2019 Priority: 4)
+[T][✓] join sports club(Priority: 5)
+[T][✘] homework(Priority: 2)
+[T][✘] homework(Priority: 2)
+[T][✘] finish(Priority: 2)
