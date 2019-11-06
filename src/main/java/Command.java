@@ -14,7 +14,7 @@ public class Command {
      * Create new command.
      * @param fullCommand user full command.
      * */
-    public Command(String fullCommand){
+    public Command(String fullCommand) {
         this.fullCommand = fullCommand;
         this.isExit = false;
     }
@@ -44,7 +44,7 @@ public class Command {
      * @param tasks task list to be updated
      * @param storage file address to be updated
      * */
-    public void execute(ArrayList<Task> tasks, Storage storage){
+    public void execute(ArrayList<Task> tasks, Storage storage) {
         String command = Parser.command(fullCommand);
         int size = tasks.size();
 
@@ -54,7 +54,7 @@ public class Command {
             System.out.println("OOPS!!! Pls key in the valid command");
         }
 
-        switch (command){
+        switch (command) {
             case "bye":
                 UI.byeMessage();
                 isExit = true;

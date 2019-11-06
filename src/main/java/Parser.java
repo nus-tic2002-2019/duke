@@ -18,7 +18,7 @@ public class Parser {
      * @param fullCommand user full command.
      * @return index.
      * */
-    public static int taskNumber(String fullCommand){
+    public static int taskNumber(String fullCommand) {
         return Integer.parseInt(fullCommand.split(" ")[1]) - 1;
     }
     /**
@@ -26,7 +26,7 @@ public class Parser {
      * @param fullCommand user full command.
      * @return description
      * */
-    public static String description(String fullCommand){
+    public static String description(String fullCommand) {
         String[] s1 = fullCommand.split(" ");
         String[] s2 = fullCommand.split("/");
         return s2[0].replace(s1[0] + " ", "");

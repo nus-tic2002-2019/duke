@@ -51,7 +51,7 @@ public class TaskList {
      * @param storage file address to be updated.
      * @param fullCommand user full command.
      * */
-    public static void addDeadlineCommand (ArrayList<Task> tasks, Storage storage, String fullCommand){
+    public static void addDeadlineCommand (ArrayList<Task> tasks, Storage storage, String fullCommand) {
         String description = Parser.description(fullCommand);
         String date = Parser.date(fullCommand);
         if (!date.equals("0")) {
@@ -72,7 +72,7 @@ public class TaskList {
      * @param storage file address to be updated.
      * @param fullCommand user full command.
      * */
-    public static void addEventCommand (ArrayList<Task> tasks, Storage storage, String fullCommand){
+    public static void addEventCommand (ArrayList<Task> tasks, Storage storage, String fullCommand) {
         String description = Parser.description(fullCommand);
         String date = Parser.date(fullCommand);
         if (!date.equals("0")) {
@@ -92,7 +92,7 @@ public class TaskList {
      * @param tasks task list for finding.
      * @param fullCommand user full command.
      * */
-    public static void findCommand (ArrayList<Task> tasks, String fullCommand){
+    public static void findCommand (ArrayList<Task> tasks, String fullCommand) {
         System.out.println("Here are the matching tasks in your list:");
         int index = 1;
         String description = Parser.description(fullCommand);

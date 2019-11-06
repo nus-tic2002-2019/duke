@@ -22,7 +22,7 @@ public class Todo extends Task {
      * Update the saving format by adding icon for todo.
      * @return printing format.
      * */
-    public String save_toString(){
-        return "[T]" + super.toString();
+    public String save_toString() {
+        return "T | " + super.save_toString();
     }
 }

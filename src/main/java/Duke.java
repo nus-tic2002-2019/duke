@@ -9,12 +9,12 @@ public class Duke {
      * Create new Duke with file address for loading and saving.
      * @param filePath file address.
      * */
-    private Duke(String filePath){
+    private Duke(String filePath) {
         this.tasks = new ArrayList<>();
         this.filePath = filePath;
     }
 
-    private void run(){
+    private void run() {
         Storage storage = new Storage(filePath);
         storage.loadFile(tasks);
         if (storage.isLoad) {
@@ -22,8 +22,8 @@ public class Duke {
             boolean isExit = false;
             while (!isExit) {
                 try {
-                    String line = UI.readCommand();
-                    Command c = new Command(line);
+                    String fullCommand = UI.readCommand();
+                    Command c = new Command(fullCommand);
                     UI.splitLine();
                     c.execute(tasks, storage);
                     isExit = c.isExit;

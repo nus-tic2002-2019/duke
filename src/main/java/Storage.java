@@ -18,7 +18,7 @@ public class Storage {
      * Create new Storage.
      * @param filePath file address.
      * */
-    public Storage(String filePath){
+    public Storage(String filePath) {
         this.filePath = filePath;
         this.isLoad = true;
     }
@@ -56,7 +56,7 @@ public class Storage {
         } catch (IOException e) {
             UI.splitLine();
             System.out.println("File not found");
-            System.out.println("Pls key in the correct file address with '//'" );
+            System.out.println("Pls key in the correct file address with '\\'" );
             UI.splitLine();
             isLoad = false;
         }
@@ -65,22 +65,16 @@ public class Storage {
      * Save updates to file.
      * @param tasks task list to be saved.
      * */
-    public void saveFile(ArrayList<Task> tasks){
+    public void saveFile(ArrayList<Task> tasks) {
         try {
             FileOutputStream out = new FileOutputStream(filePath);
             for( int i=0 ; i<tasks.size() ; i++ ){
-                String s = tasks.get(i).save_toString().
-                        replaceAll("\\[","").
-                        replaceAll("]","|").
-                        replace("(by:","|").
-                        replace("(at:","|").
-                        replace(")","") +
-                        System.lineSeparator();
+                String s = tasks.get(i).save_toString() + System.lineSeparator();
                 byte b[]= s.getBytes();
                 out.write(b);
             }
             out.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             UI.splitLine();
             System.out.println("Oops!! Cannot save file!");
             UI.splitLine();

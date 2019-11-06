@@ -18,7 +18,7 @@ public class UI {
         System.out.println("Hello from\n" + logo);
         splitLine();
         System.out.println("Hello! I'm Duke");
-        System.out.println("Pls key in the file address with '//'");
+        System.out.println("Pls key in the file address with '\\'");
         splitLine();
     }
     /**
@@ -40,7 +40,7 @@ public class UI {
      * Prints list message of task list.
      * @param tasks task list for printing.
      * */
-    public static void listMessage(ArrayList<Task> tasks){
+    public static void listMessage(ArrayList<Task> tasks) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println(i + 1 + "." + tasks.get(i).toString());
@@ -51,7 +51,7 @@ public class UI {
      * @param t task to print after adding to list.
      * @param size size of task list.
      * */
-    public static void addMessage(Task t, int size){
+    public static void addMessage(Task t, int size) {
         System.out.println("Got it. I've added this task: ");
         System.out.println("  " + t.toString());
         System.out.println("Now you have " + size + " tasks in the list.");
@@ -61,7 +61,7 @@ public class UI {
      * @param tasks task list.
      * @param index index of task in task list which will be marked as done.
      * */
-    public static void doneMessage(ArrayList<Task> tasks, int index){
+    public static void doneMessage(ArrayList<Task> tasks, int index) {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("  " + tasks.get(index).toString());
     }
@@ -70,7 +70,7 @@ public class UI {
      * @param tasks task list.
      * @param index index of task in task list which will be deleted.
      * */
-    public static void deleteMessage(ArrayList<Task> tasks, int index){
+    public static void deleteMessage(ArrayList<Task> tasks, int index) {
         int size = tasks.size() - 1;
         System.out.println("Noted. I've removed this task: ");
         System.out.println("  "  + tasks.get(index));
@@ -86,7 +86,7 @@ public class UI {
      * Scan and reads the input of user.
      * @return user full command in string.
      * */
-    public static String readCommand(){
+    public static String readCommand() {
         Scanner in = new Scanner(System.in);
         return in.nextLine();
     }

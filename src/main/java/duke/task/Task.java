@@ -30,14 +30,14 @@ public class Task {
      * Convert task to string in printing format.
      * @return printing format.
      * */
-    public String toString(){
+    public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
     /**
      * Covert task to string in saving format.
      * @return saving format.
      * */
-    public String save_toString(){
-        return "[" + getStatusIcon() + "] " + description;
+    public String save_toString() {
+        return getStatusIcon() + " | " + description;
     }
 }
