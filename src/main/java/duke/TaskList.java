@@ -25,6 +25,7 @@ public class TaskList implements Serializable{
     public void add(Task t)
     {
         line.add(t);
+        count++;
     }
 
     /***
@@ -77,6 +78,21 @@ public class TaskList implements Serializable{
         count --;
         return line.remove(index-1);
 
+    }
+
+    public TaskList find(String keyword)
+    {
+        System.out.println(keyword);
+        TaskList results = new TaskList();
+        for(int i= 0; i<line.size(); i++)
+        {
+            if(line.get(i).contains(keyword))
+            {
+                results.add(line.get(i));
+            }
+
+        }
+        return results;
     }
 
     /***

@@ -135,6 +135,12 @@ public class Parser
                     storage.save("listData.txt", line);
                 }
 
+                else if (arrOfString[0].equals("find"))
+                {
+                    TaskList results = line.find(input.replace("find", "").trim());
+                    ui.printTaskList(results.getCount(), results);
+                }
+
                 else if(!arrOfString[0].equals("bye")) {
                     throw new InvalidCommandException();
                 }

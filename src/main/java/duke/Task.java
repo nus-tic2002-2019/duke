@@ -95,6 +95,16 @@ public class Task implements Serializable {
     }
 
     /***
+     * method to search keyword
+     * @param keyword
+     * @return
+     */
+    public boolean contains(String keyword)
+    {
+        return taskName.contains(keyword);
+    }
+
+    /***
      *write tasks into storage
      * @param storage
      * @throws IOException
