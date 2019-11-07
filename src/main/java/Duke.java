@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -9,10 +10,9 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         String line;
-        Task[] taskList = new Task[100];
+        ArrayList<Task> taskList = new ArrayList<Task>();
         Scanner in = new Scanner(System.in);
         System.out.print("Hello! I'm Duke\n" + "What can I do for you?");
-        int index = 0;
 
         while (true) {
             line = in.nextLine();
@@ -21,14 +21,14 @@ public class Duke {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
             } else if (line.equals("list")) {
-                for (int i = 0; i < index; i++) {
-                    System.out.println(i + 1 + ". " + taskList[i].toString());
+                for (int i = 0; i < taskList.size(); i++) {
+                    System.out.println(i + 1 + ". " + taskList.get(i).toString());
                 }
             } else if (line.contains("done")) {
                 try {
                     int numberList = Integer.valueOf(line.substring(5, line.length()));
-                    IndexOutOfRange(index+1,  numberList);
-                    Task t = taskList[numberList - 1];
+                    IndexOutOfRange(taskList.size(),  numberList);
+                    Task t = taskList.get(numberList - 1);
                     t.markAsDone();
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(t.toString());
@@ -46,13 +46,12 @@ public class Duke {
                     int dividerPosition = line.indexOf("/");
                     String taskDescription = line.substring(6, dividerPosition - 1);
                     String extractDayTime = line.substring(dividerPosition + 4);
-                    taskList[index] = new Event(taskDescription, extractDayTime);
-
+                    Task t = new Event(taskDescription, extractDayTime);
+                    taskList.add(t);
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(" " + taskList[index].toString());
-                    System.out.println("Now you have " + (index + 1) + " tasks in the list.");
+                    System.out.println(" " + taskList.get(taskList.size()-1).toString());
+                    System.out.println("Now you have " + (taskList.size()) + " tasks in the list.");
 
-                    index++;
                 }
                 catch (StringFormatException e) {
                     System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -63,27 +62,43 @@ public class Duke {
                     int dividerPosition = line.indexOf("/");
                     String taskDescription = line.substring(9, dividerPosition - 1);
                     String extractDay = line.substring(dividerPosition + 4);
-                    taskList[index] = new Deadline(taskDescription, extractDay);
-
+                    Task t = new Deadline(taskDescription, extractDay);
+                    taskList.add(t);
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(" " + taskList[index].toString());
-                    System.out.println("Now you have " + (index + 1) + " tasks in the list.");
+                    System.out.println(" " + taskList.get(taskList.size()-1).toString());
+                    System.out.println("Now you have " + (taskList.size()) + " tasks in the list.");
 
-                    index++;
                 }
                 catch (StringFormatException e) {
                     System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             } else if (line.contains("todo")) {
                 String taskDescription = line.substring(5);
-                taskList[index] = new ToDo(taskDescription);
-
+                Task t = new ToDo(taskDescription);
+                taskList.add(t);
                 System.out.println("Got it. I've added this task:");
-                System.out.println(" " + taskList[index].toString());
-                System.out.println("Now you have " + (index+1) + " tasks in the list.");
+                System.out.println(" " + taskList.get(taskList.size()-1).toString());
+                System.out.println("Now you have " + (taskList.size()) + " tasks in the list.");
 
-                index++;
-            }else {
+            }
+
+            else if (line.contains("delete")){
+                try {
+                    int number = Integer.valueOf(line.substring(7, line.length()));
+                    IndexOutOfRange(taskList.size(),  number);
+                    Task t = taskList.get(number - 1);
+                    System.out.println("Noted. I've removed this task: ");
+                    System.out.println(t.toString());
+                    taskList.remove(number - 1);
+                    System.out.println("Now you have " + (taskList.size()) + " tasks in the list.");
+                }
+                catch (NumberFormatException e) {
+                    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                }
+                catch (IndexOutOfRangeException e) {
+                    System.out.println("☹ OOPS!!! Out of Range!");
+                }
+            }else{
                 try {
                     CheckEmpty(line);
                     ContainsWord(line);
@@ -113,8 +128,8 @@ public class Duke {
         }
     }
 
-    static void IndexOutOfRange(int size,  int index) throws IndexOutOfRangeException {
-        if (index >= size || index < 0) {
+    static void IndexOutOfRange(int size,  int number) throws IndexOutOfRangeException {
+        if (number > size || number < 0) {
             throw new IndexOutOfRangeException();
         }
     }
