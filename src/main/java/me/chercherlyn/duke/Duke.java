@@ -16,6 +16,7 @@ public class Duke {
     private List<Task> tasks;
 
     public Duke() {
+
         tasks = new ArrayList<>();
     }
 
@@ -67,6 +68,9 @@ public class Duke {
                     case "deadline":
                         commandDeadline(args);
                         break;
+                    case "delete":
+                        commandDelete(args);
+                        break;
                     default:
                         throw new DukeException("I'm sorry, but I don't know what that means :-(");
                 }
@@ -74,6 +78,30 @@ public class Duke {
                 printFancy("\u2639 OOPS!!! %s", ex.getMessage());
             }
         }
+    }
+
+    private void commandDelete(String[] args){
+        //check - index
+        if (args.length < 1 || args[0].isEmpty())
+            throw new DukeException("The index of a task not specified.");
+
+        // check : index not correct
+        int index;
+        try {
+            index = Integer.parseInt(args[0]) - 1;
+            if (index < 0 || index >= tasks.size())
+                throw new DukeException("The index is out of tasks range!");
+        } catch (NumberFormatException ex) {
+            throw new DukeException("The index is not a number!");
+        }
+
+        Task task = tasks.get(index);
+        tasks.remove(index);
+        printFancy("" +
+                        "Noted. I've removed this task:\n" +
+                        " %s\n" +
+                        "Now you have %d tasks in the list.",
+                task.toString(), tasks.size());
     }
 
     private void commandEvent(String[] args) {
