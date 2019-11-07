@@ -1,3 +1,0 @@
-T | ✓ | join sports club
-D | ✓ | submit homework| 09-11-2019
-E | ✘ | party| 10-11-2019
