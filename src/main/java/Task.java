@@ -11,10 +11,6 @@ public class Task {
         return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
     }
 
-//    public Character getTaskType() {
-//        char taskType = description.charAt(0);
-//        return Character.toUpperCase(taskType);
-//    }
 
     public void markAsDone(){
         isDone = true;
@@ -22,6 +18,7 @@ public class Task {
     }
 
     public String toString(){
+
         return ("[" + this.getStatusIcon() + "] " + description);
     }
 }
