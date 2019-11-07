@@ -2,6 +2,11 @@ package me.chercherlyn.duke;
 
 import static me.chercherlyn.duke.ConsoleUtil.*;
 
+//To perform input and output
+import java.io.File;
+
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +23,7 @@ public class Duke {
     public Duke() {
 
         tasks = new ArrayList<>();
+        loadTasks();
     }
 
     public static void main(String[] args) {
@@ -97,6 +103,8 @@ public class Duke {
 
         Task task = tasks.get(index);
         tasks.remove(index);
+        saveTasks();
+
         printFancy("" +
                         "Noted. I've removed this task:\n" +
                         " %s\n" +
@@ -127,6 +135,7 @@ public class Duke {
 
         Task task = new Event(description, time);
         tasks.add(task);
+        saveTasks();
 
         printFancy("" +
                         "Got it. I've added this task:\n" +
@@ -158,6 +167,7 @@ public class Duke {
 
         Task task = new Deadline(description, time);
         tasks.add(task);
+        saveTasks();
 
         printFancy("" +
                         "Got it. I've added this task:\n" +
@@ -175,6 +185,7 @@ public class Duke {
         String description = String.join(" ", args);
         Task task = new Todo(description);
         tasks.add(task);
+        saveTasks();
 
         printFancy("" +
                         "Got it. I've added this task:\n" +
@@ -200,6 +211,8 @@ public class Duke {
 
         Task task = tasks.get(index);
         task.setDone(true);
+        saveTasks();
+
         printFancy("Nice! I've marked this task as done:\n  %s", task.toString());
     }
 
@@ -214,9 +227,7 @@ public class Duke {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             int count = i + 1;
-            builder
-                    .append(count).append(". ")
-                    .append(tasks.get(i)).append("\n");
+            builder.append(count).append(". ").append(tasks.get(i)).append("\n");
         }
 
         // remove last line break
@@ -230,6 +241,49 @@ public class Duke {
     private void commandBye(String[] args) {
         printFancy("Bye. Hope to see you again soon!");
         System.exit(0); // exit the app
+    }
+
+    private void loadTasks() {
+        try {
+            // create folder & file if not exist
+            File dir = new File("data");
+            if (!dir.isDirectory()) dir.mkdir();
+            File file = new File(dir, "duke.txt");
+            if (!file.isFile()) file.createNewFile();
+
+            // load data
+            List<String> dataList = Files.readAllLines(file.toPath(), StandardCharsets.UTF_8);
+            for (String data : dataList)
+                tasks.add(Task.deserialize(data));
+        }
+
+        catch (Exception ex) {
+            throw new IllegalStateException(ex);
+        }
+    }
+
+    private void saveTasks() {
+        try {
+            // create folder & file if not exist
+            File dir = new File("data");
+            if (!dir.isDirectory()) dir.mkdir();
+            File file = new File(dir, "duke.txt");
+            if (!file.isFile()) file.createNewFile();
+
+            // build data string
+            List<String> dataList = new ArrayList<>();
+            for (Task task : tasks)
+                dataList.add(Task.serialize(task));
+            String dataListStr = String.join("\n", dataList);
+
+            // save to file
+            Files.write(file.toPath(), dataListStr.getBytes(StandardCharsets.UTF_8));
+        }
+
+        catch (Exception ex) {
+            throw new IllegalStateException(ex);
+        }
+
     }
 }
 

@@ -11,6 +11,10 @@ public class Event extends Task {
         this.timeAt = at;
     }
 
+    public String getTimeAt() {
+        return timeAt;
+    }
+
     @Override
     public String toString() {
         return String.format("[E][%s] %s (at: %s)",
