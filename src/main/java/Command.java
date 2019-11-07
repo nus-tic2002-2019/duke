@@ -28,7 +28,7 @@ public class Command {
     }
 
     private static void CheckNumber(int size, int index) throws InvalidNumberException {
-        if (index >= size || index < 0) {
+        if (index >= size) {
             throw new InvalidNumberException();
         }
     }

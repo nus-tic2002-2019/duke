@@ -19,7 +19,9 @@ public class Parser {
      * @return index.
      * */
     public static int taskNumber(String fullCommand) {
-        return Integer.parseInt(fullCommand.split(" ")[1]) - 1;
+        int index = Integer.parseInt(fullCommand.split(" ")[1]) - 1;
+        assert  index >= 0: "The index of task must be greater than 0";
+        return index;
     }
     /**
      * Finding out the description keyed by user.
