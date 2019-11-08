@@ -15,10 +15,18 @@ public class Ui {
         return input;
     }
 
+    /**
+     * Shows the line for the chatbot's box.
+     * @return A straight line for the chatbox
+     */
+
     public String showLine() {
         return "\t________________________________________________________________\n\t";
     }
 
+    /**
+     * Shows welcome message with logo.
+     */
     public void showWelcomeMessage() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -29,38 +37,66 @@ public class Ui {
         System.out.println(logo + showLine() + welcome + showLine());
     }
 
+    /**
+     * Display the latest task added to the list along with the current Task list size.
+     * @param taskDetails A String of details of the current task added.
+     * @param listSize The current size of the list.
+     */
     public void showTaskAdded(String taskDetails, int listSize) {
         String currentTask = "Got it. I've added this task:\n\t\t" + taskDetails;
         String numberOfTask = "\n\tNow you have " + listSize + " tasks in the list.\n";
         System.out.println(showLine() + currentTask + numberOfTask + showLine());
     }
 
+    /**
+     *Display the latest task deleted from the list along with the new updated Task List size after deleting.
+     * @param deletedTask A String of details of the current deleted task.
+     * @param tasklist The current tasklist.
+     */
     public void showDeletedTask(String deletedTask, TaskLists tasklist) {
         String deletedTaskMessage = "Noted. I've removed this task: \n\t\t" + deletedTask;
         String deletedTaskMessage2 = "\n\tNow you have " + tasklist.getSize() + " tasks in the list.\n";
         System.out.println(showLine() + deletedTaskMessage + deletedTaskMessage2 + showLine());
     }
 
+    /**
+     * Display the current task set to done & update the status of the task.
+     * @param doneTask A string of the description of the task.
+     */
     public void showDoneTask(String doneTask) {
         String doneMessage = "Nice! I've marked this task as done: \n\t" + doneTask;
         System.out.println(showLine() + doneMessage + showLine());
     }
 
+    /**
+     * Display the whole list to user.
+     * @param list String of current task list.
+     */
     public void showList(String list) {
         String listTask = "Here are the Tasks in your list:\n\t" + list + "\n";
         System.out.println(showLine() + listTask + showLine());
     }
 
+    /**
+     * Displays the matching result from the keyword search by user.
+     * @param list String of matching result list.
+     */
     public void showFindResult(String list) {
         String listResult = "Here are the matching tasks in your list:\n\t" + list + "\n";
         System.out.println(showLine() + listResult + showLine());
     }
 
+    /**
+     * Displays goodbye message to users when they type in "bye".
+     */
     public void showOffline() {
         String goodbye = "Bye. Hope to see you again soon!\n";
         System.out.println(showLine() + goodbye + showLine());
     }
 
+    /**
+     * When user inputs a file that is not in the correct format or errornous file.
+     */
     public void showInputError() { //can be for files input
         String errorMessage = "There is something wrong with the previous file, please check the content\n\tof the file. I'm unable to load the past task list.\n";
         System.out.println(showLine() + errorMessage + showLine());

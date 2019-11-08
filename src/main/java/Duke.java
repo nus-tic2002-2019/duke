@@ -1,8 +1,4 @@
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-
-import task.*;
 
 public class Duke {
     public static void main(String[] args) throws IOException, DukeException {

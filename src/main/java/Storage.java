@@ -1,5 +1,4 @@
 import java.io.*;
-
 import task.*;
 
 import java.util.ArrayList;

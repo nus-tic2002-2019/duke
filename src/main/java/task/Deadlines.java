@@ -10,32 +10,33 @@ public class Deadlines extends Task {
     private int getDaysToAdd(String details) {
         details = details.toLowerCase();
         if (details.contains("mon") || details.contains("today")) {
-            return 1;
+            return 0;
         }
         if (details.contains("tues") || details.contains("tomorrow")) {
-            return 2;
+            return 1;
         }
         if (details.contains("wednes")) {
-            return 3;
+            return 2;
         }
         if (details.contains("thurs")) {
-            return 4;
+            return 3;
         }
         if (details.contains("fri")) {
-            return 5;
+            return 4;
         }
         if (details.contains("satur")) {
-            return 6;
+            return 5;
         }
         if (details.contains("sun")) {
-            return 7;
+            return 6;
         }
-        return 0;
+        return -1;
     }
 
     public Deadlines(String description, String details, boolean readFromFile) {
         super(description);
         String changedDate;
+        int julianDate, day;
         DateTimeFormatter formatter;
         LocalDateTime formattedDate = null;
         int daysToAdd = getDaysToAdd(details);
@@ -43,11 +44,21 @@ public class Deadlines extends Task {
             formatter = DateTimeFormatter.ofPattern("d MMM yyyy HHmm");
             formattedDate = LocalDateTime.parse(details, formatter); // change string to date
         } else {
-            if (daysToAdd <= 0) {
+            if (daysToAdd < 0) {
                 formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"); // set date input format
                 formattedDate = LocalDateTime.parse(details, formatter); // change string to date
             } else {
                 formattedDate = formattedDate.now();
+                julianDate = formattedDate.getDayOfYear();
+                day = julianDate % 7;
+                daysToAdd = day - daysToAdd;
+                if (daysToAdd == 0) {
+                    daysToAdd = 7;
+                } else if (daysToAdd <0){
+                    daysToAdd = daysToAdd * -1;
+                } else {
+                    daysToAdd = 7 - daysToAdd;
+                }
                 formattedDate = formattedDate.plusDays(daysToAdd);
             }
         }
@@ -57,10 +68,12 @@ public class Deadlines extends Task {
         this.type = 'D';
     }
 
-    public LocalDateTime getDateAndTime() {
-        return dateAndTime;
-    }
-
+    /**
+     * Returns lateral location of the specified position.
+     * If the position is unset, NaN is returned.
+     *
+     * @return The string version of the Date & Time
+     */
     public String getDetails() {
         return "(by: " + this.stringDateTime + ")";
     }

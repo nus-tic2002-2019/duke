@@ -75,7 +75,7 @@ public class TaskLists {
             readFromFile = true;
             message = message.substring(1);
         }
-        list.add(new Deadlines(message.substring(9, index - 1), message.substring(index + 4), readFromFile));
+        list.add(new Deadlines(message.substring(9, index - 1), message.substring(index + 3), readFromFile));
     }
 
     public void addEvent(String message) {
@@ -90,7 +90,7 @@ public class TaskLists {
             readFromFile = true;
             message = message.substring(1);
         }
-        list.add(new DoAfter(message.substring(3, index - 1), message.substring(index + 6), readFromFile));
+        list.add(new DoAfter(message.substring(3, index - 1), message.substring(index + 5), readFromFile));
     }
 
     public String deleteTask(String message) throws DukeExceptionInvalidTaskInputFormat {
