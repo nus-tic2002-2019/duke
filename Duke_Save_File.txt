@@ -1,0 +1,4 @@
+T | false | task1
+T | false | task2
+D | true | dead1 | not specified
+D | true | dead2  |  sunday
