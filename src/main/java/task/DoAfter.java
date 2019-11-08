@@ -9,6 +9,7 @@ public class DoAfter extends Deadlines {
 
     /**
      * Get date & time of the current DoAfter task
+     *
      * @return The current Date and Time in String
      */
     public String getDetails() {

@@ -17,6 +17,7 @@ public class Ui {
 
     /**
      * Shows the line for the chatbot's box.
+     *
      * @return A straight line for the chatbox
      */
 
@@ -39,8 +40,9 @@ public class Ui {
 
     /**
      * Display the latest task added to the list along with the current Task list size.
+     *
      * @param taskDetails A String of details of the current task added.
-     * @param listSize The current size of the list.
+     * @param listSize    The current size of the list.
      */
     public void showTaskAdded(String taskDetails, int listSize) {
         String currentTask = "Got it. I've added this task:\n\t\t" + taskDetails;
@@ -49,9 +51,10 @@ public class Ui {
     }
 
     /**
-     *Display the latest task deleted from the list along with the new updated Task List size after deleting.
+     * Display the latest task deleted from the list along with the new updated Task List size after deleting.
+     *
      * @param deletedTask A String of details of the current deleted task.
-     * @param tasklist The current tasklist.
+     * @param tasklist    The current tasklist.
      */
     public void showDeletedTask(String deletedTask, TaskLists tasklist) {
         String deletedTaskMessage = "Noted. I've removed this task: \n\t\t" + deletedTask;
@@ -61,6 +64,7 @@ public class Ui {
 
     /**
      * Display the current task set to done & update the status of the task.
+     *
      * @param doneTask A string of the description of the task.
      */
     public void showDoneTask(String doneTask) {
@@ -70,6 +74,7 @@ public class Ui {
 
     /**
      * Display the whole list to user.
+     *
      * @param list String of current task list.
      */
     public void showList(String list) {
@@ -79,6 +84,7 @@ public class Ui {
 
     /**
      * Displays the matching result from the keyword search by user.
+     *
      * @param list String of matching result list.
      */
     public void showFindResult(String list) {

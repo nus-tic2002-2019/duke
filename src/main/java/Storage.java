@@ -1,5 +1,8 @@
-import java.io.*;
-import task.*;
+import java.io.IOException;
+import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import task.Task;
 
 import java.util.ArrayList;
 
@@ -20,9 +23,12 @@ public class Storage {
         FileWriter fw = new FileWriter(this.filePath);
         String s = "";
         for (int j = 0; j < list.size(); j++) {
-            s = s + list.get(j).getType() + " " + list.get(j).getTaskStatus() + " " + list.get(j).getTask() + " " + list.get(j).getDetails() + System.lineSeparator();
-            s = s.replace("(by:", "|").replace("(at:", "|").replace(")", "").replaceAll("\\[", "").
-                    replaceAll("]", "|").replace("\u2713", "1 ").replace("\u2718", "0 ").replace("after", "|");
+            s = s + list.get(j).getType() + " " + list.get(j).getTaskStatus() + " " + list.get(j).getTask() + " "
+                    + list.get(j).getDetails() + System.lineSeparator();
+            s = s.replace("(by:", "|").replace("(at:", "|").
+                    replace(")", "").replaceAll("\\[", "").
+                    replaceAll("]", "|").replace("\u2713", "1 ").
+                    replace("\u2718", "0 ").replace("after", "|");
         }
         fw.write(s);
         fw.close();

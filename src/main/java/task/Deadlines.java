@@ -42,11 +42,11 @@ public class Deadlines extends Task {
         int daysToAdd = getDaysToAdd(details);
         if (readFromFile) {
             formatter = DateTimeFormatter.ofPattern("d MMM yyyy HHmm");
-            formattedDate = LocalDateTime.parse(details, formatter); // change string to date
+            formattedDate = LocalDateTime.parse(details, formatter);
         } else {
             if (daysToAdd < 0) {
-                formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"); // set date input format
-                formattedDate = LocalDateTime.parse(details, formatter); // change string to date
+                formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                formattedDate = LocalDateTime.parse(details, formatter);
             } else {
                 formattedDate = formattedDate.now();
                 julianDate = formattedDate.getDayOfYear();
@@ -54,7 +54,7 @@ public class Deadlines extends Task {
                 daysToAdd = day - daysToAdd;
                 if (daysToAdd == 0) {
                     daysToAdd = 7;
-                } else if (daysToAdd <0){
+                } else if (daysToAdd < 0) {
                     daysToAdd = daysToAdd * -1;
                 } else {
                     daysToAdd = 7 - daysToAdd;
@@ -62,8 +62,8 @@ public class Deadlines extends Task {
                 formattedDate = formattedDate.plusDays(daysToAdd);
             }
         }
-        changedDate = formattedDate.toString(); // new string date
-        this.dateAndTime = LocalDateTime.parse(changedDate); // new string date into date
+        changedDate = formattedDate.toString();
+        this.dateAndTime = LocalDateTime.parse(changedDate);
         this.stringDateTime = dateAndTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy HHmm"));
         this.type = 'D';
     }

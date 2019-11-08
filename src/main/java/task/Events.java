@@ -12,6 +12,7 @@ public class Events extends Task {
 
     /**
      * Returns a String of Location of the current event task
+     *
      * @return The location of the current event task in String
      */
     public String getDetails() {

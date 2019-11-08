@@ -1,4 +1,8 @@
-import task.*;
+import task.Task;
+import task.ToDo;
+import task.Deadlines;
+import task.Events;
+import task.DoAfter;
 
 import java.util.ArrayList;
 
@@ -13,6 +17,7 @@ public class TaskLists {
 
     /**
      * Get the current list size.
+     *
      * @return The current list size in integer
      */
     public int getSize() {
@@ -21,6 +26,7 @@ public class TaskLists {
 
     /**
      * Get the current list.
+     *
      * @return The current list.
      */
     public ArrayList<Task> getList() {
@@ -29,6 +35,7 @@ public class TaskLists {
 
     /**
      * Check whether the list is empty.
+     *
      * @return True if list is empty, false if list is not empty.
      */
     public boolean isEmpty() {
@@ -37,6 +44,7 @@ public class TaskLists {
 
     /**
      * Runs through the current list till the end of the list.
+     *
      * @return A string of list.
      * @throws DukeExceptionEmptyList If the list is empty
      */
@@ -47,7 +55,8 @@ public class TaskLists {
         int index = 1;
         String answer = "";
         for (int i = 0; i < getSize(); i++) {
-            answer = (answer + index + "." + this.list.get(i).getType() + this.list.get(i).getTaskStatus() + " " + this.list.get(i).getTask() + " " + this.list.get(i).getDetails());
+            answer = (answer + index + "." + this.list.get(i).getType() + this.list.get(i).getTaskStatus() + " "
+                    + this.list.get(i).getTask() + " " + this.list.get(i).getDetails());
             index++;
             if (i == getSize() - 1) {
                 continue;
@@ -59,6 +68,7 @@ public class TaskLists {
 
     /**
      * Users to search a task from the current list in accordance with the keyword he typed in.
+     *
      * @param message The keyword user typed in to search
      * @return The list of tasks which has the closest result from the searched keyword.
      * @throws DukeExceptionEmptyList If the list is empty.
@@ -80,24 +90,29 @@ public class TaskLists {
 
     /**
      * Displays the latest task of the list.
+     *
      * @return The latest task of the list.
      */
     public String displayLatestTask() {
         int number = getSize() - 1;
-        return list.get(number).getType() + list.get(number).getTaskStatus() + " " + list.get(number).getTask() + " " + list.get(number).getDetails();
+        return list.get(number).getType() + list.get(number).getTaskStatus() + " " + list.get(number).getTask() + " "
+                + list.get(number).getDetails();
     }
 
     /**
      * Selected task by users.
+     *
      * @param number The task number which is selected by user.
      * @return The selected task.
      */
     public String displaySelectedTask(int number) {
-        return list.get(number).getType() + list.get(number).getTaskStatus() + " " + list.get(number).getTask() + " " + list.get(number).getDetails() + "\n";
+        return list.get(number).getType() + list.get(number).getTaskStatus() + " " + list.get(number).getTask() + " "
+                + list.get(number).getDetails() + "\n";
     }
 
     /**
      * Duke adds a ToDo task.
+     *
      * @param message Details of the ToDo task.
      */
     public void addToDo(String message) {
@@ -106,6 +121,7 @@ public class TaskLists {
 
     /**
      * Duke adds a Deadlines task.
+     *
      * @param message Details of the Deadlines task.
      */
     public void addDeadline(String message) {
@@ -120,6 +136,7 @@ public class TaskLists {
 
     /**
      * Duke adds a Events task.
+     *
      * @param message Details of the Events task.
      */
     public void addEvent(String message) {
@@ -129,6 +146,7 @@ public class TaskLists {
 
     /**
      * Duke adds a DoAfter task.
+     *
      * @param message Details of the DoAfter task.
      */
     public void addDoAfter(String message) {
@@ -143,6 +161,7 @@ public class TaskLists {
 
     /**
      * Duke deletes a task as defined by users.
+     *
      * @param message The selected task as defined by user to delete.
      * @return The task that was deleted.
      * @throws DukeExceptionInvalidTaskInputFormat when users' input is not readable by duke.
@@ -162,12 +181,13 @@ public class TaskLists {
 
     /**
      * Duke sets a task done as defined by users.
+     *
      * @param message The selected task defined by user to be set as done.
      * @return The task that was set as done.
      * @throws DukeExceptionInvalidTaskInputFormat when users' input is not readable by duke.
      */
     public String doneTask(String message) throws DukeExceptionInvalidTaskInputFormat {
-        if (message.length() < 5 || message.charAt(4) != ' ' || message.charAt(5) == ' ') { // Handling errors: When user types done1 done2 or done   2
+        if (message.length() < 5 || message.charAt(4) != ' ' || message.charAt(5) == ' ') {
             throw new DukeExceptionInvalidTaskInputFormat();
         }
         String number = message.substring(5).trim();

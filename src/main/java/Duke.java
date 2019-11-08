@@ -1,5 +1,7 @@
 import java.io.IOException;
+
 public class Duke {
+
     public static void main(String[] args) throws IOException, DukeException {
         run();
     }
@@ -116,17 +118,3 @@ public class Duke {
     }
 }
 
-
-/* idea from improvement to this chatbot
-1. Wrap around function if input more than 100 entries?
-2. Wrap around or ignore entry?
-3. Handling errors in inputs by user?
-4. if users type 'Done' only, allow user to type in value of task in the list using scanner input.
-we will leave it to the future.
-5. when list is empty, user types list? Error handling Null element of history
-6. when users just types todo with no other input. Error handling Null element of history
- */
-
-
-/* Splitted the new taskings, to implement error handling for each task input
- * To check on ui.showinputerror and unknownerrorinput usage*/
