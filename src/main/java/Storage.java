@@ -11,6 +11,11 @@ public class Storage {
         this.filePath = DEFAULT_PATH;
     }
 
+    /**
+     * Save the list of tasks into a text file in duke's root folder as duke.txt whenever user exits from duke.
+     * @param list The current list duke is handling.
+     * @throws IOException If user defines their own file path, and the file path has some problem.
+     */
     public void saveFile(ArrayList<Task> list) throws IOException {
         FileWriter fw = new FileWriter(this.filePath);
         String s = "";
@@ -23,6 +28,12 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Read files from the default file path of duke, duke.txt whenever duke starts up.
+     * @param tasks The new task list created for this duke session to be throw into this function from the start of the program.
+     * @throws IOException If the filepath has some problems.
+     * @throws DukeException If the file context is not in the duke's list format.
+     */
     public void readFile(TaskLists tasks) throws IOException, DukeException {
         BufferedReader s = null;
         s = new BufferedReader(new FileReader(DEFAULT_PATH));

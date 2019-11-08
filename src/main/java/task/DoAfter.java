@@ -7,6 +7,10 @@ public class DoAfter extends Deadlines {
         this.type = 'A';
     }
 
+    /**
+     * Get date & time of the current DoAfter task
+     * @return The current Date and Time in String
+     */
     public String getDetails() {
         return "after " + this.stringDateTime;
     }

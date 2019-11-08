@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"<Unnamed>","c":"Storage","l":"DEFAULT_PATH"},{"p":"<Unnamed>","c":"Storage","l":"readFile(TaskLists)"},{"p":"<Unnamed>","c":"Storage","l":"saveFile(ArrayList<Task>)","url":"saveFile(java.util.ArrayList)"},{"p":"<Unnamed>","c":"Storage","l":"Storage()","url":"%3Cinit%3E()"}]

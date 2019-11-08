@@ -95,53 +95,80 @@ public class Ui {
     }
 
     /**
-     * When user inputs a file that is not in the correct format or errornous file.
+     * When user inputs a file that is not in the correct format or erroneous file.
      */
     public void showInputError() { //can be for files input
         String errorMessage = "There is something wrong with the previous file, please check the content\n\tof the file. I'm unable to load the past task list.\n";
         System.out.println(showLine() + errorMessage + showLine());
     }
 
+    /**
+     * When user inputs a ToDO task yet not stating the description of the task.
+     */
     public void showToDoEmptyError() {
         String errorMessage = "\u2639 OOPS!!! The description of a todo cannot be empty.\n";
         System.out.println(showLine() + errorMessage + showLine());
     }
 
+    /**
+     * When user inputs an unknown command for duke to understand and process.
+     */
     public void showUnknownInputError() {
         String errorMessage = "\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(\n";
         System.out.println(showLine() + errorMessage + showLine());
     }
 
+    /**
+     * When user inputs a Deadlines task yet not stating the description of the task.
+     */
     public void showDeadlineEmptyError() {
         String errorMessage = "\u2639 OOPS!!! The description of the deadline cannot be empty.\n";
         System.out.println(showLine() + errorMessage + showLine());
     }
 
+    /**
+     * When user inputs a Events task yet not stating the description of the task.
+     */
     public void showEventEmptyError() {
         String errorMessage = "\u2639 OOPS!!! The description of the event cannot be empty.\n";
         System.out.println(showLine() + errorMessage + showLine());
     }
 
+    /**
+     * When user inputs a DoAfter task yet not stating the description of the task.
+     */
     public void showDoAfterEmptyError() {
         String errorMessage = "\u2639 OOPS!!! The description/date of the task cannot be empty.\n";
         System.out.println(showLine() + errorMessage + showLine());
     }
 
+    /**
+     * When duke access an empty list.
+     */
     public void showListEmptyError() {
         String errorMessage = "\u2639 You have an empty list.\n";
         System.out.println(showLine() + errorMessage + showLine());
     }
 
+    /**
+     * When user inputs an invalid task format.
+     */
     public void showInvalidTaskFormatError() {
         String errorMessage = "You've entered an invalid format of Task, please check your input format again.\n";
         System.out.println(showLine() + errorMessage + showLine());
     }
 
+    /**
+     * When user inputs a task numnber which is not in the index of the current list size.
+     */
     public void showInvalidTaskNumberError() {
         String errorMessage = "You've entered an invalid value for Task, please key in valid task number.\n";
         System.out.println(showLine() + errorMessage + showLine());
     }
 
+    /**
+     * Error while duke is reading the file. Maybe the content of the file or the filepath error.
+     */
     public void showFileError() {
         String errorMessage = "Duke is unable to read your file, please check your input filepath again.";
         System.out.println(showLine() + errorMessage + showLine());
