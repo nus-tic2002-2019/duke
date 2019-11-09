@@ -1,4 +1,8 @@
 package Tasks;
+import Exceptions.*;
+
+import java.security.spec.ECField;
+import java.util.concurrent.ExecutionException;
 
 public class myMethods {
     public String[] parseSpace(String input){
@@ -13,6 +17,18 @@ public class myMethods {
     }
 
     public String parseSlash(String input){
+
+        try {
+            if (input.indexOf("/") == 0) {
+                System.out.println("@@@@@@@@@@@ PRINT THIS PARSE SLASH : " );
+                throw new Exception("");
+            }
+
+        }
+
+        catch (Exception e) {
+            System.out.println("OOKOKOKOKOKOK ");
+        }
         int indexOfSlash = input.indexOf("/");
         //String[] act = input.split("/",2);
         //String tmp0 = input.substring(7, indexOfSlash);
