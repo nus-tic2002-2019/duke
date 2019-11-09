@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Duke {
 
+    // TODO - Create a Storage Class
     public static ArrayList<Task> Tasks = new ArrayList<>();
 
     public static void main(String[] args) {
