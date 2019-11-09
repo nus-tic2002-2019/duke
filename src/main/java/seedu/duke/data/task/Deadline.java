@@ -26,7 +26,8 @@ public class Deadline extends Task{
     }
 
     /** 
-     * @return LocalDateTime
+     * Returns the date and time of the deadline.
+     * @return LocalDateTime    The date and time of the deadline.
      */
     @Override
     public LocalDateTime getDateTime(){

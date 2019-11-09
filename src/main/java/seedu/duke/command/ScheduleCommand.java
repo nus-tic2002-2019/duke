@@ -1,6 +1,7 @@
 package seedu.duke.command;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -60,9 +61,9 @@ public class ScheduleCommand extends Command{
             }
         }
         if(isMatch){
+            Collections.sort(matchedTasks);
             ui.setOutput(showToUserAsIndexedList(matchedTasks));
-        }
-        else{
+        } else{
             ui.setOutput(MESSAGE_SCHEDULE_FAILURE);
         }
     }

@@ -55,8 +55,7 @@ public class FindCommand extends Command{
         }
         if(isMatch){
             ui.setOutput(showToUserAsIndexedList(matchedTasks));
-        }
-        else{
+        } else{
             ui.setOutput(MESSAGE_FIND_FAILURE);
         }
     }

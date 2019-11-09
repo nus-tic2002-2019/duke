@@ -50,8 +50,7 @@ public class AddEventCommand extends Command{
             if(word.equals("at")){
                 if(String.join(" ", Arrays.copyOfRange(input.split(" "), index, input.split(" ").length)).trim().isEmpty()){
                     throw new DukeEmptyException(MESSAGE_EMPTY_DATE);
-                }
-                else {
+                } else {
                     String description = String.join(" ", Arrays.copyOfRange(input.split(" "), 1, index-1));
                     String date = String.join(" ", Arrays.copyOfRange(input.split(" "), index, input.split(" ").length));
                     event = new Event (description, stringToDate(date));

@@ -52,8 +52,7 @@ public class AddDeadlineCommand extends Command{
             if(word.equals("by")){
                 if(String.join(" ", Arrays.copyOfRange(input.split(" "), index, input.split(" ").length)).trim().isEmpty()){
                     throw new DukeException(MESSAGE_EMPTY_DATE);
-                }
-                else {
+                } else {
                     String description = String.join(" ", Arrays.copyOfRange(input.split(" "), 1, index-1));
                     String date = String.join(" ", Arrays.copyOfRange(input.split(" "), index, input.split(" ").length));
                     deadline = new Deadline(description, stringToDate(date));

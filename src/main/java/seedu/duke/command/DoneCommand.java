@@ -32,6 +32,9 @@ public class DoneCommand extends Command{
         if(input.split(" ")[1].trim().isEmpty()){
             throw new DukeException("The selector of a done cannot be empty.");
         }
+        if(taskList.getSize() == 0){
+            throw new DukeException("The tasks list cannot be empty.");
+        }
         try{
         index = prepareIndex(input);
         (taskList.getTask(index)).setDone();
@@ -40,7 +43,7 @@ public class DoneCommand extends Command{
         } catch (NumberFormatException e){
             throw new DukeException("The task selected must be a numerical value.");
         } catch (IndexOutOfBoundsException e){
-            throw new DukeException("The tasks list cannot be empty.");
+            throw new DukeException("Please select a number that is within the task list.");
         }
     }
 

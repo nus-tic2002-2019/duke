@@ -33,7 +33,7 @@ public class ListCommand extends Command{
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException{
         if(taskList.getSize() == 0){
-            throw new DukeException("The tasks list cannot be empty.");
+            throw new DukeException("The task list is currently empty.");
         }
         ui.setOutput(showTaskListView(taskList));
     }

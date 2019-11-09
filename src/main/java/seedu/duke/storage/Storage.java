@@ -65,8 +65,7 @@ public class Storage{
                             taskList.add(newTodo);
                             }
                 }       
-            }
-            else{
+            } else{
                 throw new DukeException("The file is either empty or does not exists. Creating a new task list!");
             }
         } catch(FileNotFoundException | DukeException | NullPointerException e){
@@ -105,27 +104,23 @@ public class Storage{
             String description = task.getDescription();
             String date = "";
 
-            if(task instanceof ToDo){
+            if (task instanceof ToDo){
                 taskClass = "T";
-            }
-            else if(task instanceof Event){
+            } else if (task instanceof Event){
                 taskClass = "E";
                 date = dateToString(((Event) task).at);
-            }
-            else if(task instanceof Deadline){
+            } else if (task instanceof Deadline){
                 taskClass = "D";
                 date = dateToString(((Deadline) task).by);
             }
             if (task.getStatus()){
                 isDone = 1;
-            }
-            else {
+            } else {
                 isDone = 0;
             }
             if (date.isEmpty()){
                 toAdd += taskClass + " | " + Integer.toString(isDone) + " | " + description + "\n";
-            }
-            else {
+            } else {
                 toAdd += taskClass + " | " + Integer.toString(isDone) + " | " + description + " | " + date + "\n";
             }
         }
