@@ -171,6 +171,18 @@ public class Duke {
                 break;
 
             case "deadline" :
+                try {
+                    if(userInput.substring(userInput.indexOf("deadline")).length() == 8
+                      || userInput.substring(userInput.indexOf("deadline")+9, userInput.length()).trim().equals("")){
+                        throw new DukeEmptyException("deadline");
+                    }
+
+                }
+                catch (DukeEmptyException e){
+                    System.out.println(e.getMessage());
+                    printLines(line);
+                    break;
+                }
                 String des = userInput.substring(userInput.indexOf("deadline")+9, userInput.indexOf("by")-1);
                 String by = userInput.substring(userInput.indexOf("by")+3, userInput.length());
                 System.out.println(by);
