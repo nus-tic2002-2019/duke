@@ -1,3 +1,6 @@
+//level 7
+package task;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -31,6 +34,10 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + this.getDescription();
     }
 
-
+    //need to save
+    public String SaveFile(){
+        Integer intIsDone = isDone ? 1:0;
+        return " | " + intIsDone + " | ";
+    }
 
 }

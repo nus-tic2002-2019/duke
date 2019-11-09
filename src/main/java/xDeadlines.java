@@ -1,3 +1,5 @@
+/* no more in used
+
 public class Deadlines extends Task {
     protected boolean isDone;
     protected String by;
@@ -24,3 +26,4 @@ public class Deadlines extends Task {
     }
 
 }
+*/

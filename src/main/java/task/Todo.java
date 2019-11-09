@@ -1,3 +1,6 @@
+//level 7
+package task;
+
 public class Todo extends Task {
     protected boolean isDone;
 
@@ -17,6 +20,11 @@ public class Todo extends Task {
     @Override
     public String toString() {
         return "[T] [" + super.getStatusIcon() + "] " + super.getDescription();
+    }
+
+    @Override
+    public String SaveFile(){
+        return "T" + super.SaveFile() + super.getDescription();
     }
 
 }
