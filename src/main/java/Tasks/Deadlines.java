@@ -8,7 +8,7 @@ public class Deadlines extends Task {
         super(description);
         isDone = false;
         this.by = by;
-
+        description = description+by;
     }
 
     @Override
@@ -17,6 +17,8 @@ public class Deadlines extends Task {
         //System.out.println("[T]");
         return "[D]";
     }
+
+
 
     @Override
     public String toString() {

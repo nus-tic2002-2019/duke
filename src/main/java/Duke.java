@@ -222,11 +222,21 @@ public class Duke {
                 }
                 System.out.println("      Got it. I've added this task:");
                 tasklist.add(new Events(parse(userInput)[1]));
-                System.out.println("       " + tasklist.get(tasklist.size()-1).getDescription());
+                System.out.println("       " + tasklist.get(tasklist.size()-1).toString());
                 System.out.println("     Now you have " + tasklist.size() + " tasks in the list.");
                 printLines(line);
                 break;
 
+            case "delete" :
+                String taskB4Del = tasklist.get(Integer.parseInt(parse(userInput)[1])-1).toString();
+                tasklist.remove(Integer.parseInt(parse(userInput)[1])-1);
+                System.out.println(userInput);
+                printLines(line);
+                System.out.println("     Noted. I've removed this task:");
+                System.out.println("       " + taskB4Del);
+                System.out.println("     Now you have " + tasklist.size() + " tasks in the list.");
+                printLines(line);
+                break;
 
             case "bye" :
                 System.out.println(userInput);
