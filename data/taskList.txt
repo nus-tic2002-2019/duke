@@ -1,0 +1,5 @@
+T | 0 | tiis
+T | 0 | again
+D | 0 | buy for | 6 june
+D | 0 | try | 15 feb
+E | 0 | attend | 18 Oct
