@@ -14,14 +14,6 @@ public class UI{
     }
 
     /** 
-     * Returns the welcome message of Duke.
-     * @return String   The welcome message of Duke.
-     */
-    public String showWelcomeMessage(){
-        return "Hello! I'm Duke\nWhat can I do for you?";
-    }
-
-    /** 
      * Returns the goodbye message of Duke.
      * @return String   The goodbye message of Duke.
      */

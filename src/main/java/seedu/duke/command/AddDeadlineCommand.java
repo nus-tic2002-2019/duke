@@ -41,7 +41,7 @@ public class AddDeadlineCommand extends Command{
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeEmptyException, DukeException, IOException{
         int index = 0;
-        if((input.substring(8).trim()).isEmpty()){
+        if((input.substring(8).trim()).isEmpty() || input.split(" ")[1].trim().equals("by")){
             throw new DukeEmptyException("deadline");
         }
         if(!input.contains("by")){
@@ -75,6 +75,7 @@ public class AddDeadlineCommand extends Command{
     private LocalDateTime stringToDate(String date) throws DukeException{
         try{
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
+            assert LocalDateTime.parse(date, formatter).isAfter(LocalDateTime.now());
             return LocalDateTime.parse(date, formatter);
         } catch (DateTimeParseException e){
             throw new DukeException("The format of the date and time must be in this format: dd/mm/yyyy hhss (13/08/2019 0000)");

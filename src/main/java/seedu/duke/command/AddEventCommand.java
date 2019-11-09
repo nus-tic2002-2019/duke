@@ -38,7 +38,7 @@ public class AddEventCommand extends Command{
      */
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeEmptyException, DukeException, IOException{
-        if((input.substring(5).trim()).isEmpty()){
+        if((input.substring(5).trim()).isEmpty() || input.split(" ")[1].trim().equals("at")){
             throw new DukeEmptyException("event");
         }
         if(!input.contains("at")){
@@ -72,6 +72,7 @@ public class AddEventCommand extends Command{
     private LocalDateTime stringToDate(String date) throws DukeException{
         try{
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
+            assert LocalDateTime.parse(date, formatter).isAfter(LocalDateTime.now());
             return LocalDateTime.parse(date, formatter);
         } catch (DateTimeParseException e){
             throw new DukeException("The format of the date and time must be in this format: dd/mm/yyyy hhss");

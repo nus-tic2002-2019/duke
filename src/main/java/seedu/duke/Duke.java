@@ -31,7 +31,6 @@ public class Duke{
      * Runs the Duke program and process the input from the user with corresponding output.
      */
     public void run(){
-        ui.showWelcomeMessage();
         boolean isExit = false;
         while (!isExit){
             try{
