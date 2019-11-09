@@ -1,4 +1,4 @@
-package ERROR_HANDLING;
+package error_handling;
 
 /**
  * This Exception triggered when no matched Keyword in the command list

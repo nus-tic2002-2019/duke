@@ -1,33 +1,33 @@
 import java.io.*;
 import java.util.*;
-import ERROR_HANDLING.*;
-import COMMAND.*;
-import STORAGE.*;
+import error_handling.*;
+import command.*;
+import storage.*;
 import UI.*;
-import PARSER.*;
+import parse.*;
 
 public class Duke {
 
-    private Storage file;
     private Message ui;
+    private Storage file;
+    private TempTaskList list;
     private CommandList keywords;
-
 
     public Duke() throws Exception{
         ui = new Message();
-        keywords = new CommandList();
+        list = new TempTaskList();
+        keywords = new CommandList(list);
     };
 
     public static void main(String[] args) throws Exception {
         new Duke().start();
-        return;
     }
 
     private void start() throws Exception {
         ui.showGreetingMessage();
 
         Scanner in = new Scanner(System.in);
-        String userInput = new String();
+        String userInput = "";
 
         String username = in.nextLine();
         String filename = Parser.convertFileName(username);
@@ -42,6 +42,7 @@ public class Duke {
         } catch (IOException e) {
             ui.errorFileMessage();
         }
+        file.read(list);
 
 
 // MAIN LOGIC
@@ -107,7 +108,7 @@ public class Duke {
 */
 
     /*
-    @Ovoutide
+    @Override
     public String toString() {
         return "|"  + logo + "|" ;
     } */

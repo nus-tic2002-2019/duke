@@ -1,6 +1,6 @@
-package STORAGE;
+package storage;
 
-import TASK.*;
+import task.*;
 import java.util.ArrayList;
 import UI.Message;
 
@@ -16,7 +16,7 @@ public class TempTaskList {
     public Task get(int index) {
         return list.get(index);
     }
-    public void set(Task task) {
+    public void add(Task task) {
         list.add(task);
     }
     public int size() {

@@ -1,6 +1,6 @@
 package UI;
 
-import TASK.Task;
+import task.Task;
 
 import java.io.*;
 import java.util.*;
@@ -82,7 +82,7 @@ public class Message {
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+                + "|____/ \\__,_|_|\\_\\___|";
         System.out.println(logo);
         System.out.println("\t    \\   / ");
         System.out.println("\tHey! \\ / here, What's your username?");

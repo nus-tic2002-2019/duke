@@ -1,4 +1,4 @@
-package TASK;
+package task;
 
 public abstract class Task{
     private static int totalTask = 0;

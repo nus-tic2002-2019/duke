@@ -1,8 +1,8 @@
-package COMMAND;
+package command;
 import java.util.HashMap;
-import ERROR_HANDLING.*;
-import STORAGE.TempTaskList;
-import TASK.*;
+import error_handling.*;
+import storage.TempTaskList;
+import task.*;
 import UI.*;
 
 
@@ -12,10 +12,9 @@ public class CommandList {
     private TempTaskList list;
 
 
-    public CommandList() {
+    public CommandList(TempTaskList list) {
         keywords = new HashMap<String, Command>();
         ui = new Message();
-        list = new TempTaskList();
 
         keywords.put("bye", new Command() {
             public void run(String content) {
@@ -117,7 +116,7 @@ public class CommandList {
             throw new NullContentException();
         }
 
-        list.set(new Todo(content));
+        list.add(new Todo(content));
         int index = list.get(0).getTotalTask() - 1;
         ui.addTaskMessage(list.get(index), list.get(0).getTotalTask());
     }
@@ -131,7 +130,7 @@ public class CommandList {
             throw new InvalidCommandException();
         }
         String[] parts = content.split(" /by ");
-        list.set(new Deadline(parts[0], parts[1]));
+        list.add(new Deadline(parts[0], parts[1]));
         int index = list.get(0).getTotalTask() - 1;
         ui.addTaskMessage(list.get(index), list.get(0).getTotalTask());
     }
@@ -145,7 +144,7 @@ public class CommandList {
             throw new InvalidCommandException();
         }
         String[] parts = content.split(" /at ");
-        list.set(new Event(parts[0], parts[1]));
+        list.add(new Event(parts[0], parts[1]));
         int index = list.get(0).getTotalTask() - 1;
         ui.addTaskMessage(list.get(index), list.get(0).getTotalTask());
     }

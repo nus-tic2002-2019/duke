@@ -1,4 +1,4 @@
-package PARSER;
+package parse;
 
 public class Parser {
     public Parser () {
@@ -14,6 +14,10 @@ public class Parser {
         }
         return filename.substring(2);
     }
+    public static String[] fileLineBreak (String line){
+        String[] parts = line.split("\\|", 4);
 
+        return parts;
+    }
 
 }
