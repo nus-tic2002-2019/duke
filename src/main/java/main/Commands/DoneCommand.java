@@ -5,7 +5,7 @@ import main.UI;
 
 import static main.Duke.Tasks;
 
-public class DoneCommand extends Command {
+public class DoneCommand extends Command<String> {
 
     public  DoneCommand(String input){
         this.execute(input);

@@ -10,7 +10,7 @@ import static main.Duke.Tasks;
 *   Displays results and processed user commands
 * */
 public class UI {
-    public UI(){
+    UI(){
     }
 
     public static void completeTask(int index) {
@@ -22,7 +22,7 @@ public class UI {
         UI.line();
     }
 
-    public void welcome(){
+     void welcome(){
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -35,7 +35,7 @@ public class UI {
         System.out.println("\t____________________________________________________________");
     }
 
-    public static void line() {
+    private static void line() {
         System.out.println("\t____________________________________________________________");
     }
 
@@ -57,6 +57,7 @@ public class UI {
         UI.line();
     }
 
+    //TODO Update listTask to print Type before Status
     public static void listTasks() {
         UI.line();
         System.out.println("\tHere are the Tasks in your List:");

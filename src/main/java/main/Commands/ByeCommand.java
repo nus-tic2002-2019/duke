@@ -3,7 +3,7 @@ package main.Commands;
 import main.Parser;
 import main.UI;
 
-public class ByeCommand extends Command {
+public class ByeCommand extends Command<String> {
 
     public  ByeCommand(String input){
         this.execute(input);

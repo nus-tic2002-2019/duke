@@ -1,5 +1,7 @@
 package main;
 
+import main.TaskLists.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 

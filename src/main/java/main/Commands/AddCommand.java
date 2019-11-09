@@ -1,21 +1,21 @@
 package main.Commands;
 
-import main.Task;
+import main.TaskLists.Task;
 import main.UI;
 
 import static main.Duke.Tasks;
 
-public class AddCommand extends Command {
+public class AddCommand extends Command<Task> {
 
-    public  AddCommand(String input){
+    public  AddCommand(Task input){
         this.execute(input);
     }
 
     @Override
-    public void execute(String input) {
-        Task t = new Task(input);
-        Tasks.add(t);
-        UI.addedCommand((input));
+    public void execute(Task input) {
+
+        Tasks.add(input);
+        UI.addedCommand((input.toString()));
 
     }
 

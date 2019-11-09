@@ -2,6 +2,16 @@ package main;
 
 
 import main.Commands.*;
+import main.TaskLists.Deadline;
+import main.TaskLists.Event;
+import main.TaskLists.Task;
+import main.TaskLists.ToDo;
+
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Parse the input of the user and returns a command based on the input.
@@ -17,29 +27,54 @@ public class Parser {
 
     //TODO Add exception here
     public static void parse(String input) {
-        Command action = null;
 
         // Takes the first word of the input
-        String word = input.split(" ")[0];
-
+        String[] command = input.split(" ");
 
         //Parse the comment to the correct Command Action
-        switch (word.toUpperCase()){
+        switch (command[0].toUpperCase()){
 
            case "BYE":
-                action = new ByeCommand(input);
+               new ByeCommand(input);
                 break;
 
             case "LIST":
-                action = new ListCommand(input);
+                new ListCommand(input);
                 break;
 
             case "DONE":
-                action = new DoneCommand(input.split(" ")[1]);
+                new DoneCommand(input.split(" ")[1]);
+                break;
+
+            case "DEADLINE":
+                String deadlineDesc = (input.split(" ",2)[1]).split("/by")[0];
+                var subStringDeadline  = input.substring(input.lastIndexOf("/by") + 3);
+                String doWhen = (subStringDeadline.equalsIgnoreCase(input.substring(2))) ?
+                        " No Deadline Given" : subStringDeadline;
+                System.out.println(input.substring(2));
+                Task deadline = new Deadline(deadlineDesc,doWhen);
+                new AddCommand(deadline);
+                break;
+
+            case "EVENT":
+                String eventDesc = (input.split(" ",2)[1]).split("/at")[0];
+                var subStringEvent  = input.substring(input.lastIndexOf("/at") + 3);
+                String doAt = (subStringEvent.equalsIgnoreCase(input.substring(2))) ?
+                        " No Location Given" : subStringEvent;
+                System.out.println(input.substring(2));
+                Task event = new Event(eventDesc,doAt);
+                new AddCommand(event);
+                break;
+
+            case "TODO":
+                String TodoDesc = (input.split(" ",2)[1]);
+                Task todo = new ToDo(TodoDesc);
+                new AddCommand(todo);
                 break;
 
             default:
-                action = new AddCommand(input);
+                System.out.println("I do not know what you want me to do");
+
 
         }
 

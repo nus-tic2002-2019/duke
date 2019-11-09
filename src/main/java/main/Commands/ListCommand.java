@@ -1,10 +1,8 @@
 package main.Commands;
 
-
-import main.Commands.Command;
 import main.UI;
 
-public class ListCommand extends Command {
+public class ListCommand extends Command<String> {
 
     public  ListCommand(String input){
         this.execute(input);

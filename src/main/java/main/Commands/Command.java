@@ -1,6 +1,7 @@
 package main.Commands;
 
-abstract public class Command {
 
-    abstract public void execute(String input);
+abstract public class Command<T> {
+
+    abstract public void execute(T input);
 }
