@@ -1,5 +1,7 @@
 package main;
 
+import main.TaskLists.Task;
+
 import java.util.ArrayList;
 
 import static main.Duke.Tasks;
@@ -9,16 +11,16 @@ import static main.Duke.Tasks;
 *   User Interface Class
 *   Displays results and processed user commands
 * */
-public class UI {
+public class UI{
     UI(){
     }
+
+    //TODO Create UI Methods for displaying duke Exception Messages
 
     public static void completeTask(int index) {
         UI.line();
         System.out.println("\tNice! I've marked this Task as Done:");
-        System.out.println("\t[" +
-                        Tasks.get(index).getStatusIcon() + "] " +
-                        Tasks.get(index));
+        System.out.println("\t" + Tasks.get(index));
         UI.line();
     }
 
@@ -51,23 +53,23 @@ public class UI {
         UI.line();
     }
 
-    public static void addedCommand(String input) {
+    public static void addedCommand(Task input) {
         UI.line();
-        System.out.println("Added: " + input);
+        System.out.println("\tGot it. I've added this task:");
+        System.out.println("\t" + input.toString());
         UI.line();
     }
 
-    //TODO Update listTask to print Type before Status
     public static void listTasks() {
         UI.line();
         System.out.println("\tHere are the Tasks in your List:");
-        int count = 1;
+        int count = 0;
         for (Object ignored : Tasks) {
-            System.out.println( "\t" + count + ".[" +
-                    Tasks.get(count -1).getStatusIcon() + "] " +
-                    Tasks.get(count - 1));
+            System.out.println( "\t" + (count + 1) + ". " +
+                    Tasks.get(count ));
             count++;
         }
+        System.out.println("\tNow you have " + count + " tasks in the list.");
         UI.line();
     }
 }

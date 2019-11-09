@@ -11,7 +11,7 @@ public class Duke {
     // TODO - Create a Storage Class
     public static ArrayList<Task> Tasks = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
 
         UI interaction = new UI();
         interaction.welcome();

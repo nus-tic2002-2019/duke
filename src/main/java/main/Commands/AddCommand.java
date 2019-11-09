@@ -15,7 +15,7 @@ public class AddCommand extends Command<Task> {
     public void execute(Task input) {
 
         Tasks.add(input);
-        UI.addedCommand((input.toString()));
+        UI.addedCommand(input);
 
     }
 
