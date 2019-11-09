@@ -1,16 +1,14 @@
 package Ui;
 import Task.Task;
-import TaskList.*;
-import Parser.*;
+import TaskList.TaskList;
 
 public class Ui {
     public static String seperatorLine = "___________________________________________\n";
     public static String seperatorLine2 = "________________________________________\n";
     public static int task_count = 0;
-    public static Task t = new Task("");
+    public static Task task = new Task("");
     public static String[] mark = new String[100];
     public static int del_task_number =0;
-
 
     public static void welcome() {
 
@@ -27,6 +25,9 @@ public class Ui {
         System.out.println(seperatorLine);
     }
 
+    /***
+     * print out error when Duke can't regconize the task keywords
+     */
     public static void keywordError() {
         System.out.println(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
@@ -57,45 +58,58 @@ public class Ui {
         System.out.println("Please enter which integer after delete ");
     }
 
-    public static void printEvent(Task t){
+    public static void dateTimeInvalidFormat() {
+        System.out.println("Or can enter the date format like yyyy-mm-dd (e.g., 2019-01-01) ");
+    }
+
+    /**
+     * print out all the list and status when user enter list keywords
+     * @param task_list
+     */
+    public static void printEvent(Task task_list){
 
         System.out.print("   " + seperatorLine2);
         System.out.println("     " + "Got it. I've added this task");
-
-        System.out.println("        " + "[" + t.getStatusIcon() + "]" + TaskList.getTaskList(task_count));
-
+        System.out.println("        " + "[" + task_list.getStatusIcon() + "]" + TaskList.getTaskList(task_count));
         System.out.println("     "+ "Now you have "+ (task_count + 1) + " tasks in the list.");
         System.out.print("   " + seperatorLine2);
         task_count++;
     }
 
+    /***
+     * printout mask task as done
+     * @param done_task_number the number of the list need to be marked as done
+     * @param userInput_taskWords the number of
+     */
     public static void doneTask(int done_task_number, String userInput_taskWords) {
-        t.markAsDone();
+        task.markAsDone();
 
         System.out.print("   " + seperatorLine2);
         System.out.println("     " + "Nice! I've marked this task as done:");
-        System.out.print("        " + "[" + t.getStatusIcon() + "] ");
+        System.out.print("        " + "[" + task.getStatusIcon() + "] ");
         done_task_number = Integer.parseInt(userInput_taskWords) - 1;
-
         System.out.println(TaskList.getTaskList(done_task_number));
-
-        mark[done_task_number] = t.getStatusIcon();
+        mark[done_task_number] = task.getStatusIcon();
         System.out.print("   " + seperatorLine2);
     }
 
+    /**
+     * this public method print_delete_event() will be called after deleteTask() been executed
+     */
     public static void print_delete_event(){
 
         System.out.print("   " + seperatorLine2);
         System.out.println("     " + "Noted. I've removed this task");
-
-        System.out.println("        " + "[" + t.getStatusIcon() + "]" + TaskList.getTaskList(Ui.del_task_number-1) );
-
+        System.out.println("        " + "[" + task.getStatusIcon() + "]" + TaskList.getTaskList(Ui.del_task_number-1) );
         System.out.println("     "+ "Now you have "+ (task_count-1 ) + " tasks in the list.");
         System.out.print("   " + seperatorLine2);
-
         task_count--;
     }
 
+    /***
+     * delete specific task from the list
+     * @param del_task_number the number of list need to be delete by user
+     */
     public static void deleteTask(int del_task_number) {
         Ui.del_task_number = del_task_number--;
 

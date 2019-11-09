@@ -9,16 +9,23 @@ public class Task {
     private static Task[] tasks_addTask = new Task[100];  //*****
     private static int taskCount_addTask = 0;
 
+    /***
+     * Task
+     * @param description description for different Task - event, todo, deadline
+     */
 
     public Task(String description) {
-
 
             this.description = description;
             this.isDone = false;
     }
 
-    public static void addTask(Task s){
-        tasks_addTask[taskCount_addTask] = s;
+    /***
+     *
+     * @param tasks add task (Todo Task, Deadline Task, Event Task)
+     */
+    public static void addTask(Task tasks){
+        tasks_addTask[taskCount_addTask] = tasks;
         TaskList.addToTaskList(tasks_addTask[taskCount_addTask].toString());
 
         taskCount_addTask++;
@@ -28,13 +35,15 @@ public class Task {
         this.isDone = true;
     }
 
+    /***
+     *
+     * @return done return tick else return X symbols
+     */
     public String getStatusIcon() {
         return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
     }
+
     public String toString(){
         return description;
     }
-
-
-
 }

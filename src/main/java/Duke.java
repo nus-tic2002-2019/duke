@@ -1,11 +1,8 @@
-
 import java.util.Arrays;
 import java.util.Scanner;
-
 import Exception_Package.DukeException;
 import Parser.*;
-import Ui.*;
-
+import Ui.Ui;
 
 public class Duke {
 
@@ -13,28 +10,28 @@ public class Duke {
 
     public static void main(String[] args) {
 
-        String[] userInputArray= new String[100];
-
+        String[] userInputArray = new String[100];
 
         Ui.welcome();
-        try {
-            Scanner input = new Scanner(System.in);
-            Arrays.fill(Ui.mark, "\u2718");  //initialize mark array = "x"
-            System.out.println("Please enter login or bye to exit");
-            userInputArray = input.nextLine().split(" ");
-            System.out.println("Please enter task");
+        userInputArray[0] = " ";
 
-            while(!userInputArray[0].equals("bye")) {
+        Scanner input = new Scanner(System.in);
+        Arrays.fill(Ui.mark, "\u2718");     //initialize mark array = "x"
+        System.out.println("Please enter login or bye to exit");
+        userInputArray = input.nextLine().split(" ");
+        System.out.println("Please enter task");
+
+
+        while (!userInputArray[0].equals("bye") || !userInputArray[0].equals("exit")) {
+            try {
                 userInput = input.nextLine();
                 Parser.parseTaskCommand(userInput);
                 System.out.println("Please type exit if want to quit program");
+            } catch (DukeException e) {
+                Ui.keywordError();
+            } catch (StringIndexOutOfBoundsException e) {
+                Ui.keywordError();
             }
-            userInputArray[0].equals("exit");
-                System.out.println("Logout");
-        }
-        catch ( DukeException e){
-//                System.out.println(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-            Ui.keywordError();
         }
     }
 }
