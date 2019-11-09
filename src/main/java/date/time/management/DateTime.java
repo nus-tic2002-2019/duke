@@ -60,7 +60,7 @@ public class DateTime {
      * @param date the date which going to compare current date(LocalDate.now());
      * @throws InputDateTimeTooEarly If the input is before creation datetime, throw the error;
      */
-    public static boolean Comparision(String date) throws InputDateTimeTooEarly {
+    public static boolean Comparision(String date) {
         LocalDate localDate = LocalDate.now();
         LocalDate input_date = LocalDate.parse(date);
 

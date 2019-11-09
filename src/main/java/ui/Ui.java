@@ -3,6 +3,7 @@ package ui;
 import parser.Parser;
 import taskclasses.Task;
 import taskclasses.TaskList;
+import taskclasses.ToDoAfter;
 import thrownexceptions.*;
 import java.util.Scanner;
 import java.util.Vector;
@@ -26,12 +27,12 @@ public class Ui {
      * The greeting with some instruction
      */
     public static void Greeting() {
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
-        System.out.println("**Date and time input format: /by(at): **");
-        System.out.println("**1. Deadline: YYYY-MM-DD Hour(0-23):Minute(0-59)**");
-        System.out.println("**2. YYYY-MM-DD Hour(0-23):Minute(0-59) -> Hour(0-23):Minutes(0-59)**");
-        System.out.println("**3. YYYY-MM-DD Hour(0-23):Minute(0-59) -> YYYY-MM-DD Hour(0-23):Minute(0-59)**");
+        System.out.println("     Hello! I'm Duke");
+        System.out.println("     What can I do for you?");
+        System.out.println("     **Date and time input format: /by(at): **");
+        System.out.println("     **1. Deadline: YYYY-MM-DD Hour(0-23):Minute(0-59)**");
+        System.out.println("     **2. YYYY-MM-DD Hour(0-23):Minute(0-59) -> Hour(0-23):Minutes(0-59)**");
+        System.out.println("     **3. YYYY-MM-DD Hour(0-23):Minute(0-59) -> YYYY-MM-DD Hour(0-23):Minute(0-59)**");
     }
 
     /**
@@ -82,18 +83,18 @@ public class Ui {
      * @return return the type user chose;
      */
     public static String Searching_Type_Choice(){
-        System.out.println("Search Mode. Please choose the index the type for searching:\n" +
-                "1. Date\n" +
-                "2. Time\n" +
-                "3. Description\n" +
-                "4. Task Type");
+        System.out.println("     Search Mode. Please choose the index the type for searching:\n" +
+                "       1. Date\n" +
+                "       2. Time\n" +
+                "       3. Description\n" +
+                "       4. Task Type");
 
         String search_type;
         Scanner search_IN = new Scanner(System.in);
         search_type = search_IN.nextLine().toLowerCase();
 
         if(!search_type.equals("1") && !search_type.equals("2") && !search_type.equals("3") && !search_type.equals("4")) {
-            System.out.println("The index you chose is not correct. Please try again.");
+            System.out.println("     The index you chose is not correct. Please try again.");
             search_type = Searching_Type_Choice();
         }
 
@@ -105,10 +106,10 @@ public class Ui {
      * @return return the type user chose;
      */
     public static String Search_Task_List_Choice(){
-        System.out.println("Search Mode. Please choose the index the Task List for searching:\n" +
-                "1. Task List\n" +
-                "2. ToDoAfter List\n" +
-                "3. Both of above");
+        System.out.println("     Search Mode. Please choose the index the Task List for searching:\n" +
+                "       1. Task List\n" +
+                "       2. ToDoAfter List\n" +
+                "       3. Both of above");
 
         String List_Type;
         Scanner type = new Scanner(System.in);
@@ -123,17 +124,92 @@ public class Ui {
     }
 
     /**
+     * To get the list which user want to print out;
+     * There are three different choices user can choose:
+     * 1. Task List
+     * 2. ToDoAfter List
+     * 3. Both of above
+     * @return return the list type
+     */
+    private static String typeOfListToBePrint(){
+        System.out.println("     Which list do you like to print out?\n" +
+                "       1. Task List\n" +
+                "       2. ToDoAfter List\n" +
+                "       3. Both of above");
+
+        Scanner user_choice = new Scanner(System.in);
+        String type = user_choice.nextLine().toLowerCase().trim();
+
+        switch (type){
+            case "1":
+            case "task":
+            case "task list":
+                type = "1";
+                break;
+            case "2":
+            case "todoafter":
+            case "todoafter list":
+                type ="2";
+                break;
+            case "3":
+            case "both":
+            case "both of above":
+                type = "3";
+                break;
+            default:
+                System.out.println("     The choice you chose is not correct. Please try again.");
+                Separated_Line();
+                type = typeOfListToBePrint();
+        }
+
+        return type;
+    }
+
+    /**
+     * To check which list user want to print out
+     * @param List Task List
+     * @param ToDoAfterList ToDoAfter List
+     * @param Date_Type DateType to print
+     * @param Time_Type TimeType to print
+     * @throws DateTimeInputWrongly Date/Time input type wrongly error
+     * @throws EnumDayIndexWrongly The day of month invalid error
+     * @throws MonthIndexWrong The month of year invalid error
+     */
+    private static void PrintingListChecking(Vector<Task> List, Vector<ToDoAfter> ToDoAfterList, String Date_Type, String Time_Type) throws DateTimeInputWrongly, EnumDayIndexWrongly, MonthIndexWrong {
+
+        String List_Type = typeOfListToBePrint();
+
+        switch (List_Type){
+            case "1":
+                Print_List(List, Date_Type, Time_Type);
+                break;
+            case "2":
+                Print_List_ToDoAfter(ToDoAfterList, Date_Type, Time_Type);
+                break;
+            default:
+                Separated_Line();
+                System.out.println("Task List:");
+                Print_List(List, Date_Type, Time_Type);
+                Separated_Line();
+                System.out.println("ToDoAfter List:");
+                Print_List_ToDoAfter(ToDoAfterList, Date_Type, Time_Type);
+        }
+    }
+
+    /**
      * The inter-action UI with user
      * @param List Task List
      */
-    public static void chatting_Vector_Task(Vector<Task> List, Vector<Task> ToDoAfterList, String Date_Type, String Time_Type) throws InputDateTimeTooEarly {
+    public static void chatting_Vector_Task(Vector<Task> List, Vector<ToDoAfter> ToDoAfterList, String Date_Type, String Time_Type) throws InputDateTimeTooEarly, TheTaskNotExistInTheList {
         String Ending = "bye";
         String Input;
+
+        ToCheckToDoAfterTaskStatus(ToDoAfterList, List);
 
         try {
 
             Scanner in = new Scanner(System.in);
-            Input = in.nextLine();
+            Input = in.nextLine().toLowerCase();
 
             Ui.Separated_Line();
 
@@ -155,17 +231,24 @@ public class Ui {
                     TaskList.Delete_Number(List, Input_Words);
                     break;
                 case "list":
-                    TaskList.Print_List(List, Date_Type, Time_Type);
+                    PrintingListChecking(List, ToDoAfterList, Date_Type, Time_Type);
                     break;
                 case "bye":
                     System.out.println("     Bye. Hope to see you again soon!");
                     Ui.Separated_Line();
                     return;
                 case "search":
+                case "find":
                     Search(Date_Type, Time_Type, List, ToDoAfterList);
                     break;
-                case "ToDoAfter":
-                    ToDoAfter_Task(ToDoAfterList, List);
+                case "todoafter":
+                    ToDoAfter_Task(ToDoAfterList, List, Date_Type, Time_Type);
+                    break;
+                case "datetype":
+                    Date_Type = Parser.Date_Display_Format();
+                    break;
+                case "timetype":
+                    Time_Type = Parser.Time_Display_Format();
                     break;
                 default:
                     System.out.println("    Invalid Input! Please try again!");
@@ -193,28 +276,30 @@ public class Ui {
             System.out.println("      The task you want to done is invalid! Please key-in again!");
         }
         catch (DeleteNumberException e){
-            System.out.println("     The number of task you want to delete is invalid! Please key-in again!");
+            System.out.println("      The number of task you want to delete is invalid! Please key-in again!");
         }
         catch (InputTimeBeforeLocal e) {
-            System.out.println("     The input time cannot earlier then local time.");
+            System.out.println("      The input time cannot earlier then local time.");
         }
         catch (DateTimeInputFormatWrongly e){
-            System.out.println("     The input Datetime format wrongly. Please try again.");
+            System.out.println("      The input Datetime format wrongly. Please try again.");
         }
         catch (SearchTypeWrong e) {
-            System.out.println("     The search type wrongly. Please try again.");
+            System.out.println("      The search type wrongly. Please try again.");
         }
         catch (DateTimeInputWrongly e) {
-            System.out.println("    The date or time input wrongly. Please try again.");
+            System.out.println("      The date or time input wrongly. Please try again.");
         }
         catch (MonthIndexWrong monthIndexWrong) {
-            System.out.println("    The month input is not correct. Please try again.");
+            System.out.println("      The month input is not correct. Please try again.");
         }
         catch (EnumDayIndexWrongly enumDayIndexWrongly) {
-            System.out.println("The day input is not correct. Please try again.");
+            System.out.println("      The day input is not correct. Please try again.");
         }
 
-        Ui.Separated_Line();
+        Separated_Line();
+//        System.out.println("     What else can I do for you?");
+//        Separated_Line();
         chatting_Vector_Task(List, ToDoAfterList, Date_Type, Time_Type);
     }
 }

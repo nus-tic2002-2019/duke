@@ -5,6 +5,7 @@ import enumlist.Days;
 import enumlist.Month;
 import taskclasses.Task;
 import thrownexceptions.*;
+import ui.Ui;
 
 import java.io.IOException;
 import java.security.PublicKey;
@@ -22,7 +23,7 @@ public class Parser {
      * @throws DukeException The error which the input is not correct.
      */
     public static void Input_Length_Checking(String First_Word, String[] Input_Words) throws DukeException {
-        if(!First_Word.equals("list") && !First_Word.equals("bye") && !First_Word.equals("search") && Input_Words.length == 1){
+        if(!First_Word.equals("list") && !First_Word.equals("bye") && !First_Word.equals("search") && !First_Word.equals("datetype") && !First_Word.equals("timetype") && !First_Word.equals("find") && Input_Words.length == 1 && !First_Word.equals("todoafter")){
             throw new DukeException(First_Word);
         }
     }
@@ -33,23 +34,26 @@ public class Parser {
      * 1. MMM D YYY
      * 2. Day of Month Year, e.g. 2nd of December 2019;
      * @return  return the choice customer choose whether one or two.
-     * @throws DateTypeChooseWrongly throw error if the choice customer chose is not "1" or "2";
      */
-    public static String Date_Display_Format() throws DateTypeChooseWrongly {
+    public static String Date_Display_Format() {
         String Date_Type;
 
-        System.out.println("Please choose the Date format:");
-        System.out.println("1. MMM D YYY\n" +
-                "2. Day of Month Year");
+        System.out.println("     Please choose the Date format:");
+        System.out.println("       1. MMM D YYY\n" +
+                "       2. Day of Month Year");
 
         Scanner date_choice = new Scanner(System.in);
         Date_Type = date_choice.nextLine();
 
         if(!Date_Type.equals("1") && !Date_Type.equals("2")){
-            throw new DateTypeChooseWrongly();
+            Ui.Separated_Line();
+            System.out.println("     The Date choice you choose is incorrect. Please try again.");
+            Ui.Separated_Line();
+            return Parser.Date_Display_Format();
         }
-
-        return Date_Type;
+        else {
+            return Date_Type;
+        }
     }
 
     /**
@@ -58,24 +62,26 @@ public class Parser {
      * 1. hh:mm  e.g. 16:22
      * 2. H:mm  e.g. 06:22 pm
      * @return return the customer choice;
-     * @throws TimeTypeChooseWrongly To throught an error is the customer choice is not "1" or "2";
      */
-    public static String Time_Display_Format() throws TimeTypeChooseWrongly {
+    public static String Time_Display_Format() {
         String Time_Type;
 
-        System.out.println("Please choose Time display format:\n" +
-                "1. hh:mm\n" +
-                "2. h:mm AM/PM");
+        System.out.println("     Please choose Time display format:\n" +
+                "       1. hh:mm\n" +
+                "       2. h:mm AM/PM");
 
         Scanner time_choice = new Scanner(System.in);
         Time_Type = time_choice.nextLine();
 
         if(!Time_Type.equals("1") && !Time_Type.equals("2")){
-            throw new TimeTypeChooseWrongly();
+            Ui.Separated_Line();
+            System.out.println("     The Time choice you choose is incorrect. Please try again.");
+            Ui.Separated_Line();
+            return Parser.Time_Display_Format();
         }
-
-
-        return Time_Type;
+        else{
+            return Time_Type;
+        }
     }
 
     /**
@@ -91,23 +97,32 @@ public class Parser {
         String date;
         DateTime deadline;
 
-        deadline = task.getDeadline_timing();
-        LocalDate localDate= deadline.getDate_Input();
-        date =  localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        //System.out.println(date);
-
         switch (START_END){
+            case "deadline":
+                deadline = task.getDeadline_timing();
+                LocalDate localDate= deadline.getDate_Input();
+                date =  DateTimeFormatter.ofPattern("MMM d yyyy").format(localDate);
+                break;
             case "start":
                 DateTime starting = task.getStarting_Time();
                 date = starting.getDate_Input().format(DateTimeFormatter.ofPattern("MMM d yyyy"));
                 break;
-            case "end":
+            default:
                 DateTime ending = task.getEnding_Time();
                 date = ending.getDate_Input().format(DateTimeFormatter.ofPattern("MMM d yyyy"));
                 break;
         }
 
         return date;
+    }
+
+    /**
+     * Date print type 1
+     * @param localDate localDate which is going to convert
+     * @return return converted date in String
+     */
+    public static String Date_Type_One(LocalDate localDate){
+        return localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
     /**
@@ -141,6 +156,20 @@ public class Parser {
         }
 
         return date;
+    }
+
+    public static String Date_Type_Two(LocalDate localDate) throws MonthIndexWrong, EnumDayIndexWrongly {
+        int MONTH, YEAR, DAY;
+        String month, day, date;
+
+        MONTH = localDate.getMonthValue(); //int
+        YEAR = localDate.getYear(); //int
+        DAY = localDate.getDayOfMonth();    //int
+
+        month = Month.getMonth_FullName(MONTH);
+        day = Days.getDay(DAY);
+
+        return day + " of " + month + " " + YEAR;
     }
 
     /**

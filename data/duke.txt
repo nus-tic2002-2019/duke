@@ -1,5 +1,12 @@
-E|true|project meeting|2019-12-22T20:00:00|2019-12-22T20:00:00
-D|true|return books|2019-12-22T20:00:00
-T|true|read book
+D|true|return books|2019-11-12T07:30:00
+E|true|project meeting|2019-11-12T07:30:00|2019-11-12T07:30:00
 T|true|play games
-E|true|project meeting|2019-12-22T20:00:00|2019-12-22T20:00:00
+E|true|project meeting|2019-11-12T07:30:00|2019-11-12T07:30:00
+T|true|take shower
+T|true|set alarm
+T|false|jjj
+D|false|reach school|2019-11-12T07:30:00
+T|false|checking result
+T|false|buy air ticket
+T|false|wechat
+T|false|fffff

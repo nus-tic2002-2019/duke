@@ -10,7 +10,11 @@ import java.time.format.DateTimeFormatter;
 public class Task {
     private String description;
     protected String type;
+
+    //For Deadline task;
     protected DateTime Deadline_timing;
+
+    //For Event task;
     protected DateTime Starting;
     protected DateTime Ending;
 
