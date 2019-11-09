@@ -31,6 +31,7 @@ public class Storage{
         try {
             FileOutputStream fout = new FileOutputStream(filename);
             for( int i=0 ; i<t.size() ; i++ ){
+                // convert [T][X]Task/by:2019-12-31T23:59 to T|0|Task|2019-12-31T23:59
                 String s = t.get(i).toString().replace("√","1" ).
                                                replace("X","0").
                                                replaceAll("\\[","").

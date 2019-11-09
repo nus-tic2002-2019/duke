@@ -53,9 +53,9 @@ public class Parse{
         try {
             command = user_input.split(" ")[0].toLowerCase();
         } catch (ArrayIndexOutOfBoundsException e){
-            command = "";
+            command = ""; // when user input " ", program will crash. This code will catch it.
         }
-
+        Ui.line();
         switch (command){
             case "list":
                 Ui.list(t, t.size());
@@ -74,12 +74,10 @@ public class Parse{
                     taskString = user_input.split("/")[0].replace("deadline", "").trim();
                     timeString = user_input.split("/")[1].replace("by", "").trim();
                     resultDateTime = dateParser(timeString);
-                    if ( resultDateTime.equals(notDate) ){
-                        System.out.println("\tOops!! Date is wrong.");
-                        break;
+                    if ( !resultDateTime.equals(notDate) ){
+                        t.add(new Deadline(taskString, resultDateTime));
+                        Ui.added(t, t.size());
                     }
-                    t.add(new Deadline(taskString, resultDateTime));
-                    Ui.added(t, t.size());
                 }
                 break;
 
@@ -88,18 +86,20 @@ public class Parse{
                     taskString = user_input.split("/")[0].replace("event","").trim();
                     timeString = user_input.split("/")[1].replace("at", "").trim();
                     resultDateTime = dateParser(timeString);
-                    if ( resultDateTime.equals(notDate) ){
-                        System.out.println("\tOops!! Date is wrong");
-                        break;
+                    if ( !resultDateTime.equals(notDate) ) {
+                        t.add(new Event(taskString, resultDateTime));
+                        Ui.added(t, t.size());
                     }
-                    t.add(new Event(taskString, resultDateTime));
-                    Ui.added(t, t.size());
                 }
                 break;
 
             case "done":
-                idx = ErrType.toInteger(user_input.split(" ")[1], t.size());
-                if ( idx == -1 ){
+                if ( !(user_input.trim().length() > 4) ) {
+                    Ui.invalid();
+                    break;
+                }
+                idx = ErrType.toInteger(user_input.split("done")[1].trim(), t.size());
+                if (idx == -1) {
                     System.out.println("\tOops!! Please key a valid task number.");
                     break;
                 }
@@ -108,7 +108,11 @@ public class Parse{
                 break;
 
             case "delete":
-                idx = ErrType.toInteger(user_input.split(" ")[1], t.size());
+                if ( !(user_input.trim().length() > 6) ) {
+                    Ui.invalid();
+                    break;
+                }
+                idx = ErrType.toInteger(user_input.split("delete")[1].trim(), t.size());
                 if ( idx == -1 ){
                     System.out.println("\tOops!! Please key a valid task number.");
                     break;
@@ -141,10 +145,11 @@ public class Parse{
                 Ui.invalid(); // any other command will be considered as error
                 break;
         }
+        Ui.line();
     }
 
     /**
-     * This method convert String date to a LocalDateTime object. it will check
+     * Returns a LocalDateTime object from a date string. It checks
      * the format of date and time component. It checks for validity of date
      * and time ie no alphabet and numbers within valid range.
      * It accepts both yyyy-mm-dd hhmm and dd-mm-yyyy hhmm format.
@@ -183,14 +188,14 @@ public class Parse{
                               dateTemp.split("-")[1] + "-" +
                               dateTemp.split("-")[0];
             } catch (ArrayIndexOutOfBoundsException e1){
-                System.out.println("\tOops!! Not a valid date of format yyyy-mm-dd");
+                System.out.println("\tOops!! Not a valid date of format yyyy-mm-dd.");
                 return resultDateTime;
             }
             try {
                 resultDate = LocalDate.parse(dateReverse);
             }
             catch (DateTimeParseException e3){
-                System.out.println("\tOops!! Not a valid date of format dd-mm-yyyy.");
+                System.out.println("\tOops!! Not a valid date format.");
                 return resultDateTime;
             }
         }
@@ -200,10 +205,10 @@ public class Parse{
                                                 Integer.parseInt(timeMin) );
         } catch (DateTimeException e4){
             System.out.println("\tOops!! Not a valid time.");
-            return resultDateTime;
+            //return resultDateTime;
         } catch (NumberFormatException e5){
             System.out.println("\tOops!! Not a valid time");
-            return resultDateTime;
+            //return resultDateTime;
         }
         return resultDateTime;
     }
@@ -229,9 +234,10 @@ public class Parse{
 
     /**
      * This is an individual feature 1.
-     * Before sorting, Todo task will consolidate to the front of task list.
-     * Then bubble sort the dates of Deadline and Event. The latest schedule
-     * will sort to the bottom of task list. Sorting is permanent.
+     * This method will bubble sort the dates of Deadline and Event.
+     * The latest schedule will sort to the bottom of task list.
+     * Todo task will consolidate to the front of task list.
+     * Sorting is permanent.
      * @param t : this is the data structure of user tasks
      */
     public static void sortTask(ArrayList<Task> t){

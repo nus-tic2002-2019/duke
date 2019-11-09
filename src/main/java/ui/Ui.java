@@ -21,10 +21,10 @@ public class Ui{
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        System.out.println("\t--------------------------------------------------");
+        line();
         System.out.println("\tHello! I'm duke.Duke\n\tWhat can I do for you?");
         System.out.println("\tType help for help-page.");
-        System.out.println("\t--------------------------------------------------");
+        line();
     }
 
     /**
@@ -47,8 +47,9 @@ public class Ui{
         System.out.println("\t| todo     | eg. buy bread     |          not applicable        |");
         System.out.println("\t|---------------------------------------------------------------|");
         System.out.println("\t| list     | example of a display list and its legend           |");
-        System.out.println("\t|          | [E][X]watch movie(at:Nov 15 2019 04:30 PM)         |");
-        System.out.println("\t|          | [E]: E,D and T denotes event, deadline and todo.   |");
+        System.out.println("\t|          | 3.[E][X]watch movie(at:Nov 15 2019 04:30 PM)       |");
+        System.out.println("\t|          | 3  : task number. use this with helper functions   |");
+        System.out.println("\t|          | [E]: E,D and T denotes event, deadline and todo    |");
         System.out.println("\t|          | [X]: X and √ denotes outstanding and completed task|");
         System.out.println("\t|---------------------------------------------------------------|");
         System.out.println("\t Example:");
@@ -72,7 +73,7 @@ public class Ui{
         System.out.println("\t Example:");
         System.out.println("\t find watch movie");
         System.out.println("\t sort");
-        System.out.println("\t done 12\n");
+        System.out.println("\t done 12");
     }
 
     public static void invalid(){
@@ -80,45 +81,39 @@ public class Ui{
     }
 
     public static void bye(){
-        System.out.println("\t--------------------------------------------------");
         System.out.println("\tBye. Hope to see you again soon!");
-        System.out.println("\t--------------------------------------------------");
     }
 
     public static void added(ArrayList<Task> t, Integer index){
-        System.out.println("\t--------------------------------------------------");
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t" + t.get(index-1)); //t[taskNo-1])
         System.out.println("\tNow you have " + index + " tasks in the list");
-        System.out.println("\t--------------------------------------------------");
     }
 
     public static void done(ArrayList<Task> t, Integer index){
-        System.out.println("\t--------------------------------------------------");
         System.out.println("\tNice! I marked this task as done");
         System.out.println("\t" + t.get(index-1));
-        System.out.println("\t--------------------------------------------------");
     }
 
     public static void delete(ArrayList<Task> t, Integer index){
-        System.out.println("\t--------------------------------------------------");
         System.out.println("\tNoted! I have removed this task.");
         System.out.println("\t" + t.get(index-1));
         System.out.println("\tNow you have " + (t.size()-1) + " tasks in the list");
-        System.out.println("\t--------------------------------------------------");
     }
 
     public static void list(ArrayList<Task> t, Integer index){
-        System.out.println("\t--------------------------------------------------");
         System.out.println("\tHere are the tasks in your list:");
         for ( int i = 0; i < index ; i++ ) {
             singleList(t, i);
         }
-        System.out.println("\t--------------------------------------------------");
+    }
+
+    public static void line() {
+        System.out.println("\t-------------------------------------------------------------");
     }
 
     /**
-     * This method display date from format yyyy-mm-dd hhmm to MMM d yyyy hh:mm a
+     * Returns a date string of format MMM d yyyy hh:mm a
      * @param timeString : date string of format yyyy-mm-dd hhmm
      * @return date string of format MMM d yyyy hh:mm a
      */
@@ -129,7 +124,7 @@ public class Ui{
     }
 
     /**
-     * This method will display a single line of task.
+     * This method displays a single line of task.
      * @param t : this is the data structure of user tasks
      * @param index : user's required task serial number.
      */

@@ -6,7 +6,7 @@ package exceptions;
 public class ErrType{
 
     /**
-     * This method convert the task serial number from string to integer type
+     * Returns the integer of the task serial number after converted from string
      * and check for validity including within current task list size.
      * @param indexString : the task serial number in string type.
      * @param taskSize : the current size of task list.
@@ -31,7 +31,7 @@ public class ErrType{
     }
 
     /**
-     *
+     * Returns a true boolean if task number is valid.
      * @param index : user's required task serial number.
      * @param taskSize : current size of task list.
      * @return True when user's required task serial number
@@ -46,7 +46,7 @@ public class ErrType{
     }
 
     /**
-     * This method checks for the presence of task description.
+     * Returns a true boolean to when task description exists.
      * @param user_input : user's task description with schedule.
      * @return True when there is a task description.
      */
@@ -54,14 +54,14 @@ public class ErrType{
         try {
             String user_task = user_input.split("/")[0].split(" ")[1];
         } catch (ArrayIndexOutOfBoundsException e){
-            System.out.println("\tOops!! Missing task/event.");
+            System.out.println("\tOops!! Missing task.");
             return false;
         }
         return true;
     }
 
     /**
-     * This method checks for the presence of task schedule.
+     * Returns a true boolean to when task schedule exists.
      * @param user_input : user's task description with schedule.
      * @return True when there is a task schedule.
      */
@@ -76,7 +76,7 @@ public class ErrType{
     }
 
     /**
-     * This method checks for the presence of time in the schedule.
+     * Returns a true boolean to when time exists in the schedule.
      * @param scheduleString : user's schedule ie yyyy-mm-dd hhmm
      * @return True when there is a possibility of time component.
      */
@@ -84,7 +84,7 @@ public class ErrType{
         try {
             String user_time = scheduleString.split(" ")[1];
         } catch (ArrayIndexOutOfBoundsException e){
-            System.out.println("\tOops!! Missing time.");
+            //System.out.println("\tOops!! Missing time.");
             return false;
         }
         return true;

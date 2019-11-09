@@ -7,8 +7,6 @@ import ui.Ui;
 
 import java.util.ArrayList;
 
-
-
 /**
  * Represent a task scheduler using console for input of task and schedule
  * and output task list and its status to the console.
@@ -31,11 +29,8 @@ public class Duke{
 
         while (!isExit){
             parser.parser(tasklist);
+            store.SaveFile(tasklist);
             isExit = Parse.isExit();
         }
-
-        store.SaveFile(tasklist);
-
     }
-
 }
