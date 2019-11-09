@@ -39,6 +39,7 @@ public class Deadlines extends Task {
         int julianDate, day;
         DateTimeFormatter formatter;
         LocalDateTime formattedDate = null;
+        details = details.trim();
         int daysToAdd = getDaysToAdd(details);
         if (readFromFile) {
             formatter = DateTimeFormatter.ofPattern("d MMM yyyy HHmm");

@@ -1,27 +1,8 @@
-T| 0 | hello 
-T| 0 | what 
-E| 0 | hello | home
-T| 0 | hi 
-D| 0 | what | 01 Sep 2017 1000
-D| 0 | wash shirt | 07 Nov 2019 2134
-D| 0 | here | 08 Nov 2019 2138
-A| 0 | this | 07 Nov 2019 2153
-A| 0 | this | 07 Nov 2019 2156
-A| 0 | this | 09 Nov 2019 2316
-A| 0 | this | 08 Nov 2019 2316
-A| 0 | test | 01 Nov 2019 2352
-A| 0 | this one | 01 Nov 2019 2352
-A| 0 | new test | 08 Nov 2019 2355
-A| 0 | this | 04 Nov 2019 2356
-D| 0 | this one here | 22 Nov 2002 1111
-A| 0 | this | 11 Nov 2019 0000
-A| 0 | this | 11 Nov 2019 0007
-A| 0 | this | 11 Nov 2019 0008
-A| 0 | this | 11 Nov 2019 0010
-A| 1 | this | 14 Nov 2019 0012
-A| 0 | this | 11 Nov 2019 1955
-A| 0 | this | 12 Nov 2019 1955
-A| 0 | this | 13 Nov 2019 1955
-A| 0 | this | 14 Nov 2019 1956
-A| 0 | this | 15 Nov 2019 1956
-A| 1 | this | 09 Nov 2019 1956
+A| 0 | this | 02 Nov 2019 2346
+E| 0 | birthday | home
+A| 0 | Homework | 02 Nov 2019 0013
+A| 0 | Homework | 02 Nov 2019 0013
+D| 0 | ere | 01 Nov 2011 1111
+A| 0 | this | 11 Nov 2011 1111
+D| 0 | here | 11 Nov 2011 1111
+A| 0 | this | 11 Nov 2011 1111
