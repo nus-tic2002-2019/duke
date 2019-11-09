@@ -44,6 +44,10 @@ public class Parser {
                     new ListCommand(input);
                     break;
 
+                case "DELETE":
+                    new DeleteCommand(Integer.parseInt(input.split(" ")[1]) );
+                    break;
+
                 case "DONE":
                     try{
                         new DoneCommand(input.split(" ")[1]);
@@ -77,6 +81,8 @@ public class Parser {
                     Task todo = new ToDo(TodoDesc);
                     new AddCommand(todo);
                     break;
+
+
 
                 default:
                     System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");

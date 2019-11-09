@@ -24,7 +24,20 @@ public class UI{
         UI.line();
     }
 
-     void welcome(){
+    // TODO Refactor Count later on
+    public static void deletedCommand(Task t) {
+        UI.line();
+        System.out.println("\tNoted. I've removed this Task:");
+        System.out.println("\t" + t.toString());
+        int count = 0;
+        for (Object ignored : Tasks) {
+            count++;
+        }
+        System.out.println("\tNow you have " + count + " tasks in the list.");
+        UI.line();
+    }
+
+    void welcome(){
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
