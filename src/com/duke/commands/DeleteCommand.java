@@ -10,6 +10,8 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(){
+
         taskList.removeTask(getTargetIndex()-1);
+        System.out.print("Remove successfully.\n");
     }
 }

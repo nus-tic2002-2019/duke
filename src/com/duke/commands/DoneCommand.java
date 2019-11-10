@@ -10,5 +10,6 @@ public class DoneCommand extends Command {
     @Override
     public void execute(){
         taskList.getTaskByIdx(getTargetIndex()).markAsDone();
+        System.out.print( taskList.getTaskByIdx(getTargetIndex())+" is done.\n");
     }
 }

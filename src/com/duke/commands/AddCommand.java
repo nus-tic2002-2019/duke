@@ -20,7 +20,7 @@ public class AddCommand extends Command {
     @Override
     public void execute() {
         taskList.addTask(toAdd);
-        System.out.println(toAdd.toString());
+        System.out.println("New "+toAdd.getTaskType()+" Added: "+toAdd.toString());
     }
 
 

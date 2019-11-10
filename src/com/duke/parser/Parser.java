@@ -68,7 +68,7 @@ public class Parser {
         final Matcher matcher= TASK_TYPE_DEADLINE_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand("This is a incorrect format, " +
-                    " you may type the list to see all the commands.");
+                    " you may type 'help' to see all the commands.");
         }
         return new AddCommand(new Deadline(matcher.group("deadlineDesc"),
                                            matcher.group("byTime")));
@@ -77,7 +77,7 @@ public class Parser {
         final Matcher matcher= TASK_TYPE_EVENT_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand("This is a incorrect format, " +
-                    " you may type the list to see all the commands.");
+                    " you may type 'help' to see all the commands.");
         }
         return new AddCommand(new Events(matcher.group("eventDesc"),
                                          matcher.group("atTime")));
