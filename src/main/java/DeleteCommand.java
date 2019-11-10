@@ -12,8 +12,9 @@ public class DeleteCommand extends Command{
 
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException, IOException{
-        if((input.substring(6).trim()).isEmpty()){
-            throw new DukeException("The selector of a delete cannot be empty.");
+        //if((input.substring(6).trim()).isEmpty())
+        if(input.split(" ")[1].trim().isEmpty()){
+           throw new DukeException("The selector of a delete cannot be empty.");
         }
         try{
             index = prepareIndex(input);

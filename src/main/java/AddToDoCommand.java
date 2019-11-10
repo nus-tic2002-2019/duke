@@ -1,5 +1,5 @@
 import java.io.IOException;
-        import java.util.Arrays;
+        //import java.util.Arrays;
 
 public class AddToDoCommand extends Command{
     public static final String INPUT_WORD = "todo";

@@ -10,6 +10,7 @@ public class Parser {
             case DeleteCommand.INPUT_WORD: return new DeleteCommand(false, input);
             case DoneCommand.INPUT_WORD: return new DoneCommand(false, input);
             case ByeCommand.INPUT_WORD: return new ByeCommand(true, "");
+            case FindCommand.INPUT_WORD: return new FindCommand(false, input);
             default: throw new DukeException("I'm sorry, but I don't know what does that mean: ");
         }
     }
