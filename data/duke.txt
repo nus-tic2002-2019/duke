@@ -1,5 +1,2 @@
-T|1|read book
-D|1|return book|June 6th
-E|1|project meeting|Aug 6th 2-4pm
-T|1|join sports club
-D|1|do project|Sunday
+D|0|return book|2019-08-30 0900
+E|0|do project|2019-10-05 0805

@@ -5,6 +5,7 @@ import com.duke.task.Deadline;
 import com.duke.task.Events;
 import com.duke.task.Todo;
 
+import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,12 +15,24 @@ public class Parser {
 
 //    public static final Pattern TASK_TYPE_TODO_ARGS_FORMAT =
 //            Pattern.compile("(?<todoDescription>[^/]+)");
-    public static final Pattern TASK_TYPE_DEADLINE_ARGS_FORMAT =
-            Pattern.compile("(?<deadlineDesc>[^/]+)"
-                    + " by/(?<byTime>[^/]+)");
-    public static final Pattern TASK_TYPE_EVENT_ARGS_FORMAT =
-            Pattern.compile("(?<eventDesc>[^/]+)"
-                    + " at/(?<atTime>[^/]+)");
+//    public static final Pattern TASK_TYPE_DEADLINE_ARGS_FORMAT =
+//            Pattern.compile("(?<deadlineDesc>[^/]+)"
+//                    + " by/(?<byTime>[^/]+)");
+//public static final Pattern TASK_TYPE_EVENT_ARGS_FORMAT =
+//        Pattern.compile("(?<eventDesc>[^/]+)"
+//                + " at/(?<atTime>[^/]+)");
+
+        public static final Pattern TASK_TYPE_DEADLINE_ARGS_FORMAT =
+                Pattern.compile("(?<deadlineDesc>[^/]+)"
+                        + " by/(?<byYear>\\d{4})"+"-"+"(?<byMonth>\\d{2})"+"-"+"(?<byDay>\\d{2})"
+                        +" "+"(?<byHour>\\d{2})(?<byMin>\\d{2})");
+
+        public static final Pattern TASK_TYPE_EVENT_ARGS_FORMAT =
+                Pattern.compile("(?<eventDesc>[^/]+)"
+                        + " at/(?<atYear>\\d{4})"+"-"+"(?<atMonth>\\d{2})"+"-"+"(?<atDay>\\d{2})"
+                        +" "+"(?<atHour>\\d{2})(?<atMin>\\d{2})");
+
+
 
     public static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
@@ -71,7 +84,11 @@ public class Parser {
                     " you may type 'help' to see all the commands.");
         }
         return new AddCommand(new Deadline(matcher.group("deadlineDesc"),
-                                           matcher.group("byTime")));
+                LocalDateTime.of(Integer.parseInt(matcher.group("byYear")),
+                                 Integer.parseInt(matcher.group("byMonth")),
+                                 Integer.parseInt(matcher.group("byDay")),
+                                 Integer.parseInt(matcher.group("byHour")),
+                                 Integer.parseInt(matcher.group("byMin"))) ));
     }
     private Command prepareAddEvent(String args) {
         final Matcher matcher= TASK_TYPE_EVENT_ARGS_FORMAT.matcher(args.trim());
@@ -79,8 +96,14 @@ public class Parser {
             return new IncorrectCommand("This is a incorrect format, " +
                     " you may type 'help' to see all the commands.");
         }
+
+
         return new AddCommand(new Events(matcher.group("eventDesc"),
-                                         matcher.group("atTime")));
+                LocalDateTime.of(Integer.parseInt(matcher.group("atYear")),
+                                Integer.parseInt(matcher.group("atMonth")),
+                                Integer.parseInt(matcher.group("atDay")),
+                                Integer.parseInt(matcher.group("atHour")),
+                                Integer.parseInt(matcher.group("atMin"))) ));
     }
 
     private Command prepareDone(String args) {

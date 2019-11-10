@@ -1,9 +1,11 @@
 package com.duke.task;
 
+import java.time.LocalDateTime;
+
 public class Task {
     protected String description;
     protected boolean isDone;
-    private String taskTime="Dummy";
+    private LocalDateTime taskTime;
     private static final String TASK_TYPE="A";
 
     public Task(String description) {
@@ -35,7 +37,7 @@ public class Task {
     public String getTaskType(){
         return TASK_TYPE;
     }
-    public String getTaskTime(){
+    public LocalDateTime getTaskTime(){
         return taskTime;
     }
 
