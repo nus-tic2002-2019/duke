@@ -32,6 +32,7 @@ public class DeleteCommand implements Command {
                 int j = 1;
                 for (int i = 0; i < indexList.length; i++) {
                     int k = Integer.parseInt(indexList[i]);
+                    assert k >= 1:"The task number must be greater or equal to 1.";
                     tasks.remove(k - j);
                     storage.store(tasks.ConvertAsLines());
                     j++;
@@ -40,11 +41,20 @@ public class DeleteCommand implements Command {
                 String[] indexList = indexNumber.split("-");
                 int firstIndex = Integer.parseInt(indexList[0]);
                 int lastIndex = Integer.parseInt(indexList[1]);
-                int j = 1;
-                for (int i = firstIndex; i <= lastIndex; i++){
-                    tasks.remove(i - j);
-                    storage.store(tasks.ConvertAsLines());
-                    j++;
+                if (firstIndex > lastIndex) {
+                    int j = 1;
+                    for (int i = lastIndex; i <= firstIndex; i++) {
+                        tasks.remove(i - j);
+                        storage.store(tasks.ConvertAsLines());
+                        j++;
+                    }
+                } else {
+                    int j = 1;
+                    for (int i = firstIndex; i <= lastIndex; i++) {
+                        tasks.remove(i - j);
+                        storage.store(tasks.ConvertAsLines());
+                        j++;
+                    }
                 }
             } else {
                 tasks.remove(Integer.parseInt(fullCommand[1]) - 1);

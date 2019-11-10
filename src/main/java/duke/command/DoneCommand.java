@@ -40,10 +40,18 @@ public class DoneCommand implements Command {
                 String[] indexList = indexNumber.split("-");
                 int firstIndex = Integer.parseInt(indexList[0]);
                 int lastIndex = Integer.parseInt(indexList[1]);
-                for (int i = firstIndex; i <= lastIndex; i++){
-                    Task markItem = tasks.get(i - 1);
-                    markItem.markAsDone();
-                    storage.store(tasks.ConvertAsLines());
+                if (firstIndex > lastIndex) {
+                    for (int i = lastIndex; i <= firstIndex; i++) {
+                        Task markItem = tasks.get(i - 1);
+                        markItem.markAsDone();
+                        storage.store(tasks.ConvertAsLines());
+                    }
+                } else {
+                    for (int i = firstIndex; i <= lastIndex; i++) {
+                        Task markItem = tasks.get(i - 1);
+                        markItem.markAsDone();
+                        storage.store(tasks.ConvertAsLines());
+                    }
                 }
             } else {
                 Task markItem = tasks.get(Integer.parseInt(fullCommand[1]) - 1);

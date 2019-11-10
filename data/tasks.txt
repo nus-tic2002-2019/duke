@@ -1,3 +1,2 @@
-E|1|project meeting|6/8/2019 1200
 T|1|read book
-T|0|borrow book
+T|1|retrun book
