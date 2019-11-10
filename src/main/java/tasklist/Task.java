@@ -1,9 +1,12 @@
 package tasklist;
 
+/**
+ * Represent a task in a list.
+ *
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
-
 
     public Task(String description) {
         this.description = description;

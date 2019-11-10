@@ -132,7 +132,7 @@ public class Ui {
                     taskList.addDeadlines(new Deadlines(processCommand.getDeadlineDescription(), processCommand.getDeadlineDate()));
                     break;
                 case "event":
-                    taskList.addEvent(new Event(processCommand.getEventDescription(), processCommand.getEventDate()));
+                    taskList.addEvent(new Event(processCommand.getEventDescription(), processCommand.getEventDate(), processCommand.getEventStartTime(), processCommand.getEventEndTime()));
                     break;
                 case "bye":
                     dukeBye();
@@ -143,13 +143,10 @@ public class Ui {
             storage.saveList(fileName, tasks);
         }
         catch (IOException e){
-            System.out.println("Something went wrong: " + e.getMessage());
+            throw new DukeException("Unable to save to file");
         }
         catch (ArrayIndexOutOfBoundsException e){
             throw new DukeException("Unknown Command");
-        }
-        catch (DukeException e){
-            //do we need anything here
         }
 
     }
