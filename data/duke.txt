@@ -1,0 +1,5 @@
+D | 0 | return book | Sunday
+D | 0 | return book | Time not specified
+E | 0 | project meeting | Mon 2-4pm
+E | 0 | project meeting | Day and Time not specified
+
