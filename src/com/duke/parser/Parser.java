@@ -6,6 +6,9 @@ import com.duke.task.Events;
 import com.duke.task.Todo;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,6 +24,8 @@ public class Parser {
 //public static final Pattern TASK_TYPE_EVENT_ARGS_FORMAT =
 //        Pattern.compile("(?<eventDesc>[^/]+)"
 //                + " at/(?<atTime>[^/]+)");
+       public static final Pattern KEYWORDS_ARGS_FORMAT =
+        Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
         public static final Pattern TASK_TYPE_DEADLINE_ARGS_FORMAT =
                 Pattern.compile("(?<deadlineDesc>[^/]+)"
@@ -61,6 +66,8 @@ public class Parser {
                 return prepareDone(arguments);
             case DeleteCommand.COMMAND_WORD:
                 return prepareDelete(arguments);
+            case FindCommand.COMMAND_WORD:
+                return prepareFind(arguments);
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();
             case ExitCommand.COMMAND_WORD:
@@ -124,6 +131,21 @@ public class Parser {
             return  new IncorrectCommand("Error");
         }
     }
+
+
+    private Command prepareFind(String args) {
+        final  Matcher matcher=KEYWORDS_ARGS_FORMAT.matcher((args.trim()));
+        if(!matcher.matches()){
+            return new IncorrectCommand("This is a incorrect format, " +
+                    " you may type 'help' to see all the commands.");
+        }
+
+        // keywords delimited by whitespace
+        final String[] keywords = matcher.group("keywords").split("\\s+");
+        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
+        return new FindCommand(keywordSet);
+    }
+
 
 
     /**

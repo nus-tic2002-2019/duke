@@ -1,2 +1,4 @@
 D|0|return book|2019-08-30 0900
 E|0|do project|2019-10-05 0805
+E|0|aaa|2019-08-05 1005
+T|0|use book

@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Iterator;
 
-public class TaskList {
+public class TaskList implements Iterable<Task>{
 
     private final List<Task> taskList=new ArrayList<>();
 
@@ -47,5 +48,10 @@ public class TaskList {
 
     public TaskList getAllTasks(){
         return new TaskList(taskList);
+    }
+
+    @Override
+    public Iterator<Task> iterator() {
+        return taskList.iterator();
     }
 }
