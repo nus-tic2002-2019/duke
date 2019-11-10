@@ -8,12 +8,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ToDo extends Task{
-    ToDo (String description){
+    ToDo (String description) {
         super(description);
     }
 
     static void CheckDescription(String[] command)throws DukeException{
-        if (command.length == 1){
+        if (command.length == 1) {
             throw new DukeException();
         }
     }
@@ -25,7 +25,7 @@ public class ToDo extends Task{
      * @param storage to save the todo detail of the task.
      * @return a command which generates todo task.
      */
-    public static Command getCommand(TaskList tasks, Storage storage){
+    public static Command getCommand(TaskList tasks, Storage storage) {
         return fullCommand -> {
             try {
                 CheckDescription(fullCommand);
@@ -36,7 +36,7 @@ public class ToDo extends Task{
                 return List.of("    Got it. I've added this task: " + System.lineSeparator() + "    " + todoTask +
                         System.lineSeparator() +
                         "    Now you have " + tasks.size() + " tasks in the list.");
-            }catch (DukeException e){
+            }catch (DukeException e) {
                 return List.of("    ☹ OOPS!!! The description of a " + "todo" + " cannot be empty.");
             }
         };
@@ -49,7 +49,7 @@ public class ToDo extends Task{
      * @return a task list for saving.
      */
     @Override
-    public List<String> getList(){
+    public List<String> getList() {
         List<String> list = new ArrayList<>();
         list.add("T");
         list.addAll(super.getList());
@@ -62,7 +62,7 @@ public class ToDo extends Task{
      * @return this string task.
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "[T]" + super.toString();
     }
 

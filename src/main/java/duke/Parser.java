@@ -7,9 +7,9 @@ import duke.command.Command;
 
 public class Parser {
 
-    static void CheckWord(String keyword)throws DukeCheckLineException{
+    static void CheckWord(String keyword)throws DukeCheckLineException {
 
-        if (keyword == null){
+        if (keyword == null) {
             throw new DukeCheckLineException();
         }
     }
@@ -21,7 +21,7 @@ public class Parser {
      * @param name the key word that trigger the command.
      * @param command for mapping the name and to be returned later.
      */
-    void capture(String name, Command command){
+    public void capture(String name, Command command) {
         commands.put(name, command);
     }
 
@@ -31,12 +31,12 @@ public class Parser {
      * @param fullCommand the input from user.
      * @return command to use for the next processing.
      */
-    Command parse(String[] fullCommand){
+    public Command parse(String[] fullCommand) {
         Command command = commands.get(fullCommand[0]);
 
-        try{
+        try {
             CheckWord(fullCommand[0]);
-        }catch (DukeCheckLineException e){
+        } catch (DukeCheckLineException e) {
             return (Command) List.of("    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
         return command;

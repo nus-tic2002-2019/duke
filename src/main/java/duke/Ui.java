@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
-    public void showWelcome(){
+    public void showWelcome() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -24,7 +24,7 @@ public class Ui {
      *
      * @return whether there is another line of input.
      */
-    boolean hasNextLine(){
+    boolean hasNextLine() {
         return in.hasNextLine();
     }
 
@@ -33,12 +33,12 @@ public class Ui {
      *
      * @return next line of input.
      */
-    String readCommand(){
+    String readCommand() {
 
         return in.nextLine();
     }
 
-    public void showLoadingError(String message){
+    public void showLoadingError(String message) {
         showLine();
         System.out.println(message);
         showLine();
@@ -49,7 +49,7 @@ public class Ui {
      *
      * @param message error message.
      */
-    public void showError(String message){
+    public void showError(String message) {
 
         System.out.println(message);
 
@@ -60,12 +60,12 @@ public class Ui {
      *
      * @param messages the list of messages.
      */
-    public static void printCommand(List<String> messages){
+    public static void printCommand(List<String> messages) {
         for (String message : messages){
             System.out.println(message);
         }
     }
-    public static void showLine(){
+    public static void showLine() {
         System.out.println("    ________________________");
     }
 }

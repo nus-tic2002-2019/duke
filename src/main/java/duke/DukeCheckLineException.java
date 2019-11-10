@@ -1,4 +1,4 @@
 package duke;
 
-public class DukeCheckLineException extends Exception{
+public class DukeCheckLineException extends Exception {
 }

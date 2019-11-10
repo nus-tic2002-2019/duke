@@ -25,7 +25,7 @@ public class ViewSchedulesCommand implements Command {
         List<String> schedule = new ArrayList<>();
         schedule.add("    Here are the task list in your searching schedule: ");
         int count = 0;
-        for (int i = 0; i < tasks.size(); i++){
+        for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).toString().contains(strDate)){
                 count++;
                 schedule.add("    " + count + "." + tasks.get(i));

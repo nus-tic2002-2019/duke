@@ -1,8 +1,4 @@
-D|1|return book|6/6/2019 1200
 E|1|project meeting|6/8/2019 1200
-T|1|join sports club
-T|1|4h
-T|1|age
-T|1|r
-T|0|book adf
-D|0|submit homework|6/6/2019 1300
+T|1|read book
+T|1|af
+T|1|aer

@@ -11,7 +11,7 @@ public class ByeCommand implements Command {
      * @return message to show the user.
      */
     @Override
-    public List<String> run(String[] line){
+    public List<String> run(String[] line) {
         return List.of("    Bye. Hope to see you again soon!");
     }
 
@@ -21,7 +21,7 @@ public class ByeCommand implements Command {
      * @return true when execute this command to exit the program.
      */
     @Override
-    public boolean isExit(){
+    public boolean isExit() {
         return true;
     }
 }

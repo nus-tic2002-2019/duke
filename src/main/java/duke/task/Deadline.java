@@ -7,8 +7,8 @@ import duke.command.Command;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Deadline extends Time{
-    public Deadline(String description, String time){
+public class Deadline extends Time {
+    public Deadline(String description, String time) {
         super(description, time);
     }
     static void CheckDescription(int index)throws DukeException {
@@ -16,8 +16,8 @@ public class Deadline extends Time{
             throw new DukeException();
         }
     }
-    static void CheckTime(int index)throws DukeCheckLineException{
-        if (index == -1){
+    static void CheckTime(int index)throws DukeCheckLineException {
+        if (index == -1) {
             throw new DukeCheckLineException();
         }
     }
@@ -29,7 +29,7 @@ public class Deadline extends Time{
      * @param storage to save the deadline detail of the task.
      * @return a command which generates deadlines task.
      */
-    public static Command getCommand(TaskList tasks, Storage storage){
+    public static Command getCommand(TaskList tasks, Storage storage) {
         return fullCommand ->{
             List<String> commandList = List.of(fullCommand);
             int position = commandList.indexOf("/by");
@@ -59,7 +59,7 @@ public class Deadline extends Time{
      * @return a task list for saving.
      */
     @Override
-    public List<String> getList(){
+    public List<String> getList() {
         List<String> list = new ArrayList<>();
         list.add("D");
         list.addAll(super.getList());
@@ -73,7 +73,7 @@ public class Deadline extends Time{
      * @return this string task.
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "[D]" + super.toString() + " (by: " + convertTimeString() + ")";
     }
 }

@@ -1,12 +1,20 @@
 package duke;
 
-import duke.command.*;
-import duke.task.*;
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 import java.text.ParseException;
 
+import duke.command.ByeCommand;
+import duke.command.DeleteCommand;
+import duke.command.DoneCommand;
+import duke.command.ListCommand;
+import duke.command.FindCommand;
+import duke.command.ViewSchedulesCommand;
+import duke.command.Command;
 import duke.task.ToDo;
+import duke.task.TaskList;
+import duke.task.Event;
+import duke.task.Deadline;
 
 public class Duke {
 
@@ -26,7 +34,7 @@ public class Duke {
         TaskList tasks;
         try{
             tasks = new TaskList(storage.load());
-        }catch (IOException e){
+        }catch (IOException e) {
             if (!(e instanceof NoSuchFileException)) {
                 ui.showLoadingError("    Cannot load tasks. May overwrite old tasks, if continue");
                 e.printStackTrace();
@@ -45,7 +53,7 @@ public class Duke {
         parser.capture("view", new ViewSchedulesCommand(tasks));
     }
 
-    static void CheckWord(String keyword)throws DukeCheckLineException{
+    static void CheckWord(String keyword)throws DukeCheckLineException {
 
         if (!keyword.equals("list") && !keyword.equals("bye")
                 && !keyword.equals("todo") && !keyword.equals("done")
@@ -59,23 +67,23 @@ public class Duke {
     /**
      * Run Duke application.
      */
-    public void run(){
+    public void run() {
         ui.showWelcome();
         boolean isExit = false;
-        while (!isExit && ui.hasNextLine()){
+        while (!isExit && ui.hasNextLine()) {
             String[] fullCommand = ui.readCommand().split(" ");
             ui.showLine();
-            try{
+            try {
                 CheckWord(fullCommand[0]);
                 Command c = parser.parse(fullCommand);
                 ui.printCommand(c.run(fullCommand));
                 isExit = c.isExit();
 
-            } catch(DukeException | IOException e){
+            } catch(DukeException | IOException e) {
 
                 ui.showError(e.getMessage());
 
-            }catch (DukeCheckLineException e){
+            } catch (DukeCheckLineException e) {
 
                 ui.showError("    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
 

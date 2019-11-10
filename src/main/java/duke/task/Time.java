@@ -7,7 +7,7 @@ class Time extends Task {
     private LocalDateTime time;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
-    Time(String description, String timeString){
+    Time(String description, String timeString) {
         super(description);
         time = LocalDateTime.parse(timeString, formatter);
     }
@@ -17,7 +17,7 @@ class Time extends Task {
      *
      * @return time as a string.
      */
-    String convertSaveTimeString(){
+    String convertSaveTimeString() {
         return formatter.format(time);
     }
 
@@ -26,8 +26,7 @@ class Time extends Task {
      *
      * @return time as a string.
      */
-    String convertTimeString(){
+    String convertTimeString() {
         return DateTimeFormatter.ofPattern("MMM d yyyy HHmm").format(time);
     }
-
 }

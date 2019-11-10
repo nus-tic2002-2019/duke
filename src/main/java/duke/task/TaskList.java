@@ -20,10 +20,10 @@ public class TaskList {
      * @param line to parse.
      * @return parsed task.
      */
-    private Task parseTask(String line){
+    private Task parseTask(String line) {
         String[] load = line.split("\\|");
         Task task;
-        switch (load[0]){
+        switch (load[0]) {
             case "T":
                 task = new ToDo(load[2]);
                 break;
@@ -36,7 +36,7 @@ public class TaskList {
             default:
                 return null;
         }
-        if (load[1].equals("1")){
+        if (load[1].equals("1")) {
             task.markAsDone();
         }
         return task;
@@ -47,8 +47,8 @@ public class TaskList {
      *
      * @param lines to parse tasks.
      */
-    public TaskList(List<String> lines){
-        for(String line : lines){
+    public TaskList(List<String> lines) {
+        for(String line : lines) {
             tasks.add(parseTask(line));
         }
     }
@@ -58,9 +58,9 @@ public class TaskList {
      *
      * @return a list of converted tasks.
      */
-    public List<String> ConvertAsLines(){
+    public List<String> ConvertAsLines() {
         List<String> saveIn = new ArrayList<>();
-        for (Task task : tasks){
+        for (Task task : tasks) {
             saveIn.add(getSaveIn(task));
         }
         return saveIn;
@@ -72,9 +72,9 @@ public class TaskList {
      * @param task to convert into a string.
      * @return string for saving.
      */
-    private String getSaveIn(Task task){
+    private String getSaveIn(Task task) {
         StringJoiner joiner = new StringJoiner("|");
-        for (String strLine : task.getList()){
+        for (String strLine : task.getList()) {
             joiner.add(strLine);
         }
         return joiner.toString();
@@ -85,7 +85,7 @@ public class TaskList {
      *
      * @param task to add.
      */
-    public void add(Task task){
+    public void add(Task task) {
         tasks.add(task);
     }
 
@@ -95,7 +95,7 @@ public class TaskList {
      * @param index position of the task in the list.
      * @return the removed task.
      */
-    public Task remove(int index){
+    public Task remove(int index) {
         return tasks.remove(index);
     }
 
@@ -114,7 +114,7 @@ public class TaskList {
      *
      * @return the size of the task list.
      */
-    public int size(){
+    public int size() {
         return tasks.size();
     }
 

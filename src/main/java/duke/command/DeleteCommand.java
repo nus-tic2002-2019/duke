@@ -9,7 +9,7 @@ public class DeleteCommand implements Command {
     private final TaskList tasks;
     private Storage storage;
 
-    public DeleteCommand(TaskList tasks, Storage storage){
+    public DeleteCommand(TaskList tasks, Storage storage) {
         this.tasks = tasks;
         this.storage = storage;
     }
@@ -31,15 +31,13 @@ public class DeleteCommand implements Command {
             if (indexNumber.contains(",")) {
                 String[] indexList = indexNumber.split(",");
                 int j = 1;
-                for (int i = 0; i <= indexList.length; i++) {
-
-                    System.out.println(Integer.parseInt(indexList[i]) - j);
+                for (int i = 0; i < indexList.length; i++) {
                     int k = Integer.parseInt(indexList[i]);
                     tasks.remove(k - j);
                     storage.store(tasks.ConvertAsLines());
                     j++;
                 }
-            } else if (indexNumber.contains("-")){
+            } else if (indexNumber.contains("-")) {
                 String[] indexList = indexNumber.split("-");
                 int firstIndex = Integer.parseInt(indexList[0]);
                 int lastIndex = Integer.parseInt(indexList[1]);
@@ -49,16 +47,15 @@ public class DeleteCommand implements Command {
                     storage.store(tasks.ConvertAsLines());
                     j++;
                 }
-            }else {
+            } else {
                 tasks.remove(Integer.parseInt(fullCommand[1]) - 1);
                 storage.store(tasks.ConvertAsLines());
             }
             return List.of("    Noted. I've removed the task item: " + System.lineSeparator() + "    " + fullCommand[1]);
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             return List.of("    ☹ OOPS!!! This is not a number: " + fullCommand[1]);
-        } catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             return List.of("    ☹ OOPS!!! The index out of bound: " + fullCommand[1]);
         }
-
     }
 }

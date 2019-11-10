@@ -8,11 +8,8 @@ import duke.Storage;
 import duke.command.Command;
 
 public class Event extends Time {
-    //private String time;
-
-    public Event(String description, String time){
+    public Event(String description, String time) {
         super(description, time);
-        //this.time = time;
     }
     static void CheckDescription(int index)throws DukeException {
         if (index == 1) {
@@ -20,7 +17,7 @@ public class Event extends Time {
         }
     }
     static void CheckTime(int index)throws DukeCheckLineException {
-        if (index == -1){
+        if (index == -1) {
             throw new DukeCheckLineException();
         }
     }
@@ -32,7 +29,7 @@ public class Event extends Time {
      * @param storage to save the event detail of the task.
      * @return a command which generates events task.
      */
-    public static Command getCommand(TaskList tasks, Storage storage){
+    public static Command getCommand(TaskList tasks, Storage storage) {
         return fullCommand ->{
 
             List<String> commandList = List.of(fullCommand);
@@ -63,7 +60,7 @@ public class Event extends Time {
      * @return a task list for saving.
      */
     @Override
-    public List<String> getList(){
+    public List<String> getList() {
         List<String> list = new ArrayList<>();
         list.add("E");
         list.addAll(super.getList());
@@ -78,7 +75,7 @@ public class Event extends Time {
      * @return this string task.
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "[E]" + super.toString() + " (at: " + convertTimeString() + ")";
     }
 }

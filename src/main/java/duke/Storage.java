@@ -11,7 +11,6 @@ public class Storage {
     private Path path;
 
     public Storage(String fileLocation) {
-
         path = Paths.get(fileLocation);
     }
 
@@ -21,7 +20,7 @@ public class Storage {
      * @param lines list of lines to save.
      * @throws IOException if the task cannot be recorded.
      */
-    public void store(List<String>lines) throws IOException{
+    public void store(List<String>lines) throws IOException {
         Files.write(path, lines);
     }
 
