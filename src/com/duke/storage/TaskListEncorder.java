@@ -7,9 +7,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Encodes the {@code taskList} object into a data file for storage.
+ */
 public class TaskListEncorder {
 
+    /**
+     * Encodes all the {@code Task} in the {@code toSave} into a list of decodable and readable string presentation
+     * for storage.
+     */
     public static List<String> encodeTaskList(TaskList toSave){
         final List<String> encodedTasks= new ArrayList<>();
         for(int i=1;i<=toSave.getSize();i++){
@@ -19,6 +25,9 @@ public class TaskListEncorder {
 
     }
 
+    /**
+     * Encodes the {@code task} into a decodable and readable string representation.
+     */
     private static String encodeTaskToString(Task task) {
         final StringBuilder encodedTaskBuilder =new StringBuilder();
 

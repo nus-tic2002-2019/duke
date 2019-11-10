@@ -2,6 +2,10 @@ package com.duke.commands;
 
 import com.duke.task.TaskList;
 
+
+/**
+ * Represents an executable command.
+ */
 public class Command {
 
     protected TaskList taskList;
@@ -15,6 +19,7 @@ public class Command {
         this.setTargetIndex(targetIndex);
     }
 
+
     private void setTargetIndex(int targetIndex) {
         this.targetIndex = targetIndex;
     }
@@ -25,6 +30,9 @@ public class Command {
     public void execute() {
     }
 
+    /**
+     * Supplies the data the command will operate on.
+     */
     public void setData(TaskList taskList){
         this.taskList=taskList;
     }

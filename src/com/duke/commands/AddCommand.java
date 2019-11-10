@@ -5,6 +5,9 @@ import com.duke.task.Task;
 import com.duke.task.TaskList;
 import com.duke.ui.Ui;
 
+/**
+ * add a task to the list
+ */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD_ONE="todo";

@@ -16,16 +16,37 @@ public class Storage {
 
     public final Path path;
 
-    public Storage(){
+    /**
+     * @throws InvalidStorageFilePathException if the default path is invalid
+     */
+    public Storage() throws InvalidStorageFilePathException {
         this(DEFAULT_STORAGE_FILEPATH);
     }
 
-    public Storage(String filePath){
+    /**
+     * @throws InvalidStorageFilePathException if the given file path is invalid
+     */
+    public Storage(String filePath) throws InvalidStorageFilePathException{
         path= Paths.get(filePath);
+        if (!isValidPath(path)) {
+            throw new InvalidStorageFilePathException("Storage file should end with '.txt'");
+        }
     }
 
-    public void save(TaskList taskList) throws StorageOperationException{
+    /**
+     * Returns true if the given path is acceptable as a storage file.
+     * The file path is considered acceptable if it ends with '.txt'
+     */
+    private static boolean isValidPath(Path filePath) {
+        return filePath.toString().endsWith(".txt");
+    }
 
+    /**
+     * Saves the {@code taskList} data to the storage file.
+     *
+     * @throws StorageOperationException if there were errors converting and/or storing data to file.
+     */
+    public void save(TaskList taskList) throws StorageOperationException{
         try{
             List<String> encodedTaskList=TaskListEncorder.encodeTaskList(taskList);
             Files.write(path,encodedTaskList);
@@ -36,6 +57,13 @@ public class Storage {
 
     }
 
+
+    /**
+     * Loads the {@code taskList} data from this storage file, and then returns it.
+     * Returns an empty {@code taskList} if the file does not exist, or is not a regular file.
+     *
+     * @throws StorageOperationException if there were errors reading and/or converting data from file.
+     */
     public TaskList load() throws StorageOperationException{
 
         if (!Files.exists(path) || !Files.isRegularFile(path)) {
@@ -50,6 +78,16 @@ public class Storage {
         }
 
     }
+
+    /**
+     * Signals that the given file path does not fulfill the storage filepath constraints.
+     */
+    public static class InvalidStorageFilePathException extends IllegalValueException {
+        public InvalidStorageFilePathException(String message) {
+            super(message);
+        }
+    }
+
 
     /**
      * Signals that some error has occured while trying to convert and read/write data between the application

@@ -12,8 +12,14 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Parses user input.
+ */
 public class Parser {
 
+    /**
+     * Used for initial separation of command word and args.
+     */
     public static final Pattern BASIC_COMMAND_FORMAT= Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
 //    public static final Pattern TASK_TYPE_TODO_ARGS_FORMAT =
@@ -42,7 +48,12 @@ public class Parser {
     public static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
 
-
+    /**
+     * Parses user input into command for execution.
+     *
+     * @param inputCommand full user input string
+     * @return the command based on the user input
+     */
     public Command parse(String inputCommand) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(inputCommand.trim());
         if (!matcher.matches()) {
@@ -79,11 +90,22 @@ public class Parser {
 
         }
 
-
-
+    /**
+     * Parses arguments in the context of the add todotask command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareAddTodo(String args) {
         return new AddCommand(new Todo(args.trim()));
     }
+
+    /**
+     * Parses arguments in the context of the add deadline task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareAddDeadline(String args) {
         final Matcher matcher= TASK_TYPE_DEADLINE_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
@@ -97,6 +119,13 @@ public class Parser {
                                  Integer.parseInt(matcher.group("byHour")),
                                  Integer.parseInt(matcher.group("byMin"))) ));
     }
+
+    /**
+     * Parses arguments in the context of the add Event task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareAddEvent(String args) {
         final Matcher matcher= TASK_TYPE_EVENT_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
@@ -113,6 +142,12 @@ public class Parser {
                                 Integer.parseInt(matcher.group("atMin"))) ));
     }
 
+    /**
+     * Parses argument in the context of the mark a task as done command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareDone(String args) {
         try {
             final int targetIndex = parseArgsAsDisplayedIndex(args);
@@ -122,7 +157,12 @@ public class Parser {
         }
     }
 
-
+    /**
+     * Parses argument in the context of the delete a task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareDelete(String args) {
         try {
             final int targetIndex = parseArgsAsDisplayedIndex(args);
@@ -132,7 +172,12 @@ public class Parser {
         }
     }
 
-
+    /**
+     * Parses arguments in the context of the find task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareFind(String args) {
         final  Matcher matcher=KEYWORDS_ARGS_FORMAT.matcher((args.trim()));
         if(!matcher.matches()){

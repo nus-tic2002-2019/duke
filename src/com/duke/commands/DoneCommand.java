@@ -1,5 +1,8 @@
 package com.duke.commands;
 
+/**
+ * mark a task as done statement based on the index.
+ */
 public class DoneCommand extends Command {
     public static final String COMMAND_WORD="done";
 

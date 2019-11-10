@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Decodes the storage data file into an {@code taskList} object.
+ */
 public class TaskListDecoder {
 
 
@@ -24,6 +27,12 @@ public class TaskListDecoder {
                                                                         "-"+"(?<day>\\d{2})"+
                                                                         " "+"(?<hour>\\d{2})(?<minute>\\d{2})");
 
+
+    /**
+     * Decodes {@code encodedTasklist} into an {@code TaskList} containing the decoded tasks.
+     *
+     * @throws IllegalValueException if any of the fields in any encoded task string is invalid.
+     */
     public static TaskList decodeTaskList(List<String> encodedTasklist) throws IllegalValueException {
 
         final List<Task> decodedTasks = new ArrayList<>();
@@ -33,7 +42,11 @@ public class TaskListDecoder {
         return new TaskList(decodedTasks);
     }
 
-
+    /**
+     * Decodes {@code encodedTask} into a {@code Task}.
+     *
+     * @throws IllegalValueException if any field in the {@code encodedTask} is invalid.
+     */
     private static Task decodeTaskFromString(String encodedTask) throws IllegalValueException{
         final Matcher matcherTodo = TODO_TXT_FILE_FORMAT.matcher(encodedTask.trim());
         final Matcher matcherDeadline = DEADLINE_TXT_FILE_FORMAT.matcher(encodedTask.trim());
@@ -50,7 +63,6 @@ public class TaskListDecoder {
                                         Integer.parseInt(matcherDeadline.group("minute"))),
                         "1".equals(matcherDeadline.group("isDone")));
             }
-            // remember add exception later
             else if (matcherEvent.matches()) {
                 return new Events(matcherEvent.group("taskDesc"),
                         LocalDateTime.of(Integer.parseInt(matcherEvent.group("year")),

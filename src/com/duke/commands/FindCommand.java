@@ -6,6 +6,10 @@ import com.duke.task.TaskList;
 import java.lang.reflect.Array;
 import java.util.*;
 
+/**
+ * Finds and lists all tasks in taskList whose description contains any of the argument keywords.
+ * Keyword matching is case sensitive.
+ */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD="find";
@@ -30,6 +34,13 @@ public class FindCommand extends Command {
 
     }
 
+
+    /**
+     * Retrieves all tasks in the TaskList whose descriptions contain some of the specified keywords.
+     *
+     * @param keywords for searching
+     * @return list of tasks found
+     */
     private List<Task> getTasksFromKeyword(Set<String> keywords) {
         final List<Task> matchedTasks= new ArrayList<>();
         for(Task task : taskList.getAllTasks()){
@@ -39,9 +50,6 @@ public class FindCommand extends Command {
             }
         }
         return  matchedTasks;
-
-
-
     }
 
 

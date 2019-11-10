@@ -1,5 +1,9 @@
 package com.duke.commands;
 
+
+/**
+ * delete a task from the taskList based on the index.
+ */
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD="delete";
