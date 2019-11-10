@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.StringJoiner;
 
 public class TaskList {
-
     private List<Task> tasks = new ArrayList<>();
 
     /**
@@ -24,17 +23,17 @@ public class TaskList {
         String[] load = line.split("\\|");
         Task task;
         switch (load[0]) {
-            case "T":
-                task = new ToDo(load[2]);
-                break;
-            case "D":
-                task = new Deadline(load[2], load[3]);
-                break;
-            case "E":
-                task = new Event(load[2], load[3]);
-                break;
-            default:
-                return null;
+        case "T":
+            task = new ToDo(load[2]);
+            break;
+        case "D":
+            task = new Deadline(load[2], load[3]);
+            break;
+        case "E":
+            task = new Event(load[2], load[3]);
+            break;
+        default:
+            return null;
         }
         if (load[1].equals("1")) {
             task.markAsDone();

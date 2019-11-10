@@ -1,14 +1,12 @@
 package duke.command;
 
 import duke.task.TaskList;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class FindCommand implements Command {
     private final TaskList tasks;
-
     public FindCommand(TaskList tasks) {
         this.tasks = tasks;
     }

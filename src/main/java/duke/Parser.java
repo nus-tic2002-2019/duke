@@ -8,7 +8,6 @@ import duke.command.Command;
 public class Parser {
 
     static void CheckWord(String keyword)throws DukeCheckLineException {
-
         if (keyword == null) {
             throw new DukeCheckLineException();
         }
@@ -33,7 +32,6 @@ public class Parser {
      */
     public Command parse(String[] fullCommand) {
         Command command = commands.get(fullCommand[0]);
-
         try {
             CheckWord(fullCommand[0]);
         } catch (DukeCheckLineException e) {

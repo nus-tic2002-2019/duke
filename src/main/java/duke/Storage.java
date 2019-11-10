@@ -7,7 +7,6 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class Storage {
-
     private Path path;
 
     public Storage(String fileLocation) {

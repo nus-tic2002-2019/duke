@@ -16,7 +16,6 @@ public class Ui {
         System.out.println("    Hello! I'm duke.Duke" + System.lineSeparator() + "    What can I do for you?");
         showLine();
     }
-
     private Scanner in = new Scanner(System.in);
 
     /**
@@ -34,7 +33,6 @@ public class Ui {
      * @return next line of input.
      */
     String readCommand() {
-
         return in.nextLine();
     }
 
@@ -50,7 +48,6 @@ public class Ui {
      * @param message error message.
      */
     public void showError(String message) {
-
         System.out.println(message);
 
     }

@@ -31,7 +31,6 @@ public class Event extends Time {
      */
     public static Command getCommand(TaskList tasks, Storage storage) {
         return fullCommand ->{
-
             List<String> commandList = List.of(fullCommand);
             int position = commandList.indexOf("/at");
             try {

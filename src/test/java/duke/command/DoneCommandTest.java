@@ -1,13 +1,10 @@
 package duke.command;
 
 import duke.StorageTemp;
-import duke.task.Task;
 import duke.task.TaskListTemp;
 import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DoneCommandTest {

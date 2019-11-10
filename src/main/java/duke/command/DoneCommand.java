@@ -28,7 +28,6 @@ public class DoneCommand implements Command {
     public List<String> run(String[] fullCommand) throws NumberFormatException, IndexOutOfBoundsException, IOException {
         String indexNumber = fullCommand[1];
         try {
-
             if (indexNumber.contains(",")) {
                 String[] indexList = indexNumber.split(",");
                 for (int i = 0; i < indexList.length; i++) {

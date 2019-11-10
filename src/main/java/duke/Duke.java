@@ -32,9 +32,9 @@ public class Duke {
         ui = new Ui();
         Storage storage = new Storage(filePath);
         TaskList tasks;
-        try{
+        try {
             tasks = new TaskList(storage.load());
-        }catch (IOException e) {
+        } catch (IOException e) {
             if (!(e instanceof NoSuchFileException)) {
                 ui.showLoadingError("    Cannot load tasks. May overwrite old tasks, if continue");
                 e.printStackTrace();
@@ -54,7 +54,6 @@ public class Duke {
     }
 
     static void CheckWord(String keyword)throws DukeCheckLineException {
-
         if (!keyword.equals("list") && !keyword.equals("bye")
                 && !keyword.equals("todo") && !keyword.equals("done")
                 && !keyword.equals("event") && !keyword.equals("deadline")

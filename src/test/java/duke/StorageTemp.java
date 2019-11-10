@@ -4,7 +4,6 @@ import java.util.List;
 
 public class StorageTemp extends Storage {
     public List<String> stored;
-
     public StorageTemp() {
         super("StorageTemp.txt");
     }

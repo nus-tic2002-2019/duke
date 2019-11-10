@@ -40,7 +40,6 @@ public class ToDo extends Task{
                 return List.of("    ☹ OOPS!!! The description of a " + "todo" + " cannot be empty.");
             }
         };
-
     }
 
     /**

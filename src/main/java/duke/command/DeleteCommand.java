@@ -27,7 +27,6 @@ public class DeleteCommand implements Command {
     public List<String> run(String[] fullCommand) throws NumberFormatException, IndexOutOfBoundsException, IOException {
         String indexNumber = fullCommand[1];
         try {
-
             if (indexNumber.contains(",")) {
                 String[] indexList = indexNumber.split(",");
                 int j = 1;

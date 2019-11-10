@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListCommand implements Command {
-
     private TaskList tasks;
-
     public ListCommand(TaskList tasks) {
         this.tasks = tasks;
     }
