@@ -1,8 +1,4 @@
-import task.Task;
-import task.ToDo;
-import task.Deadlines;
-import task.Events;
-import task.DoAfter;
+import task.*;
 
 import java.util.ArrayList;
 
@@ -73,17 +69,19 @@ public class TaskLists {
      * @return The list of tasks which has the closest result from the searched keyword.
      * @throws DukeExceptionEmptyList If the list is empty.
      */
-    public String findTask(String message) throws DukeExceptionEmptyList {
+    public String findTask(String message) throws DukeExceptionEmptyList, DukeExceptionFindNoResult {
         TaskLists foundResult = new TaskLists();
         if (isEmpty()) {
             throw new DukeExceptionEmptyList();
         }
         message = message.substring(5);
-        System.out.println(message);
         for (int i = 0; i < getSize(); i++) {
             if (this.list.get(i).getDescription().contains(message)) {
                 foundResult.list.add(this.list.get(i));
             }
+        }
+        if (foundResult.isEmpty()) {
+            throw new DukeExceptionFindNoResult();
         }
         return foundResult.displayList();
     }
@@ -131,6 +129,10 @@ public class TaskLists {
             readFromFile = true;
             message = message.substring(1);
         }
+        message = message.trim();
+        if (message.charAt(9) == ' ' && readFromFile == false) {
+            throw new StringIndexOutOfBoundsException();
+        }
         list.add(new Deadlines(message.substring(9, index - 1), message.substring(index + 3), readFromFile));
     }
 
@@ -155,6 +157,10 @@ public class TaskLists {
         if (message.charAt(0) == '_') {
             readFromFile = true;
             message = message.substring(1);
+        }
+        message = message.trim();
+        if (message.charAt(3) == ' ' && readFromFile == false) {
+            throw new StringIndexOutOfBoundsException();
         }
         list.add(new DoAfter(message.substring(3, index - 1), message.substring(index + 5), readFromFile));
     }

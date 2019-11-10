@@ -58,7 +58,7 @@ public class Ui {
      */
     public void showDeletedTask(String deletedTask, TaskLists tasklist) {
         String deletedTaskMessage = "Noted. I've removed this task: \n\t\t" + deletedTask;
-        String deletedTaskMessage2 = "\n\tNow you have " + tasklist.getSize() + " tasks in the list.\n";
+        String deletedTaskMessage2 = "\tNow you have " + tasklist.getSize() + " tasks in the list.\n";
         System.out.println(showLine() + deletedTaskMessage + deletedTaskMessage2 + showLine());
     }
 
@@ -103,7 +103,7 @@ public class Ui {
     /**
      * When user inputs a file that is not in the correct format or erroneous file.
      */
-    public void showInputError() { //can be for files input
+    public void showFileInputError() { //can be for files input
         String errorMessage = "There is something wrong with the previous file, please check the content\n\tof the file. I'm unable to load the past task list.\n";
         System.out.println(showLine() + errorMessage + showLine());
     }
@@ -120,7 +120,7 @@ public class Ui {
      * When user inputs an unknown command for duke to understand and process.
      */
     public void showUnknownInputError() {
-        String errorMessage = "\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(\n";
+        String errorMessage = ":( OOPS!!! I'm sorry, but I don't know what that means :-(\n";
         System.out.println(showLine() + errorMessage + showLine());
     }
 
@@ -176,7 +176,23 @@ public class Ui {
      * Error while duke is reading the file. Maybe the content of the file or the filepath error.
      */
     public void showFileError() {
-        String errorMessage = "Duke is unable to read your file, please check your input filepath again.";
+        String errorMessage = "Duke is unable to read your file, please check your input filepath again.\n";
         System.out.println(showLine() + errorMessage + showLine());
     }
+    /**
+     * Error while duke is reading the file. Maybe the content of the file or the filepath error.
+     */
+    public void showDateTimeError() {
+        String errorMessage = "Please check your date and time format and re-enter it according to the stated format\n";
+        System.out.println(showLine() + errorMessage + showLine());
+    }
+
+    /**
+     * When the find command is activated, duke is unable to find the relating task with the user's input.
+     */
+    public void showFindNoResult() {
+        String errorMessage = "Sorry, I am unable to find any task like that.\n";
+        System.out.println(showLine() + errorMessage + showLine());
+    }
+
 }

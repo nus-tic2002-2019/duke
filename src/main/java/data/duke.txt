@@ -1,8 +1,4 @@
-A| 0 | this | 02 Nov 2019 2346
-E| 0 | birthday | home
-A| 0 | Homework | 02 Nov 2019 0013
-A| 0 | Homework | 02 Nov 2019 0013
-D| 0 | ere | 01 Nov 2011 1111
-A| 0 | this | 11 Nov 2011 1111
-D| 0 | here | 11 Nov 2011 1111
-A| 0 | this | 11 Nov 2011 1111
+T| 0 | homework 
+E| 1 | birthday party | john's house
+A| 0 | project2 | 12 Dec 2019 1200
+D| 0 | help to wash shirt | 12 Dec 2019 0800

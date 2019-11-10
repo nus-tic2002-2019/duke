@@ -1,9 +1,9 @@
-import java.io.IOException;
-import java.io.FileWriter;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import task.Task;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Storage {
@@ -40,7 +40,7 @@ public class Storage {
      * @throws IOException If the filepath has some problems.
      * @throws DukeException If the file context is not in the duke's list format.
      */
-    public void readFile(TaskLists tasks) throws IOException, DukeException {
+    public void readFile(TaskLists tasks) throws IOException, DukeExceptionFileInput {
         BufferedReader s = null;
         s = new BufferedReader(new FileReader(DEFAULT_PATH));
         String input = null;
@@ -86,6 +86,8 @@ public class Storage {
                     default:
                         break;
                 }
+            } else {
+                throw new DukeExceptionFileInput();
             }
         }
     }

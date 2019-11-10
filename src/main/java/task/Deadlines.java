@@ -7,32 +7,6 @@ public class Deadlines extends Task {
     protected LocalDateTime dateAndTime;
     protected String stringDateTime;
 
-    private int getDaysToAdd(String details) {
-        details = details.toLowerCase();
-        if (details.contains("mon") || details.contains("today")) {
-            return 0;
-        }
-        if (details.contains("tues") || details.contains("tomorrow")) {
-            return 1;
-        }
-        if (details.contains("wednes")) {
-            return 2;
-        }
-        if (details.contains("thurs")) {
-            return 3;
-        }
-        if (details.contains("fri")) {
-            return 4;
-        }
-        if (details.contains("satur")) {
-            return 5;
-        }
-        if (details.contains("sun")) {
-            return 6;
-        }
-        return -1;
-    }
-
     public Deadlines(String description, String details, boolean readFromFile) {
         super(description);
         String changedDate;
@@ -69,6 +43,32 @@ public class Deadlines extends Task {
         this.type = 'D';
     }
 
+    private int getDaysToAdd(String details) {
+        details = details.toLowerCase();
+        if (details.contains("mon")) {
+            return 0;
+        }
+        if (details.contains("tues")) {
+            return 1;
+        }
+        if (details.contains("wednes")) {
+            return 2;
+        }
+        if (details.contains("thurs")) {
+            return 3;
+        }
+        if (details.contains("fri")) {
+            return 4;
+        }
+        if (details.contains("satur")) {
+            return 5;
+        }
+        if (details.contains("sun")) {
+            return 6;
+        }
+        return -1;
+    }
+
     /**
      * Returns lateral location of the specified position.
      * If the position is unset, NaN is returned.
@@ -77,5 +77,9 @@ public class Deadlines extends Task {
      */
     public String getDetails() {
         return "(by: " + this.stringDateTime + ")";
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateAndTime;
     }
 }

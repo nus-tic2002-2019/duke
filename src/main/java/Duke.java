@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 public class Duke {
 
@@ -16,8 +17,8 @@ public class Duke {
         ui.showWelcomeMessage();
         try {
             textFile.readFile(taskList);
-        } catch (DukeException a) {
-            ui.showInputError();
+        } catch (DukeExceptionFileInput a) {
+            ui.showFileInputError();
         }
         while (online) {
             try {
@@ -41,6 +42,9 @@ public class Duke {
                         } catch (StringIndexOutOfBoundsException e) {
                             ui.showDeadlineEmptyError();
                             break;
+                        } catch (DateTimeParseException e) {
+                            ui.showDateTimeError();
+                            break;
                         }
                         ui.showTaskAdded(taskList.displayLatestTask(), taskList.getSize());
                         break;
@@ -60,6 +64,9 @@ public class Duke {
                             textFile.saveFile(taskList.getList());
                         } catch (StringIndexOutOfBoundsException e) {
                             ui.showDoAfterEmptyError();
+                            break;
+                        } catch (DateTimeParseException e) {
+                            ui.showDateTimeError();
                             break;
                         }
                         ui.showTaskAdded(taskList.displayLatestTask(), taskList.getSize());
@@ -102,6 +109,12 @@ public class Duke {
                         } catch (DukeExceptionEmptyList e) {
                             ui.showListEmptyError();
                             break;
+                        } catch (StringIndexOutOfBoundsException e) {
+                            ui.showDoAfterEmptyError();
+                            break;
+                        } catch (DukeExceptionFindNoResult e) {
+                            ui.showFindNoResult();
+                            break;
                         }
                     case "bye":
                         online = false;
@@ -112,6 +125,8 @@ public class Duke {
                 }
             } catch (IOException e) {
                 ui.showFileError();
+            } catch (DukeException e) {
+                ui.showUnknownInputError();
             }
         }
         textFile.saveFile(taskList.getList());
