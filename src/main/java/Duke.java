@@ -1,13 +1,9 @@
 import java.io.FileWriter;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.IOException;
 import java.io.File;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 public class Duke {
 
@@ -37,11 +33,9 @@ public class Duke {
                 + "What can I do for you?" +
                 DIVIDER);
     }
-
 /**********************************************************************************************************************
 * Task Class [Superclass]
 **********************************************************************************************************************/
-
     public static class Task {
         // Variables
         private String description;
@@ -67,7 +61,6 @@ public class Duke {
 /**********************************************************************************************************************
 * todo [Subclass] , Parent : Task
 **********************************************************************************************************************/
-
     public static class Todo extends Task {
         // Variables.
         protected boolean isTodo;
@@ -82,11 +75,9 @@ public class Duke {
         }
         public String getTodoIcon() {return "[T]";}
     }
-
 /**********************************************************************************************************************
 * deadline [Subclass] , Parent : Task
 **********************************************************************************************************************/
-
     public static class Deadline extends Task {
         // Variables.
         String by;
@@ -101,26 +92,26 @@ public class Duke {
         }
         public String getBy() {return by;}
     }
-
 /**********************************************************************************************************************
 * Events [Subclass] , Parent : Task
 **********************************************************************************************************************/
+
     public static class Events extends Task {
         // Variables.
-        String by;
+        String at;
 
         // Constructors.
-        public Events(String description, String by) {
+        public Events(String description, String at) {
             // Constructor
             super(description);
-            this.by = by;
+            this.at = at;
         }
 
         // Methods.
         public String toString() {
-            return "[E]" + super.toString() + " (at: " + by +") ";
+            return "[E]" + super.toString() + " (at: " + at +") ";
         }
-        public String getBy() {return by;}
+        public String getBy() {return at;}
     }
 // My arraylist was of type Task. Hence to access subclasses, downcasting is required to access the subclass-methods.
     public static void downcastToTodo(Task abc) {
@@ -138,7 +129,6 @@ public class Duke {
     public static Deadline downcastToDeadline_1(Task abc) {
         return (Deadline) abc;
     }
-
     public static Events downcastToEvents_1(Task abc) {
         return (Events) abc;
     }
@@ -392,11 +382,6 @@ public static void  parseStoreAndPrintDeadlineTask(ArrayList<Task> ultimateStora
     String deadlineDesc = reSentence.substring(0,reSentence.indexOf("by") - 1);
     String by = reSentence.substring(reSentence.indexOf("by")+ 3);
 
-    int year = Integer.parseInt(by.substring(0,4));
-    int month = Integer.parseInt(by.substring(5,7));
-    LocalDate today = LocalDate.now();
-
-
     //System.out.println(deadlineDesc);
 
     Deadline deadline = new Deadline(deadlineDesc,by);
@@ -465,13 +450,32 @@ public static class DukeExceptions extends Exception {
 }
 
 /**********************************************************************************************************************
-* Exceptions
+* writetoFile
 ***********************************************************************************************************************/
 
 private static void writeToFile(String filePath, String textToAdd) throws IOException {
     FileWriter fw = new FileWriter(filePath);
     fw.write(textToAdd);
     fw.close();
+}
+
+/**********************************************************************************************************************
+* Find.
+**********************************************************************************************************************/
+public static void find(ArrayList<Task> ultimateStorage, String userResponse) {
+
+    String spaces = "    ";
+    String nextLine = "\n";
+
+    String thingsToFind = userResponse.substring(5);
+    //System.out.println(thingsToFind);
+    for(Task task : ultimateStorage) {
+        if(task.getTask().contains(thingsToFind)) {
+            System.out.print(spaces);
+            System.out.print(task.toString());
+            System.out.print("\n");
+        }
+    }System.out.println(graphicalFormatEnd);
 }
 
     public static void main(String[] args) throws DukeExceptions, IOException {
@@ -513,6 +517,7 @@ private static void writeToFile(String filePath, String textToAdd) throws IOExce
  *********************************************************/
 
         while (true) {
+
             String userResponse = scanInput.nextLine();
             // if response is "bye"
             if (userResponse.equals("bye")) {
@@ -524,6 +529,9 @@ private static void writeToFile(String filePath, String textToAdd) throws IOExce
             }
             else if (userResponse.startsWith("DELETE") || userResponse.startsWith("Delete") || userResponse.startsWith("delete")) {
                 Delete(ultimateStorage,userResponse);
+            }
+            else if (userResponse.startsWith("find")) {
+                find(ultimateStorage, userResponse);
             }
             else if (userResponse.startsWith("done") || userResponse.startsWith("DONE") || userResponse.startsWith("Done")) {
                 Done(ultimateStorage, userResponse);
@@ -611,11 +619,12 @@ private static void writeToFile(String filePath, String textToAdd) throws IOExce
                     doneStatus = 0;
                 }
                 if (task.getClass().getSimpleName().equals("Todo")) {
+                    Todo temp = downcastToTodo_1(task);
                     writer.write(
                                 "Todo    "
                                     + " | "
                                     + doneStatus +  " | "
-                                    + task.getTask()
+                                    + temp.getTask() + "|"
                                     + System.lineSeparator());
                 }
                 else if (task.getClass().getSimpleName().equals("Deadline")) {
