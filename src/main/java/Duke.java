@@ -21,7 +21,7 @@ public class Duke {
      *
      */
 
-    public Duke (String filePath) throws DukeException {
+    public Duke (String filePath){
         userInterface = new Ui();
         userInterface.showWelcome();
         storage = new Storage(filePath);
@@ -32,7 +32,7 @@ public class Duke {
             tasks = new taskList();
         }
         catch (FileNotFoundException e){
-           throw new DukeException("File not found");
+           userInterface.showLoadingError();
         }
     }
 
@@ -47,7 +47,7 @@ public class Duke {
         while(!isExit) {
             try{
 
-                textInput = in.nextLine();
+                textInput = userInterface.getScanInput().nextLine();
                 userInterface.showLine();
                 userInterface.dukeInput(tasks, textInput);
                 if (textInput.equalsIgnoreCase("bye")) isExit = true;

@@ -25,7 +25,7 @@ public class Parser {
         String[] textInputArr = textInput.split(" ",2);
         validCommand = textInputArr[0];
         if (validCommand.equals("list") || validCommand.equals("bye")) singleCommand = true;
-        if (textInputArr.length < 2 && !singleCommand) throw new DukeException("missing Description");
+        if (textInputArr.length < 2 && !singleCommand) throw new DukeException("unknown Command");
         switch(validCommand){
             case "done":
             case "delete":

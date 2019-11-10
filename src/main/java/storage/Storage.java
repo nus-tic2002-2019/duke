@@ -11,7 +11,7 @@ import java.time.LocalDate;
 
 public class Storage {
     protected String fileName;
-    protected File taskFile;
+    protected static File taskFile;
     private Scanner loadTask;
     private boolean isDone;
     /**
@@ -63,7 +63,7 @@ public class Storage {
      * @param tasks is the list of tasks which you which to save
      */
 
-    public void saveList(String fileName, taskList tasks) throws IOException{
+    public static void saveList(String fileName, taskList tasks) throws IOException{
       FileWriter taskSave = new FileWriter(fileName);
         ArrayList<Task> taskList = tasks.getList();
         for (Task eachTask:taskList){
@@ -71,6 +71,8 @@ public class Storage {
         }
       taskSave.close();
     }
+
+    public static File getFile(){return taskFile;};
 }
 
 /*
