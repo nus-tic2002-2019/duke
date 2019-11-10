@@ -32,6 +32,7 @@ public class DoneCommand implements Command {
                 String[] indexList = indexNumber.split(",");
                 for (int i = 0; i < indexList.length; i++) {
                     int k = Integer.parseInt(indexList[i]);
+                    assert k >= 1:"The task number must be greater or equal to 1.";
                     Task markItem = tasks.get(k - 1);
                     markItem.markAsDone();
                     storage.store(tasks.ConvertAsLines());
@@ -54,6 +55,8 @@ public class DoneCommand implements Command {
                     }
                 }
             } else {
+                int k = Integer.parseInt(fullCommand[1]);
+                assert k >= 1:"The task number must be greater or equal to 1.";
                 Task markItem = tasks.get(Integer.parseInt(fullCommand[1]) - 1);
                 markItem.markAsDone();
                 storage.store(tasks.ConvertAsLines());

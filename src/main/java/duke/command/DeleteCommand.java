@@ -57,6 +57,8 @@ public class DeleteCommand implements Command {
                     }
                 }
             } else {
+                int k = Integer.parseInt(fullCommand[1]);
+                assert k >= 1:"The task number must be greater or equal to 1.";
                 tasks.remove(Integer.parseInt(fullCommand[1]) - 1);
                 storage.store(tasks.ConvertAsLines());
             }
