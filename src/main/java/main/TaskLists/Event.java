@@ -9,6 +9,8 @@ public class Event extends Task {
         this.At = At;
     }
 
+    public String getAt() {return this.At;}
+
     @Override
     public String toString() {
         return "[E]"+ "[" +this.getStatusIcon() + "] " + super.toString() + " (At:" + At + ")";

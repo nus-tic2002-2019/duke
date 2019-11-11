@@ -37,6 +37,9 @@ public class UI{
         UI.line();
     }
 
+    /**
+     *  Prints the Welcome Logo of Duke
+     */
     void welcome(){
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -60,11 +63,13 @@ public class UI{
         System.out.println("\t____________________________________________________________");
     }
 
+
     public static void echo(String input){
         UI.line();
         System.out.println("\t " + input);
         UI.line();
     }
+
 
     public static void addedCommand(Task input) {
         UI.line();
