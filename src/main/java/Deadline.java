@@ -1,4 +1,11 @@
-package PACKAGE_NAME;
+package tasks;
 
-public class Deadline {
+public class Deadline extends Task {
+    public Deadline(String desc) {
+        super(desc);
+    }
+
+    public String getStatusIconAndDesc() {
+        return "[D][" + super.getStatusIcon() + "] " + super.desc;
+    }
 }
