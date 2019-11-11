@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class TodoTest{
+class TodoTest {
     @Test
     @DisplayName("Inserting Todo for Test Case 1 ")
     void TestToString() {

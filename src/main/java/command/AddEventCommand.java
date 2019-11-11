@@ -13,17 +13,17 @@ public class AddEventCommand extends Command {
     private String input;
 
     /**
-     * @param input  A String inputted by the user.
+     * @param input A String inputted by the user.
      */
     public AddEventCommand(String input) {
         this.input = input;
     }
 
     /**
-     * @param   tasks               The tasks stored in an ArrayList.
-     * @param   ui                  The User Interface (UI).
-     * @param   storage             The storage to allow reading and storing of tasks from and to a txt file.
-     * @throws  EmptyException      If an empty description is inputted.
+     * @param tasks   The tasks stored in an ArrayList.
+     * @param ui      The User Interface (UI).
+     * @param storage The storage to allow reading and storing of tasks from and to a txt file.
+     * @throws EmptyException If an empty description is inputted.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws EmptyException {
@@ -34,8 +34,8 @@ public class AddEventCommand extends Command {
         input = input.replace("event", "");
         int position = input.indexOf("/at");
 
-        System.out.println(input.substring(0,position-1));
-        if (input.substring(0,position-1).equals("") || input.substring(0,position-2).equals(" ")) {
+        System.out.println(input.substring(0, position - 1));
+        if (input.substring(0, position - 1).equals("") || input.substring(0, position - 2).equals(" ")) {
             throw new EmptyException("an event");
         } else {
             String date = input.substring(position + 4);

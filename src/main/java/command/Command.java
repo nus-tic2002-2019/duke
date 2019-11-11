@@ -13,7 +13,7 @@ import basic.Ui;
 public class Command {
     protected static Ui ui = new Ui();
 
-    public boolean isExit(){
+    public boolean isExit() {
         return false;
     }
 

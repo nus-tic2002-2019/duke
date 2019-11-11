@@ -20,9 +20,9 @@ public class DateCommand extends Command {
     }
 
     /**
-     * @param   tasks               The tasks stored in an ArrayList.
-     * @param   ui                  The User Interface (UI).
-     * @param   storage             The storage to allow reading and storing of tasks from and to a txt file.
+     * @param tasks   The tasks stored in an ArrayList.
+     * @param ui      The User Interface (UI).
+     * @param storage The storage to allow reading and storing of tasks from and to a txt file.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
@@ -42,7 +42,7 @@ public class DateCommand extends Command {
                     count++;
                 }
             }
-            if (count == 0 ){
+            if (count == 0) {
                 throw new DukeException("☹ Item not found.");
             }
             ui.printEmptyLine();

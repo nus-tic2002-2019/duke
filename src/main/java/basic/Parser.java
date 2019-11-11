@@ -21,9 +21,9 @@ public class Parser {
             return new ListCommand();
         } else if (userInput.toLowerCase().contains("done")) {
             return new MarkAsDoneCommand(userInput);
-        }else if (userInput.toLowerCase().contains("after")){
+        } else if (userInput.toLowerCase().contains("after")) {
             return new AfterCommand(userInput);
-        }else if (userInput.toLowerCase().contains("find")) {
+        } else if (userInput.toLowerCase().contains("find")) {
             return new FindCommand(userInput);
         } else if (userInput.toLowerCase().contains("todo") && !userInput.toLowerCase().contains("event") && !userInput.toLowerCase().contains("deadline")) {
             return new AddTodoCommand(userInput);

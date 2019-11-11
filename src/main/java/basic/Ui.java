@@ -7,15 +7,15 @@ import java.util.Scanner;
 /**
  * Text UI of the application.
  */
-public class Ui{
-    private void showLine(){
+public class Ui {
+    private void showLine() {
         System.out.println("___________________________________________");
     }
 
     /**
      * Generates and prints the welcome message upon the start of the application.
      */
-    void showWelcome(){
+    void showWelcome() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -29,36 +29,37 @@ public class Ui{
 
     /**
      * Prompts for the command and reads the text entered by the user.
+     *
      * @return command (full line) entered by the user
      */
     String readCommand() {
         Scanner input = new Scanner(System.in);
         String myString = "";
-        myString+= input.nextLine();
-        return  myString;
+        myString += input.nextLine();
+        return myString;
     }
 
-    public void showBye(){
+    public void showBye() {
         System.out.println("   Bye. Hope to see you again soon!");
         showLine();
     }
 
-    public void showDone(){
+    public void showDone() {
         System.out.print("   " + "Nice! I've marked this task as done: \n" + "   ");
     }
 
-    public void printEmptyLine(){
+    public void printEmptyLine() {
         System.out.println("\n");
     }
 
-    public void showAdded(){
+    public void showAdded() {
         System.out.print("   " + "Got it. I've added this task:\n" + "   ");
     }
 
     /**
      * Shows a list of tasks to the user, formatted as an indexed list.
      */
-    public void printTask(TaskList tasks){
+    public void printTask(TaskList tasks) {
         for (int j = 1; j <= tasks.sizeOfTask(); j++) {
             System.out.print("   " + j + ".");
             System.out.println(tasks.returnTask(j - 1));
@@ -68,29 +69,29 @@ public class Ui{
     /**
      * Shows a list of tasks to the user, formatted as an indexed list.
      */
-    public void printMatchingTask(Task tasks, int index){
+    public void printMatchingTask(Task tasks, int index) {
         System.out.print("   " + index + ".");
-            System.out.println(tasks.toString());
+        System.out.println(tasks.toString());
     }
 
-    public void printTask(Task task){
-            System.out.println(task);
+    public void printTask(Task task) {
+        System.out.println(task);
     }
 
-    public void printTaskNum(TaskList tasks, Task task){
+    public void printTaskNum(TaskList tasks, Task task) {
         System.out.println(task + "\n   Now you have " + tasks.sizeOfTask() + " tasks in the list.\n");
     }
 
-    public void printDeleteCommand(Task echo, int num){
+    public void printDeleteCommand(Task echo, int num) {
         System.out.println("   Noted. I've removed this task:\n   " + echo + "\n   Now you have " + num + " tasks in the list.");
     }
 
-    void printException(Exception e){
+    void printException(Exception e) {
         System.out.println(e.toString());
         printEmptyLine();
     }
 
-    public void printMatching(){
+    public void printMatching() {
         System.out.println("   Here are the matching tasks in your list:");
     }
 

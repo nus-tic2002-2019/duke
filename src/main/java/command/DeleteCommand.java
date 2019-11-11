@@ -9,7 +9,7 @@ import task.Task;
 /**
  * Deletes a task identified using it's index from the task list.
  */
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
     protected static Ui ui = new Ui();
     private String input;
 
@@ -18,9 +18,9 @@ public class DeleteCommand extends Command{
     }
 
     /**
-     * @param   tasks               The tasks stored in an ArrayList.
-     * @param   ui                  The User Interface (UI).
-     * @param   storage             The storage to allow reading and storing of tasks from and to a txt file.
+     * @param tasks   The tasks stored in an ArrayList.
+     * @param ui      The User Interface (UI).
+     * @param storage The storage to allow reading and storing of tasks from and to a txt file.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
@@ -31,7 +31,7 @@ public class DeleteCommand extends Command{
         if (num > 0 && num <= tasks.sizeOfTask()) {
             Task echo = tasks.returnTask(num - 1);
             tasks.deleteTask(num - 1);
-            ui.printDeleteCommand(echo,tasks.sizeOfTask());
+            ui.printDeleteCommand(echo, tasks.sizeOfTask());
         } else {
             throw new DukeException("☹ Item not found.\n");
         }

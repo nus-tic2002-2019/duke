@@ -17,16 +17,18 @@ public class TaskList {
 
     /**
      * Checks if the task was marked as done
+     *
      * @param myString one task in the txt file
      * @return true if the tasks was marked as done, else return false
      */
-    private boolean isDone(String myString){
+    private boolean isDone(String myString) {
         return !myString.toLowerCase().contains("[✘]");
     }
 
     /**
      * Converts all strings in the txt file to tasks
-     * @param list      task list in string form.
+     *
+     * @param list task list in string form.
      */
     public TaskList(ArrayList<String> list) {
         for (String s : list) {
@@ -38,7 +40,7 @@ public class TaskList {
                 startPosition = s.length() + 1;
                 positionOfDes++;
             }
-            String description = s.substring(positionOfDes+4, startPosition-1);
+            String description = s.substring(positionOfDes + 4, startPosition - 1);
 
             if (s.contains("[T]")) {
                 Todo oneTask = new Todo(description);
@@ -46,7 +48,7 @@ public class TaskList {
             } else if (s.contains("[D]")) {
                 int positionOfDate = s.indexOf("by");
                 int endPosition = s.indexOf(")");
-                String dateString = s.substring(positionOfDate+4, endPosition);
+                String dateString = s.substring(positionOfDate + 4, endPosition);
                 DateTimeFormatter format = DateTimeFormatter
                         .ofPattern("d MMM yyyy, HHmm");
                 LocalDateTime date = LocalDateTime.parse(dateString, format);
@@ -56,7 +58,7 @@ public class TaskList {
             } else {
                 int positionOfDate = s.indexOf("at");
                 int endPosition = s.indexOf(")");
-                String dateString = s.substring(positionOfDate+4, endPosition);
+                String dateString = s.substring(positionOfDate + 4, endPosition);
                 DateTimeFormatter format = DateTimeFormatter
                         .ofPattern("d MMM yyyy, HHmm");
                 LocalDateTime date = LocalDateTime.parse(dateString, format);
@@ -64,8 +66,8 @@ public class TaskList {
                 Event oneTask = new Event(description, day);
                 addTask(oneTask);
             }
-            if (isDone(s)){
-                returnTask(sizeOfTask()- 1).isDone = true;
+            if (isDone(s)) {
+                returnTask(sizeOfTask() - 1).isDone = true;
             }
         }
     }
@@ -76,7 +78,8 @@ public class TaskList {
 
     /**
      * Returns the task from the specified index from the task list.
-     * @param num  The index the task.
+     *
+     * @param num The index the task.
      * @return Task The task at the specified index.
      */
     public Task returnTask(int num) {
@@ -85,7 +88,8 @@ public class TaskList {
 
     /**
      * Adds a task to the task list.
-     * @param task1  The task that is required to be added to the task list.
+     *
+     * @param task1 The task that is required to be added to the task list.
      */
     public void addTask(Task task1) {
         task.add(task1);
@@ -93,7 +97,8 @@ public class TaskList {
 
     /**
      * Deletes a task from the task list.
-     * @param num  The index of a task that is required to be removed from the task list.
+     *
+     * @param num The index of a task that is required to be removed from the task list.
      */
     public void deleteTask(int num) {
         task.remove(num);
@@ -101,6 +106,7 @@ public class TaskList {
 
     /**
      * Returns the size of the current task list.
+     *
      * @return int  The size of the current task list.
      */
     public int sizeOfTask() {

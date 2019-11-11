@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class DeadlineTest{
+class DeadlineTest {
     @Test
     @DisplayName("Inserting Deadline for Test Case 1 /by 2019-01-05 00:30")
     void TestToString() {

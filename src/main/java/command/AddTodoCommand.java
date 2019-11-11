@@ -14,20 +14,20 @@ public class AddTodoCommand extends Command {
     private String input;
 
     /**
-     * @param input  A String inputted by the user.
+     * @param input A String inputted by the user.
      */
     public AddTodoCommand(String input) {
         this.input = input;
     }
 
     /**
-     * @param   tasks               The tasks stored in an ArrayList.
-     * @param   ui                  The User Interface (UI).
-     * @param   storage             The storage to allow reading and storing of tasks from and to a txt file.
-     * @throws  EmptyException      If an empty description is inputted.
+     * @param tasks   The tasks stored in an ArrayList.
+     * @param ui      The User Interface (UI).
+     * @param storage The storage to allow reading and storing of tasks from and to a txt file.
+     * @throws EmptyException If an empty description is inputted.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws EmptyException{
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws EmptyException {
         assert !input.contains("/at") : "wrong format '/at' not allowed";
         assert !input.contains("/by") : "wrong format '/by' not allowed";
 
