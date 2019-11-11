@@ -18,5 +18,4 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (at: " + at.format(DateTimeFormatter.ofPattern("d MMM yyyy, HHmm")) + ")";
     }
 
-
 }

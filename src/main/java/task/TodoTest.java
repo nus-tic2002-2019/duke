@@ -12,4 +12,5 @@ class TodoTest{
         Todo todo = new Todo("To Complete Test Case 1");
         assertEquals("[T] [\u2718]To Complete Test Case 1", todo.toString());
     }
+
 }
