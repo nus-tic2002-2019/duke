@@ -11,11 +11,19 @@ public class Deadline extends Task{
     protected LocalDateTime by;
     private static final String TASK_TYPE="D";
 
+    /**
+     * Constructs a deadline task with description and time
+     * by default the isDone is false
+     */
     public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by=by;
     }
 
+
+    /**
+     * Constructs a deadline task with description, time and isDone
+     */
     public Deadline(String description, LocalDateTime by, boolean isDone){
         super(description,isDone);
         this.by=by;

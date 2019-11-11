@@ -25,6 +25,9 @@ public class Ui {
         this.out = out;
     }
 
+    /**
+     * Prints the welcome message upon the start of the application.
+     */
     public void showWelcome() {
         System.out.println("Hello from\n" + LOGO);
         System.out.println(SEPARATE_LINE);
@@ -32,20 +35,34 @@ public class Ui {
         System.out.println(SEPARATE_LINE);
     }
 
+    /**
+     * read command from the userInput
+     * @return the string of user input
+     */
     public String readCommand() {
         out.print("Enter Command: ");
         String line=in.nextLine();
         return line;
     }
 
+    /**
+     * show the divider line.
+     */
     public void showLine() {
         out.println(SEPARATE_LINE);
     }
 
+    /**
+     * show the error message
+     * @param message the passed message to show
+     */
     public void showError(String message) {
         out.println(message);
     }
 
+    /**
+     * show the loading error message to the user.
+     */
     public void showLoadingError() {
         out.print(ERROR_LOADING_MSG);
     }
