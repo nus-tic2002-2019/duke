@@ -32,7 +32,12 @@ public class AddDeadlineCommand extends Command {
         assert !input.contains("/at") : "wrong format '/at' not allowed";
 
         input = input.toLowerCase();
-        input = input.replace("deadline", "");
+        if (input.contains("deadline")) {
+            input = input.replace("deadline", "");
+        }
+        else{
+            input = input.replace("d", "");
+        }
         int position = input.indexOf("/by");
         if (input.substring(0, position - 1).equals("") || input.substring(0, position - 1).equals(" ")) {
             throw new EmptyException("a deadline");

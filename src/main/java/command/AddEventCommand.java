@@ -31,10 +31,14 @@ public class AddEventCommand extends Command {
         assert !input.contains("/by") : "wrong format '/by' not allowed";
 
         input = input.toLowerCase();
-        input = input.replace("event", "");
+        if (input.contains("event")){
+            input = input.replace("event", "");
+        }
+        else{
+            input = input.replace("d", "");
+        }
         int position = input.indexOf("/at");
 
-        System.out.println(input.substring(0, position - 1));
         if (input.substring(0, position - 1).equals("") || input.substring(0, position - 2).equals(" ")) {
             throw new EmptyException("an event");
         } else {

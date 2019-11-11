@@ -32,7 +32,12 @@ public class AddTodoCommand extends Command {
         assert !input.contains("/by") : "wrong format '/by' not allowed";
 
         input = input.toLowerCase();
-        input = input.replace("todo", "");
+        if (input.contains("todo")){
+            input = input.replace("todo", "");
+        }
+        else{
+            input = input.replace("d", "");
+        }
         if (input.equals("") || input.equals(" ")) {
             throw new EmptyException("a todo");
         } else {

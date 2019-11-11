@@ -25,11 +25,14 @@ public class Parser {
             return new AfterCommand(userInput);
         } else if (userInput.toLowerCase().contains("find")) {
             return new FindCommand(userInput);
-        } else if (userInput.toLowerCase().contains("todo") && !userInput.toLowerCase().contains("event") && !userInput.toLowerCase().contains("deadline")) {
+        } else if (userInput.toLowerCase().substring(0,1).equals("t") ||
+                userInput.toLowerCase().contains("todo") && !userInput.toLowerCase().contains("event") && !userInput.toLowerCase().contains("deadline")) {
             return new AddTodoCommand(userInput);
-        } else if (userInput.toLowerCase().contains("deadline") && !userInput.toLowerCase().contains("event") && !userInput.toLowerCase().contains("todo")) {
+        } else if (userInput.toLowerCase().substring(0,1).equals("d") ||
+                userInput.toLowerCase().contains("deadline") && !userInput.toLowerCase().contains("event") && !userInput.toLowerCase().contains("todo")) {
             return new AddDeadlineCommand(userInput);
-        } else if (userInput.toLowerCase().contains("event") && !userInput.toLowerCase().contains("deadline") && !userInput.toLowerCase().contains("todo")) {
+        } else if (userInput.toLowerCase().substring(0,1).equals("e") ||
+                userInput.toLowerCase().contains("event") && !userInput.toLowerCase().contains("deadline") && !userInput.toLowerCase().contains("todo")) {
             return new AddEventCommand(userInput);
         } else if (userInput.toLowerCase().contains("delete")) {
             return new DeleteCommand(userInput);
