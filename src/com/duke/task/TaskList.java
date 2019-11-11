@@ -45,8 +45,24 @@ public class TaskList implements Iterable<Task>{
      * Adds a task to the list
      * @param toAdd the task to add
      */
-    public void addTask(Task toAdd){
+    public void addTask(Task toAdd) throws DuplicateTaskException {
+        if(contains(toAdd)){
+            throw new DuplicateTaskException();
+        }
         taskList.add(toAdd);
+    }
+
+    /**
+     * check if a task is already exist in the taskList
+     * @param toCheck the task to check
+     */
+    public boolean contains(Task toCheck){
+        for(Task task : taskList){
+           if(task.equals(toCheck)){
+               return true;
+           }
+        }
+        return false;
     }
 
     /**
@@ -93,5 +109,12 @@ public class TaskList implements Iterable<Task>{
     @Override
     public Iterator<Task> iterator() {
         return taskList.iterator();
+    }
+
+    /**
+     * Signals that an operation would have violated the 'no duplicates' task of the list.
+     */
+    public static class DuplicateTaskException extends Exception{
+        public DuplicateTaskException() { super("There is a same task which already existed in the task list.");  }
     }
 }

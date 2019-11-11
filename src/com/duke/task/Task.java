@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class Task {
     protected String description;
     protected boolean isDone;
-    private LocalDateTime taskTime;
+    private LocalDateTime taskTime=LocalDateTime.of(2000,1,1,0,0);
     private static final String TASK_TYPE="A";
 
     public Task(String description) {
@@ -49,6 +49,28 @@ public class Task {
     }
     public LocalDateTime getTaskTime(){
         return taskTime;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+//        if ( obj == null || obj == this || !(obj instanceof Task) )
+//            return false;
+//
+//        Task otherTask = (Task) obj;
+//
+//        if (!otherTask.description.equals(this.description)) return false;
+//        if (otherTask.isDone != this.isDone)       return false;
+//        if (!otherTask.taskTime.equals(this.taskTime))   return false;
+//
+//
+//        return true;
+
+        Task otherTask = (Task) obj;
+        return obj == this // short circuit if same object
+                || (obj instanceof Task // instanceof handles nulls
+                && otherTask.description.equals(this.description)
+                && otherTask.isDone != this.isDone
+                && otherTask.taskTime.equals(this.taskTime));
     }
 
     @Override

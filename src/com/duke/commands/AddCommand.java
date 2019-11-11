@@ -22,8 +22,13 @@ public class AddCommand extends Command {
 
     @Override
     public void execute() {
-        taskList.addTask(toAdd);
-        System.out.println("New "+toAdd.getTaskType()+" Added: "+toAdd.toString());
+        try {
+            taskList.addTask(toAdd);
+            System.out.println("New "+toAdd.getTaskType()+" Added: "+toAdd.toString());
+        } catch (TaskList.DuplicateTaskException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
