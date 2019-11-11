@@ -1,4 +1,9 @@
-package PACKAGE_NAME;
+public class Event extends Task {
+    public Event(String desc) {
+        super(desc);
+    }
 
-public class Event {
+    public String getStatusIconAndDesc() {
+        return "[E][" + super.getStatusIcon() + "] " + super.desc;
+    }
 }
