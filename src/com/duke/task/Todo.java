@@ -26,6 +26,17 @@ public class Todo extends Task{
         return TASK_TYPE;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+
+        if (! super.equals(obj)) return false;
+        if (this.getClass() != obj.getClass())
+            return false;
+        else return true;
+
+    }
+
+
 
     @Override
     public String toString() {

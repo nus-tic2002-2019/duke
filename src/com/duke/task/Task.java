@@ -53,23 +53,12 @@ public class Task {
 
     @Override
     public boolean equals(Object obj) {
-//        if ( obj == null || obj == this || !(obj instanceof Task) )
-//            return false;
-//
-//        Task otherTask = (Task) obj;
-//
-//        if (!otherTask.description.equals(this.description)) return false;
-//        if (otherTask.isDone != this.isDone)       return false;
-//        if (!otherTask.taskTime.equals(this.taskTime))   return false;
-//
-//
-//        return true;
 
         Task otherTask = (Task) obj;
         return obj == this // short circuit if same object
                 || (obj instanceof Task // instanceof handles nulls
                 && otherTask.description.equals(this.description)
-                && otherTask.isDone != this.isDone
+                && otherTask.isDone == this.isDone
                 && otherTask.taskTime.equals(this.taskTime));
     }
 
