@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
  * It takes in a description and appointment date with time.
  */
 public class Event extends Task{
-    private String description;
+    //private String description;
     private LocalDateTime at;
 
     public Event(String description, LocalDateTime at){

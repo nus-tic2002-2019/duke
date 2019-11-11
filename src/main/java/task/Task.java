@@ -16,9 +16,9 @@ public class Task{
         this.isDone = false;
     }
 
-    public String getStatusIcon(){
-        return (isDone ? "√" : "X"); //return tick or X symbols
-    }
+    //public String getStatusIcon(){
+    //    return (isDone ? "√" : "X"); //return tick or X symbols
+    //}
 
     public String getDescription(){
         return description;

@@ -23,6 +23,8 @@ import java.time.format.DateTimeParseException;
 public class Parse{
 
     private static boolean isExit ;
+    private static Ui ui = new Ui();
+    private static ErrType errorType = new ErrType();
 
     public Parse(){
         this.isExit = false;
@@ -55,74 +57,74 @@ public class Parse{
         } catch (ArrayIndexOutOfBoundsException e){
             command = ""; // when user input " ", program will crash. This code will catch it.
         }
-        Ui.line();
+        ui.line();
         switch (command){
             case "list":
-                Ui.list(t, t.size());
+                ui.list(t, t.size());
                 break;
 
             case "todo":
-                if ( ErrType.isTask(user_input) ){
+                if ( errorType.isTask(user_input) ){
                     taskString = user_input.replace("todo", "").trim();
                     t.add(new Todo(taskString));
-                    Ui.added(t, t.size());
+                    ui.added(t, t.size());
                 }
                 break;
 
             case "deadline":
-                if ( ErrType.isTask(user_input) && ErrType.isSchedule(user_input) ){
+                if (errorType.isTask(user_input) && errorType.isSchedule(user_input) ){
                     taskString = user_input.split("/")[0].replace("deadline", "").trim();
                     timeString = user_input.split("/")[1].replace("by", "").trim();
                     resultDateTime = dateParser(timeString);
                     if ( !resultDateTime.equals(notDate) ){
                         t.add(new Deadline(taskString, resultDateTime));
-                        Ui.added(t, t.size());
+                        ui.added(t, t.size());
                     }
                 }
                 break;
 
             case "event":
-                if ( ErrType.isTask(user_input) && ErrType.isSchedule(user_input) ){
+                if ( errorType.isTask(user_input) && errorType.isSchedule(user_input) ){
                     taskString = user_input.split("/")[0].replace("event","").trim();
                     timeString = user_input.split("/")[1].replace("at", "").trim();
                     resultDateTime = dateParser(timeString);
                     if ( !resultDateTime.equals(notDate) ) {
                         t.add(new Event(taskString, resultDateTime));
-                        Ui.added(t, t.size());
+                        ui.added(t, t.size());
                     }
                 }
                 break;
 
             case "done":
                 if ( !(user_input.trim().length() > 4) ) {
-                    Ui.invalid();
+                    ui.invalid();
                     break;
                 }
-                idx = ErrType.toInteger(user_input.split("done")[1].trim(), t.size());
+                idx = errorType.toInteger(user_input.split("done")[1].trim(), t.size());
                 if (idx == -1) {
                     System.out.println("\tOops!! Please key a valid task number.");
                     break;
                 }
                 t.get(idx - 1).taskDone();
-                Ui.done(t, idx);
+                ui.done(t, idx);
                 break;
 
             case "delete":
                 if ( !(user_input.trim().length() > 6) ) {
-                    Ui.invalid();
+                    ui.invalid();
                     break;
                 }
-                idx = ErrType.toInteger(user_input.split("delete")[1].trim(), t.size());
+                idx = errorType.toInteger(user_input.split("delete")[1].trim(), t.size());
                 if ( idx == -1 ){
                     System.out.println("\tOops!! Please key a valid task number.");
                     break;
                 }
-                Ui.delete(t, idx);
+                ui.delete(t, idx);
                 t.remove(idx-1);
                 break;
 
             case "find":
-                if ( ErrType.isTask(user_input) ){
+                if ( errorType.isTask(user_input) ){
                     String wordToFind = user_input.replace("find", "").trim().toLowerCase();
                     findKeyword(t, wordToFind);
                 }
@@ -133,19 +135,19 @@ public class Parse{
                 break;
 
             case "help":
-                Ui.help();
+                ui.help();
                 break;
 
             case "bye":
-                Ui.bye();
+                ui.bye();
                 this.isExit = true; // loop will end after looping back to while()
                 break;
 
             default:
-                Ui.invalid(); // any other command will be considered as error
+                ui.invalid(); // any other command will be considered as error
                 break;
         }
-        Ui.line();
+        ui.line();
     }
 
     /**
@@ -169,7 +171,7 @@ public class Parse{
         dateTemp = date.split(" ")[0];
         assert dateTemp.length()==10:dateTemp.length(); //expected date of length 10chars
 
-        if ( ErrType.isTime(date) ){ //check if there is a possible time
+        if ( errorType.isTime(date) ){ //check if there is a possible time
             timeTemp = date.split(" ")[1];
             try {
                 timeHrs = timeTemp.substring(0,2);
@@ -223,7 +225,7 @@ public class Parse{
         for ( int i=0 ; i<t.size() ; i++ ){
             int n = t.get(i).getDescription().toLowerCase().indexOf(wordToFind);
             if (n>=0) {
-                Ui.singleList(t,i);
+                ui.singleList(t,i);
                 isFound=true;
             }
        }
@@ -260,6 +262,6 @@ public class Parse{
                 }
             }
         }
-        Ui.list(t, t.size()); // display new list after sorting
+        ui.list(t, t.size()); // display new list after sorting
     }
 }

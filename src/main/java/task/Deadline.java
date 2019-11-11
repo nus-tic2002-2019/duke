@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
  * It takes in a description and due date with time.
  */
 public class Deadline extends Task{
-    private String description;
+    //private String description;
     private LocalDateTime by;
 
     public Deadline(String description, LocalDateTime by){

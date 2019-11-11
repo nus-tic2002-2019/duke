@@ -5,7 +5,7 @@ package task;
  * It takes in a description only.
  */
 public class Todo extends Task{
-    private String description;
+    //private String description;
 
     public Todo(String description){
         super(description);

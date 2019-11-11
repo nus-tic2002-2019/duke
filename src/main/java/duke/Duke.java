@@ -14,23 +14,22 @@ import java.util.ArrayList;
 public class Duke{
 
     private static ArrayList<Task> tasklist = new ArrayList<Task>();
+    private static Ui ui = new Ui();
+    private static Parse parser = new Parse();
+    private static Storage store = new Storage("D:\\output.txt");
 
     public static void main(String[] args) {
 
-        Ui ui = new Ui();
-        Parse parser = new Parse();
         Boolean isExit = false ;
 
         ui.welcome();
-
-        Storage store = new Storage("D:\\output.txt");
 
         store.LoadFile(tasklist);
 
         while (!isExit){
             parser.parser(tasklist);
             store.SaveFile(tasklist);
-            isExit = Parse.isExit();
+            isExit = parser.isExit();
         }
     }
 }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Represent a class of user interface.
  * Display results and affirmation of user's command.
  */
-public class Ui{
+public class Ui {
     public Ui(){
     }
 
