@@ -1,0 +1,4 @@
+Task | false | task1
+Task | true | task2
+Deadline | true | dead | 10am
+Event | false | birthday | not specified
