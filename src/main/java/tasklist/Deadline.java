@@ -2,7 +2,7 @@ package tasklist;
 
 public class Deadline extends Task {
 
-    public String time= "Time not specified";
+    public String time= "Date and Time not specified";
     public String Type = "Deadline";
 
     public Deadline(String description, String time) {

@@ -5,7 +5,12 @@ import tasklist.ToDo;
 import ui.UI;
 
 import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Duke {
@@ -97,8 +102,16 @@ public class Duke {
                 ContainsWord(line);
                 int dividerPosition = line.indexOf("/");
                 String taskDescription = line.substring(6, dividerPosition - 1);
-                String extractDayTime = line.substring(dividerPosition + 4);
-                Task t = new Event(taskDescription, extractDayTime);
+                String extractDay = line.substring(dividerPosition + 4, dividerPosition + 14);
+                String extractTime = line.substring(dividerPosition + 15);
+
+                LocalDate date = LocalDate.parse(extractDay);
+                SimpleDateFormat displayFormat = new SimpleDateFormat("HH:mm");
+                SimpleDateFormat parseFormat = new SimpleDateFormat("hh:mm a");
+                Date time = parseFormat.parse(extractTime);
+                String dateString = date.format(DateTimeFormatter.ofPattern("E, MMM d yyyy"));
+                dateString += ", " + displayFormat.format(time);
+                Task t = new Event(taskDescription, dateString);
                 taskList.add(t);
             }else {
                 String taskDescription = line.substring(6);
@@ -110,7 +123,7 @@ public class Duke {
             System.out.println("Now you have " + (taskList.size()) + " tasks in the list.");
 
         }
-        catch (StringFormatException e) {
+        catch (StringFormatException | ParseException e) {
             UI.printStringFormatException();
         }
     }
@@ -120,19 +133,27 @@ public class Duke {
                 ContainsWord(line);
                 int dividerPosition = line.indexOf("/");
                 String taskDescription = line.substring(9, dividerPosition - 1);
-                String extractDay = line.substring(dividerPosition + 4);
-                Task t = new Deadline(taskDescription, extractDay);
+                String extractDay = line.substring(dividerPosition + 4, dividerPosition + 14);
+                String extractTime = line.substring(dividerPosition + 15);
+
+                LocalDate date = LocalDate.parse(extractDay);
+                SimpleDateFormat displayFormat = new SimpleDateFormat("HH:mm");
+                SimpleDateFormat parseFormat = new SimpleDateFormat("hh:mm a");
+                Date time = parseFormat.parse(extractTime);
+                String dateString = date.format(DateTimeFormatter.ofPattern("E, MMM d yyyy"));
+                dateString += ", " + displayFormat.format(time);
+                Task t = new Deadline(taskDescription,  dateString);
                 taskList.add(t);
             }else {
                 String taskDescription = line.substring(9);
-                Task t = new Deadline(taskDescription, "Time not specified");
+                Task t = new Deadline(taskDescription, "Date and Time not specified");
                 taskList.add(t);
             }
             System.out.println("Got it. I've added this task:");
             System.out.println(" " + taskList.get(taskList.size() - 1).toString());
             System.out.println("Now you have " + (taskList.size()) + " tasks in the list.");
 
-        } catch (StringFormatException e) {
+        } catch (StringFormatException | ParseException e) {
             UI.printStringFormatException();
         }
     }
@@ -171,11 +192,6 @@ public class Duke {
             UI.printStringFormatException();
         }
     }
-
-
-
-
-
 
 
 
