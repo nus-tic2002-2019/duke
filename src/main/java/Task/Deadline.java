@@ -26,9 +26,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-//        LocalDate d1 = LocalDate.parse(" 2019-12-01");
-//        deadline meeting /by 2019-01-01
-
         try {
             String byDate = by.trim();
             LocalDate d1 = LocalDate.parse(byDate);

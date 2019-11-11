@@ -13,6 +13,7 @@ public class Event extends Task {
     protected boolean isEvent;
     protected String at;
     protected Date date_by;
+    protected String atDate;
     SimpleDateFormat format1 = new SimpleDateFormat("dd-MMM-yy hh:mm a");
 
     public Event(String description, String at) {
@@ -23,16 +24,9 @@ public class Event extends Task {
 
     @Override
     public String toString(){
-//        LocalDate d1 = LocalDate.parse(" 2019-12-01");
-//        event meeting /at 2019-01-01 13:00
-
         try{
-            String atDate  = at.trim();
-            System.out.println(atDate);
+            atDate  = at.trim();
             int timeIndex = atDate.indexOf(" ");
-
-//        LocalTime t1 = LocalTime.parse(atDate.substring(timeIndex));
-//        System.out.println(t1);
 
             LocalDate d1 = LocalDate.parse(atDate);
 

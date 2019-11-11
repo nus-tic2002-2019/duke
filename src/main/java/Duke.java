@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 import Exception_Package.DukeException;
 import Parser.*;
@@ -16,15 +17,19 @@ public class Duke {
         userInputArray[0] = " ";
 
         Scanner input = new Scanner(System.in);
-        Arrays.fill(Ui.mark, "\u2718");     //initialize mark array = "x"
-        System.out.println("Please enter login or bye to exit");
-        userInputArray = input.nextLine().split(" ");
+//        Arrays.fill(Ui.mark, "\u2718");     //initialize mark array = "x"
+//        Ui.mark.add("\u2718");
+//        Ui.mark.add("\u2718");
+//        Ui.mark.add("\u2718");
+//        Ui.mark.add("\u2718");
+//        userInputArray = input.nextLine().split(" ");
         System.out.println("Please enter task");
-
 
         while (!userInputArray[0].equals("bye") || !userInputArray[0].equals("exit")) {
             try {
                 userInput = input.nextLine();
+                userInputArray = userInput.split(" ");
+
                 Parser.parseTaskCommand(userInput);
                 System.out.println("Please type exit if want to quit program");
             } catch (DukeException e) {

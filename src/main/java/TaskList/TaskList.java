@@ -6,13 +6,6 @@ public class TaskList {
     private  static ArrayList<String> todoListArray = new ArrayList<>();
     String description;
 
-//    private static int taskCount_addTask = 0;
-//    private static int task_count = 0;
-//
-//    public TaskList(){
-//        todolistArray = new ArrayList<>();
-//    }
-
     /***
      * Adding task to Task List
      * @param addTaskToString adding task to To Do ArrayList

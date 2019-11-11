@@ -75,10 +75,14 @@ public class Parser {
 
             case ("delete"):
                 try {
-                    task_words = Parser.parseEventDeadlineTask(full_user_input);
-                    Ui.deleteTask(Integer.parseInt(task_words.trim()));
+//                    if(full_user_input.contains("&")) {
+                        task_words = Parser.parseEventDeadlineTask(full_user_input);
+                        Ui.deleteTask(Integer.parseInt(task_words.trim()));
+//                    }
                 } catch (NumberFormatException e) {
                     System.out.println("Please enter which integer after delete ");
+                } catch (IndexOutOfBoundsException e) {
+                    Ui.deleteNumberOutOfList();
                 }
                 break;
 
@@ -86,7 +90,9 @@ public class Parser {
                 int count_todo = Ui.task_count;
                 System.out.println(Ui.seperatorLine2);
                 for (listPrint = 0; listPrint < count_todo; listPrint++) {
-                    System.out.println("        " + listNum + ". " + "[" + Ui.mark[listPrint] + "]" + TaskList.getTaskList(listPrint));
+//                    System.out.println("        " + listNum + ". " + "[" + Ui.mark[listPrint] + "]" + TaskList.getTaskList(listPrint));
+                    System.out.println("        " + listNum + ". " + "[" + Ui.mark.get(listPrint) + "]" + TaskList.getTaskList(listPrint));
+
                     listNum++;
                 }
                 listNum = 1;
@@ -112,7 +118,9 @@ public class Parser {
                     File f = new File("dukesave.txt");
 
                     for (int i = 0; i < TaskList.todoListArraySize(); i++) {
-                        fw.write("        " + "[" + Ui.mark[i] + "]" + TaskList.getTaskList(i) + System.lineSeparator());
+//                        fw.write("        " + "[" + Ui.mark[i] + "]" + TaskList.getTaskList(i) + System.lineSeparator());
+                        fw.write("        " + "[" + Ui.mark.get(i) + "]" + TaskList.getTaskList(i) + System.lineSeparator());
+
                     }
                     System.out.println("File save successfully");
                     fw.close();
@@ -132,12 +140,39 @@ public class Parser {
                 task_words = task_words.trim();
                 for (listPrintFind = 0; listPrintFind < count_todo_find; listPrintFind++) {
                     if(TaskList.getTaskList(listPrintFind).contains(task_words)){
-                        System.out.println("        " + listNum + ". " + "[" + Ui.mark[listPrintFind] + "]" + TaskList.getTaskList(listPrintFind));
+//                        System.out.println("        " + listNum + ". " + "[" + Ui.mark[listPrintFind] + "]" + TaskList.getTaskList(listPrintFind));
+                        System.out.println("        " + listNum + ". " + "[" + Ui.mark.get(listPrintFind) + "]" + TaskList.getTaskList(listPrintFind));
+
                     }
                     listNum++;
                 }
                 listNum = 1;
                 System.out.println(Ui.seperatorLine2);
+                break;
+
+            case ("view"):
+                try{
+                    if (input[1] != "") {
+                    count_todo_find = Ui.task_count;
+                    System.out.println(Ui.seperatorLine2);
+
+                    task_words = Parser.parseEventDeadlineTask(full_user_input);
+                    task_words = task_words.trim();
+
+                    for (listPrintFind = 0; listPrintFind < count_todo_find; listPrintFind++) {
+                        if (TaskList.getTaskList(listPrintFind).contains(task_words)) {
+//                        System.out.println("Here are the matching schedule in your list");
+//                        System.out.println("        " + listNum + ". " + "[" + Ui.mark[listPrintFind] + "]" + TaskList.getTaskList(listPrintFind));
+                            System.out.println("        " + listNum + ". " + "[" + Ui.mark.get(listPrintFind) + "]" + TaskList.getTaskList(listPrintFind));
+                        }
+                    }
+                    listNum++;
+                    listNum = 1;
+                    System.out.println(Ui.seperatorLine2);
+                    }
+                } catch (IndexOutOfBoundsException e){
+                    Ui.viewScheduleError();
+                }
                 break;
 
             case ("bye"):
@@ -178,6 +213,7 @@ public class Parser {
      */
     public static String parseEventDeadlineTask (String user_input ){
         int task_stringIndex_After_taskWord = 0;
+        int indexOfMultipleItems = 0;
         String task_words ="", by_words = " ";
         task_stringIndex_After_taskWord = user_input.indexOf(" ");
 
@@ -189,49 +225,16 @@ public class Parser {
         else if(user_input.contains("bye")){
         }
 
-        else {
+        else{
             task_words = user_input.substring(task_stringIndex_After_taskWord);
+//            if(task_words.contains("&")){
+//                indexOfMultipleItems = task_words.indexOf("&");
+//                System.out.println(indexOfMultipleItems);
+//                task_words.substring(1,2);
+//            }
         }
 
         return task_words;
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-//    protected Boolean command;
-//    protected String userInput;
-//    protected Scanner input;
-//
-//    protected String task_words, by_words = " ";
-//    protected int task_stringIndex_After_taskWord = 0;
-//    protected String[] words;
-//
-//
-//    public Parser(Scanner input) {
-//        this.input = input;
-//        this.command = true;
-//        this.userInput = input.nextLine();
-//        this.words = userInput.split(" ");
-//        this.task_stringIndex_After_taskWord = userInput.indexOf(" ");
-//
-//
-//        if (userInput.contains("/")) {
-//            int by_string = userInput.indexOf("/");
-//            this.by_words = userInput.substring(by_string + 3);
-//            this.task_words = userInput.substring(task_stringIndex_After_taskWord, by_string);
-//
-//        } else if (userInput.contains("bye")) {
-//        } else {
-//            this.task_words = userInput.substring(task_stringIndex_After_taskWord);
-//        }
-//    }
