@@ -1,0 +1,4 @@
+0;T;false;1;
+1;E;true;2;Sun
+2;D;false;3;Mon
+3;T;false;4;

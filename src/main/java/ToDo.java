@@ -2,11 +2,8 @@
 
 public class ToDo extends Task {
     public ToDo(String desc) {
-        super(desc);
+        super(desc, "T");
     }
 
-    public String getStatusIconAndDesc() {
-        return "[T][" + super.getStatusIcon() + "] " + super.desc;
-    }
 
 }

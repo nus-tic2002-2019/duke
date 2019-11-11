@@ -1,11 +1,13 @@
 public class Task {
     protected String desc;
     protected boolean isDone;
+    protected String type;
 
-    public Task(String desc) {
+    public Task(String desc, String type) {
         this.desc = desc;
         this.isDone = false;
-        Duke.print("New task added: \n\t" + this.getStatusIconAndDesc() + "\n" + (Duke.toDoListSize()+1) + " tasks in your list :)");
+        this.type = type;
+        //Duke.print("New task added: \n\t" + this.getStatusIconAndDesc() + "\n" + (Duke.toDoListSize()+1) + " tasks in your list :)");
     }
 
     public String getStatusIcon() {
@@ -24,17 +26,19 @@ public class Task {
     }
 
     public String getStatusIconAndDesc() {
-        return "[-][" + this.getStatusIcon() + "] " + this.desc;
+        return "[" + this.type + "][" + this.getStatusIcon() + "] " + this.desc;
     }
 
     public void markAsDone() {
         this.isDone = true;
     }
 
-    public void setDone(boolean status) {
+    public void setStatus(boolean status) {
         this.isDone = status;
     }
 
-
+    public String getType() {
+        return this.type;
+    }
 
 }
