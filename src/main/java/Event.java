@@ -6,6 +6,16 @@ public class Event extends Task {
         super(description);
         this.at = at;
     }
+    public Event(String status, String description, String at) {
+        super(description);
+        this.at = at;
+        this.setStatus(status);
+    }
+
+    @Override
+    public char getTaskType() {
+        return 'E';
+    }
 
     @Override
     public String toString() {
