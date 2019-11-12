@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.Scanner;
 
 public class Duke {
@@ -47,9 +48,35 @@ public class Duke {
         {
             if(null != task[i]) count++;
         }
-        Task t = new Task(input);
-        task[count] = t;
-        System.out.println("added:" + input);
+        Task t = null;
+        String[] word = input.split(" ");
+        System.out.println("Got it. I've added this task:");
+        if(word[0].equalsIgnoreCase("todo"))
+        {
+            t = new Todo(input);
+            task[count] = t;
+            System.out.println(task[count].getStatusIcon()+task[count].getDescription());
+        }
+        else if(word[0].equalsIgnoreCase("deadline"))
+        {
+            String[] s1 = input.split("/by");
+            t = new Deadline(s1[0],s1[1]);
+            task[count] = t;
+            System.out.println(task[count].getStatusIcon()+task[count].getDescription());
+        }
+        else if(word[0].equalsIgnoreCase("event"))
+        {
+            String[] s2 = input.split("/at");
+            t = new Deadline(s2[0],s2[1]);
+            task[count] = t;
+            System.out.println(task[count].getStatusIcon()+task[count].getDescription());
+        }
+        else {
+            t = new Task(input);
+            task[count] = t;
+        }
+        int temp = count+1;
+        System.out.println("Now you have " + temp+" items in the list.");
         return task;
     }
 
@@ -62,8 +89,10 @@ public class Duke {
             if(null != task[i]) size++;
         }
 
+        System.out.println("Here are the tasks in your list:");
         for(int i=0;i<size;i++)
         {
+
             System.out.println(i + 1 + "." + task[i].getStatusIcon()+task[i].getDescription());
         }
     }
