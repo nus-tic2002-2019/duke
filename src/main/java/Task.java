@@ -3,7 +3,7 @@ package duke;
 public abstract class Task{
     protected String description;
     private boolean isDone;
-  
+    
     public Task(String description){
         this.description = description;
         this.isDone=false;
