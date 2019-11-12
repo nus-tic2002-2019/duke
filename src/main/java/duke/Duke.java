@@ -24,11 +24,11 @@ public class Duke{
 
         ui.welcome();
 
-        store.LoadFile(tasklist);
+        store.loadFile(tasklist);
 
         while (!isExit){
             parser.parser(tasklist);
-            store.SaveFile(tasklist);
+            store.saveFile(tasklist);
             isExit = parser.isExit();
         }
     }

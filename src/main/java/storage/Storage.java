@@ -27,7 +27,7 @@ public class Storage{
      * This method save user's task list to the hard disk.
      * @param t : this is the data structure of user tasks.
      */
-    public static void SaveFile(ArrayList<Task> t){
+    public static void saveFile(ArrayList<Task> t){
         try {
             FileOutputStream fout = new FileOutputStream(filename);
             for( int i=0 ; i<t.size() ; i++ ){
@@ -53,7 +53,7 @@ public class Storage{
      * This method load user's task list from hard disk to memory.
      * @param t : this is the data structure of user tasks.
      */
-    public static void LoadFile(ArrayList<Task> t){
+    public static void loadFile(ArrayList<Task> t){
         try {
             BufferedReader br = new BufferedReader(new FileReader(filename));
 
