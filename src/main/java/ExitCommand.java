@@ -5,6 +5,7 @@ public class ExitCommand extends Command{
 
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {
+        storage.save(tasks.getTasklist());
         System.out.println("\tBye. Hope to see you again soon!");
     }
 

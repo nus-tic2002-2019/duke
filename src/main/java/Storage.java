@@ -41,13 +41,16 @@ public class Storage {
 
     public void save(ArrayList<Task> tasks) {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("duke.txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("data/tasks.txt"));
             for (Task task : tasks) {
                 char type = task.getTaskType();
-                String status = (task.getStatusIcon().equals("\u2713")) ? "1" : "0";
+                String status = (task.getStatusIcon().equals("[\u2713]")) ? "1" : "0";
                 String description = task.getDescription();
-
-                writer.write(type + " | " + status + " | " + description );
+                String last = "";
+                if (type != 'T'){
+                    last = task.getLast();
+                }
+                writer.write(type + " | " + status + " | " + description + " | " + last);
                 writer.newLine();
             }
             writer.close();
