@@ -9,7 +9,7 @@ import seedu.duke.ui.UI;
 
 public class DoneCommand extends Command{
     public static final String INPUT_WORD = "done";
-    public static final String MESSAGE_DELETE_SUCCESS = "Nice! I've marked this task as done:\n\t  ";
+    private static final String MESSAGE_DELETE_SUCCESS = "Nice! I've marked this task as done:\n\t  ";
     private int index;
 
     /** 

@@ -49,7 +49,7 @@ public class Duke{
      * @param input     The input given by the user.
      * @return String   The output response from Duke.
      */
-    String getResponse(String input){
+    public String getResponse(String input){
         try{
             Command command = Parser.parseInput(input);
             command.execute(taskList, ui, storage);

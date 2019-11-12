@@ -25,27 +25,26 @@ public class Parser{
      * @throws DukeException    When an invalid command is given.
      */
     public static Command parseInput(String userInput) throws DukeException{
-        String input = userInput;
 
-        switch(input.split(" ")[0]){
+        switch(userInput.split(" ")[0]){
             case AddDeadlineCommand.INPUT_WORD:
-                return new AddDeadlineCommand(false, input);
+                return new AddDeadlineCommand(false, userInput);
             case AddEventCommand.INPUT_WORD:
-                return new AddEventCommand(false, input);
+                return new AddEventCommand(false, userInput);
             case AddToDoCommand.INPUT_WORD:
-                return new AddToDoCommand(false, input);
+                return new AddToDoCommand(false, userInput);
             case ListCommand.INPUT_WORD:
                 return new ListCommand(false, "");
             case DeleteCommand.INPUT_WORD:
-                return new DeleteCommand(false, input);
+                return new DeleteCommand(false, userInput);
             case DoneCommand.INPUT_WORD:
-                return new DoneCommand(false, input);
+                return new DoneCommand(false, userInput);
             case ByeCommand.INPUT_WORD:
                 return new ByeCommand(true, "");
             case FindCommand.INPUT_WORD:
-                return new FindCommand(false, input);
+                return new FindCommand(false, userInput);
             case ScheduleCommand.INPUT_WORD:
-                return new ScheduleCommand(false, input);
+                return new ScheduleCommand(false, userInput);
             default:
                 throw new DukeException("I'm sorry, but I don't know what that means :-(");   
         }

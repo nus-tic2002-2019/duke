@@ -16,8 +16,8 @@ import seedu.duke.ui.UI;
 
 public class AddDeadlineCommand extends Command{
     public static final String INPUT_WORD = "deadline";
-    public static final String MESSAGE_ADD_DEADLINE_SUCCESS = "Got it. I've added this task:\n\t  ";
-    public static final String MESSAGE_EMPTY_DATE = "The date of a deadline cannot be empty.";
+    private static final String MESSAGE_ADD_DEADLINE_SUCCESS = "Got it. I've added this task:\n\t  ";
+    private static final String MESSAGE_EMPTY_DATE = "The date of a deadline cannot be empty.";
     private Deadline deadline;
 
     /** 
@@ -75,7 +75,6 @@ public class AddDeadlineCommand extends Command{
     private LocalDateTime stringToDate(String date) throws DukeException{
         try{
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
-            assert LocalDateTime.parse(date, formatter).isAfter(LocalDateTime.now());
             return LocalDateTime.parse(date, formatter);
         } catch (DateTimeParseException e){
             throw new DukeException("The format of the date and time must be in this format: dd/mm/yyyy hhss (13/08/2019 0000)");

@@ -11,7 +11,7 @@ import seedu.duke.ui.UI;
 
 public class AddToDoCommand extends Command{
     public static final String INPUT_WORD = "todo";
-    public static final String MESSAGE_ADD_TODO_SUCCESS = "Got it. I've added this task:\n\t  ";
+    private static final String MESSAGE_ADD_TODO_SUCCESS = "Got it. I've added this task:\n\t  ";
     private ToDo todo;
 
     /** 

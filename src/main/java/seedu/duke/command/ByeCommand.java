@@ -6,7 +6,7 @@ import seedu.duke.ui.UI;
 
 public class ByeCommand extends Command{
     public static final String INPUT_WORD = "bye";
-    public static final String MESSAGE_BYE_ACKNOWLEDGEMENT = "Bye. Hope to see you again soon!";
+    private static final String MESSAGE_BYE_ACKNOWLEDGEMENT = "Bye. Hope to see you again soon!";
 
     /** 
      * Constructs a new ByeCommand and initialise with the specified isExit boolean value and input by the user.

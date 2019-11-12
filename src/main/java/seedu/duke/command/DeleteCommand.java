@@ -10,7 +10,7 @@ import seedu.duke.ui.UI;
 
 public class DeleteCommand extends Command{
     public static final String INPUT_WORD = "delete";
-    public static final String MESSAGE_DELETE_SUCCESS = "Noted. I've removed this task:\n\t  ";
+    private static final String MESSAGE_DELETE_SUCCESS = "Noted. I've removed this task:\n\t  ";
     private int index;
 
     /** 

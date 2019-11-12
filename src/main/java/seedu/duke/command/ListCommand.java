@@ -10,7 +10,7 @@ import seedu.duke.ui.UI;
 
 public class ListCommand extends Command{
     public static final String INPUT_WORD = "list";
-    public static final int DISPLAYED_INDEX_OFFSET = 1;
+    private static final int DISPLAYED_INDEX_OFFSET = 1;
     private static final String MESSAGE_INDEXED_LIST_ITEM = "%1$d. %2$s";
     private static String output;
 

@@ -40,7 +40,7 @@ public class Event extends Task{
      * @param dateTime  The date and time of the event in a specified date and time format.
      * @return String   The date and time for the event.
      */
-    public String dateToString(LocalDateTime dateTime){
+    private String dateToString(LocalDateTime dateTime){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
         return dateTime.format(formatter);
     }
