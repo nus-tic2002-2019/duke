@@ -4,45 +4,78 @@ import me.chercherlyn.duke.task.tasks.Deadline;
 import me.chercherlyn.duke.task.tasks.Event;
 import me.chercherlyn.duke.task.tasks.Todo;
 
+/**
+ * Represents a task
+ */
 public abstract class Task {
-
+    
     private String description;
     private boolean done;
-
+    
     public Task(String description) {
         this.description = description;
         this.done = false;
     }
-
+    
     // getters
+    
+    /**
+     * Returns task description
+     *
+     * @return task description
+     */
     public String getDescription() {
         return description;
     }
-
+    
+    /**
+     * Returns whether task marked as done or not
+     *
+     * @return true if marked done, false otherwise
+     */
     public boolean isDone() {
         return done;
     }
-
+    
     // getters func
+    
+    /**
+     * Returns fancy status icon, depending on done status
+     *
+     * @return "\u2713" if done, "\u2718" if not
+     */
     public String getStatusIcon() {
-        //return tick or X symbols
-        return (done ? "\u2713" : "\u2718");
+        return (done ? "\u2713" : "\u2718"); //return tick or X symbols
     }
-
+    
     // setters
+    
+    /**
+     * Sets marked as done status
+     *
+     * @param done done status
+     */
     public void setDone(boolean done) {
         this.done = done;
     }
-
+    
+    // static
+    
+    /**
+     * Deserializes task from string data
+     *
+     * @param data data
+     * @return task
+     */
     public static Task deserialize(String data) {
         String[] dataArr = data.split(" \\| ");
-
+        
         String type = dataArr[0];
         boolean done = Integer.parseInt(dataArr[1]) == 1;
         String description = dataArr[2];
-
+        
         Task task;
-
+        
         switch (type) {
             case "T":
                 task = new Todo(description);
@@ -62,7 +95,13 @@ public abstract class Task {
                 throw new IllegalStateException("Invalid task type!");
         }
     }
-
+    
+    /**
+     * Serializes task to string data
+     *
+     * @param task task
+     * @return data
+     */
     public static String serialize(Task task) {
         if (task instanceof Todo) {
             return String.format("T | %s | %s",
@@ -80,5 +119,4 @@ public abstract class Task {
                     ((Deadline) task).getTimeBy());
         } else throw new IllegalStateException("Uknown task type!");
     }
-
 }
