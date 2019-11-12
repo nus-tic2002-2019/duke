@@ -16,7 +16,6 @@ public class TaskList {
     public void addTasks(String task) {
         userArr.add(new Todo(task));
         this.printAdded();
-
     }
 
     public void addTasks(String task, String actionType, String taskTime){
