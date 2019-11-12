@@ -6,45 +6,40 @@ import tasklist.*;
 import ui.Ui;
 import storage.Storage;
 
+
 public class Duke {
-    
-    //private static taskList tasks = new taskList();
+
     private static taskList tasks;
     private static Ui userInterface;
     private static Storage storage;
     private static Scanner in = new Scanner(System.in);
+
+    /**
+     * The Duke constructor creates the main program known as Duke, and preload the tasks saved in a file.
+     * @param filePath is the full path where the file is located.
+     * @exception DukeException if file not found
+     *
+     */
 
     public Duke (String filePath){
         userInterface = new Ui();
         userInterface.showWelcome();
         storage = new Storage(filePath);
         try{
-            tasks = new taskList();
-            storage.load();
-        }
+            tasks = new taskList(storage.loadList());
+           }
         catch (DukeException e){
             tasks = new taskList();
         }
         catch (FileNotFoundException e){
-            System.out.println("File not Found.");
+           userInterface.showLoadingError();
         }
     }
 
-    public Duke (){
-
-        String textInput;
-        userInterface = new Ui();
-        userInterface.showWelcome();
-
-        do {
-         textInput = in.nextLine();
-          try {
-              userInterface.dukeInput(tasks, textInput);
-          } catch (DukeException e){
-              //do we need anything here?
-          }
-        }  while (!textInput.equalsIgnoreCase("bye"));
-    }
+    /**
+     * The method run starts up the user interface and receive input from the users
+     * @exception DukeException if an unknown command is entered, it will show unknown Command
+     */
 
     public void run(){
         boolean isExit = false;
@@ -52,12 +47,12 @@ public class Duke {
         while(!isExit) {
             try{
 
-                textInput = in.nextLine();
+                textInput = userInterface.getScanInput().nextLine();
                 userInterface.showLine();
                 userInterface.dukeInput(tasks, textInput);
                 if (textInput.equalsIgnoreCase("bye")) isExit = true;
             }catch (DukeException e){
-                userInterface.showUnknownCommand();
+                userInterface.showError(e.getMessage());
             }
             finally {
                 userInterface.showLine();
@@ -65,17 +60,9 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
 
-       //userInterface = new Ui();
-       //userInterface.showWelcome();
-        //System.out.println("Choose 1 for Command Input, 2 for File input:");
-        //String choiceInput = in.nextLine();
-        //if (choiceInput.equals("1")) new Duke();
-        //else if (choiceInput.equals("2")) new Duke("data/tasks.txt").run();
-        //else System.out.println("Please choose 1 or 2");
-
-        new Duke("data/tasks.txt").run();
+       new Duke("data/tasks.txt").run();
 
     }
 

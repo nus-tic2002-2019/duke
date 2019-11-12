@@ -1,28 +1,41 @@
 package tasklist;
 
-import tasklist.Task;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 
 public class Event extends Task {
-    protected String at;
+    protected LocalDate Date;
+    protected LocalTime startTime, endTime;
+    private DateTimeFormatter displayDateFormat = DateTimeFormatter.ofPattern("MMM d yyyy");
+    private DateTimeFormatter displayTimeFormat = DateTimeFormatter.ofPattern("HH:mm");
+    private DateTimeFormatter saveDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private DateTimeFormatter saveTimeFormat = DateTimeFormatter.ofPattern("HH:mm");
 
-    public Event(String description, String at) {
+    public Event(String description, LocalDate Date, LocalTime startTime, LocalTime endTime){
         super(description);
-        this.at = at;
+        this.Date = Date;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        super.isDone = false;
     }
 
-    public Event(String description, String at, boolean isDone) {
+    public Event(String description, LocalDate Date, LocalTime startTime, LocalTime endTime, boolean isDone){
         super(description);
-        this.at = at;
+        this.Date = Date;
+        this.startTime = startTime;
+        this.endTime = endTime;
         super.isDone = isDone;
     }
 
     @Override
     public String getDescription() {
-        return "[E]" + "[" + getStatusIcon() + "]" + super.getDescription() + " (at: " + at + ")";
+        return "[E]" + "[" + getStatusIcon() + "]" + super.getDescription() + " (at:" + Date.format(displayDateFormat) + " " + startTime.format(displayTimeFormat) + " - " + endTime.format(displayTimeFormat) + ")";
     }
-
+    @Override
     public String saveToFile(){
         int taskStatus = isDone ? 1:0;
-        return "E | " + taskStatus + " | " + super.getDescription() + " | " + at + "\r";
+        return "E | " + taskStatus + " | " + super.getDescription() + " | " + Date.format(saveDateFormat) + " " + startTime.format(saveTimeFormat) + " - " + endTime.format(saveTimeFormat) + "\r";
     }
 }

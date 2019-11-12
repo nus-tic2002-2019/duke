@@ -1,23 +1,34 @@
 package ui;
 
+import parser.Parser;
 import tasklist.*;
 import exception.DukeException;
-
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import storage.Storage;
 
+/**
+ * The Ui class handles the user interaction
+ */
 public class Ui {
+    public static Scanner scanInput;
+    /**
+     * The Ui constructor create a new Scanner object to receive the user input
+     */
     public Ui(){
-
+        scanInput = new Scanner(System.in);
     }
-    private static String fileName = "data/tasks.txt";
-    private static Storage storage = new Storage(fileName);
 
+    /**
+     * The showLine method creates a line at the start and end of Duke's reply
+     */
     public void showLine(){
         System.out.println("    ________________________________________");
     }
-
+    /**
+     * The showWelcome method shows the logo of Duke
+     */
     public void showWelcome(){
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -28,30 +39,38 @@ public class Ui {
 
         dukeGreet();
     }
-
-    public void dukeGreet(){
+    /**
+     * The dukeGreet method is Duke's greeting. This is a private method which is only used within Ui class
+     */
+    private void dukeGreet(){
 
         System.out.println ("    Hello! I'm Duke");
         System.out.println ("    What can I do for you?");
 
     }
-
+    /**
+     * The dukeBye method is Duke's final message before ending the program
+     */
     public void dukeBye(){
 
         System.out.println("     Bye. Hope to see you again soon!");
 
     }
-
+    /**
+     * The showLoadingError method simply provide a message to indicate that there is an issue with loading from the file
+     */
     public void showLoadingError(){
 
         System.out.println ("    File not located");
 
     }
-
-    public void showUnknownCommand(){
-        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+    //probably not needed. Need to review.
+    public void showError(String errorMsg){
+        System.out.println(errorMsg);
     }
-
+    /**
+     * The dukeReply method provides a way for Duke to reply with details of the task added.
+     */
     public void dukeReply(ArrayList<Task> taskList){
 
 
@@ -61,63 +80,47 @@ public class Ui {
 
     }
 
+
     public void dukeInput (taskList tasks, String textInput) throws DukeException {
-        String textInputArr[] = textInput.split(" ",2);
+       Parser processCommand = new Parser(textInput);
         try {
-            switch (textInputArr[0]) {
+            switch (processCommand.getValidCommand()) {
                 case "list":
-                    tasks.displayList();
+                    taskList.displayList();
                     break;
                 case "done":
-                    if (textInputArr[1].isEmpty()) throw new DukeException("done");
-                    tasks.markInList(textInputArr[1]);
+                    taskList.markInList(processCommand.getListIndex());
                     break;
                 case "delete":
-                    if (textInputArr[1].isEmpty()) throw new DukeException("delete");
-                    tasks.deleteFromList(textInputArr[1]);
+                    taskList.deleteFromList(processCommand.getListIndex());
                     break;
                 case "todo":
-                    if (textInputArr[1].isEmpty()) throw new DukeException("todo");
-                    taskList.addTodo(new Todo(textInputArr[1]));
+                    taskList.addTodo(new Todo(processCommand.getTodoDescription()));
                     break;
                 case "deadline":
-                    if (textInputArr[1].isEmpty()) throw new DukeException("deadline");
-                    String textDeadline[] = textInputArr[1].split("/by", 2);
-                    if (textDeadline.length < 2) throw new DukeException("/by");
-                    tasks.addDeadlines(new Deadlines(textDeadline[0], textDeadline[1]));
+                    taskList.addDeadlines(new Deadlines(processCommand.getDeadlineDescription(), processCommand.getDeadlineDate()));
                     break;
                 case "event":
-                    if (textInputArr[1].isEmpty()) throw new DukeException("event");
-                    String textEvent[] = textInputArr[1].split("/at", 2);
-                    if (textEvent.length < 2) throw new DukeException("/at");
-                    tasks.addEvent(new Event(textEvent[0], textEvent[1]));
+                    taskList.addEvent(new Event(processCommand.getEventDescription(), processCommand.getEventDate(), processCommand.getEventStartTime(), processCommand.getEventEndTime()));
                     break;
-               /* case "save":
-                    try{
-                        storage.saveList(fileName, tasks);
-                    } catch (IOException e){
-                        System.out.println("Something went wrong: " + e.getMessage());
-                    }
-                    break;*/
                 case "bye":
                     dukeBye();
                     break;
                 default:
-                    throw new DukeException(textInputArr[1]);
+                    throw new DukeException("Unknown Command");
             }
-            storage.saveList(fileName, tasks);
+
+            Storage.saveList(Storage.getFile().getAbsolutePath(), tasks);
         }
         catch (IOException e){
-            System.out.println("Something went wrong: " + e.getMessage());
+            throw new DukeException("Unable to save to file");
         }
-        catch (IndexOutOfBoundsException e){
-            throw new DukeException(textInputArr[0]);
-        }
-        catch (DukeException e){
-            //do we need anything here
+        catch (ArrayIndexOutOfBoundsException e){
+            throw new DukeException("Unknown Command");
         }
 
     }
 
+    public static Scanner getScanInput(){return scanInput;};
 
 }
