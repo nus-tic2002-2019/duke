@@ -7,7 +7,7 @@ public class DoneCommand extends Command{
 
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {
-        Task task = tasks.doneTask(index);
+        Task task = tasks.doneTask(index-1);
         //display successful message
         System.out.println("\tNice! I've marked this task as done:");
         System.out.println("\t  " + task.toString());

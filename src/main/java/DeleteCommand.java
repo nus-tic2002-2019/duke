@@ -7,7 +7,7 @@ public class DeleteCommand extends Command{
 
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {
-        Task task = tasks.deleteTask(index);
+        Task task = tasks.deleteTask(index-1);
         //display successful message and task count
         System.out.println("\tNoted. I've removed this task:");
         System.out.println("\t" + task.toString());

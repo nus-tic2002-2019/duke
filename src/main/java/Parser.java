@@ -27,14 +27,17 @@ public class Parser {
                     throw new DukeException(command);
                 } else {
                     String[] descrip = task[1].split(" /at ", 2);
-                    return new AddCommand(new Event(task[1],task[2]));
+                    AddCommand addCommand = new AddCommand(new Event(descrip[0], descrip[1]));
+                    return addCommand;
+
                 }
             case "deadline":
                 if(taskLen < 2) {
                     throw new DukeException(command);
                 } else {
                     String[] descrip = task[1].split(" /by ", 2);
-                    return new AddCommand(new Deadline(task[1],task[2]));
+                    AddCommand addCommand = new AddCommand(new Deadline(descrip[0], descrip[1]));
+                    return addCommand;
                 }
             default:
                 throw new DukeException();
