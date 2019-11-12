@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Task {
 
     protected String description;
@@ -8,16 +10,16 @@ public class Task {
         this.isDone = false;
     }
 
+    public void setDone() {
+        this.isDone = true;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
     }
 
-    public void setDone() {
-        this.isDone = true;
-        this.getStatusIcon();
-    }
 
     public String toString () {
-        return "[" + this.getStatusIcon() + "] " +  this.description;
+        return "[" + this.getStatusIcon() + "] " +  this.description ;
     }
 }
