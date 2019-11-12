@@ -1,37 +1,48 @@
-package main;
+package main.parsers;
 
 
-import main.Commands.*;
-import main.TaskLists.Deadline;
-import main.TaskLists.Event;
-import main.TaskLists.Task;
-import main.TaskLists.ToDo;
+import main.DukeException;
+import main.commands.*;
+import main.taskLists.Deadline;
+import main.taskLists.Event;
+import main.taskLists.Task;
+import main.taskLists.ToDo;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Parse the input of the user and returns a command based on the input.
  * @return Command  The command with reference to the given input.
  */
-public class Parser {
+public class ParserText<T> {
 
     public static boolean isTrue;
     private static final String OUTPUT_DELIMITER = "\\|";
     private static final String INPUT_DELIMITER =" ";
 
 
-
-    Parser() {
+    public ParserText() {
         this.isTrue = true;
     }
 
+    public static void parsetext(String input) throws DukeException, IOException {
 
-    public static void parse(String input) throws DukeException, IOException {
-
-        // Takes the first word of the input
         String[] command = input.split(INPUT_DELIMITER);
 
-            //Parse the comment to the correct Command Action
+        ParserDate parsedDate = (Object n) -> {
+            try {
+                return LocalDate.parse((CharSequence) n);
+            } catch (Exception e) {
+                System.out.println("Err parsing" + e);
+                return (String) n;
+            }
+        };
+
+
+        //Parse the comment to the correct Command Action
             switch (command[0].toUpperCase()) {
 
                 case "BYE":
@@ -43,7 +54,11 @@ public class Parser {
                     break;
 
                 case "DELETE":
-                    new DeleteCommand(Integer.parseInt(input.split(INPUT_DELIMITER)[1]) );
+                    try{
+                        new DeleteCommand(Integer.parseInt(input.split(INPUT_DELIMITER)[1]) );
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("\t☹ OOPS!!! I can't process this action without specifying the task!");
+                    }
                     break;
 
                 case "DONE":
@@ -57,27 +72,39 @@ public class Parser {
                     break;
 
                 case "DEADLINE":
-                    String deadlineDesc = (input.split(INPUT_DELIMITER, 2)[1]).split("/by")[0];
-                    var subStringDeadline = input.substring(input.lastIndexOf("/by") + 3);
-                    String doWhen = (subStringDeadline.equalsIgnoreCase(input.substring(2))) ?
-                            " No Deadline Given" : subStringDeadline;
-                    Task deadline = new Deadline(deadlineDesc, doWhen);
-                    new AddCommand(deadline);
+                    try {
+                        String deadlineDesc = (input.split(INPUT_DELIMITER, 2)[1]).split("/by")[0];
+                        var subStringDeadline = input.substring(input.lastIndexOf("/by") + 3).trim();
+                        Object doWhen = (subStringDeadline.equalsIgnoreCase(input.substring(2))) ?
+                                " No Deadline Given" : parsedDate.convert(subStringDeadline); //Parse Date here
+                        Task deadline = new Deadline(deadlineDesc, doWhen);
+                        new AddCommand(deadline);
+                    } catch (IndexOutOfBoundsException e){
+                        System.out.println("\t☹ OOPS!!! I can't process this action without specifying the task!");
+                    }
                     break;
 
                 case "EVENT":
-                    String eventDesc = (input.split(INPUT_DELIMITER, 2)[1]).split("/at")[0];
-                    var subStringEvent = input.substring(input.lastIndexOf("/at") + 3);
-                    String doAt = (subStringEvent.equalsIgnoreCase(input.substring(2))) ?
-                            " No Location Given" : subStringEvent;
-                    Task event = new Event(eventDesc, doAt);
-                    new AddCommand(event);
+                    try {
+                        String eventDesc = (input.split(INPUT_DELIMITER, 2)[1]).split("/at")[0];
+                        var subStringEvent = input.substring(input.lastIndexOf("/at") + 3).trim();
+                        Object doAt = (subStringEvent.equalsIgnoreCase(input.substring(2))) ?
+                                " No Location Given" : parsedDate.convert(subStringEvent); // Parse Date here
+                        Task event = new Event(eventDesc, doAt);
+                        new AddCommand(event);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("\t☹ OOPS!!! I can only accept numerical values. Type `list` to see the values");
+                    }
                     break;
 
                 case "TODO":
-                    String TodoDesc = (input.split(INPUT_DELIMITER, 2)[1]);
-                    Task todo = new ToDo(TodoDesc);
-                    new AddCommand(todo);
+                    try{
+                        String TodoDesc = (input.split(INPUT_DELIMITER, 2)[1]);
+                        Task todo = new ToDo(TodoDesc);
+                        new AddCommand(todo);
+                    } catch (IndexOutOfBoundsException e){
+                        System.out.println("\t☹ OOPS!!! I can't process this action without specifying the task!");
+                    }
                     break;
 
                 default:
@@ -111,7 +138,7 @@ public class Parser {
                     input.isDone() ? "1" : "0",
                     input.getDescription(),
                     ((Deadline) input).getBy()
-                    );
+            );
         } else {
             System.out.println("☹ OOPS!!! I'm sorry, but I don't know how to Parse this");
         }
@@ -130,8 +157,6 @@ public class Parser {
         String task = input.split(OUTPUT_DELIMITER)[0];
         Boolean status =  Boolean.parseBoolean(input.split(OUTPUT_DELIMITER)[1]);
         String desc = input.split(OUTPUT_DELIMITER)[2];
-
-        System.out.println(task);
 
         Task output = null;
 

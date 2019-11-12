@@ -1,4 +1,4 @@
-package main.Commands;
+package main.commands;
 
 import main.UI;
 

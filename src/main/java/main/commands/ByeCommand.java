@@ -1,6 +1,6 @@
-package main.Commands;
+package main.commands;
 
-import main.Parser;
+import main.parsers.ParserText;
 import main.UI;
 
 public class ByeCommand extends Command<String> {
@@ -12,7 +12,7 @@ public class ByeCommand extends Command<String> {
     @Override
     public void execute(String input) {
         UI.bye();
-        Parser.isTrue = false;
+        ParserText.isTrue = false;
     }
 
 

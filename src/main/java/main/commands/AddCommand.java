@@ -1,7 +1,6 @@
-package main.Commands;
+package main.commands;
 
-import main.Storage;
-import main.TaskLists.Task;
+import main.taskLists.Task;
 import main.UI;
 
 import java.io.IOException;

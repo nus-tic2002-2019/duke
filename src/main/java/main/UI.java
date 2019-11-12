@@ -1,8 +1,6 @@
 package main;
 
-import main.TaskLists.Task;
-
-import java.util.ArrayList;
+import main.taskLists.Task;
 
 import static main.Duke.Tasks;
 
@@ -82,11 +80,11 @@ public class UI{
         UI.line();
         System.out.println("\tHere are the Tasks in your List:");
         int count = 0;
-        for (Object ignored : Tasks) {
+        for (Object input : Tasks) {
             System.out.println( "\t" + (count + 1) + ". " +
-                    Tasks.get(count ));
+                    input.toString());
             count++;
-        }
+    }
         System.out.println("\tNow you have " + count + " tasks in the list.");
         UI.line();
     }

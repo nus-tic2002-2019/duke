@@ -1,2 +1,7 @@
-T|0|save something
-T|0|save something 2
+T|0|read book
+D|0|return book | Junt 6th
+E|0|Project meeting | Aug 6th 2-4pm
+T|0|Join sports club 
+D|0|Finsih duke |2019-11-11
+E|0|do dax |somewhere
+E|0|dax |2019-10-13

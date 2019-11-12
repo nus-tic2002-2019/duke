@@ -1,6 +1,8 @@
-package main.TaskLists;
+package main.taskLists;
 
-public class Task {
+import main.parsers.ParserDate;
+
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 

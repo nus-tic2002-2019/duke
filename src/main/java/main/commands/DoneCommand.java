@@ -1,6 +1,5 @@
-package main.Commands;
+package main.commands;
 
-import main.Commands.Command;
 import main.DukeException;
 import main.UI;
 

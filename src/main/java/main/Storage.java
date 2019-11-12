@@ -2,15 +2,14 @@ package main;
 
 
 
-import main.TaskLists.Task;
+import main.parsers.ParserText;
+import main.taskLists.Task;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import static main.Duke.Tasks;
 
-// TODO Create filepath and implement save and Load features
+
 public class Storage {
 
     private String filepath;
@@ -19,11 +18,13 @@ public class Storage {
     public Storage(String filepath) throws IOException {
         this.filepath = filepath;
 
-
     }
 
-
-    // Creates or Loads Existing File based on file path
+    /**
+     *  Method creates file at specified directory, if it already exists it tries to load its contents to the
+     *  Array List
+     * @throws IOException
+     */
     public void start() throws IOException {
         this.file = new File(filepath);
 
@@ -32,11 +33,14 @@ public class Storage {
         {
             System.out.println("New File is created!");
         } else {
-            //TODO - Create method to load files to ArrayList
             this.load();
         }
     }
 
+    /**
+     *  Loads contents of Text file into ArrayList
+     * @throws IOException
+     */
     public void load() throws IOException {
 
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -46,12 +50,16 @@ public class Storage {
             System.out.println("File is Empty");
         } else {
             while ((read = br.readLine()) != null)
-                Tasks.add(Parser.inputParse(read));
-            System.out.println("Records Loaded to ArrayList");
+                Tasks.add(ParserText.inputParse(read));
+            System.out.println("\tRecords read from file, type 'list' to check them out");
         }
-
 }
 
+    /**
+     *   Method Clears existing data in text file and writes a new set based
+     *   on the current ArrayList
+     * @throws IOException
+     */
     public static void save() throws IOException {
 
         //Delete Existing Content
@@ -64,7 +72,7 @@ public class Storage {
              BufferedWriter buffer = new BufferedWriter(fritter)) {
 
             for (Object input : Tasks) {
-                buffer.write(Parser.outputParse((Task) input));
+                buffer.write(ParserText.outputParse((Task) input));
                 buffer.newLine();
             }
 
