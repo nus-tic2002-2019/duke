@@ -1,15 +1,10 @@
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class ParserTest {
-
     @Test
-    public void parseInputTest1() {
-        Assert.assertEquals("todo","todo homework");
-    }
-
-    @Test
-    public void parseInputTest2() {
-        Assert.assertEquals("events","events meeting /at home");
+    public void parseInputTest() {
+        assertEquals("doAfter", new Parser().parseInput("do HOMEWORK2 After monday"));
     }
 }

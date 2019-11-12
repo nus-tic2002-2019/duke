@@ -47,6 +47,8 @@ public class Storage {
         while ((input = s.readLine()) != null) {
             if (input.charAt(0) == 'T' || input.charAt(0) == 'E' || input.charAt(0) == 'D' || input.charAt(0) == 'A') {
                 char status = input.charAt(3);
+                assert status == '0' || status == '1' : "At this point in time, task status should be either " +
+                        "done(1) or not done(0), please check your task status in Duke.txt again.";
                 switch (Character.toString(input.charAt(0))) {
                     case "T":
                         input = input.substring(6);

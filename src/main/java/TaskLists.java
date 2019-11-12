@@ -104,6 +104,8 @@ public class TaskLists {
      * @return The selected task.
      */
     public String displaySelectedTask(int number) {
+        assert number > 1 : "This selected number must be greater than 1 as the task's list index starts from 1 and " +
+                "there is no negative task number.";
         return list.get(number).getType() + list.get(number).getTaskStatus() + " " + list.get(number).getTask() + " "
                 + list.get(number).getDetails() + "\n";
     }
@@ -182,7 +184,6 @@ public class TaskLists {
         String selectedTask = displaySelectedTask(index);
         list.remove(index);
         return selectedTask;
-
     }
 
     /**
