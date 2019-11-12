@@ -1,6 +1,25 @@
-//level 7
+//level 7.more oop
+
 package task;
 
+public class Todo extends Task {
+
+    private String description;
+
+    public Todo(String description) {
+        super(description);
+        isDone = false;
+    }
+
+    @Override
+    public String toString() {
+
+        return "[T]" + super.toString();
+    }
+
+}
+
+/**
 public class Todo extends Task {
     protected boolean isDone;
 
@@ -28,3 +47,4 @@ public class Todo extends Task {
     }
 
 }
+**/
