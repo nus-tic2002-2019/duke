@@ -1,3 +1,10 @@
+package command;
+
+import task.TaskList;
+import ui.Ui;
+import storage.Storage;
+import others.DukeException;
+
 import java.io.IOException;
 
 public class DeleteCommand extends Command {
@@ -16,7 +23,7 @@ public class DeleteCommand extends Command {
         } else {
             tasks.remove(index);
             storage.save(tasks);
-            ui.print("Yessir! Task removed!!\n\t" + tasks.get(index).getStatusIconAndDesc() + "\n" + (tasks.size() - 1) + " tasks to go!");
+            ui.print("Yessir! task.Task removed!!\n\t" + tasks.get(index).getStatusIconAndDesc() + "\n" + (tasks.size() - 1) + " tasks to go!");
         }
 
     }

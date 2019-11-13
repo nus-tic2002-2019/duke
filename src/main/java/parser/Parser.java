@@ -1,3 +1,15 @@
+package parser;
+
+import command.Command;
+import command.AddCommand;
+import command.DeleteCommand;
+import command.DoneCommand;
+import command.ExitCommand;
+import command.UnknownCommand;
+import command.ViewAllCommand;
+import others.DukeException;
+import others.Utility;
+
 public class Parser {
 
     public static final String KEYWORD_DONE = "done";
@@ -46,24 +58,12 @@ public class Parser {
                 String date = desc.substring(delimiterIndex + 1);
                 desc = desc.substring(0, delimiterIndex).trim();
                 return new AddCommand(keyword, desc, date);
-
             case(KEYWORD_TODO):
                 checkDesc(input, keyword);
                 desc = removeKeyword(input, keyword);
                 return new AddCommand(keyword, desc);
-
-
         }
-
         return new UnknownCommand();
-
-                /*
-
-                    appendToFile(filePath, index + ";" + getInput(toDoList.get(index)));
-
-
-
-                 */
     }
 
     private static String getKeyword(String input) {
@@ -105,8 +105,7 @@ public class Parser {
     private static void checkDesc(String input, String keyword) throws DukeException {
         String desc = removeKeyword(input, keyword);
         if (desc.length() == 0 || desc.charAt(0) == '/') {
-            throw new DukeException("Task description cannot be empty!!");
+            throw new DukeException("task.Task description cannot be empty!!");
         }
     }
-
 }

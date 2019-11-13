@@ -1,4 +1,10 @@
+package others.archive;
 
+import others.DukeException;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
 
 import java.nio.charset.StandardCharsets;
         import java.util.HashMap;
@@ -9,7 +15,6 @@ import java.nio.charset.StandardCharsets;
         import java.nio.file.Files;
         import java.nio.file.Paths;
         import java.nio.file.Path;
-        import java.util.Scanner;
 
 
 public class Duke1 {
@@ -59,7 +64,7 @@ public class Duke1 {
         errList.put("EmptyTaskDesc", "Description cannot be empty >:(");
         errList.put("MissingChar/", "Please enter a date and lead it with \"/\"");
         errList.put("MissingDate", "Please include a date after the \"/\" :)");
-        errList.put("TaskAlrDone", "Task is already done!! D:<");
+        errList.put("TaskAlrDone", "task.Task is already done!! D:<");
         errList.put("TaskNotFound", "No such task here :(");
     }
 
@@ -226,7 +231,7 @@ public class Duke1 {
 
     public static void deleteTask(int index) throws DukeException {
         if (toDoList.size() >= index) {
-            print("Yessir! Task removed!!\n\t" + toDoList.get(index).getStatusIconAndDesc() + "\n" + (toDoList.size()-1) + " tasks to go!");
+            print("Yessir! task.Task removed!!\n\t" + toDoList.get(index).getStatusIconAndDesc() + "\n" + (toDoList.size()-1) + " tasks to go!");
             toDoList.remove(index);
 
         }

@@ -1,3 +1,11 @@
+package command;
+
+import task.TaskList;
+import ui.Ui;
+import storage.Storage;
+import others.DukeException;
+import others.Utility;
+
 import java.io.IOException;
 
 public class DoneCommand extends Command {
@@ -14,7 +22,7 @@ public class DoneCommand extends Command {
             throw new DukeException("Please enter a task number between 1 and " + tasks.size());
         }
         else if (tasks.get(index).getIsDone()) {
-            throw new DukeException("Task is already done!!");
+            throw new DukeException("task.Task is already done!!");
         }
         else {
             tasks.get(index).markAsDone();
