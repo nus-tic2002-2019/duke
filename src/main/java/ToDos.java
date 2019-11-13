@@ -13,9 +13,5 @@ public class ToDos extends Task {
         return "[T]" + super.toString();
     }
 
-    @Override
-    public LocalDate getDate() throws DukeException{
-        throw new DukeException("There is no date for ToDo");
-    }
-
+   
 }

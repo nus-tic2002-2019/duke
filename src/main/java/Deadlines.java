@@ -3,7 +3,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 public class Deadlines extends Task {
-
+    protected LocalDate taskDate;
 
     public Deadlines(String description, LocalDate by) {
         super(description);
@@ -11,7 +11,6 @@ public class Deadlines extends Task {
         taskType = TaskType.DEADLINES;
     }
 
-    @Override
     public LocalDate getDate() throws DukeException{
         return taskDate;
     }

@@ -33,17 +33,19 @@ public class Storage {
         String storingTask;
         switch (task.getTaskType()){
             case EVENTS:
-                storingTask = (task.getTaskIndex()+1) + " | E"
-                        + " | " + (task.getIsDone() ? "1" : "0")
-                        + " | " + task.getTask()
-                        + " | " + task.getDate()
+                Events event = (Events)task;
+                storingTask = (event.getTaskIndex()+1) + " | E"
+                        + " | " + (event.getIsDone() ? "1" : "0")
+                        + " | " + event.getTask()
+                        + " | " + event.getDate()
                         + System.lineSeparator();
                 break;
             case DEADLINES:
-                storingTask = (task.getTaskIndex()+1) + " | D"
-                        + " | " + (task.getIsDone() ? "1" : "0")
-                        + " | " + task.getTask()
-                        + " | " + task.getDate()
+                Deadlines deadlines = (Deadlines)task;
+                storingTask = (deadlines.getTaskIndex()+1) + " | D"
+                        + " | " + (deadlines.getIsDone() ? "1" : "0")
+                        + " | " + deadlines.getTask()
+                        + " | " + deadlines.getDate()
                         + System.lineSeparator();
                 break;
             case TODOS:

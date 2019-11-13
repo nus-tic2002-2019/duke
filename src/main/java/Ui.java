@@ -8,7 +8,9 @@ public class Ui {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo +"What can I do for you?\n");
+        System.out.println("Hello from\n" + logo +
+                "What can I do for you?\n"
+                + "Type \"Help\" for list of helpful commands!\n");
     }
     public static void showLine(){
         System.out.println("_______________________");
@@ -38,9 +40,10 @@ public class Ui {
     }
 
     public static void showAllArrayList(ArrayList<Task> taskList){
-        int i=0;
+        int i=1;
         for(Task task: taskList){
-            System.out.println((i+1) + ". " + task.toString());
+            System.out.println(i + ". Task number: " + task.getTaskIndex()+1 + task.toString());
+            i++;
         }
     }
 

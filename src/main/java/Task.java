@@ -1,10 +1,10 @@
-import java.time.LocalDate;
+
 
 public abstract class Task {
     protected String storeWords;
     protected boolean isDone;
     protected TaskType taskType;
-    protected LocalDate taskDate;
+
     protected int taskIndex;
 
 
@@ -40,9 +40,7 @@ public abstract class Task {
         return " [" + this.getStatusIcon() + "] " + this.getTask();
     }
     public TaskType getTaskType(){ return taskType; }
-    public LocalDate getDate() throws DukeException{
-        throw new DukeException("Abstract class");
-    }
+
 
 
 
