@@ -8,12 +8,6 @@ import DukeItems.Event;
 import DukeItems.Task;
 import DukeItems.Todo;
 import Output.writeToText;
-import Ui.uiDone;
-import Ui.uiList;
-import Ui.uiDelete;
-import Ui.uiTodo;
-import Ui.uiDeadline;
-import Ui.uiEvent;
 
 public class Duke {
 
@@ -32,21 +26,6 @@ public class Duke {
 
         boolean continueInput = true; //flag counter for switch case. If true, switch continues running. Else, abort.
 
-        /*
-            USER INTERACTION:
-
-            save: Writes arraylist of tasks to a txt file.
-            bye: exits application
-            help: lists commands available
-            list: displays arraylist of tasks
-            done: mark a task as done in arraylist
-            delete: delete a task in arraylist
-            tod0: create a task in arraylist
-            deadline: create a task with deadline in arraylist
-            event: create a task with time in arraylist
-
-         */
-
         do {
             String input = read.nextLine();
             String inputCommand = input.split(" ")[0]; //identifies command from first word
@@ -60,32 +39,49 @@ public class Duke {
                     break;
 
                 case "help":
-
-                    Ui.uiHelp.getHelp();
+                    /*
+                        Lists available commands for user.
+                        Reason for implementing this: for future work interviews.
+                     */
+                    System.out.println("[1] todo <task>: Enter a task.");
+                    System.out.println("[2] deadline <task> /by <date>: Enter a task with deadline.");
+                    System.out.println("[3] event <task> /at <time or location>: Enter a task with date or location.");
+                    System.out.println("[4] list: Display all tasks.");
+                    System.out.println("[5] done <enter task number>: Mark a task as done.");
+                    System.out.println("[6] bye: Exit application");
                     break;
 
                 case "list":
                     /*
                         Displays list of saved tasks.
                      */
-                    uiList uilist = new uiList(userList); //initialize
-                    uilist.printList();
+                    System.out.println("__________________________________________________________________");
+                    System.out.println("Your current List of tasks:");
+                    for (int i = 0; i < userList.size(); i++) {
+                        System.out.println( (i+1) + ". " + userList.get(i).toString());
+                    }
+                    System.out.println("__________________________________________________________________");
                     break;
 
                 case "done":
                     /*
-                        Input is split to isolate task number.
-                        Task number passed to doneNum
+                        Marks a task as done.
+                        Input is split to separate task number.
+                        Number passed to doneNum
                         use (doneNum-1) to navigate to respective item in arraylist
                      */
                     try {
                         if (input.equals("done")) {
-                            throw new DukeMainException.invalidInput("Task number required!");
+                            throw new DukeMainException.invalidInput("DukeItems.Task number required!");
                         }
+                        String[] split = input.split(" "); //split input
+                        int doneNum = Integer.parseInt(split[1]); //storing list number
+                        task = userList.get(doneNum - 1);
+                        task.markAsDone();
 
-                        uiDone uidone = new uiDone(userList, input); //initialize
-                        uidone.markDone();
-
+                        System.out.println("__________________________________________________________________");
+                        System.out.println("Done!");
+                        System.out.println("__________________________________________________________________");
                     } catch (DukeMainException.invalidInput e) {
                         e.printStackTrace();
                     }
@@ -94,21 +90,26 @@ public class Duke {
                 case "delete":
                     try {
                         if (input.equals("delete")) {
-                            throw new DukeMainException.invalidInput("Task number required!");
+                            throw new DukeMainException.invalidInput("DukeItems.Task number required!");
                         }
                         String[] split = input.split(" ");
                         int delNum = Integer.parseInt((split[1]));
 
                         if (delNum > userList.size()) {
-                            throw new DukeMainException.invalidInput("Task number does not exist!");
+                            throw new DukeMainException.invalidInput("DukeItems.Task number does not exist!");
                         }
 
                         if (delNum == 0) {
-                            throw new DukeMainException.invalidInput("Task number does not exist!");
+                            throw new DukeMainException.invalidInput("DukeItems.Task number does not exist!");
                         }
 
-                        uiDelete uidelete = new uiDelete(userList, input, delNum);
-                        uidelete.itemDelete();
+                        System.out.println("__________________________________________________________________");
+                        System.out.println("Noted! I've removed this task: " + System.lineSeparator() + userList.get(delNum - 1).toString());
+
+                        userList.remove(delNum - 1);
+
+                        System.out.println("You now have " + userList.size() + " task(s) in the list.");
+                        System.out.println("__________________________________________________________________");
 
                     } catch (DukeMainException.invalidInput e) {
                         e.printStackTrace();
@@ -118,12 +119,14 @@ public class Duke {
                 case "todo":
                     try {
                         if (input.equals("todo")) {
-                            throw new DukeMainException.nullDescription("Task description required!");
+                            throw new DukeMainException.nullDescription("DukeItems.Task description required!");
                         }
-
-                        uiTodo uitodo = new uiTodo(userList, input);
-                        uitodo.addTodo();
-
+                        String todo = input.substring(4);
+                        Todo todoTask = new Todo(todo);
+                        userList.add(todoTask);
+                        System.out.println("__________________________________________________________________");
+                        System.out.println("Okie dokie! DukeItems.Task added: " + System.lineSeparator() + todoTask.toString());
+                        System.out.println("__________________________________________________________________");
                     } catch (DukeMainException.nullDescription e) {
                         e.printStackTrace();
                     }
@@ -143,10 +146,21 @@ public class Duke {
                         if (input.split("/")[1].equals("by")) {
                             throw new DukeMainException.nullDescription("Date required!");
                         }
+                        String[] dsplit = input.split("/");
+                        String deadTask = dsplit[0];
+                        String deadBy = dsplit[1];
 
-                        uiDeadline uideadline = new uiDeadline(userList, input);
-                        uideadline.addDeadline();
+                        deadTask = deadTask.substring(9); //set start of string after "deadline"
+                        deadBy = deadBy.substring(3); //set start of string after "by"
+                        //System.out.println(deadTask); //check
+                        //System.out.println(deadBy); //check
 
+                        Deadline deadline = new Deadline(deadTask, deadBy);
+                        userList.add(deadline);
+
+                        System.out.println("__________________________________________________________________");
+                        System.out.println("Procrastination is forbidden. DukeItems.Deadline added: " + System.lineSeparator() + deadline.toString());
+                        System.out.println("__________________________________________________________________");
 
                     } catch (DukeMainException.nullDescription e) {
                         e.printStackTrace();
@@ -168,9 +182,21 @@ public class Duke {
                             throw new DukeMainException.nullDescription("Time or location required!");
                         }
 
-                        uiEvent uievent = new uiEvent(userList, input);
-                        uievent.addEvent();
+                        String[] esplit = input.split("/");
+                        String eventTask = esplit[0];
+                        String eventAt = esplit[1];
 
+                        eventTask = eventTask.substring(6);
+                        eventAt = eventAt.substring(3);
+                        //System.out.println(deadTask);
+                        //System.out.println(deadBy);
+
+                        Event event = new Event(eventTask, eventAt);
+                        userList.add(event);
+
+                        System.out.println("__________________________________________________________________");
+                        System.out.println("Don't you DARE come late. DukeItems.Event added: " + System.lineSeparator() + event.toString());
+                        System.out.println("__________________________________________________________________");
 
                     } catch (DukeMainException.nullDescription e) {
                         e.printStackTrace();
