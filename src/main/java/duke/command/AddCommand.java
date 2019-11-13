@@ -1,13 +1,13 @@
-package command;
+package duke.command;
 
-import task.TaskList;
-import task.Task;
-import task.Deadline;
-import task.Event;
-import task.ToDo;
-import ui.Ui;
-import storage.Storage;
-import others.Utility;
+import duke.task.TaskList;
+import duke.task.Task;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.ToDo;
+import duke.ui.Ui;
+import duke.storage.Storage;
+import duke.others.Utility;
 
 import java.io.IOException;
 
@@ -40,7 +40,7 @@ public class AddCommand extends Command {
         int index = tasks.size()-1;
         Task task = tasks.get(index);
         storage.append(index + ";" + Utility.constructInput(task));
-        ui.print("New task added: \n\t" + task.getStatusIconAndDesc() + "\n" + (index+1) + " tasks in your list :)");
+        ui.print("New duke.task added: \n\t" + task.getStatusIconAndDesc() + "\n" + (index+1) + " tasks in your list :)");
     }
 
 }

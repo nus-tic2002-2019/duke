@@ -1,9 +1,9 @@
-package command;
+package duke.command;
 
-import task.TaskList;
-import ui.Ui;
-import storage.Storage;
-import others.DukeException;
+import duke.task.TaskList;
+import duke.ui.Ui;
+import duke.storage.Storage;
+import duke.others.DukeException;
 
 import java.io.IOException;
 
@@ -19,11 +19,11 @@ public class DeleteCommand extends Command {
         if (tasks.isEmpty()) {
             throw new DukeException("No outstanding tasks!");
         } else if (tasks.size() <= index) {
-            throw new DukeException("Please enter a task number between 1 and " + tasks.size());
+            throw new DukeException("Please enter a duke.task number between 1 and " + tasks.size());
         } else {
             tasks.remove(index);
             storage.save(tasks);
-            ui.print("Yessir! task.Task removed!!\n\t" + tasks.get(index).getStatusIconAndDesc() + "\n" + (tasks.size() - 1) + " tasks to go!");
+            ui.print("Yessir! duke.task.Task removed!!\n\t" + tasks.get(index).getStatusIconAndDesc() + "\n" + (tasks.size() - 1) + " tasks to go!");
         }
 
     }

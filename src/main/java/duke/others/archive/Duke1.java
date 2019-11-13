@@ -1,10 +1,10 @@
-package others.archive;
+package duke.others.archive;
 
-import others.DukeException;
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.ToDo;
+import duke.others.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
 
 import java.nio.charset.StandardCharsets;
         import java.util.HashMap;
@@ -64,8 +64,8 @@ public class Duke1 {
         errList.put("EmptyTaskDesc", "Description cannot be empty >:(");
         errList.put("MissingChar/", "Please enter a date and lead it with \"/\"");
         errList.put("MissingDate", "Please include a date after the \"/\" :)");
-        errList.put("TaskAlrDone", "task.Task is already done!! D:<");
-        errList.put("TaskNotFound", "No such task here :(");
+        errList.put("TaskAlrDone", "duke.task.Task is already done!! D:<");
+        errList.put("TaskNotFound", "No such duke.task here :(");
     }
 
     public static void echo() throws DukeException{
@@ -144,7 +144,7 @@ public class Duke1 {
             } else if (input.matches("event.*")) {
                 createDeadlineEvent(input, "event");
             }
-            print("New task added: \n\t" + toDoList.get(toDoList.size()-1).getStatusIconAndDesc() + "\n" + toDoList.size() + " tasks in your list :)");
+            print("New duke.task added: \n\t" + toDoList.get(toDoList.size()-1).getStatusIconAndDesc() + "\n" + toDoList.size() + " tasks in your list :)");
 
         } catch(DukeException ex) {
 
@@ -183,7 +183,7 @@ public class Duke1 {
     public static void displayList() {
         String input = "Yessir! Here is the list!\n";
         if (toDoList.isEmpty())
-            input = "No task~ ^o^";
+            input = "No duke.task~ ^o^";
         else {
             for (int i = 0; i < toDoList.size(); ++i) {
                 input += "\t" + (i + 1) + ". " + toDoList.get(i).getStatusIconAndDesc() + "\n";
@@ -195,7 +195,7 @@ public class Duke1 {
     public static void displayList(boolean all) {
         String input = "Yessir! Here is the list!\n";
         if (toDoList.isEmpty()) {
-            input = "No task~ ^o^";
+            input = "No duke.task~ ^o^";
             print(input);
         }
         else {
@@ -220,7 +220,7 @@ public class Duke1 {
             }
             else {
                 toDoList.get(index).markAsDone();
-                String input = "NAISUUUUUUU!!! One task off the list!!\n\t" + toDoList.get(index).getStatusIconAndDesc() + "\n";
+                String input = "NAISUUUUUUU!!! One duke.task off the list!!\n\t" + toDoList.get(index).getStatusIconAndDesc() + "\n";
                 print(input);
             }
         }
@@ -231,7 +231,7 @@ public class Duke1 {
 
     public static void deleteTask(int index) throws DukeException {
         if (toDoList.size() >= index) {
-            print("Yessir! task.Task removed!!\n\t" + toDoList.get(index).getStatusIconAndDesc() + "\n" + (toDoList.size()-1) + " tasks to go!");
+            print("Yessir! duke.task.Task removed!!\n\t" + toDoList.get(index).getStatusIconAndDesc() + "\n" + (toDoList.size()-1) + " tasks to go!");
             toDoList.remove(index);
 
         }

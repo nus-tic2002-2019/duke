@@ -1,10 +1,10 @@
-package command;
+package duke.command;
 
-import task.TaskList;
-import ui.Ui;
-import storage.Storage;
-import others.DukeException;
-import others.Utility;
+import duke.task.TaskList;
+import duke.ui.Ui;
+import duke.storage.Storage;
+import duke.others.DukeException;
+import duke.others.Utility;
 
 import java.io.IOException;
 
@@ -19,15 +19,15 @@ public class DoneCommand extends Command {
             throw new DukeException("No outstanding tasks!");
         }
         else if (tasks.size() <= index) {
-            throw new DukeException("Please enter a task number between 1 and " + tasks.size());
+            throw new DukeException("Please enter a duke.task number between 1 and " + tasks.size());
         }
         else if (tasks.get(index).getIsDone()) {
-            throw new DukeException("task.Task is already done!!");
+            throw new DukeException("duke.task.Task is already done!!");
         }
         else {
             tasks.get(index).markAsDone();
             storage.updateLine(index, index + ";" + Utility.constructInput(tasks.get(index)));
-            ui.print("NAISUUUUUUU!!! One task off the list!!\n\t" + tasks.get(index).getStatusIconAndDesc() + "\n");
+            ui.print("NAISUUUUUUU!!! One duke.task off the list!!\n\t" + tasks.get(index).getStatusIconAndDesc() + "\n");
         }
     }
 }

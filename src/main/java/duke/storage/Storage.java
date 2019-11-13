@@ -1,7 +1,7 @@
-package storage;
+package duke.storage;
 
-import task.TaskList;
-import others.Utility;
+import duke.task.TaskList;
+import duke.others.Utility;
 
 import java.io.File;
 import java.io.FileWriter;

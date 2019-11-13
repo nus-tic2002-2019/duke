@@ -1,14 +1,14 @@
-package parser;
+package duke.parser;
 
-import command.Command;
-import command.AddCommand;
-import command.DeleteCommand;
-import command.DoneCommand;
-import command.ExitCommand;
-import command.UnknownCommand;
-import command.ViewAllCommand;
-import others.DukeException;
-import others.Utility;
+import duke.command.Command;
+import duke.command.AddCommand;
+import duke.command.DeleteCommand;
+import duke.command.DoneCommand;
+import duke.command.ExitCommand;
+import duke.command.UnknownCommand;
+import duke.command.ViewAllCommand;
+import duke.others.DukeException;
+import duke.others.Utility;
 
 public class Parser {
 
@@ -105,7 +105,7 @@ public class Parser {
     private static void checkDesc(String input, String keyword) throws DukeException {
         String desc = removeKeyword(input, keyword);
         if (desc.length() == 0 || desc.charAt(0) == '/') {
-            throw new DukeException("task.Task description cannot be empty!!");
+            throw new DukeException("duke.task.Task description cannot be empty!!");
         }
     }
 }

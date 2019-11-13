@@ -1,8 +1,8 @@
-package command;
+package duke.command;
 
-import task.TaskList;
-import ui.Ui;
-import storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
+import duke.storage.Storage;
 
 public class UnknownCommand extends Command {
     public UnknownCommand() {}

@@ -1,4 +1,4 @@
-package task;
+package duke.task;
 
 public class Task {
     protected String desc;
@@ -9,7 +9,7 @@ public class Task {
         this.desc = desc;
         this.isDone = false;
         this.type = type;
-        //Duke.print("New task added: \n\t" + this.getStatusIconAndDesc() + "\n" + (Duke.toDoListSize()+1) + " tasks in your list :)");
+        //duke.Duke.print("New duke.task added: \n\t" + this.getStatusIconAndDesc() + "\n" + (duke.Duke.toDoListSize()+1) + " tasks in your list :)");
     }
 
     public String getStatusIcon() {

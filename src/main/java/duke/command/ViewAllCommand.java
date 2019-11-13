@@ -1,8 +1,8 @@
-package command;
+package duke.command;
 
-import task.TaskList;
-import ui.Ui;
-import storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
+import duke.storage.Storage;
 
 public class ViewAllCommand extends Command {
     protected boolean viewAll = true;
@@ -19,7 +19,7 @@ public class ViewAllCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         String input = "";
         if (tasks.isEmpty())
-            input = "No task~ ^o^";
+            input = "No duke.task~ ^o^";
         else if (viewAll) {
             input = getAll(tasks);
         }
