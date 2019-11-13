@@ -3,8 +3,6 @@ import java.util.*;
 import DukeTasks.Task;
 import java.io.IOException;
 import DukeExceptions.Exception;
-//import DukeClasses.Deadline;
-
 
 public class Duke {
     public static void main(String[] args) {
@@ -30,10 +28,16 @@ public class Duke {
 					break;
 				} else
 				if (line.contains("delete")){
+					try {
 					Integer result = Integer.parseInt(line.replaceAll("[\\D]", "")) - 1;
 					System.out.println("	Noted. I've removed this task:\n" + "	" + toDoList.get(result).toString() + "\n	Now you have "+(toDoList.size()-1) +" tasks in the list.");
 					toDoList.remove(result);
 					continue;
+					} catch (NumberFormatException nfe){
+						throw new Exception(Exception.Code.EMPTY_DELETE_DESCRIPTION);
+					} catch (IndexOutOfBoundsException ioobe){
+						throw new Exception(Exception.Code.INVALID_TASK_NUMBER);
+					}
 				} else
 				if (line.equals("list")){
 					System.out.println("	Here are the tasks in your list:");
@@ -50,7 +54,7 @@ public class Duke {
 					continue;
 					} catch (NumberFormatException nfe){
 						throw new Exception(Exception.Code.EMPTY_DONE_DESCRIPTION);
-					} catch (NullPointerException npe){
+					} catch (IndexOutOfBoundsException ioobe){
 						throw new Exception(Exception.Code.INVALID_TASK_NUMBER);
 					}
 				} else
