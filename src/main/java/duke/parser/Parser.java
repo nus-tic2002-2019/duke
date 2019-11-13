@@ -105,7 +105,7 @@ public class Parser {
     private static void checkDesc(String input, String keyword) throws DukeException {
         String desc = removeKeyword(input, keyword);
         if (desc.length() == 0 || desc.charAt(0) == '/') {
-            throw new DukeException("duke.task.Task description cannot be empty!!");
+            throw new DukeException("Task description cannot be empty!!");
         }
     }
 }

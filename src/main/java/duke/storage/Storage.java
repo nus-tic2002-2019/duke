@@ -31,10 +31,6 @@ public class Storage {
         return this.data;
     }
 
-    public String getData() {
-        return this.data;
-    }
-
     public void save(TaskList tasks) throws IOException {
         FileWriter writer = new FileWriter(new File(this.path));
         int index = 0;

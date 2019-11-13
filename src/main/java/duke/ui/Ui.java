@@ -9,7 +9,7 @@ public class Ui {
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
-    protected static final String LINE = "__________________________________________________________________________\n";
+    protected static final String LINE = "_________________________________________________________________________\n";
     protected static final String MSG_SHOWEND = "Oyasumi~";
     protected static final String MSG_GREETING = "Harrowwwwwww\nWut iz up?";
     protected static final String MSG_UNKNOWN = "Sorry, I don't understand this :(";

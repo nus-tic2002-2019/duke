@@ -40,7 +40,7 @@ public class AddCommand extends Command {
         int index = tasks.size()-1;
         Task task = tasks.get(index);
         storage.append(index + ";" + Utility.constructInput(task));
-        ui.print("New duke.task added: \n\t" + task.getStatusIconAndDesc() + "\n" + (index+1) + " tasks in your list :)");
+        ui.print("New task added: \n\t" + task.getStatusIconAndDesc() + "\n" + (index+1) + " tasks in your list");
     }
 
 }

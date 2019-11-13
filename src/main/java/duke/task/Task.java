@@ -9,7 +9,6 @@ public class Task {
         this.desc = desc;
         this.isDone = false;
         this.type = type;
-        //duke.Duke.print("New duke.task added: \n\t" + this.getStatusIconAndDesc() + "\n" + (duke.Duke.toDoListSize()+1) + " tasks in your list :)");
     }
 
     public String getStatusIcon() {
