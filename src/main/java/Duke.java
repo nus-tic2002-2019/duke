@@ -29,6 +29,12 @@ public class Duke {
 					System.out.println("	Bye. Hope to see you again soon!");
 					break;
 				} else
+				if (line.contains("delete")){
+					Integer result = Integer.parseInt(line.replaceAll("[\\D]", "")) - 1;
+					System.out.println("	Noted. I've removed this task:\n" + "	" + toDoList.get(result).toString() + "\n	Now you have "+(toDoList.size()-1) +" tasks in the list.");
+					toDoList.remove(result);
+					continue;
+				} else
 				if (line.equals("list")){
 					System.out.println("	Here are the tasks in your list:");
 					for (int a=1; a<i+1;a++){
