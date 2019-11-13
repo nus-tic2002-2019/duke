@@ -22,8 +22,8 @@ public class Events extends Task {
     /**
      * Constructs a event task with description, time and isDone
      */
-    public Events(String description,LocalDateTime at, boolean isDone){
-        super(description,isDone);
+    public Events(String description,LocalDateTime at, boolean isDone,LocalDateTime finishTime){
+        super(description,isDone,finishTime);
         this.at=at;
     }
 

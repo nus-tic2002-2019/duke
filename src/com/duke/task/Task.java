@@ -1,6 +1,7 @@
 package com.duke.task;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * represent a task in the taskList
@@ -9,6 +10,7 @@ public class Task {
     protected String description;
     protected boolean isDone;
     private LocalDateTime taskTime=LocalDateTime.of(2000,1,1,0,0);
+    protected LocalDateTime finishTime;
     private static final String TASK_TYPE="A";
 
     public Task(String description) {
@@ -16,9 +18,16 @@ public class Task {
         this.isDone = false;
     }
 
-    public Task(String description,boolean isDone) {
+    public Task(String description,boolean isDone,LocalDateTime finishTime) {
         this.description = description;
         this.isDone = isDone;
+        if(this.isDone){
+            this.finishTime=finishTime;
+        }
+    }
+
+    public LocalDateTime getFinishTime(){
+        return finishTime;
     }
 
     /**
@@ -26,14 +35,17 @@ public class Task {
      * @return a string icon to display the status
      */
     public String getStatusIcon() {
-        return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
+        return (isDone ? "\u2713"+finishTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"))
+                       : "\u2718"); //return tick or X symbols
     }
 
     /**
      * mask a task as done status.
+     * @param finishTime
      */
-    public void markAsDone(){
+    public void markAsDone(LocalDateTime finishTime){
         isDone=true;
+        this.finishTime=finishTime;
     }
 
     public String getDescription() {

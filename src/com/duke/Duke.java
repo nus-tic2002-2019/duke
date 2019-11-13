@@ -26,8 +26,8 @@ public class Duke {
     }
     public static void main(String[] args) {
         //new Duke("data/tasks.txt").run();
-      //  new Duke("C:\\Users\\RuiTing\\Desktop\\NUS-Module\\Year2-Sem1\\TIC2002-Introductionto Software Engineering\\Duke\\data\\duke.txt").run();
-        new Duke("D:\\NUS-Module\\NUS-Module\\Year2-Sem1\\TIC2002-Introductionto Software Engineering\\Duke\\data\\duke.txt").run();
+        new Duke("C:\\Users\\RuiTing\\Desktop\\NUS-Module\\Year2-Sem1\\TIC2002-Introductionto Software Engineering\\Duke\\data\\duke.txt").run();
+        //new Duke("D:\\NUS-Module\\NUS-Module\\Year2-Sem1\\TIC2002-Introductionto Software Engineering\\Duke\\data\\duke.txt").run();
 
         //original
         /*

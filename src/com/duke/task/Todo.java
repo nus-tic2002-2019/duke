@@ -1,5 +1,7 @@
 package com.duke.task;
 
+import java.time.LocalDateTime;
+
 /**
  * Represent a todoTask
  */
@@ -17,8 +19,8 @@ public class Todo extends Task{
     /**
      * Constructs a todoTask with description and isDone
      */
-    public Todo(String description, boolean isDone) {
-        super(description,isDone);
+    public Todo(String description, boolean isDone, LocalDateTime finishTime) {
+        super(description,isDone,finishTime);
     }
 
     @Override

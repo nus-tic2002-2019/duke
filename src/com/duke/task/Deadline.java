@@ -24,8 +24,8 @@ public class Deadline extends Task{
     /**
      * Constructs a deadline task with description, time and isDone
      */
-    public Deadline(String description, LocalDateTime by, boolean isDone){
-        super(description,isDone);
+    public Deadline(String description, LocalDateTime by, boolean isDone,LocalDateTime finishTime){
+        super(description,isDone,finishTime);
         this.by=by;
     }
 

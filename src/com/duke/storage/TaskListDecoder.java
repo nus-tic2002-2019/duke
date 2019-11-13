@@ -1,9 +1,9 @@
 package com.duke.storage;
 
+import com.duke.common.Utils;
+import com.duke.exception.IllegalValueException;
 import com.duke.task.*;
-import com.duke.exception.*;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -15,17 +15,18 @@ import java.util.regex.Pattern;
 public class TaskListDecoder {
 
 
-    public static final Pattern TODO_TXT_FILE_FORMAT=Pattern.compile("T[|](?<isDone>[01])[|](?<taskDesc>[^|]+)");
+    public static final Pattern TODO_TXT_FILE_FORMAT=Pattern.compile("T[|](?<isDone>[01])[|](?<taskDesc>[^|]+)[|]" +
+                                                                     "(?<finishTime>[^|]*)");
     public static final Pattern DEADLINE_TXT_FILE_FORMAT=Pattern.compile("D[|](?<isDone>[01])" +
                                                                           "[|](?<taskDesc>[^|]+)" +
-                                                                          "[|](?<year>\\d{4})"+"-"+"(?<month>\\d{2})"+
-                                                                          "-"+"(?<day>\\d{2})"+
-                                                                           " "+"(?<hour>\\d{2})(?<minute>\\d{2})");
+                                                                          "[|](?<planTime>[^|]+)[|]"+
+                                                                      "(?<finishTime>[^|]*)");
     public static final Pattern EVENT_TXT_FILE_FORMAT=Pattern.compile("E[|](?<isDone>[01])" +
                                                                        "[|](?<taskDesc>[^|]+)" +
-                                                                       "[|](?<year>\\d{4})"+"-"+"(?<month>\\d{2})"+
-                                                                        "-"+"(?<day>\\d{2})"+
-                                                                        " "+"(?<hour>\\d{2})(?<minute>\\d{2})");
+                                                                       "[|](?<planTime>[^|]+)[|]"+
+                                                                        "(?<finishTime>[^|]*)");
+
+
 
 
     /**
@@ -52,29 +53,31 @@ public class TaskListDecoder {
         final Matcher matcherDeadline = DEADLINE_TXT_FILE_FORMAT.matcher(encodedTask.trim());
         final Matcher matcherEvent = EVENT_TXT_FILE_FORMAT.matcher(encodedTask.trim());
 
+        boolean isDone;
             if (matcherTodo.matches()) {
-                return new Todo(matcherTodo.group("taskDesc"), "1".equals(matcherTodo.group("isDone")));
+                isDone="1".equals(matcherTodo.group("isDone"));
+                return new Todo(matcherTodo.group("taskDesc"), isDone,
+                        isDone? Utils.getDatetimeFromString(matcherTodo.group("finishTime")) : null  );
             } else if (matcherDeadline.matches()) {
+                isDone="1".equals(matcherDeadline.group("isDone"));
                 return new Deadline(matcherDeadline.group("taskDesc"),
-                        LocalDateTime.of(Integer.parseInt(matcherDeadline.group("year")),
-                                        Integer.parseInt(matcherDeadline.group("month")),
-                                        Integer.parseInt(matcherDeadline.group("day")),
-                                        Integer.parseInt(matcherDeadline.group("hour")),
-                                        Integer.parseInt(matcherDeadline.group("minute"))),
-                        "1".equals(matcherDeadline.group("isDone")));
+                         Utils.getDatetimeFromString(matcherDeadline.group("planTime")), isDone,
+                        isDone? Utils.getDatetimeFromString(matcherDeadline.group("finishTime")) : null  );
             }
             else if (matcherEvent.matches()) {
+                isDone="1".equals(matcherEvent.group("isDone"));
                 return new Events(matcherEvent.group("taskDesc"),
-                        LocalDateTime.of(Integer.parseInt(matcherEvent.group("year")),
-                        Integer.parseInt(matcherEvent.group("month")),
-                        Integer.parseInt(matcherEvent.group("day")),
-                        Integer.parseInt(matcherEvent.group("hour")),
-                        Integer.parseInt(matcherEvent.group("minute"))),
-                        "1".equals(matcherEvent.group("isDone")));
+                        Utils.getDatetimeFromString(matcherEvent.group("planTime")), isDone,
+                        isDone? Utils.getDatetimeFromString(matcherEvent.group("finishTime")) : null  );
             }
             else throw new IllegalValueException("No match, please check your txt file format");
 
     }
+
+
+
+
+
 
 
 

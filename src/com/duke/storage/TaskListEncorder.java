@@ -36,10 +36,15 @@ public class TaskListEncorder {
         encodedTaskBuilder.append(task.isDone() ? "1" : "0");
         encodedTaskBuilder.append("|");
         encodedTaskBuilder.append(task.getDescription());
+        encodedTaskBuilder.append("|");
         if(task.getTaskType()=="D"||task.getTaskType()=="E"){
-            encodedTaskBuilder.append("|");
             encodedTaskBuilder.append(task.getTaskTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
+            encodedTaskBuilder.append("|");
         }
+        if(task.isDone()){
+            encodedTaskBuilder.append(task.getFinishTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
+        }
+
 
         return encodedTaskBuilder.toString();
 

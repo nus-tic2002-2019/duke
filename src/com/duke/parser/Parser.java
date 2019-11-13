@@ -1,6 +1,8 @@
 package com.duke.parser;
 
 import com.duke.commands.*;
+import com.duke.common.Utils;
+import com.duke.exception.IllegalValueException;
 import com.duke.task.Deadline;
 import com.duke.task.Events;
 import com.duke.task.Todo;
@@ -46,7 +48,13 @@ public class Parser {
 
 
     public static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    public static final Pattern TASK_DONE_TIME_FORMAT =
+                Pattern.compile("(?<targetIndex>\\d+)"+" on/"
+                        +"(?<year>\\d{4})"+"-"+"(?<month>\\d{2})"+"-"+"(?<day>\\d{2})"
+                        +" "+"(?<hour>\\d{2})(?<minute>\\d{2})");
 
+    public static final Pattern VIEW_DONE_TASK_BY_TIME_FORMAT =
+            Pattern.compile("from/(?<fromTime>[^/]+)"+" to/(?<toTime>[^/]+)");
 
     /**
      * Parses user input into command for execution.
@@ -79,6 +87,8 @@ public class Parser {
                 return prepareDelete(arguments);
             case FindCommand.COMMAND_WORD:
                 return prepareFind(arguments);
+            case ViewDoneCommand.COMMAND_WORD:
+                return prepareViewDone(arguments);
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();
             case ExitCommand.COMMAND_WORD:
@@ -89,6 +99,7 @@ public class Parser {
         }
 
         }
+
 
     /**
      * Parses arguments in the context of the add todotask command.
@@ -150,11 +161,25 @@ public class Parser {
      */
     private Command prepareDone(String args) {
         try {
-            final int targetIndex = parseArgsAsDisplayedIndex(args);
-            return new DoneCommand(targetIndex);
-        }catch (ParseException pe){
-            return new IncorrectCommand("Error");
+         Matcher matcher =TASK_DONE_TIME_FORMAT.matcher(args.trim());
+        if (matcher.matches()) {
+            int targetIndex=Integer.parseInt((matcher.group("targetIndex")));
+            return new DoneCommand(targetIndex,
+                    LocalDateTime.of(Integer.parseInt(matcher.group("year")),
+                                    Integer.parseInt(matcher.group("month")),
+                                    Integer.parseInt(matcher.group("day")),
+                                    Integer.parseInt(matcher.group("hour")),
+                                    Integer.parseInt(matcher.group("minute")))  );
         }
+        else{
+            int targetIndex = parseArgsAsDisplayedIndex(args);
+            return new DoneCommand(targetIndex,LocalDateTime.now());
+        }
+        }catch (ParseException pe){
+            return new IncorrectCommand("This is a incorrect format, " +
+                    " you may type 'help' to see all the commands.");
+        }
+
     }
 
     /**
@@ -189,6 +214,23 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
+    }
+
+
+    private Command prepareViewDone(String args) {
+        try {
+            final Matcher matcher = VIEW_DONE_TASK_BY_TIME_FORMAT.matcher(args.trim());
+            if (!matcher.matches()) {
+                return new IncorrectCommand("This is a incorrect format, " +
+                        " you may type 'help' to see all the commands.");
+            }
+            return new ViewDoneCommand(Utils.getDatetimeFromString(matcher.group("fromTime")),
+                    Utils.getDatetimeFromString(matcher.group("toTime")));
+        }catch (IllegalValueException ive){
+            return new IncorrectCommand("This is a incorrect format, " +
+                    " you may type 'help' to see all the commands.");
+        }
+
     }
 
 
