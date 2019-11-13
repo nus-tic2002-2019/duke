@@ -1,5 +1,10 @@
 package me.chercherlyn.duke.task.tasks;
 
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+
+import me.chercherlyn.duke.DukeException;
 import me.chercherlyn.duke.task.Task;
 
 /**
@@ -7,11 +12,26 @@ import me.chercherlyn.duke.task.Task;
  */
 public class Event extends Task {
     
-    private String timeAt;
+    private ZonedDateTime time;
     
-    public Event(String description, String at) {
+    public Event(String description, String time) {
         super(description);
-        this.timeAt = at;
+    
+        // parse time, using input formatter
+        try {
+            this.time = ZonedDateTime.parse(time, DATETIME_IN_FORMATTER);
+        } catch (Exception ex) {
+            throw new DukeException(String.format(
+                    "Date format should be in format: '%s'",
+                    DATETIME_IN_PATTERN));
+        }
+    }
+    
+    public Event(String description, long timeMillis) {
+        super(description);
+        this.time = ZonedDateTime.ofInstant(
+                Instant.ofEpochMilli(timeMillis),
+                ZoneId.systemDefault());
     }
     
     /**
@@ -19,8 +39,8 @@ public class Event extends Task {
      *
      * @return time
      */
-    public String getTimeAt() {
-        return timeAt;
+    public long getTimeMillis() {
+        return time.toInstant().toEpochMilli();
     }
     
     @Override
@@ -28,6 +48,6 @@ public class Event extends Task {
         return String.format("[E][%s] %s (at: %s)",
                 getStatusIcon(),
                 getDescription(),
-                timeAt);
+                DATETIME_OUT_FORMATTER.format(time));
     }
 }

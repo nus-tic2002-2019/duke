@@ -1,5 +1,10 @@
 package me.chercherlyn.duke.task.tasks;
 
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+
+import me.chercherlyn.duke.DukeException;
 import me.chercherlyn.duke.task.Task;
 
 /**
@@ -7,11 +12,26 @@ import me.chercherlyn.duke.task.Task;
  */
 public class Deadline extends Task {
     
-    private String timeBy;
+    private ZonedDateTime time;
     
-    public Deadline(String description, String by) {
+    public Deadline(String description, String time) {
         super(description);
-        this.timeBy = by;
+        
+        // parse time, using input formatter
+        try {
+            this.time = ZonedDateTime.parse(time, DATETIME_IN_FORMATTER);
+        } catch (Exception ex) {
+            throw new DukeException(String.format(
+                    "Date format should be in format: '%s'",
+                    DATETIME_IN_PATTERN));
+        }
+    }
+    
+    public Deadline(String description, long timeMillis) {
+        super(description);
+        this.time = ZonedDateTime.ofInstant(
+                Instant.ofEpochMilli(timeMillis),
+                ZoneId.systemDefault());
     }
     
     /**
@@ -19,8 +39,8 @@ public class Deadline extends Task {
      *
      * @return time
      */
-    public String getTimeBy() {
-        return timeBy;
+    public long getTimeMillis() {
+        return time.toInstant().toEpochMilli();
     }
     
     @Override
@@ -28,6 +48,6 @@ public class Deadline extends Task {
         return String.format("[D][%s] %s (by: %s)",
                 getStatusIcon(),
                 getDescription(),
-                timeBy);
+                DATETIME_OUT_FORMATTER.format(time));
     }
 }

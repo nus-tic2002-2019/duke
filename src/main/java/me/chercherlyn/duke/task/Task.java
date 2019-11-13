@@ -1,5 +1,8 @@
 package me.chercherlyn.duke.task;
 
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+
 import me.chercherlyn.duke.task.tasks.Deadline;
 import me.chercherlyn.duke.task.tasks.Event;
 import me.chercherlyn.duke.task.tasks.Todo;
@@ -8,6 +11,19 @@ import me.chercherlyn.duke.task.tasks.Todo;
  * Represents a task
  */
 public abstract class Task {
+    
+    protected static final String DATETIME_IN_PATTERN = "dd.MM.yyyy HHmm";
+    protected static final String DATETIME_OUT_PATTERN = "dd.MM.yyyy HH:mm a";
+    
+    protected static final DateTimeFormatter DATETIME_IN_FORMATTER;
+    protected static final DateTimeFormatter DATETIME_OUT_FORMATTER;
+    
+    static {
+        DATETIME_IN_FORMATTER = DateTimeFormatter.ofPattern(DATETIME_IN_PATTERN)
+                .withZone(ZoneId.systemDefault());
+        DATETIME_OUT_FORMATTER = DateTimeFormatter.ofPattern(DATETIME_OUT_PATTERN)
+                .withZone(ZoneId.systemDefault());
+    }
     
     private String description;
     private boolean done;
@@ -82,13 +98,13 @@ public abstract class Task {
                 task.setDone(done);
                 return task;
             case "E":
-                String time = dataArr[3];
-                task = new Event(description, time);
+                long timeMillis = Long.parseLong(dataArr[3]);
+                task = new Event(description, timeMillis);
                 task.setDone(done);
                 return task;
             case "D":
-                time = dataArr[3];
-                task = new Deadline(description, time);
+                timeMillis = Long.parseLong(dataArr[3]);
+                task = new Deadline(description, timeMillis);
                 task.setDone(done);
                 return task;
             default:
@@ -108,15 +124,15 @@ public abstract class Task {
                     task.isDone() ? "1" : "0",
                     task.getDescription());
         } else if (task instanceof Event) {
-            return String.format("E | %s | %s | %s",
+            return String.format("E | %s | %s | %d",
                     task.isDone() ? "1" : "0",
                     task.getDescription(),
-                    ((Event) task).getTimeAt());
+                    ((Event) task).getTimeMillis());
         } else if (task instanceof Deadline) {
-            return String.format("D | %s | %s | %s",
+            return String.format("D | %s | %s | %d",
                     task.isDone() ? "1" : "0",
                     task.getDescription(),
-                    ((Deadline) task).getTimeBy());
+                    ((Deadline) task).getTimeMillis());
         } else throw new IllegalStateException("Uknown task type!");
     }
 }
