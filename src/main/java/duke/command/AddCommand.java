@@ -30,11 +30,9 @@ public class AddCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         if (this.type == "todo") {
             tasks.add(new ToDo(this.desc));
-        }
-        else if (this.type == "event") {
+        } else if (this.type == "event") {
             tasks.add(new Event(this.desc, this.date));
-        }
-        else if (this.type == "deadline") {
+        } else if (this.type == "deadline") {
             tasks.add(new Deadline(this.desc, this.date));
         }
         int index = tasks.size()-1;

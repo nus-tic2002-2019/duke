@@ -18,11 +18,9 @@ public class Utility {
         String input = "";
         if (taskType == "D") {
             input = taskType + ";" + task.getIsDone() + ";" + task.getDesc() + ";" + ((Deadline) task).getDate();
-        }
-        else if (taskType == "E") {
+        } else if (taskType == "E") {
             input = taskType + ";" + task.getIsDone() + ";" + task.getDesc() + ";" + ((Event) task).getDate();
-        }
-        else {
+        } else {
             input = taskType + ";" + task.getIsDone() + ";" + task.getDesc() + ";";
         }
         return input;

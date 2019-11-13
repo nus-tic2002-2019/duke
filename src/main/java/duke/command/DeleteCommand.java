@@ -25,6 +25,5 @@ public class DeleteCommand extends Command {
             ui.print("Yessir! Task removed!!\n\t"
                     + tasks.get(index).getStatusIconAndDesc() + "\n" + (tasks.size() - 1) + " tasks to go!");
         }
-
     }
 }

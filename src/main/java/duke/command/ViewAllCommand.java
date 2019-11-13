@@ -6,11 +6,9 @@ import duke.storage.Storage;
 
 public class ViewAllCommand extends Command {
     protected boolean viewAll = true;
-
     protected static final String LIST_HEADER = "Yessir! Here is the list!\n";
 
     public ViewAllCommand() {
-
     }
 
     public ViewAllCommand(boolean status) {
@@ -19,12 +17,11 @@ public class ViewAllCommand extends Command {
 
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         String input = "";
-        if (tasks.isEmpty())
+        if (tasks.isEmpty()) {
             input = "No duke.task~ ^o^";
-        else if (viewAll) {
+        } else if (viewAll) {
             input = getAll(tasks);
-        }
-        else if (!viewAll) {
+        } else if (!viewAll) {
             input = getPending(tasks);
         }
         ui.print(input);
@@ -40,12 +37,11 @@ public class ViewAllCommand extends Command {
 
     private String getPending(TaskList tasks) {
         String input = LIST_HEADER;
-        for(int i = 0; i < tasks.size(); ++i) {
+        for (int i = 0; i < tasks.size(); ++i) {
             if (!tasks.get(i).getIsDone()) {
                 input += "\t" + (i+1) + ". "+ tasks.get(i).getStatusIconAndDesc() + "\n";
             }
         }
         return input;
     }
-
 }

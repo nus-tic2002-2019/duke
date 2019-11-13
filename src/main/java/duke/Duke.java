@@ -20,12 +20,10 @@ public class Duke {
 
         try {
             tasks = new TaskList(storage.load());
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             ui.print("No existing To Do List. Generating a new one :)");
             tasks = new TaskList();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             ui.print("Unable to read specific lines in data.txt file");
         }
     }

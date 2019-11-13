@@ -25,7 +25,7 @@ public class Storage {
     public String load() throws FileNotFoundException {
         File f = new File(this.path);
         Scanner s = new Scanner(f);
-        while(s.hasNext()) {
+        while (s.hasNext()) {
             this.data = this.data + s.nextLine() + System.lineSeparator();
         }
         return this.data;

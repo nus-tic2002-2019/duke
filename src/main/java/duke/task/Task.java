@@ -12,10 +12,11 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        if(isDone)
+        if (isDone) {
             return "\u2713";
-        else
+        } else {
             return "\u2718";
+        }
     }
 
     public String getDesc() {
@@ -41,5 +42,4 @@ public class Task {
     public String getType() {
         return this.type;
     }
-
 }

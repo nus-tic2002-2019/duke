@@ -38,16 +38,14 @@ public class Parser {
                 parameter = removeKeyword(input, KEYWORD_DONE);
                 if (Utility.isNumber(parameter)) {
                     return new DoneCommand( Integer.parseInt(parameter) - 1);
-                }
-                else {
+                } else {
                     throw new DukeException(ERR_NOT_A_INT);
                 }
             case(KEYWORD_DELETE):
                 parameter = removeKeyword(input, KEYWORD_DELETE);
                 if (Utility.isNumber(parameter)) {
                     return new DeleteCommand( Integer.parseInt(parameter) - 1);
-                }
-                else {
+                } else {
                     throw new DukeException(ERR_NOT_A_INT);
                 }
             case(KEYWORD_DEADLINE):
