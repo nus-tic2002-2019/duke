@@ -1,9 +1,8 @@
 import java.util.*;
+import java.io.IOException;
 
 public class DukeException extends Exception {
-    public DukeException(String errMsg) {
-        //super(errMsg);
-        System.out.println("OPPS! " + errMsg);
-        System.out.println("__________________________________________________________________________\n");
+    public DukeException(String err) {
+        super(err);
     }
 }
