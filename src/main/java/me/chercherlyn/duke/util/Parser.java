@@ -26,6 +26,7 @@ public class Parser {
         this.commandMap.put("event", new CmdEvent(ui, tasks, storage));
         this.commandMap.put("list", new CmdList(ui, tasks, storage));
         this.commandMap.put("todo", new CmdTodo(ui, tasks, storage));
+        this.commandMap.put("find", new CmdFind(ui, tasks, storage));
     }
     
     /**
