@@ -18,8 +18,10 @@ public class UI {
         System.out.println("To add a new deadline task, please input : deadline <taskname> /by yyyy-mm-dd");
         System.out.println("To add a new event task, please input: event <taskname> /at yyyy-mm-dd");
         System.out.println("To add a recurring event task, please input: event <taskname> /at yyyy-mm-dd /repeat <no. of days in between> /times <no. of times>");
+        System.out.println("To add a recurring deadline task, please input: deadline <taskname> /by yyyy-mm-dd /repeat <no. of days in between> /times <no. of times>");
         System.out.println("To print out task list, please input: list ");
         System.out.println("To delete, please input: delete <task number> e.g. delete 2");
+
     }
      public void printTaskList(int count, TaskList line) {
          System.out.println("_______________________________________________");

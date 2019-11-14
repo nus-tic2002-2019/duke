@@ -18,7 +18,12 @@ public class Deadline extends Task{
         //to ensure that the event date is in the future
         assert this.by.compareTo(LocalDate.now()) > 0 : "Cannot put deadline in the past";
     }
+    public Deadline (String taskName, boolean taskDone, LocalDate date) {
+        super(taskName, taskDone); // calls the parent constructor
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+        by = date;
 
+    }
     /***
      * default constructor
      */

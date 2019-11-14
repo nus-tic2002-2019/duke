@@ -40,17 +40,40 @@ public class Parser {
 
                 }
                 else if (arrOfString[0].equals("deadline")) {
-                    if(arrOfString.length < 2) {
+                    if (arrOfString.length < 2) {
                         throw new EmptyDescriptionException("Oops. The description of a deadline cannot be empty");
                     }
-                    String replaceString = input.replace("deadline ","");
-                    String [] splitBy = replaceString.split(" /by ");
-                    if(splitBy.length < 2) {
-                        throw new EmptyDescriptionException("Oops. The date of a event cannot be empty");
+                    String replaceString = input.replace("deadline ", "");
+                    String[] splitBy = replaceString.split(" /by ");
+                    if (splitBy.length < 2) {
+                        throw new EmptyDescriptionException("Oops. The date of a deadline cannot be empty");
                     }
-                    line.newDeadlineTask(splitBy[0], false, splitBy[1]);
-                    ui.printDeadline(line, line.getCount()-1);
-                    storage.save("listData.txt", line);
+                    String[] repeatChunk = splitBy[1].split("/repeat");
+                    if (repeatChunk.length == 1) {
+                        if (replaceString.contains("/repeat")) {
+                            throw new EmptyDescriptionException("Oops. Please place the amount of days between each repeated event. e.g. /repeat");
+                        }
+                        line.newDeadlineTask(splitBy[0], false, splitBy[1]);
+                        ui.printDeadline(line, line.getCount() - 1);
+                        storage.save("listData.txt", line);
+                    } else {
+                        String[] timesChunk = repeatChunk[1].split("/times");
+                        if (timesChunk.length == 1) {
+                            throw new EmptyDescriptionException("Oops. Please place number of times event is to be repeated. e.g. /times");
+                        }
+                        String daysString = timesChunk[0].trim();
+                        int days = Integer.parseInt(daysString); // get number of days
+                        String timesString = timesChunk[1].trim();
+                        int times = Integer.parseInt(timesString);
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+                        LocalDate date = LocalDate.parse(repeatChunk[0].trim(), formatter);
+                        for (int i = 0; i < times; i++) {
+                            line.newDeadlineTask(splitBy[0], false, date);
+                            date = date.plusDays(days);
+                            ui.printDeadline(line, line.getCount() - 1);
+                        }
+                        storage.save("listData.txt", line);
+                    }
                 }
 
                 else if (arrOfString[0].equals("event")) {

@@ -50,7 +50,11 @@ public class TaskList implements Serializable{
         line.add(d);
         count++;
     }
-
+    public void newDeadlineTask(String name, boolean done, LocalDate date) {
+        Deadline d = new Deadline(name, false, date);
+        line.add(d);
+        count ++;
+    }
     /***
      * create new event task
      * @param name
@@ -67,6 +71,7 @@ public class TaskList implements Serializable{
         line.add(e);
         count ++;
     }
+
     /***
      * remove task from task list
      * @param index
