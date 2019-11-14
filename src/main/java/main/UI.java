@@ -63,7 +63,7 @@ public class UI {
     public static void listTasks() {
         UI.line();
         int count = 0;
-        if (Tasks.size() > 0){
+        if (Tasks.size() > 0) {
             System.out.println("\tHere are the Tasks in your List:");
             for (Object input : Tasks) {
                 System.out.println("\t" + (count + 1) + ". " +
@@ -80,15 +80,15 @@ public class UI {
 
     public static void listTasks(Set<Task> seached_set) {
         UI.line();
-        if (seached_set.size() > 0){
+        if (seached_set.size() > 0) {
             System.out.println("\tHere are the matching tasks in your list:");
             int count = 1;
-            for (Task element : seached_set){
+            for (Task element : seached_set) {
                 System.out.println("\t" + (count + 1) + ". " +
                         element.toString());
                 count++;
             }
-        } else{
+        } else {
             System.out.println("\tOh, Nothing matches that description.");
         }
 
@@ -98,6 +98,12 @@ public class UI {
     public static void clear() {
         UI.line();
         System.out.println("\tI've cleared all your tasks!");
+        UI.line();
+    }
+
+    public static void archived(String s) {
+        UI.line();
+        System.out.println("\tCurrent Tasks have been saved to '" + s + "'");
         UI.line();
     }
 

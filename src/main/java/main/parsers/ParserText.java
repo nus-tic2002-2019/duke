@@ -56,11 +56,15 @@ public class ParserText<T> {
                 new ClearCommand();
                 break;
 
+            case "SAVE":
+                new ArchiveCommand();
+                break;
+
             case "FIND":
-                try{
+                try {
                     new FindCommand(input.split(INPUT_DELIMITER, 2)[1]);
-                } catch (ArrayIndexOutOfBoundsException e){
-                    System.out.println("\t☹ OOPS!!! I can't search the unseachable!");
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("\t☹ OOPS!!! I can't search the UnSearchable!");
                 }
 
                 break;

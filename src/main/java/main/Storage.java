@@ -1,10 +1,13 @@
 package main;
 
 
+import main.commands.ClearCommand;
 import main.parsers.ParserText;
 import main.taskLists.Task;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static main.Duke.Tasks;
 
@@ -19,33 +22,6 @@ public class Storage {
 
     }
 
-    /**
-     * Method Clears existing data in text file and writes a new set based
-     * on the current ArrayList
-     *
-     * @throws IOException
-     */
-    public static void save() throws IOException {
-
-        //Delete Existing Content
-        PrintWriter writer = new PrintWriter(file);
-        writer.print("");
-        writer.close();
-
-        //Write Content
-        try (FileWriter fritter = new FileWriter(file, true);
-             BufferedWriter buffer = new BufferedWriter(fritter)) {
-
-            for (Object input : Tasks) {
-                buffer.write(ParserText.outputParse((Task) input));
-                buffer.newLine();
-            }
-
-        } catch (IOException e) {
-            System.err.format("IOException: %s%n", e);
-        }
-
-    }
 
     /**
      * Method creates file at specified directory, if it already exists it tries to load its contents to the
@@ -82,5 +58,60 @@ public class Storage {
             System.out.println("\tRecords read from file, type 'list' to check them out");
         }
     }
+
+    /**
+     *  Archives current list of tasks into a Dated file
+     */
+    public static void archive() throws IOException, DukeException {
+
+        Date date = new Date() ;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss") ;
+        File file = new File("C:\\Users\\yralle.lesly.gimpaya\\Desktop\\duke\\src\\data\\tasks_" + dateFormat.format(date) + ".txt") ;
+        BufferedWriter out = new BufferedWriter(new FileWriter(file));
+        writeToFile(out);
+
+    }
+
+
+    /**
+     *  Utility Function to Copy Contents to a specified file
+     * @param
+     */
+    private static void writeToFile(BufferedWriter buffer) throws IOException {
+
+        for (Object input : Tasks) {
+            buffer.write(ParserText.outputParse((Task) input));
+            buffer.newLine();
+        }
+        buffer.close();
+
+    }
+
+    /**
+     * Method Clears existing data in text file and writes a new set based
+     * on the current ArrayList
+     *
+     * @throws IOException
+     */
+    public static void save() throws IOException {
+
+        //Delete Existing Content
+        PrintWriter writer = new PrintWriter(file);
+        writer.print("");
+        writer.close();
+
+        //Write Content
+        try (FileWriter fritter = new FileWriter(file, true);
+             BufferedWriter buffer = new BufferedWriter(fritter)) {
+
+           writeToFile(buffer);
+
+        } catch (IOException e) {
+            System.err.format("IOException: %s%n", e);
+        }
+
+    }
+
+
 
 }

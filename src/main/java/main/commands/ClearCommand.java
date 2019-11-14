@@ -3,8 +3,9 @@ package main.commands;
 import main.DukeException;
 import main.UI;
 
-import static main.Duke.Tasks;
 import java.io.IOException;
+
+import static main.Duke.Tasks;
 
 public class ClearCommand extends Command {
 
