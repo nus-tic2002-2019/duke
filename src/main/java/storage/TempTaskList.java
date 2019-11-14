@@ -22,8 +22,10 @@ public class TempTaskList {
     public int size() {
         return list.size();
     }
+    public void delete(int index){
+        list.remove(index);
+    }
     public void print(){
         ui.printTaskList(list);
     }
-
 }

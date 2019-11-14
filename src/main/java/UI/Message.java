@@ -1,5 +1,6 @@
 package UI;
 
+import storage.TempTaskList;
 import task.Task;
 
 import java.io.*;
@@ -54,6 +55,13 @@ public class Message {
         System.out.println("\tNice! I've marked this task as done: ");
         System.out.println("\t  " + task);
     }
+
+    public void markDelete (TempTaskList list, Task task) {
+        System.out.println("\tNoted. I've removed this task:");
+        System.out.println("\t  " + task);
+        System.out.printf("\tNow you have %d tasks in the list.", list.size());
+    }
+
     public void dlInvalidFormatMessage () {
         System.out.println("\t☹ OOPS!!! Separate content and date with \" /by \" ");
     }

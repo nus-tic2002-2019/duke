@@ -34,6 +34,14 @@ public class CommandList {
                 file.write(list);
             }
         } );
+
+        keywords.put("delete", new Command() {
+            public void run(String content) throws Exception {
+                cmdDelete(content, list);
+                file.write(list);
+            }
+        } );
+
         keywords.put("todo", new Command() {
             public void run(String content) {
                 try{
@@ -124,6 +132,24 @@ public class CommandList {
             ui.doneValidTaskNoMessage();
         }
     }
+
+    private void cmdDelete(String content, TempTaskList list) throws Exception {
+        try {
+            int listIndex = Integer.parseInt(content) - 1;
+            if (listIndex < 0 || listIndex > list.size()) {
+                throw new IndexOutOfBoundsException();
+            }
+            Task deletedTask = list.get(listIndex);
+            list.delete(listIndex);
+            ui.markDelete(list, deletedTask);
+
+        } catch (NumberFormatException e) {
+            ui.doneTaskNoMessage();
+        } catch (IndexOutOfBoundsException e) {
+            ui.doneValidTaskNoMessage();
+        }
+    }
+
     private void cmdTodo(String content, TempTaskList list) throws DukeException {
         //String content = removeKeyword(userInput);
 
