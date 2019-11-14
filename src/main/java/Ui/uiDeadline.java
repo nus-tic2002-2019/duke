@@ -10,7 +10,7 @@ public class uiDeadline {
     protected ArrayList<Task> userList;
     protected String input;
     Task task = null;
-    uiTimeParser DateTimeParser = null;
+    uiDateTimeParser DateTimeParser = null;
 
 
     public uiDeadline(ArrayList<Task> userList, String input){
@@ -26,9 +26,9 @@ public class uiDeadline {
         deadTask = deadTask.substring(9); //set start of string after "deadline"
         deadBy = deadBy.substring(3); //set start of string after "by"
 
-        DateTimeParser = new uiTimeParser(deadBy);
+        DateTimeParser = new uiDateTimeParser(deadBy);
 
-        Deadline deadline = new Deadline(deadTask, DateTimeParser.uiDateTimeParser());
+        Deadline deadline = new Deadline(deadTask, DateTimeParser.uiDateParser());
         userList.add(deadline);
 
         System.out.println("__________________________________________________________________");

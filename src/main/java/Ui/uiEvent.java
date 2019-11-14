@@ -9,6 +9,7 @@ public class uiEvent {
     protected ArrayList<Task> userList;
     protected String input;
     Task task = null;
+    uiDateTimeParser DateTimeParser = null;
 
     public uiEvent(ArrayList<Task> userList, String input){
         this.userList = userList;
@@ -22,10 +23,10 @@ public class uiEvent {
 
         eventTask = eventTask.substring(6);
         eventAt = eventAt.substring(3);
-        //System.out.println(deadTask);
-        //System.out.println(deadBy);
 
-        Event event = new Event(eventTask, eventAt);
+        DateTimeParser = new uiDateTimeParser(eventAt);
+
+        Event event = new Event(eventTask, DateTimeParser.uiDateTimeParser());
         userList.add(event);
 
         System.out.println("__________________________________________________________________");
