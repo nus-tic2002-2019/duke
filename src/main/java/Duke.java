@@ -18,6 +18,23 @@ public class Duke {
     //}
 
     static String horizontal_line = ("____________________________________\n");
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+/*
+    public Duke(String filePath) {
+        ui = new Ui();
+       // storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load(filePath));
+            ui.showLoadingError();
+            tasks = new TaskList();
+        } catch (DukeException | IOException | ClassNotFoundException e) {
+            System.out.println("File not found");
+        }
+    }
+
+*/
 
     //Printing ArrayList from the File -- List Options
     private static void OpenFile (String FilePath) throws FileNotFoundException {
@@ -157,8 +174,9 @@ public class Duke {
              else if ((line.toLowerCase().substring(0,4)).equals("done")){
                  try {
                      int position = Integer.parseInt(line.substring(5));
-                     myArr_list.get(position-1).setDone();
+                    // (myArr_list.get(position-1)).setDone();
                      myArr_list.add(myArr_list.get(position-1));
+                     myArr_list.get(myArr_list.size()-1).setDone();
                      myArr_list.remove(position-1);
 
                      try {
