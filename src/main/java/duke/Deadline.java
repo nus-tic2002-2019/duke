@@ -15,7 +15,9 @@ public class Deadline extends Task{
         super(taskName, taskDone); // calls the parent constructor
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
         this.by = LocalDate.parse(by, formatter);
-        }
+        //to ensure that the event date is in the future
+        assert this.by.compareTo(LocalDate.now()) > 0 : "Cannot put deadline in the past";
+    }
 
     /***
      * default constructor
@@ -50,7 +52,7 @@ public class Deadline extends Task{
      * @throws IOException
      */
     public void read(BufferedReader fileRead) throws IOException {
-        super.read(fileRead);
+          super.read(fileRead);
         String date = fileRead.readLine();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
         this.by = LocalDate.parse(date, formatter);

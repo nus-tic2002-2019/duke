@@ -73,6 +73,9 @@ public class TaskList implements Serializable{
      * @return
      */
     public Task removeTask(int index) {
+        //to ensure that the event date is in the future
+        assert index > 0 : "Cannot delete negative index";
+        assert index <= count:"Cannot choose a number more than number of tasks";
         count --;
         return line.remove(index-1);
 

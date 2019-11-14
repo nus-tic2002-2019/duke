@@ -15,6 +15,8 @@ public class Event extends Task{
             super(taskName, taskDone); // calls the parent constructor
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
             this.at = LocalDate.parse(at, formatter);
+            //to ensure that the event date is in the future
+            assert this.at.compareTo(LocalDate.now()) > 0 : "Cannot put event in the past";
 
         }
     public Event (String taskName, boolean taskDone, LocalDate date) {
