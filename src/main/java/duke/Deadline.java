@@ -4,23 +4,23 @@ import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /***
  * class created to store deadline tasks
  */
 public class Deadline extends Task{
-    protected LocalDate by;
+    protected LocalDateTime by;
     public Deadline (String taskName, boolean taskDone, String by) {
         super(taskName, taskDone); // calls the parent constructor
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
-        this.by = LocalDate.parse(by, formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d hh:mma");
+        this.by = LocalDateTime.parse(by, formatter);
         //to ensure that the event date is in the future
-        assert this.by.compareTo(LocalDate.now()) > 0 : "Cannot put deadline in the past";
+        assert this.by.compareTo(LocalDateTime.now()) > 0 : "Cannot put deadline in the past";
     }
-    public Deadline (String taskName, boolean taskDone, LocalDate date) {
+    public Deadline (String taskName, boolean taskDone, LocalDateTime date) {
         super(taskName, taskDone); // calls the parent constructor
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
         by = date;
 
     }
@@ -36,7 +36,7 @@ public class Deadline extends Task{
      * @return
      */
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a");
         return "[D]" + super.toString() + " (by: "+ by.format(formatter) + ")";
     }
 
@@ -48,7 +48,8 @@ public class Deadline extends Task{
     public void write(FileWriter storage) throws IOException {
         storage.write("D\n"); //to represent as todo
         super.write(storage);
-        storage.write(by + "\n");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d HH:mma");
+        storage.write(by.format(formatter) + "\n");
     }
 
     /***
@@ -59,8 +60,8 @@ public class Deadline extends Task{
     public void read(BufferedReader fileRead) throws IOException {
           super.read(fileRead);
         String date = fileRead.readLine();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
-        this.by = LocalDate.parse(date, formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d HH:mma");
+        this.by = LocalDateTime.parse(date, formatter);
     }
 
     }

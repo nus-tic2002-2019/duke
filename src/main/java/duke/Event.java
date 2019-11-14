@@ -4,24 +4,25 @@ import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /***
  * class created to store event tasks
  */
 public class Event extends Task{
-        protected LocalDate at;
+        protected LocalDateTime at;
         public Event (String taskName, boolean taskDone, String at) {
             super(taskName, taskDone); // calls the parent constructor
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
-            this.at = LocalDate.parse(at, formatter);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d hh:mma");
+            this.at = LocalDateTime.parse(at, formatter);
             //to ensure that the event date is in the future
-            assert this.at.compareTo(LocalDate.now()) > 0 : "Cannot put event in the past";
+            assert this.at.compareTo(LocalDateTime.now()) > 0 : "Cannot put event in the past";
 
         }
-    public Event (String taskName, boolean taskDone, LocalDate date) {
+    public Event (String taskName, boolean taskDone, LocalDateTime date) {
         super(taskName, taskDone); // calls the parent constructor
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d hh:mma");
         at = date;
 
     }
@@ -37,7 +38,7 @@ public class Event extends Task{
      * @return
      */
     public String toString() {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy"); //changing to format
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"); //changing to format
             return "[E]" + super.toString() + " (at: "+ at.format(formatter) + ")";
         }
 
@@ -49,7 +50,8 @@ public class Event extends Task{
     public void write(FileWriter storage) throws IOException {
         storage.write("E\n"); //to represent as todo
         super.write(storage);
-        storage.write(at + "\n");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d hh:mma"); //to format date to save file
+        storage.write(at.format(formatter) + "\n");
     }
 
     /***
@@ -60,8 +62,8 @@ public class Event extends Task{
     public void read(BufferedReader fileRead) throws IOException {
         super.read(fileRead);
         String date = fileRead.readLine();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
-        this.at = LocalDate.parse(date, formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d hh:mma");
+        this.at = LocalDateTime.parse(date, formatter);
     }
 
 }

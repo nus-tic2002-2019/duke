@@ -2,6 +2,7 @@ package duke;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -65,8 +66,8 @@ public class Parser {
                         int days = Integer.parseInt(daysString); // get number of days
                         String timesString = timesChunk[1].trim();
                         int times = Integer.parseInt(timesString);
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
-                        LocalDate date = LocalDate.parse(repeatChunk[0].trim(), formatter);
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d HH:mma");
+                        LocalDateTime date = LocalDateTime.parse(repeatChunk[0].trim(), formatter);
                         for (int i = 0; i < times; i++) {
                             line.newDeadlineTask(splitBy[0], false, date);
                             date = date.plusDays(days);
@@ -102,8 +103,8 @@ public class Parser {
                         int days = Integer.parseInt(daysString); // get number of days
                         String timesString = timesChunk[1].trim();
                         int times = Integer.parseInt(timesString);
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
-                        LocalDate date = LocalDate.parse(repeatChunk[0].trim(), formatter);
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d hh:mma");
+                        LocalDateTime date = LocalDateTime.parse(repeatChunk[0].trim(), formatter);
                         for(int i =0; i<times; i++) {
                             line.newEventTask(splitAt[0], false, date);
                              date= date.plusDays(days);

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /***
@@ -50,7 +51,7 @@ public class TaskList implements Serializable{
         line.add(d);
         count++;
     }
-    public void newDeadlineTask(String name, boolean done, LocalDate date) {
+    public void newDeadlineTask(String name, boolean done, LocalDateTime date) {
         Deadline d = new Deadline(name, false, date);
         line.add(d);
         count ++;
@@ -66,7 +67,7 @@ public class TaskList implements Serializable{
         line.add(e);
         count ++;
     }
-    public void newEventTask(String name, boolean done, LocalDate date) {
+    public void newEventTask(String name, boolean done, LocalDateTime date) {
         Event e = new Event(name, false, date);
         line.add(e);
         count ++;
