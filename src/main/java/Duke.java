@@ -39,8 +39,7 @@ public class Duke{
                 printTasks(Tasks);
             } else {  
                 if ( index < 100 ){
-                    Todo t = new Todo(line);
-                    Tasks[index] = t;
+                    Tasks[index] = new Todo(line);
                     index += 1;
                     response("added:" + line);
                 } else {
