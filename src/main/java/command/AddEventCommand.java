@@ -35,7 +35,7 @@ public class AddEventCommand extends Command {
             input = input.replace("event", "");
         }
         else{
-            input = input.replace("d", "");
+            input = input.replaceFirst("e", "");
         }
         int position = input.indexOf("/at");
 

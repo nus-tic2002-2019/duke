@@ -23,7 +23,7 @@ public class Ui {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         showLine();
-        System.out.println("Hello! I'm basic.Duke\nWhat can I do for you?");
+        System.out.println("Hello! I'm Duke\nWhat can I do for you?");
         showLine();
     }
 

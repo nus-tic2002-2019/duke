@@ -2,6 +2,9 @@ package basic;
 
 import command.Command;
 
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
+
 
 /**
  * Runs basic.Duke program as long as isExit is false
@@ -13,13 +16,13 @@ public class Duke {
     private TaskList tasks;
     private Storage storage;
 
-    Duke() {
+    Duke() throws FileNotFoundException, UnsupportedEncodingException {
         ui = new Ui();
         storage = new Storage();
         tasks = new TaskList(storage.load());
     }
 
-    private void run() {
+    private void run() throws FileNotFoundException, UnsupportedEncodingException {
         storage.load();
         ui.showWelcome();
         boolean isExit = false;
@@ -36,7 +39,7 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
         new Duke().run();
     }
 

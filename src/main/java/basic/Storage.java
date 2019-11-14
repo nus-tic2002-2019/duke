@@ -18,13 +18,22 @@ public class Storage {
     /**
      * Loads the {@code basic.Duke} data from this storage file, and then returns it.
      */
-    ArrayList<String> load() {
+    ArrayList<String> load() throws FileNotFoundException, UnsupportedEncodingException {
         List<String> lines = Collections.emptyList();
-        try {
-            lines =
-                    Files.readAllLines(Paths.get("C:/Users/HUI YUAN-USER/Desktop/TIC2002/duke-master/duke/data/duke.txt"), StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            e.printStackTrace();
+        Boolean isFileCreated = false;
+        while (isFileCreated == false) {
+
+            try {
+                isFileCreated = true;
+                lines =
+                        Files.readAllLines(Paths.get(System.getProperty("user.dir") + "/duke.txt"), StandardCharsets.UTF_8);
+            } catch (IOException e) {
+                isFileCreated = true;
+                PrintWriter writer = new PrintWriter(System.getProperty("user.dir") + "/duke.txt", "UTF-8");
+                writer.println("The first line");
+                writer.println("The second line");
+                writer.close();
+            }
         }
         return new ArrayList<String>(lines);
     }
@@ -36,7 +45,7 @@ public class Storage {
      */
     void save(ArrayList<Task> txt) {
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream("C:/Users/HUI YUAN-USER/Desktop/TIC2002/duke-master/duke/data/duke.txt"), StandardCharsets.UTF_8))) {
+                new FileOutputStream(System.getProperty("user.dir")+"/duke.txt"), StandardCharsets.UTF_8))) {
             for (Task task : txt) {
                 writer.write(task.toString());
                 writer.write("\n");

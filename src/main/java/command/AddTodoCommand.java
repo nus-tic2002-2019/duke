@@ -36,7 +36,7 @@ public class AddTodoCommand extends Command {
             input = input.replace("todo", "");
         }
         else{
-            input = input.replace("d", "");
+            input = input.replaceFirst("t", "");
         }
         if (input.equals("") || input.equals(" ")) {
             throw new EmptyException("a todo");

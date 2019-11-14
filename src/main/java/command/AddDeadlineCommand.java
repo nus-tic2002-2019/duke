@@ -36,7 +36,7 @@ public class AddDeadlineCommand extends Command {
             input = input.replace("deadline", "");
         }
         else{
-            input = input.replace("d", "");
+            input = input.replaceFirst("d", "");
         }
         int position = input.indexOf("/by");
         if (input.substring(0, position - 1).equals("") || input.substring(0, position - 1).equals(" ")) {
