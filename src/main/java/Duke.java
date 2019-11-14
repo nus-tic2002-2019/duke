@@ -1,5 +1,7 @@
 import java.awt.*;
+import java.lang.module.FindException;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 
 public class Duke {
     public static void main(String[] args) {
@@ -17,22 +19,24 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         while(true) {
             line = in.nextLine();
-            if (line.equals("list")) PrintTask(task);
-            else if (line.equals("blah")) System.out.println("blah");
-            else if (line.equals("bye"))
-            {
-                System.out.println("Bye. Hope to see you again soon");
-                break;
+            if( line.length() == 0) {
+                System.out.println("Input cannot be empty.");
             }
-            else if (line.length()>3&&line.substring(0,4).equalsIgnoreCase("done"))
-            {
-                int number = Integer.parseInt(line.substring(5));
-                task[number-1].markAsDone();
-                System.out.println("Nice! I have marked this task as done:");
-                System.out.println(task[number-1].getStatusIcon()+task[number-1].getDescription());
+            else {
 
+                if (line.equals("list")) PrintTask(task);
+                else if (line.equals("blah")) System.out.println("blah");
+                else if (line.equals("bye")) {
+                    System.out.println("Bye. Hope to see you again soon");
+                    break;
+                } else if (line.length() > 3 && line.substring(0, 4).equalsIgnoreCase("done")) {
+                    int number = Integer.parseInt(line.substring(5));
+                    task[number - 1].markAsDone();
+                    System.out.println("Nice! I have marked this task as done:");
+                    System.out.println(task[number - 1].getStatusIcon() + task[number - 1].getDescription());
+
+                } else StoreTask(task, line);
             }
-            else StoreTask(task, line);
         }
 
 
@@ -50,33 +54,60 @@ public class Duke {
         }
         Task t = null;
         String[] word = input.split(" ");
-        System.out.println("Got it. I've added this task:");
+
         if(word[0].equalsIgnoreCase("todo"))
         {
-            t = new Todo(input);
-            task[count] = t;
-            System.out.println(task[count].getStatusIcon()+task[count].getDescription());
+            try {
+                t = new Todo(input);
+                task[count] = t;
+                System.out.println("Got it. I've added this task:");
+                System.out.println(task[count].getStatusIcon() + task[count].getDescription());
+                int temp = count+1;
+                System.out.println("Now you have " + temp+" items in the list.");
+            }
+            catch (Exception e1){
+                System.out.println(e1.getMessage());
+            }
         }
         else if(word[0].equalsIgnoreCase("deadline"))
         {
-            String[] s1 = input.split("/by");
-            t = new Deadline(s1[0],s1[1]);
-            task[count] = t;
-            System.out.println(task[count].getStatusIcon()+task[count].getDescription());
+            try {
+                String[] s1 = input.split("/by");
+                t = new Deadline(s1[0], s1[1]);
+                task[count] = t;
+                System.out.println("Got it. I've added this task:");
+                System.out.println(task[count].getStatusIcon() + task[count].getDescription());
+                int temp = count+1;
+                System.out.println("Now you have " + temp+" items in the list.");
+            }
+            catch (Exception e1){
+                checkException("Deadline description and time cannot be empty.");
+            }
         }
         else if(word[0].equalsIgnoreCase("event"))
         {
-            String[] s2 = input.split("/at");
-            t = new Deadline(s2[0],s2[1]);
-            task[count] = t;
-            System.out.println(task[count].getStatusIcon()+task[count].getDescription());
+            try {
+                String[] s2 = input.split("/at");
+                t = new Event(s2[0], s2[1]);
+                task[count] = t;
+                System.out.println("Got it. I've added this task:");
+                System.out.println(task[count].getStatusIcon() + task[count].getDescription());
+                int temp = count + 1;
+                System.out.println("Now you have " + temp + " items in the list.");
+            }
+            catch (Exception e1)
+            {
+                checkException("Event description and time cannot be empty.");
+            }
         }
         else {
             t = new Task(input);
+            System.out.println("Got it. I've added this task:");
             task[count] = t;
+            int temp = count+1;
+            System.out.println("Now you have " + temp+" items in the list.");
         }
-        int temp = count+1;
-        System.out.println("Now you have " + temp+" items in the list.");
+
         return task;
     }
 
@@ -94,6 +125,15 @@ public class Duke {
         {
 
             System.out.println(i + 1 + "." + task[i].getStatusIcon()+task[i].getDescription());
+        }
+    }
+
+    public static void checkException(String msg){
+        try{
+            throw new DukeException(msg);
+        }
+        catch (DukeException D1){
+            System.out.println(D1.getMessage());
         }
     }
 }
