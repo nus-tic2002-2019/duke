@@ -1,5 +1,7 @@
 package parse;
 
+import task.*;
+
 public class Parser {
     public Parser () {
 
@@ -18,6 +20,35 @@ public class Parser {
         String[] parts = line.split("\\|", 4);
 
         return parts;
+    }
+
+    public static String taskToText (Task task) {
+        String line = "";
+        String completion = "";
+        if (task.getCompleted()) {
+            completion = "1";
+        } else {
+            completion = "0";
+        }
+
+        if (task instanceof Todo) {
+            Todo todo = (Todo) task;
+            line = "T" + " | " + completion
+                       + " | " + todo.getContent();
+        }
+        if (task instanceof Deadline) {
+            Deadline deadline = (Deadline) task;
+            line = "D" + " | " + completion
+                       + " | " + deadline.getContent()
+                       + " | " + deadline.getDate();
+        }
+        if (task instanceof Event) {
+            Event event = (Event) task;
+            line = "E" + " | " + completion
+                       + " | " + event.getContent()
+                       + " | " + event.getTime();
+        }
+        return line;
     }
 
 }

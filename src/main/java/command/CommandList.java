@@ -1,7 +1,9 @@
 package command;
+
+import java.io.IOException;
 import java.util.HashMap;
 import error_handling.*;
-import storage.TempTaskList;
+import storage.*;
 import task.*;
 import UI.*;
 
@@ -9,10 +11,9 @@ import UI.*;
 public class CommandList {
     private HashMap<String, Command> keywords;
     private Message ui;
-    private TempTaskList list;
 
 
-    public CommandList(TempTaskList list) {
+    public CommandList(TempTaskList list, Storage file) {
         keywords = new HashMap<String, Command>();
         ui = new Message();
 
@@ -30,14 +31,18 @@ public class CommandList {
         keywords.put("done", new Command() {
             public void run(String content) throws Exception {
                 cmdMarkDone(content, list);
-            };
+                file.write(list);
+            }
         } );
         keywords.put("todo", new Command() {
             public void run(String content) {
                 try{
                     cmdTodo(content, list);
+                    file.write(list);
                 } catch (DukeException e) {
                     ui.emptyTaskMessage ();
+                } catch (IOException e) {
+                    ui.errorFileMessage();
                 }
             };
         } );
@@ -45,23 +50,29 @@ public class CommandList {
             public void run(String content) {
                 try {
                     cmdDeadline(content, list);
+                    file.write(list);
                 } catch (NullContentException e) {
                     ui.emptyTaskMessage ();
                 } catch (InvalidCommandException e) {
                     ui.dlInvalidFormatMessage();
+                } catch (IOException e) {
+                    ui.errorFileMessage();
                 }
-            };
+            }
         } );
         keywords.put("event", new Command() {
             public void run(String content) {
                 try {
                     cmdEvent(content, list);
-                } catch (NullContentException e){
-                    ui.emptyTaskMessage ();
+                    file.write(list);
+                } catch (NullContentException e) {
+                    ui.emptyTaskMessage();
                 } catch (InvalidCommandException e) {
                     ui.evInvalidFormatMessage();
+                } catch (IOException e) {
+                    ui.errorFileMessage();
                 }
-            };
+            }
         } );
     }
 
@@ -101,8 +112,12 @@ public class CommandList {
             if (listIndex < 0 || listIndex > list.size()) {
                 throw new IndexOutOfBoundsException();
             }
-            list.get(listIndex).setcompleted();
-            printMarkDone(list, listIndex);
+            if (list.get(listIndex).getCompleted()) {
+                ui.doneAlreadyMessage();
+            } else {
+                list.get(listIndex).setCompleted();
+                printMarkDone(list, listIndex);
+            }
         } catch (NumberFormatException e) {
             ui.doneTaskNoMessage();
         } catch (IndexOutOfBoundsException e) {

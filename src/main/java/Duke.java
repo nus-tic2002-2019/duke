@@ -16,7 +16,7 @@ public class Duke {
     public Duke() throws Exception{
         ui = new Message();
         list = new TempTaskList();
-        keywords = new CommandList(list);
+
     };
 
     public static void main(String[] args) throws Exception {
@@ -42,16 +42,19 @@ public class Duke {
         } catch (IOException e) {
             ui.errorFileMessage();
         }
-        file.read(list);
+
+        keywords = new CommandList(list, file);
+        file.read(list); // READ
 
 
 // MAIN LOGIC
         while(!userInput.equals("bye")) {
-            userInput = in.nextLine();
+            userInput = ui.read();
 
             String firstWord = keywords.splitKeyword(userInput)[0];
             // Some command is single word; Some command must have second part after space
             String content = null;
+
             if (keywords.splitKeyword(userInput).length != 1) {
                 content = keywords.splitKeyword(userInput)[1];
             }
@@ -64,7 +67,7 @@ public class Duke {
                 ui.dontKnowWhatToDoMessage();
                 continue;
             }
-
+            // THIS
             keywords.get(firstWord).run(content);
 
         }

@@ -30,10 +30,10 @@ public abstract class Task{
         return content;
     }
 
-    public boolean getcompleted () {
+    public boolean getCompleted () {
         return completed;
     }
-    public void setcompleted () {
+    public void setCompleted () {
         completed = true;
         return;
     }
@@ -42,7 +42,7 @@ public abstract class Task{
     @Override
     public String toString() {
         String status = "[✗]";
-        if (getcompleted()) {
+        if (getCompleted()) {
             status = "[✓]";
         }
         return status + " " + content;

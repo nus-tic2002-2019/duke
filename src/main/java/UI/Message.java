@@ -25,6 +25,11 @@ public class Message {
     }
      */
 
+    public String read() {
+        return in.nextLine();
+    }
+
+
     public void printTaskList (ArrayList<Task> list) {
         if (list.size() == 0) {
             System.out.println("\tCheers, you have a free day!"
@@ -67,6 +72,9 @@ public class Message {
     public void doneValidTaskNoMessage () {
         System.out.println("\t☹ OOPS!!! Please input a valid Task No. ~");
     }
+    public void doneAlreadyMessage () {
+        System.out.println("\t🥳 Hooray! This task has already been marked done ~");
+    }
     public void errorFileMessage () {
         System.out.println("\t☹ OOPS!!! Error occurred to get the file :-(");
     }
@@ -74,18 +82,21 @@ public class Message {
         System.out.println("\tWelcome back, " + username);
     }
     public void newUser () {
-        System.out.println("\tNew user registered \\^o^/");
+        System.out.println("\tNew master registered \\^o^/");
     }
 
     public void showGreetingMessage () {
+        System.out.println("Knock knock  Σ ノ( ・◡ ・ ？）");
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|";
         System.out.println(logo);
-        System.out.println("\t    \\   / ");
-        System.out.println("\tHey! \\ / here, What's your username?");
+        System.out.println("\t    \\      / ");
+        System.out.println("\tHey! \\    / here, living in a ...");
+        System.out.println("\tpod... 🏺");
+        System.out.println("\tWho is there summoning me?");
     }
     public void showExitMessage () {
         System.out.println("\tBye. Hope to see you again soon!");
