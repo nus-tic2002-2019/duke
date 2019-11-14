@@ -3,7 +3,7 @@ package main.taskLists;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Event <T> extends Task {
+public class Event<T> extends Task {
 
     private T At;
 
@@ -12,17 +12,21 @@ public class Event <T> extends Task {
         this.At = At;
     }
 
-    public T getAt() {return this.At;}
+    public T getAt() {
+        return this.At;
+    }
 
-    private String convert(LocalDate input) {return input.format(DateTimeFormatter.ofPattern("MMMM dd yyyy"));}
+    private String convert(LocalDate input) {
+        return input.format(DateTimeFormatter.ofPattern("MMMM dd yyyy"));
+    }
 
     @Override
     public String toString() {
 
-        try{
-            return "[E]" + "[" + this.getStatusIcon() + "] " + super.toString() + " (by: " + convert((LocalDate) At) + ")";
-        } catch (Exception e){
-            return "[E]" + "[" + this.getStatusIcon() + "] " + super.toString() + " (by: " + this.At + ")";
+        try {
+            return "[E]" + "[" + this.getStatusIcon() + "] " + super.toString() + " (At: " + convert((LocalDate) At) + ")";
+        } catch (Exception e) {
+            return "[E]" + "[" + this.getStatusIcon() + "] " + super.toString() + " (At: " + this.At + ")";
         }
     }
 }

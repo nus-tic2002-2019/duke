@@ -7,18 +7,18 @@ import static main.Duke.Tasks;
 
 public class DoneCommand extends Command<String> {
 
-    public  DoneCommand(String input) throws DukeException {
+    public DoneCommand(String input) throws DukeException {
         this.execute(input);
     }
 
     @Override
     public void execute(String input) throws DukeException {
 
-        try{
-            int index = Integer.valueOf(input) -1;
+        try {
+            int index = Integer.valueOf(input) - 1;
             Tasks.get(index).Done();
             UI.completeTask(index);
-        } catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("\t☹ OOPS!!! I don't seem to have this Task logged");
         }
 

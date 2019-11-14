@@ -1,7 +1,5 @@
 package main.taskLists;
 
-import main.parsers.ParserDate;
-
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -11,19 +9,27 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public void Done(){
+    public void Done() {
         this.isDone = true;
     }
 
-    public void setStatus(Boolean input) {this.isDone =input;}
+    public void setStatus(Boolean input) {
+        this.isDone = input;
+    }
 
-    public boolean isDone() { return this.isDone;}
+    public boolean isDone() {
+        return this.isDone;
+    }
 
     public String getStatusIcon() {
         return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
     }
 
-    public String getDescription() {return this.description;};
+    public String getDescription() {
+        return this.description;
+    }
+
+    ;
 
     @Override
     public String toString() {

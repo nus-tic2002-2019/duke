@@ -1,11 +1,11 @@
 package main.commands;
 
-import main.parsers.ParserText;
 import main.UI;
+import main.parsers.ParserText;
 
 public class ByeCommand extends Command<String> {
 
-    public  ByeCommand(String input){
+    public ByeCommand(String input) {
         this.execute(input);
     }
 

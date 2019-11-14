@@ -4,7 +4,7 @@ import main.UI;
 
 public class ListCommand extends Command<String> {
 
-    public  ListCommand(String input){
+    public ListCommand(String input) {
         this.execute(input);
     }
 

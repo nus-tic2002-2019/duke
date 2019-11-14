@@ -14,18 +14,21 @@ public class Deadline<T> extends Task {
         this.by = by;
     }
 
-    public T getBy() {return this.by;}
+    public T getBy() {
+        return this.by;
+    }
 
 
     private String convert(LocalDate input) {
         LocalDate clone = input;
-        return clone.format(DateTimeFormatter.ofPattern("MMMM dd yyyy"));}
+        return clone.format(DateTimeFormatter.ofPattern("MMMM dd yyyy"));
+    }
 
     @Override
     public String toString() {
-        try{
+        try {
             return "[D]" + "[" + this.getStatusIcon() + "] " + super.toString() + " (by: " + convert((LocalDate) by) + ")";
-        } catch (Exception e){
+        } catch (Exception e) {
             return "[D]" + "[" + this.getStatusIcon() + "] " + super.toString() + " (by: " + this.by + ")";
         }
     }
