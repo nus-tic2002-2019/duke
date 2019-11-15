@@ -1,6 +1,9 @@
 package main;
 
 import DukeCommands.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Parser {
 
@@ -22,7 +25,6 @@ public class Parser {
             return new ListCommand();
 			
 		case "todo":
-            // taskHasName(nextCommand);
             String todoName = "";
             for (int i = 1; i < nextCommand.length; i++) {
                 todoName += nextCommand[i] + " ";
@@ -30,7 +32,6 @@ public class Parser {
             return new TodoCommand(todoName);
 			
         case "done":
-            //commandHasTask(nextCommand);
             return new DoneCommand(Integer.valueOf(nextCommand[1]) - 1);
 			
         case "event":
@@ -39,14 +40,14 @@ public class Parser {
 
         case "deadline":
             String[] deadlineDetails = commandLine.split(" /by ");
-            return new DeadlineCommand(deadlineDetails[0].substring(9), deadlineDetails[1]);
+	    LocalDate d1 = LocalDate.parse(deadlineDetails[1]);
+            return new DeadlineCommand(deadlineDetails[0].substring(9), d1.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
 			
-		case "delete":
-            // commandHasTask(nextCommand);
+	case "delete":
             int index = Integer.parseInt(nextCommand[1]);
             return new DeleteCommand(index);
 
-		default:
+	default:
             break;
         }
         return new UnknownCommand();
