@@ -22,10 +22,10 @@ public class ListCommand implements Command {
      */
 
     public String execute(TaskList taskList, Storage storage) {
-    
+		System.out.println("Here are the tasks in your list:");
 		for (int a=1; a<taskList.getSize()+1;a++){
-		System.out.println("	"+a+". "+taskList.getTask(a-1).getStatusIcon()+" "+taskList.getTask(a-1).description() );
+		System.out.println("	"+a+". "+taskList.getTask(a-1) );
 		}
-        return "	Above are the tasks in your list.";
+        return "\n";
     }
 }
