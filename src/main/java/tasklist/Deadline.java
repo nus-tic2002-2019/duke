@@ -6,17 +6,33 @@ import java.util.Date;
 
 public class Deadline extends Task {
 
-    public String time;
+    protected String time;
 
+    /****
+     *
+     * @param description the task description that the user input
+     * @param time the task time that the user input
+     */
     public Deadline(String description, String time) {
         super(description);
         this.time = time;
     }
 
+    /****
+     *
+     * @param description the task description that the user input
+     * @param status check if the task has already marked as done
+     */
     public Deadline(String description, Boolean status) {
         super(description, status);
     }
 
+    /****
+     *
+     * @param description the task description that the user input
+     * @param status check if the task has already marked as done
+     * @param time the task time that the user input
+     */
     public Deadline(String description, Boolean status, String time) {
         super(description, status);
         this.time = time;
@@ -28,11 +44,18 @@ public class Deadline extends Task {
         return ("[D]" + super.toString() + " (by: " + this.time + ")");
     }
 
+
     @Override
     public String saveFormat() {
         return ("D " + super.saveFormat() + " | " + this.time);
     }
 
+    /****
+     *
+     * @param dateSearch the date that user input
+     * @param taskType the task type of the object
+     * @throws ParseException if date format is not dd MMM yyyy
+     */
     @Override
     public boolean findDate(Date dateSearch, String taskType) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
@@ -48,6 +71,12 @@ public class Deadline extends Task {
         }
     }
 
+    /****
+     *
+     * @param dateSearch the date that user input
+     * @param taskType the task type of the object
+     * @throws ParseException if date format is not dd MMM yyyy
+     */
     @Override
     public boolean findFromDateRange(Date dateSearch, String taskType) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
@@ -64,6 +93,13 @@ public class Deadline extends Task {
         }
     }
 
+    /****
+     *
+     * @param fromDate the start date that user input
+     * @param endDate the end date that user input
+     * @param taskType the task type of the object
+     * @throws ParseException if date format is not dd MMM yyyy
+     */
     @Override
     public boolean findBetweenDateRange(Date fromDate, Date endDate, String taskType) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
@@ -82,6 +118,10 @@ public class Deadline extends Task {
         }
     }
 
+    /****
+     *
+     * @param taskType the task type of the object
+     */
     @Override
     public boolean taskType(String taskType){
         if (taskType.equals("deadlines")){

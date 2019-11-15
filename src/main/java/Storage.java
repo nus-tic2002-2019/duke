@@ -2,6 +2,7 @@ import tasklist.Deadline;
 import tasklist.Event;
 import tasklist.Task;
 import tasklist.ToDo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -10,6 +11,12 @@ import java.util.Scanner;
 public class Storage {
 
     //Write tasks to file
+
+    /****
+     *
+     * @param fileContent the tasks stored in the file
+     * @throws FileNotFoundException if file can't be found
+     */
     static void writeToFile(String fileContent) throws FileNotFoundException {
         File f = new File("D:\\TIC2002PJ\\data\\duke.txt");
 
@@ -19,6 +26,10 @@ public class Storage {
     }
 
     //Load tasks from file
+    /****
+     *
+     * @throws FileNotFoundException if file can't be found
+     */
     static void loadFile() throws FileNotFoundException {
         File f = new File("D:\\TIC2002PJ\\data\\duke.txt");
 
@@ -29,6 +40,10 @@ public class Storage {
     }
 
     //Add tasks to taskList from file
+    /****
+     *
+     * @param fileContent the tasks stored in the file
+     */
     static void loadFormat(String fileContent) {
         System.out.println(fileContent);
         String str = fileContent;

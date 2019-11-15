@@ -6,39 +6,62 @@ import java.util.Date;
 
 public class Event extends Task {
 
-    protected String dayTime;
+    protected String time;
 
-    public Event(String description, String dayTime) {
+    /****
+     *
+     * @param description the task description that the user input
+     * @param time the task time that the user input
+     */
+    public Event(String description, String time) {
         super(description);
-        this.dayTime = dayTime;
+        this.time = time;
     }
 
+    /****
+     *
+     * @param description the task description that the user input
+     * @param status check if the task has already marked as done
+     */
     public Event(String description, Boolean status) {
         super(description,status);
     }
 
-    public Event(String description,Boolean status, String dayTime) {
+    /****
+     *
+     * @param description the task description that the user input
+     * @param status check if the task has already marked as done
+     * @param time the task time that the user input
+     */
+    public Event(String description,Boolean status, String time) {
         super(description,status);
-        this.dayTime = dayTime;
+        this.time = time;
 
     }
     @Override
     public String toString() {
-        return("[E]" + super.toString() + " (at: " + this.dayTime + ")");
+        return("[E]" + super.toString() + " (at: " + this.time + ")");
     }
 
     @Override
     public String saveFormat() {
-        return ("E " + super.saveFormat() + " | " + this.dayTime);
+        return ("E " + super.saveFormat() + " | " + this.time);
     }
 
 
+    /****
+     *
+     * @param dateSearch the date that user input
+     * @param taskType the task type of the object
+     * @throws ParseException if date format is not dd MMM yyyy
+     */
+    @Override
     public boolean findDate(Date dateSearch, String taskType) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
-        if (this.dayTime.equals("Date not specified")){
+        if (this.time.equals("Date not specified")){
             return false;
         }else {
-            Date date = dateFormat.parse(this.dayTime);
+            Date date = dateFormat.parse(this.time);
             if (dateSearch.compareTo(date) == 0 && taskType.equals("event")) {
                 return true;
             }else {
@@ -47,13 +70,19 @@ public class Event extends Task {
         }
     }
 
+    /****
+     *
+     * @param dateSearch the date that user input
+     * @param taskType the task type of the object
+     * @throws ParseException if date format is not dd MMM yyyy
+     */
     @Override
     public boolean findFromDateRange(Date dateSearch, String taskType) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
-        if (this.dayTime.equals("Date not specified")){
+        if (this.time.equals("Date not specified")){
             return false;
         }else {
-            Date date = dateFormat.parse(this.dayTime);
+            Date date = dateFormat.parse(this.time);
             if ((dateSearch.compareTo(date) == 0 && taskType.equals("event")) || (dateSearch.compareTo(date) < 0 && taskType.equals("event"))) {
                 return true;
             }
@@ -63,13 +92,20 @@ public class Event extends Task {
         }
     }
 
+    /****
+     *
+     * @param fromDate the start date that user input
+     * @param endDate the end date that user input
+     * @param taskType the task type of the object
+     * @throws ParseException if date format is not dd MMM yyyy
+     */
     @Override
     public boolean findBetweenDateRange(Date fromDate, Date endDate, String taskType) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
-        if (this.dayTime.equals("Date not specified")){
+        if (this.time.equals("Date not specified")){
             return false;
         }else {
-            Date date = dateFormat.parse(this.dayTime);
+            Date date = dateFormat.parse(this.time);
             if (fromDate.compareTo(date) == 0 && taskType.equals("event") || endDate.compareTo(date) == 0 && taskType.equals("event")) {
                 return true;
             }else if (fromDate.compareTo(date) < 0 && endDate.compareTo(date) > 0 && taskType.equals("event")){
@@ -81,6 +117,10 @@ public class Event extends Task {
         }
     }
 
+    /****
+     *
+     * @param taskType the task type of the object
+     */
     @Override
     public boolean taskType(String taskType){
         if (taskType.equals("events")){

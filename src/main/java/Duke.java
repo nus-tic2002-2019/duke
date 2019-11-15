@@ -59,6 +59,10 @@ public class Duke {
 
 
     //Format and save tasks to file in String e.g D | 0 | do homework | 11 Apr 2019
+    /****
+     *
+     * @throws FileNotFoundException if file can't be found
+     */
     static void save() throws FileNotFoundException {
         String list = "";
         for (int i = 0; i < taskList.size(); i++) {
@@ -77,7 +81,12 @@ public class Duke {
             }
     }
 
+
     //Mark multiple tasks as done - implementation for C-MassOps e.g done 1,2
+    /****
+     *
+     * @param line the command that user input
+     */
     static void done(String line){
         try {
             String theStr = line.substring(5);
@@ -109,6 +118,10 @@ public class Duke {
     }
 
     //Add new tasks
+    /****
+     *
+     * @param line the command that user input
+     */
     static void todoTask(String line) {
         String taskDescription = line.substring(5);
         Task t = new ToDo(taskDescription);
@@ -121,6 +134,10 @@ public class Duke {
     }
 
     //Add new deadline/event tasks
+    /****
+     *
+     * @param line the command that user input
+     */
     static void deadlineEvent(String line) {
         if (line.charAt(0) == 'e') {
             //e.g event dinner /at 12 oct 2019
@@ -181,6 +198,10 @@ public class Duke {
     }
 
     //Delete multiple tasks - implementation for C-MassOps
+    /****
+     *
+     * @param line the command that user input
+     */
     static void deleteTask(String line) {
         try {
 
@@ -212,6 +233,11 @@ public class Duke {
         }
     }
 
+    //User input invalid command
+    /****
+     *
+     * @param line the command that user input
+     */
     static void invalidTask(String line) {
         try {
             checkEmpty(line);
@@ -225,6 +251,11 @@ public class Duke {
 
     //Search date using "on", "from", "between to"
     //Search by task type
+    /****
+     *
+     * @param line the command that user input
+     * @throws ParseException if date format is not dd MMM yyyy
+     */
     static void searchDate(String line) throws ParseException {
         ArrayList<Task> foundTasks = new ArrayList<>();
         String[] str;
@@ -303,24 +334,46 @@ public class Duke {
     }
 
     //Exceptions
+
+    /****
+     *
+     * @param description the command that user input
+     * @throws StringFormatException if description does not hit the if conditions
+     */
     static void containsWord(String description) throws StringFormatException {
         if ( !( description.equals("bye") || description.equals("list") || description.contains("/"))) {
             throw new StringFormatException ();
         }
     }
 
+    /****
+     *
+     * @param description the command that user input
+     * @throws StringFormatException if description does not hit the if conditions
+     */
     static void containsWordSearch(String description) throws StringFormatException {
         if ( ! (description.contains("on") || description.contains("from") || description.contains("all") || (description.contains("between") && description.contains("to")) )) {
             throw new StringFormatException ();
         }
     }
 
+    /****
+     *
+     * @param description the command that user input
+     * @throws EmptyException if user did not input anything
+     */
     static void checkEmpty(String description) throws EmptyException {
         if (description.isEmpty()){
             throw new EmptyException ();
         }
     }
 
+    /****
+     *
+     * @param size the size of the taskList e.g 5
+     * @param number the task number that the user input e.g user input: delete 6
+     * @throws IndexOutOfRangeException if the number is greater than the size of the taskList e.g 6 > 5, or number < 0
+     */
     static void indexOutOfRange(int size,  int number) throws IndexOutOfRangeException {
         if (number > size || number < 0) {
             throw new IndexOutOfRangeException();
