@@ -1,44 +1,55 @@
 package duke;
 
-import java.util.Scanner;
-public class Duke {
-    public static void main(String[] args) {
-        String logo = " __        _        \n"
-                + "|  _ \\ _   | | __ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| || | || |   <  __/\n"
-                + "|_/ \\,||\\\\___|\n";
+import Command.Command;
 
-        int k=0;
-        String input[]=new String[100];
-        System.out.println("________________" + logo);
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
-        System.out.println("________________");
+import java.io.File;
+/**
+* This is the main application.
+*
+* @author Eunice Kwang
+*/
+public class Main {
+    private Storage storage;
+    private Tasklist tasks;
+    private UI ui;
 
-        Scanner in=new Scanner(System.in);
-
-        String line;
-        line =in.nextLine();
-        while(!line.equalsIgnoreCase("bye")){
-            System.out.println("________________");
-            if(line.equalsIgnoreCase("list")){
-                for(int i=0;i<k;i++){
-                    System.out.println(i+1+". "+input[i]);
-                }
-
-            }else{
-
-                System.out.println("added: "+line);
-                input[k]=line;
-                k++;
-            }
-            System.out.println("________________");
-            line=in.nextLine();
+    public Main(String filePath) {
+        ui = new UI();
+        storage = new Storage(filePath);
+        assert !filePath.isEmpty() : "Filepath cannot be empty.";
+        assert (new File(filePath)).exists() : "File does not exist.";
+        try {
+            tasks = new Tasklist(storage.load());
+        } catch (DukeException e) {
+            ui.showError(e.getMessage());
+            tasks = new Tasklist();
         }
-        System.out.println("________________");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("________________");
-
     }
+
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while(!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                ui.showLine();
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch(DukeException e) {
+                ui.showError(e.getMessage());
+            } finally {
+                ui.showLine();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        /*
+         TODO Auto-generated method stub
+        */
+        //new Duke("data/tasks.txt").run();
+        new Main("data/tasks.txt").run();
+    }
+
 }
