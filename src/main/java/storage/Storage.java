@@ -63,7 +63,7 @@ public class Storage {
                 case "D":
                     String dlDate = readFileArr[4];
                     LocalDate deadlineDate = LocalDate.parse(dlDate);
-                    tasksList.add(new Deadlines(taskDescription, deadlineDate, isDone));
+                    tasksList.add(new Deadlines(taskDescription, deadlineDate, isDone, taskPriority));
                     break;
                 case "E":
                     String eDateTime = readFileArr[4];
@@ -72,7 +72,7 @@ public class Storage {
                     String [] eventStartEndTime = eventDateTime[1].split(" - ");
                     LocalTime eStartTime = LocalTime.parse(eventStartEndTime[0]);
                     LocalTime eEndTime = LocalTime.parse(eventStartEndTime[1]);
-                    tasksList.add(new Event(taskDescription, eventDate, eStartTime, eEndTime, isDone));
+                    tasksList.add(new Event(taskDescription, eventDate, eStartTime, eEndTime, isDone, taskPriority));
                     break;
                 default:
                     throw new DukeException("unknown task found");
@@ -99,9 +99,9 @@ public class Storage {
 }
 
 /*
-T | 1 | L | read book
+T | 1 | H | read book
 D | 0 | L | return book | 2019-06-06
-E | 0 | L | project meeting | 2019-08-06 22:00 - 23:00
+E | 0 | M | project meeting | 2019-08-06 22:00 - 23:00
 T | 1 | L | join sports club
 D | 0 | L | test save file | 2019-11-09
 

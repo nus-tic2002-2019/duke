@@ -58,14 +58,16 @@ public class taskList {
      */
     public static void deleteFromList(String textInput) throws DukeException{
         try {
-
-            System.out.println("    Noted. I've removed this task: ");
-            System.out.println("     " + taskList.get(Integer.parseInt(textInput) - 1).getDescription());
+            String taskDescription = taskList.get(Integer.parseInt(textInput) - 1).getDescription();
             taskList.remove(Integer.parseInt(textInput) - 1);
+            System.out.println("    Noted. I've removed this task: ");
+            System.out.println("     " + taskDescription);
             System.out.println("    Now you have " + taskList.size() + " tasks in the list.");
 
         } catch (NumberFormatException e){
-            throw new DukeException("Please indicate task number");
+            throw new DukeException("    Please indicate task number");
+        } catch (IndexOutOfBoundsException e){
+            throw new DukeException("    Please indicate a task number within the list");
         }
     }
     /**

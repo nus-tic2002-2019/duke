@@ -13,8 +13,8 @@ import tasklist.Priority;
  */
 
 public class Parser {
-    private String validCommand, todoDescription, deadlineDescription, eventDescription, listIndex;
-    private String[] getDeadlineDetails, getEventDetails, eventDateTime, eventStartEndTime;
+    private String validCommand, todoDescription, deadlineDescription, eventDescription, listIndex, getDeadlineDate;
+    private String[] getTodoDetails, getDeadlineDetails, getEventDetails, eventDateTime, eventStartEndTime, getDeadlinePriority, getDeadlineDateAndPriority, getEventDateAndPriority;
     public LocalDate deadlineDate, eventDate;
     public LocalTime eventStartTime, eventEndTime;
     public Priority taskPriority;
@@ -36,30 +36,42 @@ public class Parser {
             case "set":
                 String[] listIndexPriority = textInputArr[1].split(" ", 2);
                 listIndex = listIndexPriority[0];
-                switch(listIndexPriority[1].toUpperCase()){
-                    case "LOW":
-                        taskPriority = Priority.LOW;
-                        break;
-                    case "MEDIUM":
-                        taskPriority = Priority.MEDIUM;
-                        break;
-                    case "HIGH":
-                        taskPriority = Priority.HIGH;
-                }
+                taskPriority = taskPriority.valueOf(listIndexPriority[1].toUpperCase());
+
             break;
             case "todo":
-                todoDescription = textInputArr[1];
+                getTodoDetails = textInputArr[1].split(" /priority ", 2);
+                todoDescription = getTodoDetails[0];
+                if (getTodoDetails[1].isEmpty())
+                    taskPriority = Priority.LOW;
+                else
+                    taskPriority = taskPriority.valueOf(getTodoDetails[1].toUpperCase());
                 break;
             case "deadline":
-                getDeadlineDetails = textInputArr[1].split(" /by ", 2);
-                if (getDeadlineDetails.length < 2) throw new DukeException("☹ OOPS!!! You did not specify a specific date/time for deadline. Please use /by yyyy-mm-dd");
+
+                getDeadlineDetails = textInputArr[1].split(" /priority ", 2);
+                //extract deadline Description
+                if (getDeadlineDetails.length < 2)
+                    throw new DukeException("    ☹ OOPS!!! There are missing or incorrect details!\n" + "    Please type \"deadline description /priority level /by yyyy-mm-dd\"");
                 deadlineDescription = getDeadlineDetails[0];
+                //extract deadline priority
+                getDeadlinePriority = getDeadlineDetails[1].split(" /by ",2 );
+                try {
+                      taskPriority = taskPriority.valueOf(getDeadlinePriority[0].toUpperCase());
+                    } catch (IllegalArgumentException e){
+                        throw new DukeException("    Please use high, medium or low as priority level");
+                    }
+                //extract deadline date
+                getDeadlineDate = getDeadlinePriority[1];
+                if (getDeadlineDate.isEmpty())
+                    throw new DukeException("    ☹ OOPS!!! You did not specify a specific date/time for deadline. Please use /by yyyy-mm-dd");
                 try{
-                    deadlineDate = LocalDate.parse(getDeadlineDetails[1]);
+                    deadlineDate = LocalDate.parse(getDeadlineDate);
                 } catch (DateTimeParseException e){
-                    throw new DukeException("Please use YYYY-MM-dd for Date format");
+                    throw new DukeException("    Please use YYYY-MM-dd for Date format");
                 }
                 break;
+
             case "event":
                 getEventDetails = textInputArr[1].split(" /at ", 2); // separate Event Details from Date and Time
                 if (getEventDetails.length < 2) throw new DukeException("☹ OOPS!!! You did not specify a specific date for event. Please use /at yyyy-mm-dd"); //throw exception if missing date & time
@@ -76,7 +88,7 @@ public class Parser {
                 }
                 //separate Start and End Time
                 eventStartEndTime = eventDateTime[1].split(" - ",2);
-                if (eventStartEndTime.length < 2) throw new DukeException("☹ OOPS!!! Missing time information. Please use Start Time - End Time e.g. 10:00-12:00");
+                if (eventStartEndTime.length < 2) throw new DukeException("☹ OOPS!!! Missing time information. Please use Start Time - End Time e.g. 10:00 - 12:00");
                 try{
                     eventStartTime = LocalTime.parse(eventStartEndTime[0]);
                     eventEndTime = LocalTime.parse(eventStartEndTime[1]);

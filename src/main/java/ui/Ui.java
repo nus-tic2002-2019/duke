@@ -24,7 +24,7 @@ public class Ui {
      * The showLine method creates a line at the start and end of Duke's reply
      */
     public void showLine(){
-        System.out.println("    ________________________________________");
+        System.out.println("    ___________________________________________________________________________");
     }
     /**
      * The showWelcome method shows the logo of Duke
@@ -102,13 +102,13 @@ public class Ui {
                     taskList.setTaskPriority(processCommand.getListIndex(), processCommand.getTaskPriority());
                     break;
                 case "todo":
-                    taskList.addTodo(new Todo(processCommand.getTodoDescription()));
+                    taskList.addTodo(new Todo(processCommand.getTodoDescription(), false, processCommand.getTaskPriority()));
                     break;
                 case "deadline":
-                    taskList.addDeadlines(new Deadlines(processCommand.getDeadlineDescription(), processCommand.getDeadlineDate()));
+                    taskList.addDeadlines(new Deadlines(processCommand.getDeadlineDescription(), processCommand.getDeadlineDate(), false, processCommand.getTaskPriority()));
                     break;
                 case "event":
-                    taskList.addEvent(new Event(processCommand.getEventDescription(), processCommand.getEventDate(), processCommand.getEventStartTime(), processCommand.getEventEndTime()));
+                    taskList.addEvent(new Event(processCommand.getEventDescription(), processCommand.getEventDate(), processCommand.getEventStartTime(), processCommand.getEventEndTime(), false, processCommand.getTaskPriority()));
                     break;
                 case "bye":
                     dukeBye();
