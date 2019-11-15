@@ -35,11 +35,11 @@ public class Parser {
 			
         case "event":
             String[] eventDetails = commandLine.split(" /at ");
-            return new EventCommand(eventDetails[0], eventDetails[1]);
+            return new EventCommand(eventDetails[0].substring(6), eventDetails[1]);
 
         case "deadline":
             String[] deadlineDetails = commandLine.split(" /by ");
-            return new DeadlineCommand(deadlineDetails[0], deadlineDetails[1]);
+            return new DeadlineCommand(deadlineDetails[0].substring(9), deadlineDetails[1]);
 			
 		case "delete":
             // commandHasTask(nextCommand);
