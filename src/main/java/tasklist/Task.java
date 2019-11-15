@@ -5,8 +5,10 @@ package tasklist;
  *
  */
 public abstract class Task {
-    protected String description;
+    protected String description, printTaskPriority;
     protected boolean isDone;
+    protected Priority taskPriority;
+
 
     public Task(String description) {
         this.description = description;
@@ -25,7 +27,44 @@ public abstract class Task {
         this.isDone = status;
     }
 
-    public boolean getStatus(){return isDone;}
+    public void setTaskPriority(Priority taskPriority){
+        this.taskPriority = taskPriority;
+    }
+
+    public String getTaskPriorityToString(){
+
+        switch(taskPriority){
+            case LOW:
+                printTaskPriority = "L";
+                break;
+            case MEDIUM:
+                printTaskPriority = "M";
+                break;
+            case HIGH:
+                printTaskPriority = "H";
+
+        }
+        return printTaskPriority;
+    }
+
+    public Priority getTaskPriority(){
+        return taskPriority;
+    }
+
+    public Priority getTaskPriorityFromString(String strTaskPriority){
+        switch(strTaskPriority){
+            case "L":
+                taskPriority = Priority.LOW;
+                break;
+            case "M":
+                taskPriority = Priority.MEDIUM;
+                break;
+            case "H":
+                taskPriority = Priority.HIGH;
+                break;
+        }
+        return taskPriority;
+    }
 
     public abstract String saveToFile();
 

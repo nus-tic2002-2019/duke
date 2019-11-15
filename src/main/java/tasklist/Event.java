@@ -19,6 +19,7 @@ public class Event extends Task {
         this.startTime = startTime;
         this.endTime = endTime;
         super.isDone = false;
+        super.taskPriority = Priority.LOW;
     }
 
     public Event(String description, LocalDate Date, LocalTime startTime, LocalTime endTime, boolean isDone){
@@ -27,15 +28,25 @@ public class Event extends Task {
         this.startTime = startTime;
         this.endTime = endTime;
         super.isDone = isDone;
+        super.taskPriority = Priority.LOW;
+    }
+
+    public Event(String description, LocalDate Date, LocalTime startTime, LocalTime endTime, boolean isDone, Priority taskPriority){
+        super(description);
+        this.Date = Date;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        super.isDone = isDone;
+        super.taskPriority = taskPriority;
     }
 
     @Override
     public String getDescription() {
-        return "[E]" + "[" + getStatusIcon() + "]" + super.getDescription() + " (at:" + Date.format(displayDateFormat) + " " + startTime.format(displayTimeFormat) + " - " + endTime.format(displayTimeFormat) + ")";
+        return "[E]" + "[" + getStatusIcon() + "][" + super.getTaskPriorityToString() + "]" + super.getDescription() + " (at:" + Date.format(displayDateFormat) + " " + startTime.format(displayTimeFormat) + " - " + endTime.format(displayTimeFormat) + ")";
     }
     @Override
     public String saveToFile(){
         int taskStatus = isDone ? 1:0;
-        return "E | " + taskStatus + " | " + super.getDescription() + " | " + Date.format(saveDateFormat) + " " + startTime.format(saveTimeFormat) + " - " + endTime.format(saveTimeFormat) + "\r";
+        return "E | " + taskStatus + " | " + super.getTaskPriorityToString() + " | " + super.getDescription() + " | " + Date.format(saveDateFormat) + " " + startTime.format(saveTimeFormat) + " - " + endTime.format(saveTimeFormat) + "\r";
     }
 }

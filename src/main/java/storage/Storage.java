@@ -14,6 +14,7 @@ public class Storage {
     protected static File taskFile;
     private Scanner loadTask;
     private boolean isDone;
+    Priority taskPriority;
     /**
      * The Storage Constructor accept the location of the file and creates a new File object for that file
      * @param fileName the full path of the file
@@ -31,28 +32,50 @@ public class Storage {
         List<Task> tasksList = new ArrayList<>();
         loadTask = new Scanner(taskFile);
         while (loadTask.hasNext()){
-            String readFileArr[] = loadTask.nextLine().split(" \\| ", 4);
+            String readFileArr[] = loadTask.nextLine().split(" \\| ", 5);
 
-            if (readFileArr[1].equals("1")) isDone = true;
+            //easier understanding of readFileArr parts
+            String taskType = readFileArr[0];
+            String taskStatus = readFileArr[1];
+            String strTaskPriority = readFileArr[2];
+            String taskDescription = readFileArr[3];
+
+
+            if (taskStatus.equals("1")) isDone = true;
             else isDone = false;
-            switch (readFileArr[0]) {
+
+            switch(strTaskPriority){
+                case "L":
+                    taskPriority = Priority.LOW;
+                    break;
+                case "M":
+                    taskPriority = Priority.MEDIUM;
+                    break;
+                case "H":
+                    taskPriority = Priority.HIGH;
+                    break;
+            }
+
+            switch (taskType) {
                 case "T":
-                    tasksList.add(new Todo(readFileArr[2], isDone));
+                    tasksList.add(new Todo(taskDescription, isDone, taskPriority));
                     break;
                 case "D":
-                    LocalDate deadlineDate = LocalDate.parse(readFileArr[3]);
-                    tasksList.add(new Deadlines(readFileArr[2], deadlineDate, isDone));
+                    String dlDate = readFileArr[4];
+                    LocalDate deadlineDate = LocalDate.parse(dlDate);
+                    tasksList.add(new Deadlines(taskDescription, deadlineDate, isDone));
                     break;
                 case "E":
-                    String [] eventDateTime = readFileArr[3].split(" ",2);
+                    String eDateTime = readFileArr[4];
+                    String [] eventDateTime = eDateTime.split(" ",2);
                     LocalDate eventDate = LocalDate.parse(eventDateTime[0]);
                     String [] eventStartEndTime = eventDateTime[1].split(" - ");
                     LocalTime eStartTime = LocalTime.parse(eventStartEndTime[0]);
                     LocalTime eEndTime = LocalTime.parse(eventStartEndTime[1]);
-                    tasksList.add(new Event(readFileArr[2], eventDate, eStartTime, eEndTime, isDone));
+                    tasksList.add(new Event(taskDescription, eventDate, eStartTime, eEndTime, isDone));
                     break;
                 default:
-                    throw new DukeException(readFileArr[0]);
+                    throw new DukeException("unknown task found");
             }
         }
         return tasksList;
@@ -76,8 +99,10 @@ public class Storage {
 }
 
 /*
-T | 1 | read book
-D | 0 | return book | 2019-06-06
-E | 0 | project meeting | 2019-08-06 22:00 - 23:00
-T | 1 | join sports club
+T | 1 | L | read book
+D | 0 | L | return book | 2019-06-06
+E | 0 | L | project meeting | 2019-08-06 22:00 - 23:00
+T | 1 | L | join sports club
+D | 0 | L | test save file | 2019-11-09
+
  */

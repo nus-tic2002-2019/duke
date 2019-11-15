@@ -79,12 +79,16 @@ public class Ui {
         System.out.println("     Now you have " + taskList.size() + " tasks in the list.");
 
     }
-
+    /**
+     * The dukeInput method takes a string input and process the different commands.
+     */
 
     public void dukeInput (taskList tasks, String textInput) throws DukeException {
        Parser processCommand = new Parser(textInput);
         try {
             switch (processCommand.getValidCommand()) {
+                case "sort":
+                    taskList.priorityHighToLow();
                 case "list":
                     taskList.displayList();
                     break;
@@ -93,6 +97,9 @@ public class Ui {
                     break;
                 case "delete":
                     taskList.deleteFromList(processCommand.getListIndex());
+                    break;
+                case "set":
+                    taskList.setTaskPriority(processCommand.getListIndex(), processCommand.getTaskPriority());
                     break;
                 case "todo":
                     taskList.addTodo(new Todo(processCommand.getTodoDescription()));

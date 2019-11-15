@@ -1,36 +1,52 @@
 package parser;
 
-import java.awt.print.PrinterAbortException;
-import java.text.ParseException;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoField;
-
 import exception.DukeException;
+import tasklist.Priority;
 
+/**
+ * The Parser class make sense of the various commands input by the user. It will look for the key details
+ * necessary for each task and if they are missing, it will provide information regarding the missing details
+ */
 
 public class Parser {
     private String validCommand, todoDescription, deadlineDescription, eventDescription, listIndex;
     private String[] getDeadlineDetails, getEventDetails, eventDateTime, eventStartEndTime;
-    //LocalDateTime eventDate;
     public LocalDate deadlineDate, eventDate;
-    public LocalTime eventStartTime, eventEndTime, eventTime;
-
+    public LocalTime eventStartTime, eventEndTime;
+    public Priority taskPriority;
+    /**
+     * The Parser constructor takes a String parameter and looks for the key details required for each tasks
+     * @param textInput is the input from the user
+     */
     public Parser(String textInput) throws DukeException{
         boolean singleCommand = false;
         String[] textInputArr = textInput.split(" ",2);
         validCommand = textInputArr[0];
-        if (validCommand.equals("list") || validCommand.equals("bye")) singleCommand = true;
+        if (validCommand.equals("list") || validCommand.equals("bye") || validCommand.equals("sort")) singleCommand = true;
         if (textInputArr.length < 2 && !singleCommand) throw new DukeException("unknown Command");
-        switch(validCommand){
-            case "done":
+        switch(validCommand.toLowerCase()){
+            case "done": //fallthrough as we are getting the index list.
             case "delete":
                 listIndex = textInputArr[1];
                 break;
+            case "set":
+                String[] listIndexPriority = textInputArr[1].split(" ", 2);
+                listIndex = listIndexPriority[0];
+                switch(listIndexPriority[1].toUpperCase()){
+                    case "LOW":
+                        taskPriority = Priority.LOW;
+                        break;
+                    case "MEDIUM":
+                        taskPriority = Priority.MEDIUM;
+                        break;
+                    case "HIGH":
+                        taskPriority = Priority.HIGH;
+                }
+            break;
             case "todo":
                 todoDescription = textInputArr[1];
                 break;
@@ -71,7 +87,9 @@ public class Parser {
         }
 
     }
-
+    /**
+     * The getValidCommand method return the command which is understood by Duke
+     */
     public String getValidCommand(){
         return validCommand;
     }
@@ -103,6 +121,8 @@ public class Parser {
     public String getListIndex(){
         return listIndex;
     }
+
+    public Priority getTaskPriority(){return taskPriority;}
 
 
 

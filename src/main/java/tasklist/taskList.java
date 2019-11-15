@@ -1,7 +1,6 @@
 package tasklist;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import exception.DukeException;
 import ui.Ui;
@@ -100,4 +99,32 @@ public class taskList {
     public static ArrayList<Task> getList (){
         return taskList;
     }
+
+    public static void setTaskPriority(String textInput, Priority taskPriorityLevel) throws DukeException {
+        try {
+
+            taskList.get(Integer.parseInt(textInput) - 1).setTaskPriority(taskPriorityLevel);
+            System.out.println("    Got it! I've set the priority for this task: ");
+            System.out.println ("     " + taskList.get(Integer.parseInt(textInput) - 1).getDescription());
+
+
+        } catch (NumberFormatException e){
+            throw new DukeException("Please indicate task number");
+        }
+
+    }
+
+    public static void priorityHighToLow() {
+        Collections.sort(taskList, new Comparator<Task>() {
+            @Override
+            public int compare(Task t1, Task t2) {
+                if (t1.getTaskPriority() == t2.getTaskPriority()){
+                    return t1.getDescription().compareTo(t2.getDescription());
+                } else
+                return t1.getTaskPriority().compareTo(t2.getTaskPriority());
+            }
+        });
+    }
+
+
 }
