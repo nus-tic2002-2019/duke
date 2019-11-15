@@ -104,6 +104,24 @@ public class Duke {
                 checkException("Event description and time cannot be empty.");
             }
         }
+        else if(word[0].equalsIgnoreCase("delete"))
+        {
+            try {
+//                String[] s2 = input.split("/at");
+                int index = Integer.parseInt(word[1]);
+//                t = new Event(s2[0], s2[1]);
+//                task.add(t);
+                System.out.println("Noted, I've removed this task: ");
+                System.out.println(task.get(index-1).getStatusIcon() + task.get(index-1).getDescription());
+                int temp = count - 1;
+                System.out.println("Now you have " + temp + " items in the list.");
+                deleteTask(index-1);
+            }
+            catch (Exception e1)
+            {
+                checkException(e1.getMessage());
+            }
+        }
         else {
             t = new Task(input);
             System.out.println("Got it. I've added this task:");
@@ -139,5 +157,9 @@ public class Duke {
         catch (DukeException D1){
             System.out.println(D1.getMessage());
         }
+    }
+
+    public static void deleteTask(int index){
+        task.remove(index);
     }
 }
