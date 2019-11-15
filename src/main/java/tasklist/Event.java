@@ -6,8 +6,7 @@ import java.util.Date;
 
 public class Event extends Task {
 
-    protected String dayTime ="Day and Time not specified";
-//    public String Type = "Event";
+    protected String dayTime;
 
     public Event(String description, String dayTime) {
         super(description);

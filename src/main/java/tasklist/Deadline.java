@@ -1,12 +1,12 @@
 package tasklist;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Deadline extends Task {
 
-    public String time = "Date and Time not specified";
-//    public String Type = "Deadline";
+    public String time;
 
     public Deadline(String description, String time) {
         super(description);
@@ -32,15 +32,6 @@ public class Deadline extends Task {
     public String saveFormat() {
         return ("D " + super.saveFormat() + " | " + this.time);
     }
-
-//    @Override
-//    public boolean findTask(String search) {
-//        if (this.description.contains((search)) || this.time.contains((search))) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
 
     @Override
     public boolean findDate(Date dateSearch, String taskType) throws ParseException {

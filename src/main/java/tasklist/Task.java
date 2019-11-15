@@ -1,11 +1,11 @@
 package tasklist;
+
 import java.text.ParseException;
 import java.util.Date;
 
 public class Task{
     public String description;
     protected boolean isDone;
-//    public String Type = "Task";
 
     public Task(String description) {
         this.description = description;

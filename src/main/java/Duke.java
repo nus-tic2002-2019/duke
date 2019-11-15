@@ -5,7 +5,6 @@ import tasklist.Deadline;
 import tasklist.Event;
 import tasklist.Task;
 import tasklist.ToDo;
-
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -58,7 +57,8 @@ public class Duke {
             }
         }
 
-    // functions
+
+    //Format and save tasks to file in String e.g D | 0 | do homework | 11 Apr 2019
     static void save() throws FileNotFoundException {
         String list = "";
         for (int i = 0; i < taskList.size(); i++) {
@@ -68,6 +68,7 @@ public class Duke {
         UI.printTaskSaved();
     }
 
+    //Output all the tasks
     static void list() {
             if (!(taskList.isEmpty())) {
             UI.printOutput((taskList));
@@ -76,6 +77,7 @@ public class Duke {
             }
     }
 
+    //Mark multiple tasks as done - implementation for C-MassOps e.g done 1,2
     static void done(String line){
         try {
             String theStr = line.substring(5);
@@ -106,6 +108,7 @@ public class Duke {
         }
     }
 
+    //Add new tasks
     static void todoTask(String line) {
         String taskDescription = line.substring(5);
         Task t = new ToDo(taskDescription);
@@ -117,13 +120,18 @@ public class Duke {
         UI.printLine();
     }
 
+    //Add new deadline/event tasks
     static void deadlineEvent(String line) {
         if (line.charAt(0) == 'e') {
+            //e.g event dinner /at 12 oct 2019
             if (line.contains("/at")) {
-                String[] str = line.split(" /at ", 2); //str[1] to get date
-                String[] taskDescription = str[0].split(" ", 2); //description[1] to get description
+                //str[1] to get date - 12 oct 2019
+                String[] str = line.split(" /at ", 2);
+                //description[1] to get description - dinner
+                String[] taskDescription = str[0].split(" ", 2);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
                 try {
+                    //Format date 12 Oct 2019, to string "12 Oct 2019"
                     Date date = dateFormat.parse(str[1]);
                     String strDate = dateFormat.format(date);
                     Task t = new Event(taskDescription[1], strDate);
@@ -134,16 +142,21 @@ public class Duke {
                 }
 
             } else {
+                //e.g event dinner
                 String taskDescription = line.substring(6);
                 Task t = new Event(taskDescription, "Date not specified");
                 taskList.add(t);
             }
         }else if (line.charAt(0) == 'd'){
+            //e.g deadline duke /by 12 oct 2019
             if (line.contains("/by")) {
-                String[] str = line.split(" /by ", 2); //str[1] to get date
-                String[] taskDescription = str[0].split(" ", 2); //description[1] to get description
+                //str[1] to get date - 12 oct 2019
+                String[] str = line.split(" /by ", 2);
+                //description[1] to get description - duke
+                String[] taskDescription = str[0].split(" ", 2);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
                 try {
+                    //Format date 12 Oct 2019, to string "12 Oct 2019"
                     Date date = dateFormat.parse(str[1]);
                     String strDate = dateFormat.format(date);
                     Task t = new Deadline(taskDescription[1], strDate);
@@ -153,6 +166,7 @@ public class Duke {
                 }
 
             }else {
+                //e.g deadline duke
                 String taskDescription = line.substring(9);
                 Task t = new Deadline(taskDescription, "Date not specified");
                 taskList.add(t);
@@ -166,7 +180,7 @@ public class Duke {
 
     }
 
-
+    //Delete multiple tasks - implementation for C-MassOps
     static void deleteTask(String line) {
         try {
 
@@ -198,7 +212,6 @@ public class Duke {
         }
     }
 
-
     static void invalidTask(String line) {
         try {
             checkEmpty(line);
@@ -210,19 +223,23 @@ public class Duke {
         }
     }
 
-
+    //Search date using "on", "from", "between to"
+    //Search by task type
     static void searchDate(String line) throws ParseException {
         ArrayList<Task> foundTasks = new ArrayList<>();
         String[] str;
         try {
             containsWordSearch(line);
+            //e.g find EVENT on 12 oct 2019
             if (line.contains("on")) {
                 str = line.split(" on ", 2);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+                //Format string "12 oct 2019" to date
                 Date date = dateFormat.parse(str[1]);
+                //Get task type e.g event
                 String taskType = str[0].substring(5).toLowerCase();
 
-
+                //Loop taskList to check conditions for findDate
                 for (int i = 0; i < taskList.size(); i++) {
                     if (taskList.get(i).findDate(date, taskType)) {
                         foundTasks.add(taskList.get(i));
@@ -230,14 +247,15 @@ public class Duke {
                 }
             }
 
+            //e.g find EVENT from 12 oct 2019
             if (line.contains("from")) {
                 str = line.split(" from ", 2);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+                //Format string "12 oct 2019" to date
                 Date date = dateFormat.parse(str[1]);
-
                 String taskType = str[0].substring(5).toLowerCase();
 
-
+                //Loop taskList to check conditions for findFromDateRange
                 for (int i = 0; i < taskList.size(); i++) {
                     if (taskList.get(i).findFromDateRange(date, taskType)) {
                         foundTasks.add(taskList.get(i));
@@ -245,14 +263,18 @@ public class Duke {
                 }
             }
 
+            //e.g find EVENT between 12 oct 2019 to 16 oct 2019
             if (line.contains("between") && line.contains("to")) {
                 str = line.split(" between ", 2);
-                String[] dateRange = str[1].split(" to ", 2); //from: dateRange[0], to: dateRange[1]
+                //From: dateRange[0], To: dateRange[1]
+                String[] dateRange = str[1].split(" to ", 2);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+                //Format string "12 oct 2019" to date
                 Date date1 = dateFormat.parse(dateRange[0]);
                 Date date2 = dateFormat.parse(dateRange[1]);
                 String taskType = str[0].substring(5).toLowerCase();
 
+                //Loop taskList to check conditions for findBetweenDateRange
                 for (int i = 0; i < taskList.size(); i++) {
                     if (taskList.get(i).findBetweenDateRange(date1, date2, taskType)) {
                         foundTasks.add(taskList.get(i));
@@ -260,10 +282,13 @@ public class Duke {
                 }
             }
 
+            //e.g find all EVENTS
             if (line.contains("all")) {
                 str = line.split(" ", 3);
+                //e.g "events"
                 String type = str[2].toLowerCase();
 
+                //Loop taskList to check conditions for taskType
                 for (int i = 0; i < taskList.size(); i++) {
                     if (taskList.get(i).taskType(type)) {
                         foundTasks.add(taskList.get(i));
@@ -277,7 +302,7 @@ public class Duke {
 
     }
 
-    //exceptions
+    //Exceptions
     static void containsWord(String description) throws StringFormatException {
         if ( !( description.equals("bye") || description.equals("list") || description.contains("/"))) {
             throw new StringFormatException ();
