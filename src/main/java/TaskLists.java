@@ -144,6 +144,9 @@ public class TaskLists {
      * @param message Details of the Events task.
      */
     public void addEvent(String message) {
+        if (message.charAt(7) == ' '){
+            throw new StringIndexOutOfBoundsException();
+        }
         int index = message.indexOf('/');
         list.add(new Events(message.substring(6, index - 1), message.substring(index + 4)));
     }
