@@ -29,6 +29,12 @@ public class Utils {
     }
 
 
+    /**
+     * get the LocalDateTime from a basic date time string format(YYYY-MM-dd HHmm)
+     * @param timeString a basic datetime string
+     * @return the result LocalDateTime
+     * @throws IllegalValueException of the string format is not correct
+     */
     public static LocalDateTime getDatetimeFromString(String timeString) throws IllegalValueException {
         Matcher matcher=BASIC_DATE_TIME_FORMAT.matcher(timeString.trim());
         if(!matcher.matches()){

@@ -6,6 +6,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * view and list all the tasks which is done during a specific period.
+ */
 public class ViewDoneCommand extends Command {
 
     public static final String COMMAND_WORD="viewdone";
@@ -30,7 +33,10 @@ public class ViewDoneCommand extends Command {
 
     }
 
-
+    /**
+     * Retrieves all tasks in the TaskList whose finishTime is in a specific period
+     * @return list of tasks found
+     */
     private List<Task> getTasksFromTimePeriod(LocalDateTime fromTime,LocalDateTime toTime) {
         final List<Task> matchedTasks= new ArrayList<>();
         for(Task task : taskList.getAllTasks()){
