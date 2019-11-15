@@ -1,13 +1,11 @@
 package tasklist;
+import java.text.ParseException;
+import java.util.Date;
 
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
-public class Task implements Serializable {
-    public ObjectOutputStream objectOut;
-    protected String description;
+public class Task{
+    public String description;
     protected boolean isDone;
-    public String Type = "Task";
+//    public String Type = "Task";
 
     public Task(String description) {
         this.description = description;
@@ -30,7 +28,6 @@ public class Task implements Serializable {
     }
 
     public String toString() {
-
         return ("[" + this.getStatusIcon() + "] " + description);
     }
 
@@ -42,4 +39,25 @@ public class Task implements Serializable {
             return ("| 0 | " + this.description);
         }
     }
+
+    public boolean findDate(Date dateSearch, String taskType) throws ParseException {
+        return false;
+    }
+
+    public boolean findFromDateRange(Date dateSearch, String taskType) throws ParseException {
+        return false;
+    }
+
+    public boolean findBetweenDateRange(Date fromDate, Date endDate, String taskType) throws ParseException {
+        return false;
+    }
+
+    public boolean taskType(String taskType){
+        if (taskType.equals("tasks")){
+            return true;
+        }
+        return false;
+    }
+
+
 }

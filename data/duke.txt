@@ -1,6 +1,9 @@
-D | 0 | return book | Tue, Oct 15 2019, 22:30
-D | 0 | return book | Date and Time not specified
-E | 0 | project meeting | Wed, Oct 16 2019, 10:30
-E | 0 | project meeting | Day and Time not specified
-T | 1 | borrow book
+D | 0 | do homework | 11 Apr 2019
+D | 0 | duke | 12 Apr 2019
+D | 0 | biils | Date not specified
+E | 0 | class gathering | 01 Jan 2019
+E | 0 | dinner | 15 Jan 2019
+E | 0 | wedding | Date not specified
+T | 0 | study 
+D | 0 | proj submission | 18 Apr 2019
 
