@@ -1,9 +1,12 @@
 import java.awt.*;
 import java.lang.module.FindException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 
 public class Duke {
+
+    private static ArrayList<Task> task = new ArrayList<Task>();
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -13,8 +16,9 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         System.out.println("Hello! I'm Duke\n" +" What can I do for you?");
 
-        //String[] list = new String[100];
-        Task[] task = new Task[100];
+//        String[] list = new String[100];
+//        Task[] task = new Task[100];
+
         String line;
         Scanner in = new Scanner(System.in);
         while(true) {
@@ -31,9 +35,9 @@ public class Duke {
                     break;
                 } else if (line.length() > 3 && line.substring(0, 4).equalsIgnoreCase("done")) {
                     int number = Integer.parseInt(line.substring(5));
-                    task[number - 1].markAsDone();
+                    task.get(number - 1).markAsDone();
                     System.out.println("Nice! I have marked this task as done:");
-                    System.out.println(task[number - 1].getStatusIcon() + task[number - 1].getDescription());
+                    System.out.println(task.get(number - 1).getStatusIcon() + task.get(number - 1).getDescription());
 
                 } else StoreTask(task, line);
             }
@@ -45,12 +49,12 @@ public class Duke {
 
     }
 
-    public static Task[] StoreTask(Task[] task, String input) {
+    public static ArrayList<Task> StoreTask(ArrayList<Task> task, String input) {
         //int count = list.length;
         int count = 0;
-        for(int i = 0; i < task.length; i++)
+        for(int i = 0; i < task.size(); i++)
         {
-            if(null != task[i]) count++;
+            if(null != task.get(i)) count++;
         }
         Task t = null;
         String[] word = input.split(" ");
@@ -59,9 +63,9 @@ public class Duke {
         {
             try {
                 t = new Todo(input);
-                task[count] = t;
+                task.add(t);
                 System.out.println("Got it. I've added this task:");
-                System.out.println(task[count].getStatusIcon() + task[count].getDescription());
+                System.out.println(task.get(count).getStatusIcon() + task.get(count).getDescription());
                 int temp = count+1;
                 System.out.println("Now you have " + temp+" items in the list.");
             }
@@ -74,9 +78,9 @@ public class Duke {
             try {
                 String[] s1 = input.split("/by");
                 t = new Deadline(s1[0], s1[1]);
-                task[count] = t;
+                task.add(t);
                 System.out.println("Got it. I've added this task:");
-                System.out.println(task[count].getStatusIcon() + task[count].getDescription());
+                System.out.println(task.get(count).getStatusIcon() + task.get(count).getDescription());
                 int temp = count+1;
                 System.out.println("Now you have " + temp+" items in the list.");
             }
@@ -89,9 +93,9 @@ public class Duke {
             try {
                 String[] s2 = input.split("/at");
                 t = new Event(s2[0], s2[1]);
-                task[count] = t;
+                task.add(t);
                 System.out.println("Got it. I've added this task:");
-                System.out.println(task[count].getStatusIcon() + task[count].getDescription());
+                System.out.println(task.get(count).getStatusIcon() + task.get(count).getDescription());
                 int temp = count + 1;
                 System.out.println("Now you have " + temp + " items in the list.");
             }
@@ -103,7 +107,7 @@ public class Duke {
         else {
             t = new Task(input);
             System.out.println("Got it. I've added this task:");
-            task[count] = t;
+            task.add(t);
             int temp = count+1;
             System.out.println("Now you have " + temp+" items in the list.");
         }
@@ -112,19 +116,19 @@ public class Duke {
     }
 
 
-    public static void PrintTask(Task[] task)
+    public static void PrintTask(ArrayList<Task> task)
     {
         int size = 0;
-        for(int i = 0; i < task.length; i++)
+        for(int i = 0; i < task.size(); i++)
         {
-            if(null != task[i]) size++;
+            if(null != task.get(i)) size++;
         }
 
         System.out.println("Here are the tasks in your list:");
         for(int i=0;i<size;i++)
         {
 
-            System.out.println(i + 1 + "." + task[i].getStatusIcon()+task[i].getDescription());
+            System.out.println(i + 1 + "." + task.get(i).getStatusIcon()+task.get(i).getDescription());
         }
     }
 
