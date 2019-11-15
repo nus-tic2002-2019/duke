@@ -26,27 +26,26 @@ public class Storage {
             Scanner sc = new Scanner(data);
             while (sc.hasNextLine()) {
 
-                String[] next = sc.nextLine().split("-");
-
+                String[] next = sc.nextLine().split(" | ");
                 switch (next[0]) {
                 case ("T"):
-                    Task todo = new Todo(next[2]);
-                    if (Integer.valueOf(next[1]) == 1) {
+                    Task todo = new Todo(next[4]);
+                    if (Integer.valueOf(next[2]) == 1) {
                         todo.setStatusIconTrue();
                     }
                     toReturn.add(todo);
                     break;
                 case ("E"):
-                    Task event = new Event(next[2], next[3]);
-                    if (Integer.valueOf(next[1]) == 1) {
+                    Task event = new Event(next[4], next[6]);
+                    if (Integer.valueOf(next[2]) == 1) {
                         event.setStatusIconTrue();
                     }
                     toReturn.add(event);
                     break;
 
                 case ("D"):
-                    Task deadline = new Deadline(next[2], next[3]);
-                    if (Integer.valueOf(next[1]) == 1) {
+                    Task deadline = new Deadline(next[4], next[6]);
+                    if (Integer.valueOf(next[2]) == 1) {
                         deadline.setStatusIconTrue();
                     }
                     toReturn.add(deadline);
@@ -68,13 +67,11 @@ public class Storage {
 	public void writeToFile(ArrayList<Task> list) {
 
         try {
-            File data = new File("duke.txt");
             FileWriter fw = new FileWriter(data);
-
             StringBuilder toWrite = new StringBuilder("");
 
             for (Task task : list) {
-                toWrite.append(task.toString() + " \n");
+                toWrite.append(task.toSave() + " \n");
             }
 
             fw.write(toWrite.toString());
