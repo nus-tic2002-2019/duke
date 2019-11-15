@@ -1,7 +1,15 @@
 package duke;
 
 public class Todo extends Task{
+  
   private boolean isDone;
+  public Todo (String description){
+    super(description);
+  }
+
+  public String printTask(){
+      return ("[T][" + this.getStatusIcon() + "] " + this.description );
+    }
   
   public Todo (String description){
     super(description);
@@ -19,4 +27,5 @@ public class Todo extends Task{
   public String getStatusIcon() {
         return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
   }
+
 }
