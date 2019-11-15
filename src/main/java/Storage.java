@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Storage {
-    public static final String DEFAULT_PATH = "D:/Keeyong Folder/NUS/Semester 2-1/TIC2002 Introduction to Software Engineering/Project/src/main/java/data/duke.txt";
+    public static final String DEFAULT_PATH = "./duke.txt";
     private String filePath;
 
     public Storage() {
