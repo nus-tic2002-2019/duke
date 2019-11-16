@@ -20,6 +20,7 @@ public class Duke {
         String filteredInputCommand = "";
         String filteredInputText = "";
         String filteredInputDate = "";
+        int filteredInputTime = 0;
         LocalDate ldInputDate = LocalDate.parse("1990-01-01");
         DateTimeFormatter inputdateFormat = DateTimeFormatter.ofPattern("d-MMM-yyyy");
         ArrayList<String> TasksList = new ArrayList<String>();
@@ -81,6 +82,10 @@ public class Duke {
                     System.out.println("____________________________________________________________\n" + "Command usage: find <text to find>");
                     filteredInputCommand = "";
                 }
+                if (filteredInputCommand.equals("need")){
+                    System.out.println("____________________________________________________________\n" + "Command usage: need <task> /<time>");
+                    filteredInputCommand = "";
+                }
             }
             try {
                 filteredInputText = filteredInputText.substring(0, (filteredInputText.indexOf('/')));
@@ -99,6 +104,16 @@ public class Duke {
                 }
                 if (filteredInputCommand.equals("event")){
                     System.out.println("____________________________________________________________\n" + "Command usage: event <task> /<date>");
+                    filteredInputCommand = "";
+                }
+            }
+            try {
+                filteredInputDate = rawInput.substring(rawInput.indexOf('/'));
+                filteredInputDate = filteredInputDate.substring(1);
+                filteredInputTime = Integer.parseInt(filteredInputDate);
+            } catch (Exception e) {
+                if (filteredInputCommand.equals("need")){
+                    System.out.println("____________________________________________________________\n" + "Command usage: need <task> /<time>");
                     filteredInputCommand = "";
                 }
             }
@@ -140,7 +155,7 @@ public class Duke {
                         System.out.println("____________________________________________________________");
                     } catch (Exception e) {
                         System.out.println("____________________________________________________________\n" + "Command usage: todo <task number>");
-                        System.out.println("Available commands: deadline, event, todo, list, delete, bye\n" + "You have entered an invalid command, please try again\n" + "____________________________________________________________");
+                        System.out.println("Available commands: deadline, event, todo, list, delete, done, find, need, bye\n" + "You have entered an invalid command, please try again\n" + "____________________________________________________________");
                     }
                     break;
                 case "todo":
@@ -162,6 +177,12 @@ public class Duke {
                             "Got it. I've added this deadline:\n" + "[D][" + "\u2718" + "]" + filteredInputText + " (by: " + inputdateFormat.format(ldInputDate) + ")" +"\n" +
                             "Now you have " + TasksList.size() + " tasks in the list.\n" +
                             "____________________________________________________________\n"); break;
+                case "need":
+                    TasksList.add("[D][" + "\u2718" + "]" + filteredInputText + " (by: " + inputdateFormat.format(ldInputDate) + ")");
+                    System.out.println("____________________________________________________________\n" +
+                            "Got it. I've added this need:\n" + "[D][" + "\u2718" + "]" + filteredInputText + " (need: " + filteredInputTime + ")" +"\n" +
+                            "Now you have " + TasksList.size() + " tasks in the list.\n" +
+                            "____________________________________________________________\n"); break;
                 case "delete":
                     try {
                         int deleteInt = Integer.parseInt(filteredInputText.substring(1));
@@ -174,12 +195,12 @@ public class Duke {
                         System.out.println("____________________________________________________________");
                     } catch (Exception e) {
                         System.out.println("____________________________________________________________\n" + "Command usage: delete <task number>");
-                        System.out.println("Available commands: deadline, event, todo, list, delete, bye\n" + "You have entered an invalid command, please try again\n" + "____________________________________________________________");
+                        System.out.println("Available commands: deadline, event, todo, list, delete, done, find, need, bye\n" + "You have entered an invalid command, please try again\n" + "____________________________________________________________");
                     }
                     break;
                 case "bye": break;
                 default:
-                    System.out.println("Available commands: deadline, event, todo, list, delete, bye\n" + "You have entered an invalid command, please try again\n" + "____________________________________________________________");
+                    System.out.println("Available commands: deadline, event, todo, list, delete, done, find, need, bye\n" + "You have entered an invalid command, please try again\n" + "____________________________________________________________");
                     break;
             }
             try{
