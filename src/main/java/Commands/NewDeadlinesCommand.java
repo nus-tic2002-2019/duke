@@ -1,15 +1,28 @@
+package Commands;
+
+import Exception.DukeException;
+import Tasks.*;
+import UI.*;
+import Storage.*;
+import Parser.*;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
-public class NewDeadlinesCommand extends Command{
-    NewDeadlinesCommand(String taskDes){
+
+
+public class NewDeadlinesCommand extends Command {
+    public NewDeadlinesCommand(String taskDes){
         super(taskDes);
     }
 
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        if (taskItem.substring(9).isEmpty()) {
-            throw new DukeException("Deadline task can't be empty");
+        try{
+            taskItem.substring(9);
+        }
+        catch(StringIndexOutOfBoundsException e){
+            throw new DukeException("Deadline command can't be empty");
         }
         if (!taskItem.contains(" /by ")) {
             throw new DukeException("Please state /by yyyy-mm-dd");
@@ -21,7 +34,7 @@ public class NewDeadlinesCommand extends Command{
         tasks.addTask(deadlineTimeSetter(taskDes, taskDateTime));
         storage.save(tasks);
     }
-    public static Deadlines deadlineTimeSetter(String taskDes,String taskDateTime) throws DukeException{
+    public static Deadlines deadlineTimeSetter(String taskDes, String taskDateTime) throws DukeException {
         try{
             if (!taskDateTime.contains(" ")) {
                 LocalDate d1 = Parser.convertStringToDate(taskDateTime);
@@ -31,7 +44,7 @@ public class NewDeadlinesCommand extends Command{
                 String taskDate = taskDateTime.split(" ")[0];
                 String taskTime = taskDateTime.substring(dividerPosition3 + 1);
                 LocalDate d1 = Parser.convertStringToDate(taskDate);
-                LocalTime t1 = Parser.convertStringToTime(taskTime, d1);
+                LocalTime t1 = Parser.convertStringToTime(taskTime);
                 return new Deadlines(taskDes, d1, t1);
 
             }

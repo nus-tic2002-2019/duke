@@ -1,4 +1,7 @@
-import java.time.LocalDate;
+package Tasks;
+
+import Tasks.Task;
+import Tasks.TaskType;
 
 public class ToDos extends Task {
 

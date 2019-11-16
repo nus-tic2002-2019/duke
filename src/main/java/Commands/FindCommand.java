@@ -1,18 +1,28 @@
+package Commands;
+
+import Exception.DukeException;
+import Storage.Storage;
+import Tasks.Task;
+import Tasks.TaskList;
+import UI.Ui;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class FindCommand extends Command {
 
-    FindCommand(String taskDes){
+    public FindCommand(String taskDes){
         super(taskDes);
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException{
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if(tasks.getSize()<= 0){
             throw new DukeException("Sorry. There isn't a list");
         }
-        if(taskItem.substring(5).isEmpty()){
-            throw new DukeException("Find task can't be empty");
+        try{
+            taskItem.substring(5);
+        }
+        catch(StringIndexOutOfBoundsException e){
+            throw new DukeException("Find command can't be empty");
         }
         ArrayList<Task> tempTasksList = new ArrayList<>();
         String keyword = taskItem.substring(5);

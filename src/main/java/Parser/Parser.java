@@ -1,3 +1,8 @@
+package Parser;
+
+import Commands.*;
+import Exception.DukeException;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -6,7 +11,7 @@ import java.time.temporal.ChronoUnit;
 
 public class Parser {
 
-    public static Command parse(String fullCommand) throws DukeException{
+    public static Command parse(String fullCommand) throws DukeException {
         String keyCommand = fullCommand.split(" ")[0].toLowerCase();
         switch(keyCommand){
             case "exit":
@@ -26,6 +31,8 @@ public class Parser {
                 return new DoneCommand(fullCommand);
             case "delete":
                 return new DeleteCommand(fullCommand);
+            case "schedule":
+                return new ScheduleCommand(fullCommand);
             case "hi":
             case "help":
             case "clearlist":
@@ -37,7 +44,7 @@ public class Parser {
 
 
     public static LocalDate convertStringToDate(String text) throws DukeException {
-        LocalDate today = LocalDate.now();
+
         LocalDate d1;
         if(!text.contains("-")){
             return checkForOtherWording(text);
@@ -48,28 +55,28 @@ public class Parser {
         catch (DateTimeParseException e){
             throw new DukeException("Please set date as YYYY-MM-DD");
         }
-
-        if(today.isAfter(d1)) {
-            throw new DukeException("Date should be a future day.");
-        }
         return d1;
     }
 
 
-    public static LocalDate checkForOtherWording(String text) throws DukeException{
+    public static LocalDate checkForOtherWording(String text) throws DukeException {
         text = text.toLowerCase();
         LocalDate today = LocalDate.now();
         DayOfWeek dayOfToday = today.getDayOfWeek();
         DayOfWeek commandDay = getCommandDay(text);
-        int dayOfWeekIntValue = dayOfToday.getValue();
+        int dayOfTodayIntValue = dayOfToday.getValue();
         int commandDayIntValue = commandDay.getValue();
-        int date_diff = (commandDayIntValue - dayOfWeekIntValue)%7;
+        int date_diff = (commandDayIntValue + 7 - dayOfTodayIntValue) % 7;
+
+            System.out.println(commandDayIntValue);
+        System.out.println(dayOfTodayIntValue);
+        System.out.println(date_diff);
         LocalDate d1 = today.plus(date_diff, ChronoUnit.DAYS);
         return d1;
 
     }
 
-    public static DayOfWeek getCommandDay(String text) throws DukeException{
+    public static DayOfWeek getCommandDay(String text) throws DukeException {
         switch(text){
             case "mon":
             case "monday":
@@ -97,9 +104,8 @@ public class Parser {
         }
     }
 
-    public static LocalTime convertStringToTime(String text, LocalDate taskDate) throws DukeException{
-        LocalTime now = LocalTime.now();
-        LocalDate today = LocalDate.now();
+    public static LocalTime convertStringToTime(String text) throws DukeException {
+
         LocalTime t1;
         if(!text.contains(":")){
             text = convertTimeTextToTimeStyle(text);
@@ -108,16 +114,12 @@ public class Parser {
             t1 = LocalTime.parse(text);
         }
         catch (DateTimeParseException e){
-            throw new DukeException("Please set time as 1301 or 13:01");
-        }
-
-        if(today.isEqual(taskDate) && now.isAfter(t1)) {
-            throw new DukeException("Date and Time should be a future Date and Time.");
+            throw new DukeException("Please set time as hhmm or hh:mm e.g.1301 or 13:01");
         }
         return t1;
     }
 
-    public static String convertTimeTextToTimeStyle(String text) throws DukeException{
+    public static String convertTimeTextToTimeStyle(String text) throws DukeException {
         if (!text.substring(4).isEmpty()){
             throw new DukeException("Invalid time! Please keep it to 4 digit");
         }

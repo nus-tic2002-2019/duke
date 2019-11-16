@@ -1,4 +1,4 @@
-
+package Tasks;
 
 public abstract class Task {
     protected String storeWords;

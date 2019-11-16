@@ -1,3 +1,10 @@
+package Storage;
+
+import Commands.NewDeadlinesCommand;
+import Commands.NewEventCommand;
+import Tasks.*;
+import Exception.DukeException;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
@@ -24,7 +31,7 @@ public class Storage {
 
     }
 
-    private static Task convertTaskFromFile(String text) throws DukeException{
+    private static Task convertTaskFromFile(String text) throws DukeException {
         Task task;
         int firstDivider = text.indexOf("| ");
         String taskType = text.substring(firstDivider + 2, firstDivider + 3);
@@ -32,7 +39,7 @@ public class Storage {
         String taskDetails = text.substring(firstDivider + 10);
         if(taskDetails.contains(" | ")){
             int timeDivider = taskDetails.indexOf(" | ");
-            String taskDes = taskDetails.substring(0, timeDivider - 1);
+            String taskDes = taskDetails.substring(0, timeDivider);
             String taskTime = taskDetails.substring(timeDivider + 3);
             task = creatingEventOrDeadline(taskType, taskDes, taskTime);
             return task;
@@ -52,7 +59,7 @@ public class Storage {
     }
 
 
-    private static ArrayList<Task> getListOfTask() throws FileNotFoundException, DukeException{
+    private static ArrayList<Task> getListOfTask() throws FileNotFoundException, DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         File f = new File(filePath); // create a File for the given file path
         if(f.length() == 0){

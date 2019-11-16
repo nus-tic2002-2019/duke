@@ -1,3 +1,7 @@
+package Tasks;
+
+import UI.Ui;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -30,5 +34,8 @@ public class TaskList {
         for(int i = taskIndex; i < tasks.size(); i++){
             tasks.get(i).setTaskIndex(i);
         }
+    }
+    public void clearAll(){
+        tasks.clear();
     }
 }
