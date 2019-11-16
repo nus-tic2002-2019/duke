@@ -46,6 +46,25 @@ public class Ui {
         System.out.println("Now you have " + (count + 1) + " tasks in the list.\n" + horizontal_line);
     }
 
+    /**
+     * Print out result which contain similar words based on user input
+     *
+     * @param input is the words users want to search for
+     * @param my_Arr_list Array of Task that is pass over from the main program
+     */
+    public void Print_Find_Result (ArrayList<Task> my_Arr_list, String input) {
+        int count =0;
+        System.out.println(horizontal_line + "Here are the matching tasks in your list: ");
+        for (int i =0; i< my_Arr_list.size(); i++) {
+            String line = my_Arr_list.get(i).toString();
+            if(line.contains(input)) {
+                count ++;
+                System.out.println(count + ". " + my_Arr_list.get(i));
+            }
+        } if(count == 0) {
+            System.out.println("No Result Found");
+        } System.out.println(horizontal_line);
+    }
     public void showLoadingError() {
         System.out.println("File Not Found");
     }

@@ -50,6 +50,11 @@ public class Duke {
                     display.print_Arry(myArr_list);
                     break;
 
+                case "find" : {
+                    display.Print_Find_Result(myArr_list, line.substring(5));
+
+                } break;
+
                 case "done": {
                     try {
                         int position = Integer.parseInt(line.substring(5));

@@ -13,6 +13,7 @@ public class Parser {
         else if(input.toLowerCase().contains("deadline"))    input_action = "deadline";
         else if(input.toLowerCase().contains("event"))    input_action = "event";
         else if(input.toLowerCase().contains("delete"))    input_action = "delete";
+        else if(input.toLowerCase().contains("find"))       input_action = "find" ;
 
         else {
             input_action = "unknown";
