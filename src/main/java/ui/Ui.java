@@ -246,6 +246,9 @@ public class Ui {
                 case "done":
                     TaskList.Done_Number(List, Input_Words);
                     break;
+                case "processing":
+                    Processing_Number(List, Input_Words);
+                    break;
                 case "delete":
                     TaskList.Delete_Number(List, Input_Words);
                     break;

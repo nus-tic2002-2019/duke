@@ -121,6 +121,28 @@ public class TaskList {
     }
 
     /**
+     * To check the number which user decide to make the according Task to Done status is in the Task List
+     * After checking and no error, then function will mark the Task as processing
+     * @param List The Task List
+     * @param Input_Words Input String array which is needed to compare with List length
+     * @throws DoneNumberException If the number needed of input is not in the Task List range, an error will be thrown to user
+     */
+    public static void Processing_Number(Vector<Task> List, String[] Input_Words) throws DoneNumberException {
+        int Processing_Number = Integer.parseInt(Input_Words[1]);
+        int L_size = List.size();
+
+        if(isNumeric(Input_Words[1]) || Input_Words.length != 2 || Processing_Number > L_size || Processing_Number < 1){
+            throw new DoneNumberException();
+        }
+
+        int i = Integer.parseInt(Input_Words[1]) - 1;
+        List.get(i).isDone = false;
+        System.out.println("     Nice! I've marked this task as processing:");
+        System.out.println("       [" + List.get(i).getStatusIcon() + "] " + List.get(i).getDescription());
+    }
+
+
+    /**
      * To check delete number and delete the Task from List
      * @param List The Task List
      * @param Input_Words Input String array which is needed to compare with List length and delete from List

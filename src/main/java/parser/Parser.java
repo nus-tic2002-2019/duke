@@ -32,6 +32,7 @@ public class Parser {
                 !First_Word.equals("timetype") &&
                 !First_Word.equals("find") &&
                 !First_Word.equals("todoafter") &&
+                !First_Word.equals("processing") &&
                 Input_Words.length == 1){
             throw new DukeException(First_Word);
         }
