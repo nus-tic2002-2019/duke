@@ -30,6 +30,7 @@ public class Parser {
                 if(taskLen < 2) {
                     throw new DukeException(command);
                 } else {
+                    assert task[1].contains("/to") : "Missing /to arguments for update";
                     String[] descrip = task[1].split(" /to ", 2);
                     UpdateCommand upCommand = new UpdateCommand(Integer.parseInt(descrip[0]), descrip[1]);
                     return upCommand;
@@ -62,14 +63,17 @@ public class Parser {
                 if(taskLen < 2) {
                     throw new DukeException(command);
                 } else {
+                    assert task[1].contains("/at") : "Missing /at arguments for event";
                     String[] descrip = task[1].split(" /at ", 2);
                     AddCommand addCommand = new AddCommand(new Event(descrip[0], descrip[1]));
                     return addCommand;
                 }
+
             case "deadline":
                 if(taskLen < 2) {
                     throw new DukeException(command);
                 } else {
+                    assert task[1].contains("/by") : "Missing /by arguments for deadline";
                     String[] descrip = task[1].split(" /by ", 2);
                     AddCommand addCommand = new AddCommand(new Deadline(descrip[0], descrip[1]));
                     return addCommand;
