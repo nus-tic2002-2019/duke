@@ -64,6 +64,10 @@ public class Ui {
         System.out.println("Please enter which integer after delete ");
     }
 
+    public static void doneNumberStartFrom1() {
+        System.out.println("Re-enter number start from 1");
+    }
+
     public static void dateTimeInvalidFormat() {
         System.out.println("Or can enter the date format like yyyy-mm-dd (e.g., 2019-01-01) ");
     }
@@ -96,12 +100,14 @@ public class Ui {
      * @param userInput_taskWords the number of
      */
     public static void doneTask(int done_task_number, String userInput_taskWords) {
+
         task.markAsDone();
 
         System.out.print("   " + seperatorLine2);
         System.out.println("     " + "Nice! I've marked this task as done:");
         System.out.print("        " + "[" + task.getStatusIcon() + "] ");
         done_task_number = Integer.parseInt(userInput_taskWords) - 1;
+
         System.out.println(TaskList.getTaskList(done_task_number));
 //        mark[done_task_number] = task.getStatusIcon();
 //        task.getStatusIcon();
@@ -137,8 +143,7 @@ public class Ui {
 
         String remove_task = TaskList.getTaskList(del_task_number);
 
-        System.out.println(del_task_number);
-        System.out.println(Ui.del_task_number);
+//        System.out.println(del_task_number);
         Ui.mark.remove(Ui.del_task_number-1);
         print_delete_event();
 

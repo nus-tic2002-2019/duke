@@ -76,14 +76,18 @@ public class Parser {
             case ("delete"):
                 try {
 //                    if(full_user_input.contains("&")) {
-                        task_words = Parser.parseEventDeadlineTask(full_user_input);
+                    assert Integer.parseInt(input[1]) > 0 : "done number must be greater than 0";
+                    task_words = Parser.parseEventDeadlineTask(full_user_input);
                         Ui.deleteTask(Integer.parseInt(task_words.trim()));
 //                    }
                 } catch (NumberFormatException e) {
                     System.out.println("Please enter which integer after delete ");
                 } catch (IndexOutOfBoundsException e) {
                     Ui.deleteNumberOutOfList();
+                } catch (AssertionError e) {
+                    Ui.doneNumberStartFrom1();
                 }
+
                 break;
 
             case ("list"):
@@ -101,14 +105,17 @@ public class Parser {
 
             case ("done"):
                 try {
-                    if (input[1] != "") {
+                        assert Integer.parseInt(input[1]) > 0 : "done number must be greater than 0";
+//                    if (input[1] != "" && Integer.parseInt(input[1]) > 0) {
                         task_words = Parser.parseEventDeadlineTask(full_user_input);
                         Ui.doneTask(Integer.parseInt(task_words.trim()), input[1]);
-                    }
+//                    }
                 } catch (IndexOutOfBoundsException e) {
                     Ui.doneNumberEmptyError();
                 } catch (NumberFormatException e) {
                     Ui.doneNumberInvalid();
+                } catch (AssertionError e) {
+                    Ui.doneNumberStartFrom1();
                 }
                 break;
 
@@ -165,8 +172,8 @@ public class Parser {
 //                        System.out.println("        " + listNum + ". " + "[" + Ui.mark[listPrintFind] + "]" + TaskList.getTaskList(listPrintFind));
                             System.out.println("        " + listNum + ". " + "[" + Ui.mark.get(listPrintFind) + "]" + TaskList.getTaskList(listPrintFind));
                         }
+                        listNum++;
                     }
-                    listNum++;
                     listNum = 1;
                     System.out.println(Ui.seperatorLine2);
                     }
@@ -233,7 +240,6 @@ public class Parser {
 //                task_words.substring(1,2);
 //            }
         }
-
         return task_words;
     }
 }
