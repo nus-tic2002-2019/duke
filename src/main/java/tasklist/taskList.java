@@ -10,7 +10,7 @@ import ui.Ui;
  *
  */
 public class taskList {
-    private static ArrayList<Task> taskList;
+    private static ArrayList<Task> taskList, findTaskInList, sortPriorityList;
     private static Ui ui = new Ui();
     /**
      * The first taskList constructor which accept no parameters simply create an empty list.
@@ -29,10 +29,10 @@ public class taskList {
     /**
      * the displayList method simply show the list on the user interface
      */
-    public static void displayList (){
+    public static void displayList (ArrayList<Task> tList){
         System.out.println("     Here are the tasks in your list:");
-        for (int index = 1; index <= taskList.size(); index++){
-            System.out.println ("     " + index + "." + taskList.get(index-1).getDescription());
+        for (int index = 1; index <= tList.size(); index++){
+            System.out.println ("     " + index + "." + tList.get(index-1).getDescription());
         }
     }
     /**
@@ -116,8 +116,10 @@ public class taskList {
 
     }
 
-    public static void priorityHighToLow() {
-        Collections.sort(taskList, new Comparator<Task>() {
+    public static ArrayList<Task> priorityHighToLow() {
+        sortPriorityList = new ArrayList<Task>();
+        sortPriorityList  = (ArrayList<Task>) taskList.clone();
+        Collections.sort(sortPriorityList, new Comparator<Task>() {
             @Override
             public int compare(Task t1, Task t2) {
                 if (t1.getTaskPriority() == t2.getTaskPriority()){
@@ -126,6 +128,17 @@ public class taskList {
                 return t1.getTaskPriority().compareTo(t2.getTaskPriority());
             }
         });
+        return sortPriorityList;
+    }
+
+    public static ArrayList<Task> findInList(String searchStr){
+        findTaskInList= new ArrayList<Task>();
+        for (Task task:taskList){
+            if(task.getDescription().contains(searchStr)){
+                findTaskInList.add(task);
+            }
+        }
+        return findTaskInList;
     }
 
 

@@ -24,7 +24,7 @@ public class Ui {
      * The showLine method creates a line at the start and end of Duke's reply
      */
     public void showLine(){
-        System.out.println("    ___________________________________________________________________________");
+        System.out.println("    _____________________________________________________________________________________________________________");
     }
     /**
      * The showWelcome method shows the logo of Duke
@@ -87,10 +87,14 @@ public class Ui {
        Parser processCommand = new Parser(textInput);
         try {
             switch (processCommand.getValidCommand()) {
+                case "find":
+                    taskList.displayList(taskList.findInList(processCommand.getTaskDescription()));
+                    break;
                 case "sort":
-                    taskList.priorityHighToLow();
+                    taskList.displayList(taskList.priorityHighToLow());
+                    break;
                 case "list":
-                    taskList.displayList();
+                    taskList.displayList(taskList.getList());
                     break;
                 case "done":
                     taskList.markInList(processCommand.getListIndex());
@@ -116,7 +120,7 @@ public class Ui {
                 default:
                     throw new DukeException("Unknown Command");
             }
-
+            if (!processCommand.getValidCommand().equals("find") || !processCommand.getValidCommand().equals("sort"))
             Storage.saveList(Storage.getFile().getAbsolutePath(), tasks);
         }
         catch (IOException e){
