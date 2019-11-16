@@ -1,5 +1,7 @@
 import java.awt.*;
+import java.io.*;
 import java.lang.module.FindException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
@@ -39,7 +41,10 @@ public class Duke {
                     System.out.println("Nice! I have marked this task as done:");
                     System.out.println(task.get(number - 1).getStatusIcon() + task.get(number - 1).getDescription());
 
-                } else StoreTask(task, line);
+                }
+                else if(line.equalsIgnoreCase("load")) task = load();
+                else if(line.equalsIgnoreCase("save")) save();
+                else StoreTask(task, line);
             }
         }
 
@@ -161,5 +166,37 @@ public class Duke {
 
     public static void deleteTask(int index){
         task.remove(index);
+    }
+
+    public static void save() {
+        try {
+            FileOutputStream fos = new FileOutputStream("c:\\users\\shado\\desktop\\tasks.txt");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(task);
+            oos.close();
+            System.out.println("Save successfully.");
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static ArrayList<Task> load(){
+        ArrayList<Task> task1 = null;
+        try{
+            FileInputStream fis = new FileInputStream("c:\\users\\shado\\desktop\\tasks.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            task1 = (ArrayList<Task>) ois.readObject();
+            ois.close();
+            System.out.println("Load successfully.");
+            PrintTask(task1);
+            return task1;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+        return task1;
     }
 }
