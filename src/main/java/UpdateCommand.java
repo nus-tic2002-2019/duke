@@ -6,16 +6,16 @@
 
 public class UpdateCommand extends Command{
     private int index;
-    private String datetime;
+    private String dateTime;
 
     /*
      * Constructs Update Command object with task index.
      * @param index Parsed task index.
      * @param datetime Updated data and time
      */
-    public UpdateCommand(int index,String datetime){
+    public UpdateCommand(int index,String dateTime){
         this.index = index;
-        this.datetime = datetime;
+        this.dateTime = dateTime;
     }
 
     /*
@@ -28,7 +28,7 @@ public class UpdateCommand extends Command{
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {
         //mark task as completed
-        Task task = tasks.updateTask(index-1,datetime);
+        Task task = tasks.updateTask(index-1,dateTime);
         //display successful message
         System.out.println("\tNice! I've updated this task:");
         System.out.println("\t  " + task.toString());

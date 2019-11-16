@@ -17,8 +17,8 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime DateTime = LocalDateTime.parse(by,formatter);
-        this.by = DateTime.format(formatter);
+        LocalDateTime dateTime = LocalDateTime.parse(by,formatter);
+        this.by = dateTime.format(formatter);
     }
 
     /*
@@ -30,8 +30,8 @@ public class Deadline extends Task {
     public Deadline(String status,String description, String by) {
         super(description);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime DateTime = LocalDateTime.parse(by,formatter);
-        this.by = DateTime.format(formatter);
+        LocalDateTime dateTime = LocalDateTime.parse(by,formatter);
+        this.by = dateTime.format(formatter);
         this.setStatus(status);
     }
 
@@ -59,8 +59,8 @@ public class Deadline extends Task {
      */
     public String getLast(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime DateTime = LocalDateTime.parse(by,formatter);
-        this.by = DateTime.format(formatter);
+        LocalDateTime dateTime = LocalDateTime.parse(by,formatter);
+        this.by = dateTime.format(formatter);
         return by;
     }
 
@@ -69,7 +69,7 @@ public class Deadline extends Task {
      */
     public void setLast(String by) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime DateTime = LocalDateTime.parse(by,formatter);
-        this.by = DateTime.format(formatter);
+        LocalDateTime dateTime = LocalDateTime.parse(by,formatter);
+        this.by = dateTime.format(formatter);
     }
 }

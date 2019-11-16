@@ -5,21 +5,21 @@
 import java.util.ArrayList;
 
 public class TaskList {
-    private static ArrayList<Task> tasklist;
+    private static ArrayList<Task> taskList;
 
     /*
      * Constructs TaskList object
      */
     TaskList(){
-        tasklist=new ArrayList<Task>();
+        taskList=new ArrayList<Task>();
     }
 
     /*
      * Constructs TaskList object
      * @param tasklist List of task.
      */
-    TaskList(ArrayList<Task> tasklist){
-        this.tasklist=tasklist;
+    TaskList(ArrayList<Task> taskList){
+        this.taskList=taskList;
     }
 
     /*
@@ -27,7 +27,7 @@ public class TaskList {
      * @param s Object of Task class.
      */
     public static void addTask(Task s){
-        tasklist.add(s);
+        taskList.add(s);
     }
 
     /*
@@ -36,8 +36,8 @@ public class TaskList {
      * @return task Deleted Task object.
      */
     public static Task deleteTask(int index){
-        Task task = tasklist.get(index);
-        tasklist.remove(index);
+        Task task = taskList.get(index);
+        taskList.remove(index);
         return task;
     }
 
@@ -47,7 +47,7 @@ public class TaskList {
      * @return task Task object marked as done.
      */
     public static Task doneTask(int index){
-        Task task = tasklist.get(index);
+        Task task = taskList.get(index);
         task.markAsDone();
         return task;
     }
@@ -59,15 +59,15 @@ public class TaskList {
      * @return task Updated Task object.
      */
     public static Task updateTask(int index,String datetime){
-        Task task = tasklist.get(index);
+        Task task = taskList.get(index);
         if(task.getTaskType()=='E'){
             Event event;
-            event = (Event) tasklist.get(index);
+            event = (Event) taskList.get(index);
             event.setLast(datetime);
         }
         if(task.getTaskType()=='D'){
             Deadline deadline;
-            deadline = (Deadline) tasklist.get(index);
+            deadline = (Deadline) taskList.get(index);
             deadline.setLast(datetime);
         }
         return task;
@@ -77,14 +77,14 @@ public class TaskList {
      * Returns number of tasks in task list.
      */
     int getTaskSize(){
-        return tasklist.size();
+        return taskList.size();
     }
 
     /*
      * This method returns all task in task list.
      * @return task All task object stored in task list.
      */
-    public static ArrayList<Task> getTasklist() {
-        return tasklist;
+    public static ArrayList<Task> getTaskList() {
+        return taskList;
     }
 }

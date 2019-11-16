@@ -3,12 +3,12 @@
  *  Defines the 'Find' action to search tasks using keywords.
  */
 public class FindCommand extends Command{
-    private String keyword;
+    private String keyWord;
     /*
      *  Constructs Find Command object.
      */
-    public FindCommand(String keyword){
-        this.keyword = keyword;
+    public FindCommand(String keyWord){
+        this.keyWord = keyWord;
     }
 
     /*
@@ -23,9 +23,9 @@ public class FindCommand extends Command{
         System.out.println("\tHere are the matching tasks in your list:");
         //print all tasks in task list
         for (int i = 1; i < tasks.getTaskSize() + 1; i++) {
-            Task task = tasks.getTasklist().get(i - 1);
+            Task task = tasks.getTaskList().get(i - 1);
             String description = task.getDescription();
-            if(description.contains(keyword)){
+            if(description.contains(keyWord)){
                 System.out.println("\t"+String.format(i + "." + task, task.getStatusIcon()));
             }
         }

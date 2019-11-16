@@ -33,7 +33,6 @@ public class Parser {
                     String[] descrip = task[1].split(" /to ", 2);
                     UpdateCommand upCommand = new UpdateCommand(Integer.parseInt(descrip[0]), descrip[1]);
                     return upCommand;
-
                 }
             case "find":
                 if(taskLen < 2) {
@@ -60,7 +59,6 @@ public class Parser {
                     String[] descrip = task[1].split(" /at ", 2);
                     AddCommand addCommand = new AddCommand(new Event(descrip[0], descrip[1]));
                     return addCommand;
-
                 }
             case "deadline":
                 if(taskLen < 2) {

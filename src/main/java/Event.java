@@ -17,8 +17,8 @@ public class Event extends Task {
     public Event(String description, String at) {
         super(description);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime DateTime = LocalDateTime.parse(at,formatter);
-        this.at = DateTime.format(formatter);
+        LocalDateTime dateTime = LocalDateTime.parse(at,formatter);
+        this.at = dateTime.format(formatter);
     }
 
     /*
@@ -30,8 +30,8 @@ public class Event extends Task {
     public Event(String status, String description, String at) {
         super(description);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime DateTime = LocalDateTime.parse(at,formatter);
-        this.at = DateTime.format(formatter);
+        LocalDateTime dateTime = LocalDateTime.parse(at,formatter);
+        this.at = dateTime.format(formatter);
         this.setStatus(status);
     }
 
@@ -59,8 +59,8 @@ public class Event extends Task {
      */
     public String getLast(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime DateTime = LocalDateTime.parse(at,formatter);
-        this.at = DateTime.format(formatter);
+        LocalDateTime dateTime = LocalDateTime.parse(at,formatter);
+        this.at = dateTime.format(formatter);
         return at;
     }
 
@@ -69,8 +69,8 @@ public class Event extends Task {
      */
     public void setLast(String at) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime DateTime = LocalDateTime.parse(at,formatter);
-        this.at = DateTime.format(formatter);
+        LocalDateTime dateTime = LocalDateTime.parse(at,formatter);
+        this.at = dateTime.format(formatter);
     }
 
 }

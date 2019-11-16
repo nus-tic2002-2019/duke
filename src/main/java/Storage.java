@@ -6,15 +6,15 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Storage {
-    private String filepath;
+    private String filePath;
     private BufferedReader reader;
 
     /*
      * Constructs Storage object
      * @param filePath Define file location.
      */
-    Storage(String filepath){
-        this.filepath = filepath;
+    Storage(String filePath){
+        this.filePath = filePath;
         try {
             reader = new BufferedReader(new FileReader("data/tasks.txt"));
         } catch (IOException e) {

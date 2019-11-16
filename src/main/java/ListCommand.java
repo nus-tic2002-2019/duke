@@ -22,7 +22,7 @@ public class ListCommand extends Command{
         System.out.println("\tHere are the tasks in your list:");
         //print all tasks in task list
         for (int i = 1; i < tasks.getTaskSize() + 1; i++) {
-            Task task = tasks.getTasklist().get(i - 1);
+            Task task = tasks.getTaskList().get(i - 1);
             System.out.println("\t"+String.format(i + "." + task, task.getStatusIcon()));
         }
     }
