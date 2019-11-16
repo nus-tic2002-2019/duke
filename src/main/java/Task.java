@@ -1,3 +1,7 @@
+/**
+ * task class to initiate a "tick" or "cross" for every task
+ */
+
 public class Task {
     protected String description;
     protected boolean isDone;

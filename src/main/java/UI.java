@@ -13,6 +13,10 @@ public class UI{
     }
     public void showWelcomeMessage(){
         System.out.println(wrapString("Hello! I'm Duke\n\tWhat can I do for you?"));
+        System.out.println("\tPlease use the following format:");
+        System.out.println("\ttodo task description");
+        System.out.println("\tdeadline task description by dd/mm/yyyy HHmm");
+        System.out.println("\tevent description at dd/mm/yyyy HHmm");
     }
 
     public void showGoodbyeMessage(){

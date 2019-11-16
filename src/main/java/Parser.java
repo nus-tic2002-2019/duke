@@ -1,3 +1,8 @@
+/**
+ * Represent Parse class
+ * Make sense of user input and update data into the data structure
+ */
+
 public class Parser {
     public static Command parseInput(String userInput) throws DukeException {
         String input = userInput;

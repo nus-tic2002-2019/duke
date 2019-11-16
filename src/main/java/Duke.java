@@ -32,7 +32,7 @@ public class Duke{
     }
     public static void main(String[] args) {
         new Duke("data/taskList.txt").run();
-        //C:\Users\AdminCOOP\Documents\2019 Year 3 Sem 1\TIC2002\sample.txt
+        //new Duke("C:\\Users\\AdminCOOP\Documents\\2019 Year 3 Sem 1\\TIC2002\\sample.txt").run();
     }
     private void exit() {
         ui.showGoodbyeMessage();

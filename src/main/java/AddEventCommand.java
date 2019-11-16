@@ -1,3 +1,7 @@
+/**
+ * Constructs a new AddEventCommand and initialise with isExit boolean value
+ */
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.time.LocalDateTime;
