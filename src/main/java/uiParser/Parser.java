@@ -2,14 +2,15 @@ package uiParser;
 import java.time.*;
 import java.util.ArrayList;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+import java.text.DateFormatSymbols;
+import java.util.*;
 import exceptions.*;
 
 public class Parser {
     private String actionType;
     private int taskNo;
     static ArrayList<String> taskCommands;
+    private static Map<String, String> dateMap;
 
     public Parser() {
         taskCommands = new ArrayList<>();
@@ -21,6 +22,14 @@ public class Parser {
         taskCommands.add("list");
         taskCommands.add("bye");
         taskCommands.add("find");
+        dateMap = new HashMap();
+        dateMap.put("Mon", "MONDAY");
+        dateMap.put("Tue", "TUESDAY");
+        dateMap.put("Wed", "WEDNESDAY");
+        dateMap.put("Thu", "THURSDAY");
+        dateMap.put("Fri", "FRIDAY");
+        dateMap.put("Sat", "SATURDAY");
+        dateMap.put("Sun", "SUNDAY");
     }
 
     public String[] parseUi(String userInput) {
@@ -90,7 +99,14 @@ public class Parser {
 
     public LocalDate parseDate(String datetime) {
         String[] d = datetime.split(" ");
-        return LocalDate.parse((d[0]));
+        String[] weekdays = new DateFormatSymbols().getShortWeekdays();
+        List<String> listDays = Arrays.asList(weekdays);
+
+        if (!listDays.contains(d[0])) {
+            return LocalDate.parse((d[0]));
+        } else {
+            return (dateFromDay(d[0]));
+        }
     }
 
     public LocalTime parseTime(String datetime) {
@@ -98,11 +114,12 @@ public class Parser {
         return LocalTime.parse(d[1]);
     }
 
-    /*public LocalDate parsedDate(String taskDate) {
-        return LocalDate.parse(taskDate);
+    public LocalDate dateFromDay(String dayStr) {
+        LocalDate current = LocalDate.now();
+        int day = DayOfWeek.from(current).getValue();
+        String temp = dateMap.get(dayStr);
+        int day2 = DayOfWeek.valueOf(temp).getValue();
+        int num = 7 - day + day2;
+        return current.plusDays(num);
     }
-
-    public LocalTime parsedTime(String taskTime) {
-        return LocalTime.parse(taskTime);
-    }*/
 }

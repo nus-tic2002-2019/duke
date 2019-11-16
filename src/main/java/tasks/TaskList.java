@@ -29,9 +29,6 @@ public class TaskList {
 
         switch (actionType) {
             case "event":
-                /*String[] d = new Parser().parseDateTime(taskTime);
-                LocalDate date = new Parser().parsedDate(d[0]);
-                LocalTime time = new Parser().parsedTime(d[1]);*/
                 LocalDate dateE = new Parser().parseDate(taskTime);
                 LocalTime time = new Parser().parseTime(taskTime);
                 userArr.add(new Event(task, dateE, time));

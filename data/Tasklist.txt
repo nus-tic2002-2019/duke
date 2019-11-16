@@ -3,3 +3,4 @@ D | false | pay bills  | Nov 15 2019
 T | true | finish reading a book
 E | false | christmas party  | Dec 24 2019 | 6:00PM
 E | false | database finals  | Nov 25 2019 | 9:00AM
+D | false | return library book  | Nov 21 2019
