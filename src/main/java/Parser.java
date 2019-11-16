@@ -14,6 +14,8 @@ public class Parser{
                 return new DeleteCommand(input);
             case "done":
                 return new DoneCommand(input);
+            case "find":
+                return new FindCommand(input);
             case "bye":
                 return new ByeCommand("");  
             default:

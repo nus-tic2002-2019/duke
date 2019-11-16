@@ -28,7 +28,7 @@ public class UI{
                     + "\t| | | | | | | |/ / _ \\\n"
                     + "\t| |_| | |_| |   <  __/\n" 
                     + "\t|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println(constantString(logo + "Hello! I'm Duke\n\tWhat can I do for you?"));
+        System.out.println(constantString(logo + "\tHello! I'm Duke\n\tWhat can I do for you?"));
     }
 
     public void goodbyeMessage(){
