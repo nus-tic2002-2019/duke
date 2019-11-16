@@ -31,8 +31,10 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        
+
         ui.println(logo);
+        //ui.scenarioStart();
+        System.out.println("\n");
         ui.printFancy("" +
                 "Hello! I'm Duke\n" +
                 "What can I do for you?");
