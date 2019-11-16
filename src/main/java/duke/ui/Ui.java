@@ -1,23 +1,23 @@
-package ui;
+package duke.ui;
 
-import parser.Parser;
-import tasklist.*;
-import exception.DukeException;
+import duke.parser.Parser;
+import duke.tasklist.*;
+import duke.exception.DukeException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import storage.Storage;
+import duke.storage.Storage;
 
 /**
  * The Ui class handles the user interaction
  */
 public class Ui {
-    public static Scanner scanInput;
+    public static Scanner textInput;
     /**
      * The Ui constructor create a new Scanner object to receive the user input
      */
     public Ui(){
-        scanInput = new Scanner(System.in);
+        textInput = new Scanner(System.in);
     }
 
     /**
@@ -84,44 +84,54 @@ public class Ui {
      */
 
     public void dukeInput (taskList tasks, String textInput) throws DukeException {
-       Parser processCommand = new Parser(textInput);
+        Parser processCommand = new Parser(textInput);
         try {
-            switch (processCommand.getValidCommand()) {
-                case "find":
-                    taskList.displayList(taskList.findInList(processCommand.getTaskDescription()));
-                    break;
-                case "sort":
-                    taskList.displayList(taskList.priorityHighToLow());
-                    break;
-                case "list":
-                    taskList.displayList(taskList.getList());
-                    break;
-                case "done":
-                    taskList.markInList(processCommand.getListIndex());
-                    break;
-                case "delete":
-                    taskList.deleteFromList(processCommand.getListIndex());
-                    break;
-                case "set":
-                    taskList.setTaskPriority(processCommand.getListIndex(), processCommand.getTaskPriority());
-                    break;
-                case "todo":
-                    taskList.addTodo(new Todo(processCommand.getTodoDescription(), false, processCommand.getTaskPriority()));
-                    break;
-                case "deadline":
-                    taskList.addDeadlines(new Deadlines(processCommand.getDeadlineDescription(), processCommand.getDeadlineDate(), false, processCommand.getTaskPriority()));
-                    break;
-                case "event":
-                    taskList.addEvent(new Event(processCommand.getEventDescription(), processCommand.getEventDate(), processCommand.getEventStartTime(), processCommand.getEventEndTime(), false, processCommand.getTaskPriority()));
-                    break;
-                case "bye":
-                    dukeBye();
-                    break;
-                default:
-                    throw new DukeException("Unknown Command");
+            switch (processCommand.getCommand()) {
+            case "find":
+                taskList.displayList(taskList.findInList(processCommand.getTaskDescription()));
+                break;
+            case "sort":
+                taskList.displayList(taskList.priorityHighToLow());
+                break;
+            case "list":
+                taskList.displayList(taskList.getList());
+                break;
+            case "done":
+                taskList.markInList(processCommand.getListIndex());
+                break;
+            case "delete":
+                taskList.deleteFromList(processCommand.getListIndex());
+                break;
+            case "set":
+                taskList.setTaskPriority(processCommand.getListIndex(), processCommand.getTaskPriority());
+                break;
+            case "todo":
+                taskList.addTodo(new Todo(processCommand.getTodoDescription(),
+                        false,
+                        processCommand.getTaskPriority()));
+                break;
+            case "deadline":
+                taskList.addDeadlines(new Deadlines(processCommand.getDeadlineDescription(),
+                        processCommand.getDeadlineDate(),
+                        false,
+                        processCommand.getTaskPriority()));
+                break;
+            case "event":
+                taskList.addEvent(new Event(processCommand.getEventDescription(),
+                        processCommand.getEventDate(),
+                        processCommand.getEventStartTime(),
+                        processCommand.getEventEndTime(),
+                        false,
+                        processCommand.getTaskPriority()));
+                break;
+            case "bye":
+                dukeBye();
+                break;
+            default:
+                throw new DukeException("Unknown Command");
             }
-            if (!processCommand.getValidCommand().equals("find") || !processCommand.getValidCommand().equals("sort"))
-            Storage.saveList(Storage.getFile().getAbsolutePath(), tasks);
+            if (!processCommand.getCommand().equals("find") || !processCommand.getCommand().equals("sort"))
+                Storage.saveList(Storage.getFile().getAbsolutePath(), tasks);
         }
         catch (IOException e){
             throw new DukeException("Unable to save to file");
@@ -132,6 +142,6 @@ public class Ui {
 
     }
 
-    public static Scanner getScanInput(){return scanInput;};
+    public static Scanner getTextInput(){return textInput;};
 
 }

@@ -1,4 +1,4 @@
-package exception;
+package duke.exception;
 /**
  * The DukeException class extends from th Exception class and provides a way to give meaningful errors for the users
  */

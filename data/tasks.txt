@@ -1,1 +1,1 @@
-D | 0 | H | hand in assignment | 2019-11-17T | 0 | M | do videoD | 0 | L | return book | 2019-06-06E | 0 | H | lunch | 2019-11-20 11:00 - 13:00E | 0 | M | project meeting | 2019-08-06 22:00 - 23:00T | 1 | L | join sports clubT | 1 | L | read book
+T | 1 | H | read bookD | 0 | L | return book | 2019-06-06E | 0 | M | project meeting | 2019-08-06 22:00 - 23:00T | 1 | L | join sports clubD | 0 | L | test save file | 2019-11-09

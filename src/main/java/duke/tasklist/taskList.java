@@ -1,9 +1,14 @@
-package tasklist;
+package duke.tasklist;
 
-import java.util.*;
 
-import exception.DukeException;
-import ui.Ui;
+
+import duke.exception.DukeException;
+import duke.ui.Ui;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * This is a taskList class which manages the list

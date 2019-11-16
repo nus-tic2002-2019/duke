@@ -1,4 +1,4 @@
-package tasklist;
+package duke.tasklist;
 
 /**
  * Represent a task in a list.
@@ -32,7 +32,7 @@ public abstract class Task {
     }
 
     public String getTaskPriorityToString(){
-
+        //printTaskPriority = taskPriority.taskPriorityToString();
         switch(taskPriority){
             case LOW:
                 printTaskPriority = "L";
@@ -48,21 +48,6 @@ public abstract class Task {
     }
 
     public Priority getTaskPriority(){
-        return taskPriority;
-    }
-
-    public Priority getTaskPriorityFromString(String strTaskPriority){
-        switch(strTaskPriority){
-            case "L":
-                taskPriority = Priority.LOW;
-                break;
-            case "M":
-                taskPriority = Priority.MEDIUM;
-                break;
-            case "H":
-                taskPriority = Priority.HIGH;
-                break;
-        }
         return taskPriority;
     }
 

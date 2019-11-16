@@ -1,10 +1,11 @@
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import exception.DukeException;
-import tasklist.*;
-import ui.Ui;
-import storage.Storage;
+import duke.exception.DukeException;
+
+import duke.tasklist.taskList;
+import duke.ui.Ui;
+import duke.storage.Storage;
 
 
 public class Duke {
@@ -47,7 +48,7 @@ public class Duke {
         while(!isExit) {
             try{
 
-                textInput = userInterface.getScanInput().nextLine();
+                textInput = userInterface.getTextInput().nextLine();
                 userInterface.showLine();
                 userInterface.dukeInput(tasks, textInput);
                 if (textInput.equalsIgnoreCase("bye")) isExit = true;
