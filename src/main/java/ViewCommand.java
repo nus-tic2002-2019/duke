@@ -1,13 +1,14 @@
 /*
- *  FindCommand.java
- *  Defines the 'Find' action to search tasks using keywords.
+ *  ViewCommand.java
+ *  Defines the 'View' action to view
+ *  schedule for a specific date.
  */
-public class FindCommand extends Command{
+public class ViewCommand extends Command{
     private String keyWord;
     /*
-     *  Constructs Find Command object.
+     *  Constructs View Command object.
      */
-    public FindCommand(String keyWord){
+    public ViewCommand(String keyWord){
         this.keyWord = keyWord;
     }
 
@@ -24,8 +25,18 @@ public class FindCommand extends Command{
         //print all tasks in task list
         for (int i = 1; i < tasks.getTaskSize() + 1; i++) {
             Task task = tasks.getTaskList().get(i - 1);
-            String description = task.getDescription();
-            if(description.contains(keyWord)){
+            String dateTime = "";
+            if(task.getTaskType()=='E'){
+                Event event;
+                event = (Event) tasks.getTaskList().get(i - 1);
+                dateTime = event.getLast();
+            }
+            if(task.getTaskType()=='D'){
+                Deadline deadline;
+                deadline = (Deadline) tasks.getTaskList().get(i - 1);
+                dateTime = deadline.getLast();
+            }
+            if(dateTime.contains(keyWord)){
                 System.out.println("\t"+String.format(i + "." + task, task.getStatusIcon()));
             }
         }

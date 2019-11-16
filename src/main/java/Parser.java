@@ -40,6 +40,12 @@ public class Parser {
                 } else {
                     return new FindCommand(task[1]);
                 }
+            case "view":
+                if(taskLen < 2) {
+                    throw new DukeException(command);
+                } else {
+                    return new ViewCommand(task[1]);
+                }
             case "delete":
                 if(taskLen < 2) {
                     throw new DukeException(command);
