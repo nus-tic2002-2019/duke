@@ -125,6 +125,11 @@ public class Ui {
         return ldtString.format(FORMATTER); //Get formatted String
     }
 
+    public static String customDate(String timeString){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a");
+        LocalDateTime dateString = LocalDateTime.parse(timeString);
+        return dateString.format(formatter);
+    }
 
 
 }
