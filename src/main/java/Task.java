@@ -1,4 +1,6 @@
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
 
 public class Task {
 
@@ -21,5 +23,9 @@ public class Task {
 
     public String toString () {
         return "[" + this.getStatusIcon() + "] " +  this.description ;
+    }
+
+    public void print_Task() {
+        System.out.println("[D]" + super.toString() + ")");
     }
 }
