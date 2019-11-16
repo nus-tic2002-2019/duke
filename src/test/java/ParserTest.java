@@ -16,7 +16,7 @@ public class ParserTest {
     }
 
     @Test
-    void descriptionTest() {
+    void descriptionTest(){
         assertEquals("borrow book", Parser.description("todo borrow book"));
     }
 

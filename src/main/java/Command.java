@@ -1,9 +1,6 @@
 import duke.exception.CommandException;
 import duke.exception.InvalidNumberException;
 import duke.exception.LackOfElementException;
-import duke.task.Task;
-
-import java.util.ArrayList;
 /**
  * Create and execute user command.
  * */
@@ -44,9 +41,9 @@ public class Command {
      * @param tasks task list to be updated
      * @param storage file address to be updated
      * */
-    public void execute(ArrayList<Task> tasks, Storage storage) {
+    public void execute(TaskList tasks, Storage storage) {
         String command = Parser.command(fullCommand);
-        int size = tasks.size();
+        int size = tasks.tasks.size();
 
         try {
             CheckFirstWord(command);
@@ -60,13 +57,13 @@ public class Command {
                 isExit = true;
                 break;
             case "list":
-                UI.listMessage(tasks);
+                UI.listMessage(tasks.tasks);
                 break;
             case "done":
                 try {
                     CheckElement(fullCommand);
                     CheckNumber(size, Parser.taskNumber(fullCommand));
-                    TaskList.doneCommand(tasks, storage, fullCommand);
+                    tasks.doneCommand(storage, fullCommand);
                 } catch (LackOfElementException e) {
                     System.out.println("OOPS!!! Pls key in the number of the task");
                 } catch (InvalidNumberException e) {
@@ -77,7 +74,7 @@ public class Command {
                 try {
                     CheckElement(fullCommand);
                     CheckNumber(size, Parser.taskNumber(fullCommand));
-                    TaskList.deleteCommand(tasks, storage, fullCommand);
+                    tasks.deleteCommand(storage, fullCommand);
                 } catch (LackOfElementException e) {
                     System.out.println("OOPS!!! Pls key in the number of the task");
                 } catch (InvalidNumberException e) {
@@ -87,7 +84,7 @@ public class Command {
             case "todo":
                 try {
                     CheckElement(fullCommand);
-                    TaskList.addTodoCommand(tasks, storage, fullCommand);
+                    tasks.addTodoCommand(storage, fullCommand);
                 } catch (LackOfElementException e) {
                     System.out.println("OOPS!!! Pls key in the description for the task");
                 }
@@ -95,7 +92,7 @@ public class Command {
             case "deadline":
                 try {
                     CheckElement(fullCommand);
-                    TaskList.addDeadlineCommand(tasks, storage, fullCommand);
+                    tasks.addDeadlineCommand(storage, fullCommand);
                 } catch (LackOfElementException e) {
                     System.out.println("OOPS!!! Pls key in the description for the task");
                 }
@@ -103,7 +100,7 @@ public class Command {
             case "event":
                 try {
                     CheckElement(fullCommand);
-                    TaskList.addEventCommand(tasks, storage, fullCommand);
+                    tasks.addEventCommand(storage, fullCommand);
                 } catch (LackOfElementException e) {
                     System.out.println("OOPS!!! Pls key in the description for the task");
                 }
@@ -111,7 +108,7 @@ public class Command {
             case "find":
                 try {
                     CheckElement(fullCommand);
-                    TaskList.findCommand(tasks, fullCommand);
+                    tasks.findCommand(fullCommand);
                 } catch (LackOfElementException e) {
                     System.out.println("OOPS!!! Pls key in the description for finding");
                 }
