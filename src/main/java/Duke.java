@@ -27,12 +27,16 @@ public class Duke {
                 filteredInputText = rawInput.substring(rawInput.indexOf(' '));
             } catch (Exception e) {
                 filteredInputText = "<No Text Entered>";
+                if (filteredInputCommand.equals("delete")){
+                    System.out.println("____________________________________________________________\n" + "Command usage: delete <task number>");
+                    filteredInputCommand = "";
+                }
                 if (filteredInputCommand.equals("deadline")){
                     System.out.println("____________________________________________________________\n" + "Command usage: deadline <task> /<date>");
                     filteredInputCommand = "";
                 }
                 if (filteredInputCommand.equals("todo")){
-                    System.out.println("____________________________________________________________\n" + "Command usage: todo <task>");
+                    System.out.println("____________________________________________________________\n" + "Command usage: todo <task number>");
                     filteredInputCommand = "";
                 }
                 if (filteredInputCommand.equals("event")){
@@ -84,8 +88,8 @@ public class Duke {
                         System.out.println(TasksList.get(doneInt));
                         System.out.println("____________________________________________________________");
                     } catch (Exception e) {
-                        System.out.println("____________________________________________________________\n" + "Command usage: todo <task>");
-                        System.out.println("Available commands: deadline, event, todo, list, bye\n" + "You have entered an invalid command, please try again\n" + "____________________________________________________________");
+                        System.out.println("____________________________________________________________\n" + "Command usage: todo <task number>");
+                        System.out.println("Available commands: deadline, event, todo, list, delete, bye\n" + "You have entered an invalid command, please try again\n" + "____________________________________________________________");
                     }
                     break;
                 case "todo":
@@ -107,9 +111,24 @@ public class Duke {
                             "Got it. I've added this deadline:\n" + "[D][" + "\u2718" + "]" + filteredInputText + " (by: " + filteredInputDate + ")" +"\n" +
                             "Now you have " + TasksList.size() + " tasks in the list.\n" +
                             "____________________________________________________________\n"); break;
+                case "delete":
+                    try {
+                        int deleteInt = Integer.parseInt(filteredInputText.substring(1));
+                        deleteInt--;
+                        String tempStorage = TasksList.get(deleteInt);
+                        TasksList.remove(deleteInt);
+                        System.out.println("____________________________________________________________\n" + "Noted. I've removed this task:");
+                        System.out.println(tempStorage);
+                        System.out.println("Now you have " + TasksList.size() + " tasks in the list.\n");
+                        System.out.println("____________________________________________________________");
+                    } catch (Exception e) {
+                        System.out.println("____________________________________________________________\n" + "Command usage: delete <task number>");
+                        System.out.println("Available commands: deadline, event, todo, list, delete, bye\n" + "You have entered an invalid command, please try again\n" + "____________________________________________________________");
+                    }
+                    break;
                 case "bye": break;
                 default:
-                    System.out.println("Available commands: deadline, event, todo, list, bye\n" + "You have entered an invalid command, please try again\n" + "____________________________________________________________");
+                    System.out.println("Available commands: deadline, event, todo, list, delete, bye\n" + "You have entered an invalid command, please try again\n" + "____________________________________________________________");
                     break;
             }
         }
