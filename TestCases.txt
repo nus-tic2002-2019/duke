@@ -7,3 +7,11 @@ todo abcdef123
 list
 list 1
 list  1
+
+T| 1 | homework 2 
+E| 0 | birthday party | John's house
+D| 0 | project 2 | 12 Dec 2019 0900
+D| 0 | project 3 | 19 Nov 2019 1557
+A| 0 | House Chores | 01 Dec 2019 1200
+A| 0 | Report | 17 Nov 2019 1558
+
