@@ -1,13 +1,18 @@
-import java.io.*;
-import java.util.Scanner;
-import java.util.ArrayList;
-
+/*
+ *  Duke.java
+ *  This is a simple TO-DO program named 'Duke'.
+ *  Fork source: https://github.com/nus-tic2002-2019/duke
+ *  Runs the 'Duke' program.
+ */
 public class Duke {
     private Storage storage;
     private TaskList tasks;
     private UI ui;
 
-
+    /*
+     *  Constructs Duke object.
+     *  @param filePath Define file location.
+     */
     public Duke(String filePath) {
         ui = new UI();
         storage = new Storage(filePath);
@@ -19,6 +24,9 @@ public class Duke {
         }
     }
 
+    /*
+     *  This method shows the flow of 'Duke'.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -37,7 +45,10 @@ public class Duke {
             }
         }
     }
-
+    /*
+     *  This is the main method
+     *  @param args Arguments.
+     */
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();
     }

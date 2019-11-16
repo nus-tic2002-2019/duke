@@ -1,3 +1,7 @@
+/*
+ *  Storage.java
+ *  Defines method to load and save tasks.
+ */
 import java.io.*;
 import java.util.ArrayList;
 
@@ -5,6 +9,10 @@ public class Storage {
     private String filepath;
     private BufferedReader reader;
 
+    /*
+     * Constructs Storage object
+     * @param filePath Define file location.
+     */
     Storage(String filepath){
         this.filepath = filepath;
         try {
@@ -14,10 +22,16 @@ public class Storage {
         }
     }
 
+    /* This method loads task list with tasks in file.
+     * @return tasks Task object.
+     * @throws DukeException Exception handled.
+     */
     public ArrayList<Task> load() throws DukeException {
+        //initialize Array list as tasks.
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             String line;
+            //reads all task written in the file
             while ((line = reader.readLine()) != null) {
                 String[] readData = line.split(" \\| ");
                 Task newTask = null;
@@ -34,14 +48,19 @@ public class Storage {
             }
             reader.close();
         } catch (IOException e) {
+            //prints exception message.
             System.out.println(e.getMessage());
         }
         return tasks;
     }
 
+    /* This method save task list with tasks in file.
+     * @param task Task stored in array list.
+     */
     public void save(ArrayList<Task> tasks) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("data/tasks.txt"));
+            //writes all tasks into file
             for (Task task : tasks) {
                 char type = task.getTaskType();
                 String status = (task.getStatusIcon().equals("[\u2713]")) ? "1" : "0";
@@ -55,6 +74,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e){
+            //prints exception message.
             System.out.println(e.getMessage());
         }
     }

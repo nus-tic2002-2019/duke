@@ -1,8 +1,24 @@
+/*
+ *  Parser.java
+ *  Defines the flow of commands parse from user's input.
+ */
+
 public class Parser {
+    /*
+     * @param command Command from user's input.
+     * @return Command object.
+     * @throws DukeException Exception handled.
+     */
     static Command parse(String command) throws DukeException{
+        //task split by the first spacing
         String[] task = command.split(" ",2);
+
+        //stores task size
         int taskLen = task.length;
+
+        //command defined by user
         command = task[0];
+        
         switch (command){
             case "list":
                 return new ListCommand();
