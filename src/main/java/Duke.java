@@ -44,9 +44,7 @@ public class Duke {
         if (userInput.contains("done")) {
             splitStr = userInput.split("\\s+");
             mark.set(Integer.valueOf(splitStr[1]) - 1, true);
-        } else if (userInput.contains("delete")) {
-            save();
-        } else if ((!userInput.equals("list")) && (!userInput.equals("bye"))) {
+        } else if ((!userInput.equals("list")) && (!userInput.equals("bye")) && (!userInput.contains("find"))) {
             String typeS = getType(userInput);
             LocalDate dateL =LocalDate.now();//LocalDate.parse("0000-00-00");
 
@@ -92,7 +90,7 @@ public class Duke {
                     System.out.println(i + 1 + ". [" + type.get(i) + "][" + getMark(mark.get(i)) + "] " + list.get(i));
             }
 
-        } else if (userInput.contains("done")) {
+        } else if (userInput.contains("done"))  {
             save();
             // int index = Integer.valueOf(userInput.substring(userInput.length() + 1)) - 1;
             String[] splitStr = userInput.split("\\s+");
@@ -120,7 +118,25 @@ public class Duke {
             dateS.remove(index);
             save();
             System.out.println("Now you have " + list.size() + " tasks in the list.");
-        } else {
+        } else if (userInput.contains("find")) {
+
+            userInput = userInput.replace("find ", "");
+            System.out.println("Here are the matching tasks in your list:");
+            int num = 0;
+
+            for (int i = 0; i < list.size(); i++) {
+
+                if(list.get(i).contains(userInput)) {
+                    num++;
+                    if(type.get(i).contains("E") || type.get(i).contains("D"))
+                        System.out.println(num + ". [" + type.get(i) + "][" + getMark(mark.get(i)) + "] " + list.get(i) + " " + dateS.get(i).format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")");
+                    else
+                        System.out.println(num + ". [" + type.get(i) + "][" + getMark(mark.get(i)) + "] " + list.get(i));
+                }
+
+            }
+        }
+        else {
             save();
             int size = list.size() - 1;
             System.out.println("Got it. I've added this task: " + userInput);
