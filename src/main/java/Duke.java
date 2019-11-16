@@ -11,6 +11,103 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         System.out.println("____________________________________________________________\n" + "Hello! I'm Duke\n" + "What can I do for you?\n" + "____________________________________________________________\n");
         Scanner input = new Scanner(System.in);
+        String rawInput = "";
+        String filteredInputCommand = "";
+        String filteredInputText = "";
+        String filteredInputDate = "";
+        ArrayList<String> TasksList = new ArrayList<String>();
+        while ( !rawInput.equals("bye") ) {
+            rawInput = input.nextLine();
+            try {
+                filteredInputCommand = rawInput.substring(0, rawInput.indexOf(' '));
+            } catch (Exception e) {
+                filteredInputCommand = rawInput;
+            }
+            try {
+                filteredInputText = rawInput.substring(rawInput.indexOf(' '));
+            } catch (Exception e) {
+                filteredInputText = "<No Text Entered>";
+                if (filteredInputCommand.equals("deadline")){
+                    System.out.println("Command usage: deadline <task> /<date>");
+                    filteredInputCommand = "";
+                }
+                if (filteredInputCommand.equals("todo")){
+                    System.out.println("Command usage: todo <task>");
+                    filteredInputCommand = "";
+                }
+                if (filteredInputCommand.equals("event")){
+                    System.out.println("Command usage: event <task> /<date>");
+                    filteredInputCommand = "";
+                }
+            }
+            try {
+                filteredInputText = filteredInputText.substring(0, (filteredInputText.indexOf('/')));
+            } catch (Exception e) {
+
+            }
+            try {
+                filteredInputDate = rawInput.substring(rawInput.indexOf('/'));
+                filteredInputDate = filteredInputDate.substring(1);
+            } catch (Exception e) {
+                filteredInputDate = "<No Date Entered>";
+                if (filteredInputCommand.equals("deadline")){
+                    System.out.println("Command usage: deadline <task> /<date>");
+                    filteredInputCommand = "";
+                }
+                if (filteredInputCommand.equals("event")){
+                    System.out.println("Command usage: event <task> /<date>");
+                    filteredInputCommand = "";
+                }
+            }
+            switch ( filteredInputCommand ) {
+                case "list":
+                    System.out.println("____________________________________________________________");
+                    for (int i = 0; i < TasksList.size(); i++){
+                        System.out.println((i+1)+"."+TasksList.get(i));
+                    }
+                    System.out.println("____________________________________________________________\n");
+                    break;
+                case "done":
+                    break;
+                case "todo":
+                    TasksList.add("[T][" + "\u2718" + "]" + filteredInputText);
+                    System.out.println("____________________________________________________________\n" +
+                            "Got it. I've added this todo:\n" + "[T][" + "\u2718" + "]" +
+                            filteredInputText +"\n" + "Now you have " + TasksList.size() + " tasks in the list.\n" +
+                            "____________________________________________________________\n");
+                    break;
+                case "event":
+                    TasksList.add("[E][" + "\u2718" + "]" + filteredInputText + " (at: " + filteredInputDate + ")");
+                    System.out.println("____________________________________________________________\n" +
+                            "Got it. I've added this event:\n" + "[E][" + "\u2718" + "]" + filteredInputText + " (at: " + filteredInputDate + ")" +"\n" +
+                            "Now you have " + TasksList.size() + " tasks in the list.\n" +
+                            "____________________________________________________________\n"); break;
+                case "deadline":
+                    TasksList.add("[D][" + "\u2718" + "]" + filteredInputText + " (by: " + filteredInputDate + ")");
+                    System.out.println("____________________________________________________________\n" +
+                            "Got it. I've added this deadline:\n" + "[D][" + "\u2718" + "]" + filteredInputText + " (by: " + filteredInputDate + ")" +"\n" +
+                            "Now you have " + TasksList.size() + " tasks in the list.\n" +
+                            "____________________________________________________________\n"); break;
+                case "bye": break;
+                default:
+                    System.out.println("Available commands: deadline, event, todo, list, bye\n" + "You have entered an invalid command, please try again\n");
+                    break;
+            }
+        }
+        System.out.println("____________________________________________________________\n" + "Bye. Hope to see you again soon!\n" + "____________________________________________________________");
+    }
+}
+
+/*public class Duke {
+    public static void main(String[] args) {
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+        System.out.println("Hello from\n" + logo);
+        System.out.println("____________________________________________________________\n" + "Hello! I'm Duke\n" + "What can I do for you?\n" + "____________________________________________________________\n");
+        Scanner input = new Scanner(System.in);
         String text = "";
         String filteredtext = "";
         ArrayList<String> list = new ArrayList<String>();
@@ -50,4 +147,4 @@ public class Duke {
             }
         }
     }
-}
+}*/
