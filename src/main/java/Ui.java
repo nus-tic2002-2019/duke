@@ -4,6 +4,9 @@ public class Ui {
 
     String horizontal_line = ("____________________________________\n");
 
+    /**
+     * Display the logo during Startup
+     */
     public void welcome_note() {
         System.out.println(horizontal_line);
         String logo = " ____        _        \n"
@@ -15,8 +18,12 @@ public class Ui {
         System.out.println(horizontal_line + "Hello I'm Duke\nWhat can I do for you? \n" + horizontal_line);
     }
 
-
-    //Just print out all the information from the Array List -- for List Option
+    /**
+     * Print out everything in the Array List, for display.
+     * Used when List is called by Users.
+     *
+     * @param my_Arr_List list of array passed from the main functions
+     */
     public void print_Arry (ArrayList<Task> my_Arr_List) {
 
         System.out.println(horizontal_line + '\n' + "Here are the tasks in your list:");
@@ -27,8 +34,12 @@ public class Ui {
         System.out.println(horizontal_line);
     }
 
-
-    //Printout whenever adding new stuff. >> Just printing for display
+    /**
+     * Printout whenever new stuff Users had just input. >>
+     * Just printing for display whenever todo, event, or deadline is called and added
+     *
+     * @param input content of user_input
+     */
     public void Print_input (int count, Task input) {
         System.out.println(horizontal_line + "Got it. I've added this task: ");
         System.out.println(" " + input);

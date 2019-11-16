@@ -6,10 +6,10 @@ public class TaskList {
 
     String horizontal_line = ("____________________________________\n");
     public ArrayList<Task> list;
-
+/*
     public TaskList () {
         this.list = new ArrayList<Task>();
-    }
+    } */
 
     public void append_new_data (String FilePath, String textToAdd) throws IOException {
         FileWriter ft = new FileWriter(FilePath, true);
@@ -37,6 +37,13 @@ public class TaskList {
         return myArr_list;
     }
 
+    /**
+     * Add on the Todo Task input by Users into Array List and print out for display
+     *
+     * @param count  size of Array passed from main function.
+     * @param line input by users
+     *
+     */
     public void append_Todo(ArrayList<Task> myArr_list, String line, int count) {
        // try {
             myArr_list.add(new Todo(line.substring(5))); //new
@@ -47,6 +54,13 @@ public class TaskList {
         //}
     }
 
+    /**
+     * Add on the Deadlines Task input by Users into Array List and print out for display
+     *
+     * @param count  size of Array passed from main function.
+     * @param line input by users
+     *
+     */
     public void append_Deadline (ArrayList<Task> myArr_list, String line, int count) {
         int close_bracket = line.indexOf(')');
         int position = line.indexOf("by");
@@ -54,6 +68,13 @@ public class TaskList {
         myArr_list.add(new Deadlines(line.substring(9, position - 1), (line.substring((position + 4), close_bracket)))); //new
     }
 
+    /**
+     * Add on the Event Task input by Users into Array List and print out for display
+     *
+     * @param count  size of Array passed from main function.
+     * @param line input by users
+     *
+     */
     public void append_Event (ArrayList<Task> myArr_list, String line, int count, String FilePath) {
         //int position_slash = line.indexOf("/");
         //int position_time = line.indexOf(" ", position_slash);

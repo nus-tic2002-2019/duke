@@ -1,7 +1,6 @@
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-
 public class Task {
 
     protected String description;
@@ -12,15 +11,23 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * To set the Task to completed status upon Users input
+     */
     public void setDone() {
         this.isDone = true;
     }
 
+    /**
+     * Return the icon based on done status: Done or Not Done
+     */
     public String getStatusIcon() {
         return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
     }
 
-
+    /**
+     * Return the Task format to String format
+     */
     public String toString () {
         return "[" + this.getStatusIcon() + "] " +  this.description ;
     }

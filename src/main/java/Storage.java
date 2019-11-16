@@ -14,6 +14,13 @@ public class Storage {
 
     //Load Data from txt.file to ArrayList
    //public ArrayList<Task> load (String FilePath) throws IOException, ClassNotFoundException {
+
+    /**
+     * Load data from the txt file to Array List whenever program started
+     *
+     * @param FilePath a default link to where the txt file is saved
+     * @throws IOException
+     */
     public ArrayList<Task> load (String FilePath) throws IOException {
 
         ArrayList<Task> myArr_list = new ArrayList<>();
@@ -43,7 +50,14 @@ public class Storage {
         return myArr_list;
     }
 
-    //Write the ArrayList back to File
+    /**
+     * Write content in the Array back to txt file whenever the program is closed
+     *
+     * @param FilePath a default link to where all data is currently saved
+     * @param TempPath a temperory file used to store the new data, this file will then be rename back to FilePath;
+     * @param my_Arr_List the list where all Task is stored during the main program run
+     * @throws IOException
+     */
     public void Update_Arry_to_List(String FilePath, String TempPath, ArrayList my_Arr_List) throws IOException{
         File f = new File(FilePath);
         FileWriter f1 = new FileWriter(FilePath, false);

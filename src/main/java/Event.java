@@ -8,6 +8,12 @@ public class Event extends Task {
     //protected LocalDateTime timing;
     protected String timing;
 
+    /**
+     * Declare the
+     *
+     * @param description store the information of the content of the task
+     * @param by store the timing where the task to be completed
+     */
     public Event (String description, String by) {
         super(description) ;
         this.by = by;

@@ -1,5 +1,8 @@
 public class Parser {
 
+    /**
+     * To return the type of command from Users for easy reference in main program
+     */
     public String user_input(String input) {
         String input_action = "" ;
 
