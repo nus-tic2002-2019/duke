@@ -6,8 +6,11 @@ import UI.Message;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.stream.Stream;
+import parse.Parser;
 
 public class Storage {
 
@@ -45,7 +48,7 @@ public class Storage {
                 to.add(task);
             }
             if (taskType.equals("D")) {
-                String time = linewords[3].trim();
+                LocalDate time = Parser.getDate(linewords[3].trim());
                 Deadline task = new Deadline(content, time);
                 if (isCompleted.equals("1"))
                     task.setCompleted();
@@ -53,7 +56,9 @@ public class Storage {
             }
             if (taskType.equals("E")) {
                 String time = linewords[3].trim();
-                Event task = new Event(content, time);
+                LocalDateTime at = Parser.getStartTime(time);
+                LocalDateTime till = Parser.getEndTime(time);
+                Event task = new Event(content, at, till);
                 if (isCompleted.equals("1"))
                     task.setCompleted();
                 to.add(task);

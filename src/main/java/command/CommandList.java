@@ -2,7 +2,9 @@ package command;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.time.*;
 import error_handling.*;
+import parse.Parser;
 import storage.*;
 import task.*;
 import UI.*;
@@ -170,8 +172,11 @@ public class CommandList {
             throw new InvalidCommandException();
         }
         String[] parts = content.split(" /by ");
-        list.add(new Deadline(parts[0], parts[1]));
+        LocalDate by = Parser.getDate(parts[1]);
+
+        list.add(new Deadline(parts[0], by));
         int index = list.get(0).getTotalTask() - 1;
+
         ui.addTaskMessage(list.get(index), list.get(0).getTotalTask());
     }
 
@@ -184,8 +189,13 @@ public class CommandList {
             throw new InvalidCommandException();
         }
         String[] parts = content.split(" /at ");
-        list.add(new Event(parts[0], parts[1]));
+
+        LocalDateTime at = Parser.getStartTime(parts[1]);
+        LocalDateTime till = Parser.getStartTime(parts[1]);
+
+        list.add(new Event(parts[0], at, till));
         int index = list.get(0).getTotalTask() - 1;
+
         ui.addTaskMessage(list.get(index), list.get(0).getTotalTask());
     }
 
