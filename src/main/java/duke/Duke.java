@@ -7,6 +7,10 @@ import main.java.duke.storage.Storage;
 import main.java.duke.task.TaskList;
 import main.java.duke.ui.Ui;
 
+import main.java.duke.storage.Storage.StorageOperationException;
+import main.java.duke.storage.Storage.InvalidStorageFilePathException;
+
+
 public class Duke {
 
 
@@ -19,7 +23,7 @@ public class Duke {
         try {
             storage = new Storage(filePath);
             tasks = new TaskList(storage.load());
-        } catch (Exception e) {
+        } catch (StorageOperationException | InvalidStorageFilePathException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
@@ -28,7 +32,7 @@ public class Duke {
         //new Duke("data/tasks.txt").run();
         new Duke("./data/duke.txt").run();
         //new Duke("C:\\Users\\RuiTing\\Desktop\\NUS-Module\\Year2-Sem1\\TIC2002-Introductionto Software Engineering\\Duke\\data\\duke.txt").run();
-        //new Duke("D:\\NUS-Module\\NUS-Module\\Year2-Sem1\\TIC2002-Introductionto Software Engineering\\Duke\\data\\duke.txt").run();
+        //new Duke("D:\\NUS-Module\\NUS-Module\\Year2-Sem1\\TIC2002-Introductionto Software Engineering\\Duke\\src\\test\\data\\InvalidDuke.txt").run();
 
         //original
         /*
