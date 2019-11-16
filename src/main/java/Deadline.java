@@ -5,27 +5,33 @@
  */
 package duke;
 
+import java.util.*;
+
 /**
  *
  * @author lug3g
  */
 public class Deadline extends Todo {
-    private String by;
+    private Date by;
 
-    public Deadline(String description,String by) {
+    public Deadline(String description,Date by) {
         super(description);
         this.by = by;
     }
 
-    public void setBy(String by) {
+    public void setBy(Date by) {
         this.by = by;
     }
 
-    public String getBy() {
+    public Date getBy() {
         return this.by;
     }
     
     public String printTask(){
       return ("[D][" + this.getStatusIcon() + "] " + this.description + "(by: " + this.getBy() + ")");
+    }
+    
+    public String writeTask(){
+      return ("D | " + this.getStatus() + " |  " + this.description + " | " + this.getBy());
     }
 }
