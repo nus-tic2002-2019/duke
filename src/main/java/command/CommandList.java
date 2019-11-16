@@ -102,10 +102,9 @@ public class CommandList {
     public String[] splitKeyword(String userInput) throws DukeException {
         //command: list
 
-        userInput = userInput.toLowerCase();
         userInput = userInput.trim();
         String[] parts = userInput.split(" ", 2);
-        parts[0] = parts[0].trim();
+        parts[0] = parts[0].toLowerCase().trim();
         if (parts.length != 1) {
             parts[1] = parts[1].trim();
         }

@@ -51,6 +51,10 @@ public class Duke {
         while(!userInput.equals("bye")) {
             userInput = ui.read();
 
+            // sometimes users may hit the space bar/enter, it's stupid to keep showing alerts for that
+            if (userInput.trim().equals(""))
+                continue;
+
             String firstWord = keywords.splitKeyword(userInput)[0];
             // Some command is single word; Some command must have second part after space
             String content = null;
