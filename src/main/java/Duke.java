@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.FileWriter;
 
 public class Duke {
     public static void main(String[] args) {
@@ -131,6 +132,16 @@ public class Duke {
                     System.out.println("Available commands: deadline, event, todo, list, delete, bye\n" + "You have entered an invalid command, please try again\n" + "____________________________________________________________");
                     break;
             }
+            try{
+                FileWriter writer = new FileWriter("output.txt");
+                for(String str: TasksList) {
+                    writer.write(str + System.lineSeparator());
+                }
+                writer.close();
+            } catch (Exception e) {
+
+            }
+
         }
         System.out.println("____________________________________________________________\n" + "Bye. Hope to see you again soon!\n" + "____________________________________________________________");
     }
