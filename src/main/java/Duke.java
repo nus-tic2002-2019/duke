@@ -77,6 +77,10 @@ public class Duke {
                     System.out.println("____________________________________________________________\n" + "Command usage: done <number>");
                     filteredInputCommand = "";
                 }
+                if (filteredInputCommand.equals("find")){
+                    System.out.println("____________________________________________________________\n" + "Command usage: find <text to find>");
+                    filteredInputCommand = "";
+                }
             }
             try {
                 filteredInputText = filteredInputText.substring(0, (filteredInputText.indexOf('/')));
@@ -103,6 +107,21 @@ public class Duke {
                     System.out.println("____________________________________________________________");
                     for (int i = 0; i < TasksList.size(); i++){
                         System.out.println((i+1)+"."+TasksList.get(i));
+                    }
+                    System.out.println("____________________________________________________________\n");
+                    break;
+                case "find":
+                    System.out.println("____________________________________________________________");
+                    boolean foundTextFlag = true;
+                    for (int i = 0; i < TasksList.size(); i++){
+                        boolean foundText = TasksList.get(i).contains(filteredInputText);
+                        if (foundText){
+                            System.out.println((i+1)+"."+TasksList.get(i));
+                            foundTextFlag = false;
+                        }
+                    }
+                    if (foundTextFlag){
+                        System.out.println("No results");
                     }
                     System.out.println("____________________________________________________________\n");
                     break;
