@@ -1,9 +1,18 @@
 package duke;
 
-public class UpdateCommand extends Command{
+import Command.Command;
+/**
+ * This is the command that handles the task that is to be mark as done.
+ *
+ * @author Eunice Kwang
+ */
+public class DoneCommand extends Command {
+    /**
+     * The task that is to be mark as done.
+     */
     private int index;
 
-    public UpdateCommand(int index) {
+    public DoneCommand(int index) {
         this.index = index;
     }
 
@@ -23,11 +32,12 @@ public class UpdateCommand extends Command{
         } else
             throw new DukeException("☹ OOPS!!! The description of a marking as task is not found.");
     }
-
+    /**
+     * Return false as system is not ready to exit.
+     * @return false.
+     */
     @Override
     public boolean isExit() {
-        // TODO Auto-generated method stub
         return false;
     }
-
 }

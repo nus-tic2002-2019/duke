@@ -1,12 +1,20 @@
 package duke;
 
-public class DeleteCommand extends Command{
+import Command.Command;
+/**
+ * This is the command that handles the deletion of the different task.
+ *
+ * @author Eunice Kwang
+ */
+public class DeleteCommand extends Command {
+    /**
+     * The task that is to be deleted.
+     */
     private int index;
 
     public DeleteCommand(int index) {
         this.index = index;
     }
-
     @Override
     public void execute(Tasklist tasks, UI ui, Storage storage) throws DukeException {
         // TODO Auto-generated method stub
@@ -23,11 +31,13 @@ public class DeleteCommand extends Command{
         } else
             throw new DukeException("☹ OOPS!!! The description of a delete not found.");
     }
-
+    /**
+     * Return false as system is not ready to exit.
+     * @return false.
+     */
     @Override
     public boolean isExit() {
-        // TODO Auto-generated method stub
         return false;
     }
-
 }
+
