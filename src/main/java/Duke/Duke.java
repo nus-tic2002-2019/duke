@@ -170,6 +170,21 @@ public class Duke {
                     }
                     break;
 
+                case "find":
+                    try {
+                        if (input.equals("find")) {
+                            throw new DukeMainException.nullDescription("Search key required!");
+                        }
+
+                        String searchTerm = input.substring(4);
+                        uiFind find = new uiFind(userList, searchTerm);
+                        find.findTask();
+
+                    } catch (DukeMainException.nullDescription e) {
+                        e.printStackTrace();
+                    }
+                    break;
+
                 default:
                     try {
                         throw new DukeMainException.invalidInput("Invalid format! Enter 'help' for assistance");
