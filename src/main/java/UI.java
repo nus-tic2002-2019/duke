@@ -26,7 +26,7 @@ public class UI {
     }
 
     public static void printListEmpty() {
-        System.out.println("List is empty!");
+        System.out.println("☹ OOPS!!! I'm sorry, but the list is empty.");
     }
 
     public static void printTaskSaved() {
@@ -62,19 +62,24 @@ public class UI {
     }
 
     public static void printStringFormatException() {
-        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means.");
     }
 
     public static void printNumberFormatException() {
-        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means.");
     }
 
     public static void printIndexOutOfRangeException() {
-        System.out.println("☹ OOPS!!! Out of Range!");
+        System.out.println("☹ OOPS!!! Task(s) not found!");
     }
 
+    public static void printTaskNotFound() {
+        System.out.println("☹ OOPS!!! Task(s) not found!");
+    }
+
+
     public static void printEmptyException() {
-        System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+        System.out.println("☹ OOPS!!! The description of a task cannot be empty.");
     }
 
     public static void printParseException() {

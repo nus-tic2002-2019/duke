@@ -1,8 +1,5 @@
 package tasklist;
 
-import java.text.ParseException;
-import java.util.Date;
-
 public class ToDo extends Task {
 
     /****
@@ -30,40 +27,6 @@ public class ToDo extends Task {
     @Override
     public String saveFormat(){
         return("T " + super.saveFormat());
-    }
-
-    /****
-     *
-     * @param dateSearch the date that user input
-     * @param taskType the task type of the object
-     * @throws ParseException if date format is not dd MMM yyyy
-     */
-    @Override
-    public boolean findDate(Date dateSearch, String taskType) throws ParseException {
-        return false;
-    }
-
-    /****
-     *
-     * @param dateSearch the date that user input
-     * @param taskType the task type of the object
-     * @throws ParseException if date format is not dd MMM yyyy
-     */
-    @Override
-    public boolean findFromDateRange(Date dateSearch, String taskType) throws ParseException {
-        return false;
-    }
-
-    /****
-     *
-     * @param fromDate the start date that user input
-     * @param endDate the end date that user input
-     * @param taskType the task type of the object
-     * @throws ParseException if date format is not dd MMM yyyy
-     */
-    @Override
-    public boolean findBetweenDateRange(Date fromDate, Date endDate, String taskType) throws ParseException {
-        return false;
     }
 
     /****

@@ -66,18 +66,12 @@ public class Duke {
      */
     static void save() throws FileNotFoundException {
         String list = "";
-        try {
-            listEmpty(taskList);
-            assert taskList != null && taskList.size() > 0 : "List variable is null or empty";
             for (int i = 0; i < taskList.size(); i++) {
                 list += taskList.get(i).saveFormat() + "\n";
             }
             Storage.writeToFile(list);
             UI.printTaskSaved();
-        }catch  (ListEmptyException e) {
-            UI.printListEmpty();
         }
-    }
 
     //Output all the tasks
     static void list() {
@@ -174,6 +168,11 @@ public class Duke {
                     String strDate = dateFormat.format(date);
                     Task t = new Event(taskDescription[1], strDate);
                     taskList.add(t);
+                    UI.printLine();
+                    UI.printAddedTask();
+                    UI.printTask(taskList);
+                    UI.printNumberOfTasks(taskList);
+                    UI.printLine();
 
                 } catch (ParseException e) {
                     UI.printParseException();
@@ -184,6 +183,11 @@ public class Duke {
                 String taskDescription = line.substring(6);
                 Task t = new Event(taskDescription, "Date not specified");
                 taskList.add(t);
+                UI.printLine();
+                UI.printAddedTask();
+                UI.printTask(taskList);
+                UI.printNumberOfTasks(taskList);
+                UI.printLine();
             }
         }else if (line.charAt(0) == 'd'){
             //e.g deadline duke /by 12 oct 2019
@@ -199,8 +203,13 @@ public class Duke {
                     String strDate = dateFormat.format(date);
                     Task t = new Deadline(taskDescription[1], strDate);
                     taskList.add(t);
+                    UI.printLine();
+                    UI.printAddedTask();
+                    UI.printTask(taskList);
+                    UI.printNumberOfTasks(taskList);
+                    UI.printLine();
                 } catch (ParseException e) {
-                    e.printStackTrace();
+                    UI.printParseException();
                 }
 
             }else {
@@ -208,13 +217,13 @@ public class Duke {
                 String taskDescription = line.substring(9);
                 Task t = new Deadline(taskDescription, "Date not specified");
                 taskList.add(t);
+                UI.printLine();
+                UI.printAddedTask();
+                UI.printTask(taskList);
+                UI.printNumberOfTasks(taskList);
+                UI.printLine();
             }
         }
-        UI.printLine();
-        UI.printAddedTask();
-        UI.printTask(taskList);
-        UI.printNumberOfTasks(taskList);
-        UI.printLine();
 
     }
 
@@ -361,7 +370,11 @@ public class Duke {
                             }
                         }
                     }
-                    UI.printOutput((foundTasks));
+                    if (foundTasks.isEmpty()){
+                        UI.printTaskNotFound();
+                    }else {
+                        UI.printOutput((foundTasks));
+                    }
                 } catch (StringFormatException e) {
                     UI.printStringFormatException();
                 } catch (ListEmptyException e) {
