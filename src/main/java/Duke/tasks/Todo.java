@@ -1,3 +1,4 @@
+package Duke.tasks;
 
 public class Todo extends Task {
     String t;

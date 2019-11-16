@@ -1,10 +1,13 @@
-import java.awt.*;
+package Duke.command;
+
+import Duke.tasks.Deadline;
+import Duke.tasks.Event;
+import Duke.tasks.Task;
+import Duke.tasks.Todo;
+
 import java.io.*;
-import java.lang.module.FindException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.concurrent.ExecutionException;
 
 public class Duke {
 
@@ -16,10 +19,10 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        System.out.println("Hello! I'm Duke\n" +" What can I do for you?");
+        System.out.println("Hello! I'm Duke.command.Duke\n" +" What can I do for you?");
 
 //        String[] list = new String[100];
-//        Task[] task = new Task[100];
+//        Duke.command.Duke.tasks.Task[] task = new Duke.command.Duke.tasks.Task[100];
 
         String line;
         Scanner in = new Scanner(System.in);
@@ -90,7 +93,7 @@ public class Duke {
                 System.out.println("Now you have " + temp+" items in the list.");
             }
             catch (Exception e1){
-                checkException("Deadline description and time cannot be empty.");
+                checkException("Duke.command.Duke.tasks.Deadline description and time cannot be empty.");
             }
         }
         else if(word[0].equalsIgnoreCase("event"))
@@ -106,7 +109,7 @@ public class Duke {
             }
             catch (Exception e1)
             {
-                checkException("Event description and time cannot be empty.");
+                checkException("Duke.command.Duke.tasks.Event description and time cannot be empty.");
             }
         }
         else if(word[0].equalsIgnoreCase("delete"))
@@ -114,7 +117,7 @@ public class Duke {
             try {
 //                String[] s2 = input.split("/at");
                 int index = Integer.parseInt(word[1]);
-//                t = new Event(s2[0], s2[1]);
+//                t = new Duke.command.Duke.tasks.Event(s2[0], s2[1]);
 //                task.add(t);
                 System.out.println("Noted, I've removed this task: ");
                 System.out.println(task.get(index-1).getStatusIcon() + task.get(index-1).getDescription());
