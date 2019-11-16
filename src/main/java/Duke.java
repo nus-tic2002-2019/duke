@@ -3,6 +3,8 @@ import java.io.FileReader;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Duke {
     public static void main(String[] args) {
@@ -18,6 +20,8 @@ public class Duke {
         String filteredInputCommand = "";
         String filteredInputText = "";
         String filteredInputDate = "";
+        LocalDate ldInputDate = LocalDate.parse("1990-01-01");
+        DateTimeFormatter inputdateFormat = DateTimeFormatter.ofPattern("d-MMM-yyyy");
         ArrayList<String> TasksList = new ArrayList<String>();
         try (BufferedReader fileInput = new BufferedReader(new FileReader("backup.txt"))) {
             String arrayInput;
@@ -81,10 +85,12 @@ public class Duke {
             try {
                 filteredInputDate = rawInput.substring(rawInput.indexOf('/'));
                 filteredInputDate = filteredInputDate.substring(1);
+                ldInputDate = LocalDate.parse(filteredInputDate);
+                System.out.println("debug" + inputdateFormat.format(ldInputDate));
             } catch (Exception e) {
-                filteredInputDate = "<No Date Entered>";
+                //filteredInputDate = "<No Date Entered>";
                 if (filteredInputCommand.equals("deadline")){
-                    System.out.println("____________________________________________________________\n" + "Command usage: deadline <task> /<date>");
+                    System.out.println("____________________________________________________________\n" + "Command usage: deadline <task> /<yyyy>-<mm>-<dd>");
                     filteredInputCommand = "";
                 }
                 if (filteredInputCommand.equals("event")){
@@ -126,15 +132,15 @@ public class Duke {
                             "____________________________________________________________\n");
                     break;
                 case "event":
-                    TasksList.add("[E][" + "\u2718" + "]" + filteredInputText + " (at: " + filteredInputDate + ")");
+                    TasksList.add("[E][" + "\u2718" + "]" + filteredInputText + " (at: " + inputdateFormat.format(ldInputDate) + ")");
                     System.out.println("____________________________________________________________\n" +
-                            "Got it. I've added this event:\n" + "[E][" + "\u2718" + "]" + filteredInputText + " (at: " + filteredInputDate + ")" +"\n" +
+                            "Got it. I've added this event:\n" + "[E][" + "\u2718" + "]" + filteredInputText + " (at: " + inputdateFormat.format(ldInputDate) + ")" +"\n" +
                             "Now you have " + TasksList.size() + " tasks in the list.\n" +
                             "____________________________________________________________\n"); break;
                 case "deadline":
-                    TasksList.add("[D][" + "\u2718" + "]" + filteredInputText + " (by: " + filteredInputDate + ")");
+                    TasksList.add("[D][" + "\u2718" + "]" + filteredInputText + " (by: " + inputdateFormat.format(ldInputDate) + ")");
                     System.out.println("____________________________________________________________\n" +
-                            "Got it. I've added this deadline:\n" + "[D][" + "\u2718" + "]" + filteredInputText + " (by: " + filteredInputDate + ")" +"\n" +
+                            "Got it. I've added this deadline:\n" + "[D][" + "\u2718" + "]" + filteredInputText + " (by: " + inputdateFormat.format(ldInputDate) + ")" +"\n" +
                             "Now you have " + TasksList.size() + " tasks in the list.\n" +
                             "____________________________________________________________\n"); break;
                 case "delete":
