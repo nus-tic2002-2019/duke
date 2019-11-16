@@ -35,6 +35,12 @@ public class Parser {
                     return upCommand;
 
                 }
+            case "find":
+                if(taskLen < 2) {
+                    throw new DukeException(command);
+                } else {
+                    return new FindCommand(task[1]);
+                }
             case "delete":
                 if(taskLen < 2) {
                     throw new DukeException(command);
