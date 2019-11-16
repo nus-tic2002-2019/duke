@@ -1,4 +1,6 @@
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
 import java.time.format.DateTimeParseException;
 
 public class Duke {
@@ -17,7 +19,9 @@ public class Duke {
         ui.showWelcomeMessage();
         try {
             textFile.readFile(taskList);
-        } catch (DukeExceptionFileInput a) {
+        } catch (FileNotFoundException a) {
+            textFile.saveFile(taskList.getList());
+        } catch (DukeExceptionFileInput e) {
             ui.showFileInputError();
         }
         while (online) {
