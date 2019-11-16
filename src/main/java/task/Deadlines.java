@@ -1,21 +1,33 @@
 //level 7.more oop
+/**
+ *  Deadline command for storing Data "description" and "due Date & Time"
+ */
 
 package task;
 
-public class Deadlines extends Task {
-    private boolean isDone;
-    private String description;
-    private String by;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Deadlines(String description, String by) {
+public class Deadlines extends Task {
+    //private boolean isDone;
+    //private String by;
+    private LocalDateTime by;
+    //private String description;
+
+    public Deadlines(String description, LocalDateTime by) {
         super(description);
-        isDone = false;
+        //isDone = false;
         this.by = by;
+    }
+
+    public LocalDateTime getDate() {
+        return by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(at: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
 }

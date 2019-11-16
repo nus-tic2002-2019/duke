@@ -1,5 +1,9 @@
 //level 7.more oop
 
+/**
+ * Main page of Duke
+ */
+
 import exceptions.DukeException;
 import exceptions.Errortype;
 import parser.Parse;
@@ -19,47 +23,29 @@ import java.io.IOException;
 import java.io.FileWriter;
 
 
-
 public class Duke {
     //more oop
 
-    private Storage store;
+    //private Storage store;
     private static ArrayList<Task> TaskList = new ArrayList<Task>();
-    //private TaskList tasks;
-    //private Ui ui;
-    //private static ArrayList<Task> taskItems = new ArrayList<>();
+    private static Ui ui = new Ui();
+    private static Parse parser = new Parse();
+    private static Storage store = new Storage("src/main/java/data/Duke.txt");
 
-    public void run() {
-    }
-
-
-
-    /**
-    public Duke(String filename){
-        storage = new Storage(filename);
-    }
-
-    public void run(){
-    }
-    **/
 
     public static void main(String[] args){
-        Ui ui = new Ui();
-        Parse parser = new Parse();
+
         Boolean isExit = false;
         ui.welcome();
-
-        Storage store = new Storage("src/main/java/data/Duke.txt");
-        store.LoadFile(TaskList);
+        store.loadFile(TaskList);
 
         while(!isExit){
             parser.parser(TaskList);
             isExit = Parse.isExit();
+            store.saveFile(TaskList);
         }
 
-        store.saveFile(TaskList);
     }
-
 
 }
 

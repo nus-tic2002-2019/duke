@@ -1,21 +1,33 @@
 //level 7.more oop
+/**
+ *  Event command for storing Data "description" and "Date & Time"
+ */
 
 package task;
 
-public class Events extends Task {
-    private boolean isDone;
-    private String description;
-    private String at;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Events(String description, String at) {
+public class Events extends Task {
+    //private boolean isDone;
+        //private String at;
+    private LocalDateTime at;
+   // private String description;
+
+    public Events(String description, LocalDateTime at) {
         super(description);
-        isDone = false;
+        //isDone = false;
         this.at = at;
+    }
+
+    public LocalDateTime getDate() {
+        return at;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(at: " + at + ")";
+        return "[E]" + super.toString() + " (at: " + at + ")";
     }
 
 }

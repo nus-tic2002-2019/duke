@@ -1,20 +1,23 @@
 //level 7.more oop
+/**
+ *  Todo command for storing Data "Description"
+ */
 
 package task;
 
-public class Todo extends Task {
 
-    private String description;
+public class Todo extends Task {
 
     public Todo(String description) {
         super(description);
-        isDone = false;
+        //isDone = false;
     }
 
     @Override
     public String toString() {
 
         return "[T]" + super.toString();
+      //return "[T][" + super.getStatusIcon() + "] " + super.getDescription();
     }
 
 }

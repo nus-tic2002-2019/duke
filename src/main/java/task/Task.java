@@ -1,32 +1,38 @@
 //level 7.more oop
+/**
+ *  Task command for storing Task List
+ */
 
 package task;
+
+import java.time.LocalDateTime;
 
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected LocalDateTime date;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
-        return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
-
-    }
-
     public String getDescription() {
         return description;
     }
 
-    public boolean taskDone() {
-        return isDone = true;
+    public void taskDone() {
+        this.isDone = true;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
     }
 
     @Override
     public String toString() {
-        return "[" + (isDone? "\u2713" : "\u2718") + "] " + description;
+        return "[" + (isDone? "√" : "X") + "] " + description;
+
     }
 
 

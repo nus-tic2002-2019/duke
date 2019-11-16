@@ -1,57 +1,84 @@
 //level 7.more oop
+/**
+ * Types of error message prompt to user whenever unregistered command is input into Duke
+ */
 
 package exceptions;
 
 public class Errortype {
-    public static Integer toInteger(String s, Integer taskNo) {
-        Integer index;
+    //public static Integer toInteger(String s, Integer taskNo) {
+    public static int toInteger(String indexString, Integer taskSize) {
+        int indexInteger;
         try {
-            index = Integer.parseInt(s);
-            if (doneRange(index, taskNo)) {
-                return index; // return a valid index number
+            indexInteger = Integer.parseInt(indexString);
+            //if (doneRange(index, taskNo)) {
+            if (isTaskNumberValid(indexInteger, taskSize)) {
+                return indexInteger;
             }
         } catch (NumberFormatException e) {
-            System.out.println("\tOops!! Please type a task number.");
-        } catch (Exception e) {
-            System.out.println("\tOops!! task.Task number does not exist.");
+            System.out.println("Oops!! Please type a task number.");
+        } catch (DukeException e) {
+            System.out.println("Oops!! Task number does not exist.");
         }
-        return -1; //to indicate user input an out-of-range number
+        indexInteger = -1;
+        return indexInteger;
     }
-    // done command task number must be from 1 to taskNo only otherwise throw Exception.
-    public static Boolean doneRange(Integer index, Integer taskNo) throws Exception {
-        if ( index < 1 || index > taskNo ){
-            throw new Exception();
+
+
+    public static Boolean isTaskNumberValid(int index, int taskSize) throws DukeException {
+        if ( index < 1 || index > taskSize ){
+            throw new DukeException();
         }
         return true;
     }
-    public static Boolean TaskCheck(String s){
-        // to catch commands with no task description
-        try{
-            String user_task = s.split("/")[0].split(" ")[1];
+
+
+    public static Boolean isTask(String taskString) {
+        // for no task description
+        try {
+            String user_task = taskString.split("/")[0].split(" ")[1];
         } catch (ArrayIndexOutOfBoundsException e){
-            System.out.println("\tOops!! Missing task/event.");
+            System.out.println("Oops!! Missing task/event.");
             return false;
         }
         return true;
     }
-    public static Boolean ScheduleCheck(String s){
-        // to catch task/event with no schedule
+
+
+    public static Boolean isSchedule(String taskString) {
+        // for no schedule
         try{
-            String user_task = s.split("/")[1].replace("by ","");
+            String user_schedule = taskString.split("/")[1].replace("by ","");
         } catch (ArrayIndexOutOfBoundsException e){
-            System.out.println("\tOops!! Missing schedule.");
+            System.out.println("Oops!! Missing schedule.");
             return false;
         }
         return true;
     }
-    // user input command / not use
-    public static String command(String in){
-        String[] s = in.split(" ");
-        return s[0].toLowerCase();
+
+
+    public static Boolean isTime(String scheduleString){
+        try{
+            String user_time = scheduleString.split(" ")[1];
+        } catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Oops!! Missing time.");
+            return false;
+        }
+        return true;
     }
-    // user input task / not use
-    public static String userTask(String in){
-        String[] s = in.split("/");
-        return s[0].toLowerCase();
-    }
+
 }
+
+/**
+ // user input command / not use
+ public static String command(String in) {
+ String[] s = in.split(" ");
+ return s[0].toLowerCase();
+ }
+
+ // user input task / not use
+ public static String userTask(String in) {
+ String[] s = in.split("/");
+ return s[0].toLowerCase();
+ }
+ **/
