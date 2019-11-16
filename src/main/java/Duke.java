@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.text.ParseException;
 
 public class Duke {
 
@@ -6,7 +7,7 @@ public class Duke {
     private TaskList taskList;
     private UI ui;
 
-    public Duke(String filePath) throws IOException {
+    public Duke(String filePath) throws IOException, ParseException, DukeException {
         ui = new UI();
         storage = new Storage(filePath);
         taskList = new TaskList(storage.readFile());
@@ -25,7 +26,7 @@ public class Duke {
             }
         }
     }
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ParseException, DukeException {
         new Duke("/Users/joseph/Desktop/tic2002Duke/src/main/java/data/taskList.txt").run();
     }
 

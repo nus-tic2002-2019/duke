@@ -1,8 +1,10 @@
 import java.util.ArrayList;
+import java.util.Date;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -12,25 +14,23 @@ public class Storage {
     private File file;
     private BufferedReader fileRead;
 
-    public Storage(String filePath){
-        try{
+    public Storage(String filePath) {
+        try {
             this.filePath = filePath;
             this.file = new File(filePath);
             fileRead = new BufferedReader(new FileReader(filePath));
-        }
-        catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             createFile();
         }
     }
 
-    public void createFile(){
+    public void createFile() {
         try {
-            if(file.getParentFile().mkdirs()){
+            if (file.getParentFile().mkdirs()) {
             }
-            if(file.createNewFile()){
+            if (file.createNewFile()) {
             }
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             new IOException("The file " + file.getAbsolutePath() + " is unable to be create.");
         }
     }
@@ -46,7 +46,7 @@ public class Storage {
             String taskClass = "";
             int isDone = 0;
             String description = task.description;
-            String date = "";
+            Date date = null;
 
             if (task instanceof Todo) {
                 taskClass = "T";
@@ -56,13 +56,13 @@ public class Storage {
             } else if (task instanceof Deadline) {
                 taskClass = "D";
                 date = ((Deadline) task).by;
-            } 
+            }
             if (task.isDone) {
                 isDone = 1;
             } else {
                 isDone = 0;
             }
-            if (date.equals("")) {
+            if (date.equals(null)) {
                 add += taskClass + " | " + Integer.toString(isDone) + " | " + description + "\n";
             } else {
                 add += taskClass + " | " + Integer.toString(isDone) + " | " + description + " | " + date + "\n";
@@ -78,22 +78,25 @@ public class Storage {
 
     /**
      * Read file
+     * 
+     * @throws DukeException
+     * @throws ParseException
      */
-    public ArrayList<Task> readFile() throws IOException {
+    public ArrayList<Task> readFile() throws IOException, ParseException, DukeException {
         ArrayList<Task> TaskList = new ArrayList<>(100);
         String line = fileRead.readLine();
         while(line != null){
             String[] splitLine = line.split(" \\| ");
             switch(splitLine[0]){
                 case "E":
-                    Event newEvent = new Event(splitLine[2], splitLine[3]);
+                    Event newEvent = new Event(splitLine[2], EventCommand.convertDateTime(splitLine[3]));
                     if(splitLine[1].equals("1")){
                         newEvent.markAsDone();
                     }
                     TaskList.add(newEvent);
                     break;
                 case "D":
-                    Deadline newDeadline = new Deadline(splitLine[2], splitLine[3]);
+                    Deadline newDeadline = new Deadline(splitLine[2], DeadlineCommand.convertDateTime(splitLine[3]));
                     if(splitLine[1].equals("1")){
                         newDeadline.markAsDone();
                     }

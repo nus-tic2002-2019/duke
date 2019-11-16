@@ -1,9 +1,13 @@
+import java.util.Date;
+
 public class Deadline extends Task {
 
-    protected String by;
+    protected Date by;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, Date by) {
         super(description);
+        Date now = new Date();
+        assert by.after(now):"Deadline cannot be earlier than now!";
         this.by = by;
     }
 
