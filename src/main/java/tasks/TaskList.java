@@ -1,12 +1,19 @@
 package tasks;
 
+import uiParser.Parser;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> userArr;
+    private static ArrayList<Task> userArr;
+
+    public TaskList(ArrayList<Task> loadfile) {
+        userArr = new ArrayList<Task>(loadfile);
+    }
 
     public TaskList() {
-        userArr = new ArrayList<>();
+        userArr = new ArrayList<Task>();
     }
 
     public ArrayList<Task> getList() {
@@ -22,10 +29,18 @@ public class TaskList {
 
         switch (actionType) {
             case "event":
-                userArr.add(new Event(task, taskTime));
+                /*String[] d = new Parser().parseDateTime(taskTime);
+                LocalDate date = new Parser().parsedDate(d[0]);
+                LocalTime time = new Parser().parsedTime(d[1]);*/
+                LocalDate dateE = new Parser().parseDate(taskTime);
+                LocalTime time = new Parser().parseTime(taskTime);
+                userArr.add(new Event(task, dateE, time));
                 break;
             case "deadline":
-                userArr.add(new Deadline(task, taskTime));
+                /*String[] d = new Parser().parseDateTime(taskTime);
+                LocalDate date = new Parser().parsedDate(d[0]);*/
+                LocalDate dateD = new Parser().parseDate(taskTime);
+                userArr.add(new Deadline(task, dateD));
                 break;
             default:
                 break;
@@ -44,7 +59,7 @@ public class TaskList {
 
     public void printDelete(int taskNo) {
         System.out.println("Noted. I've removed this task:\n " + userArr.get(taskNo));
-        System.out.println("Now you have " + userArr.size() + "tasks in the list.");
+        System.out.println("Now you have " + userArr.size() + " tasks in the list.");
     }
 
     public void listTasks(){
@@ -66,6 +81,23 @@ public class TaskList {
         int num = Integer.parseInt(taskNo) - 1;
         userArr.remove(num);
         printDelete(num);
+    }
+
+    public void getKeyWordTask(int taskNo) {
+        System.out.println("." + userArr.get(taskNo));
+    }
+
+    public void findTasks(String keyword) {
+        int i = 1;
+        int count = 0;
+        for (Task t : userArr) {
+            if (t.getTask().contains(keyword)) {
+                System.out.print(i);
+                i++;
+                getKeyWordTask(count);
+            }
+            count++;
+        }
     }
 }
 

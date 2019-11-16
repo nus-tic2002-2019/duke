@@ -1,23 +1,28 @@
-import java.io.File;
 import java.io.IOException;
+
+import exceptions.DukeException;
 import tasks.*;
-import java.io.FileWriter;
-import java.nio.file.FileSystem;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Scanner;
+import tasks.Task;
+
 //import java.util.Arrays;
 import java.util.ArrayList;
 
 public class Duke {
-    private TaskList tasks;
+    private TaskList tasksList;
     private Ui ui;
     private Storage storage;
 
     public Duke(String filePath) {
         ui = new Ui();
-        tasks = new TaskList();
-        storage = new Storage(filePath, tasks.getList());
+        //tasksList = new TaskList();
+        //storage = new Storage(filePath, tasksList.getList());
+        storage = new Storage(filePath);
+        try {
+            tasksList = new TaskList(storage.load());
+        } catch (IOException e) {
+            System.out.println("Loading Error");
+            tasksList = new TaskList();
+        }
     }
 
     public boolean isBye(String actionType) {
@@ -27,36 +32,48 @@ public class Duke {
     public void run() {
         ui.showWelcome();
         String[] output = ui.takeUi();
-        int i = 0;
-        ArrayList<Task> userArr = tasks.getList();
+
+        ArrayList<Task> userArr = tasksList.getList();
+        int i = userArr.size() ;
 
         try {
             while (!isBye(output[0])) {
                 switch (output[0]) {
                     case "todo":
-                        tasks.addTasks(output[1]);
+                        tasksList.addTasks(output[1]);
                         storage.appendToFile(output[0], i, " | " + output[1]);
+                        i++;
                         break;
-                    case "event": case "deadline":
-                        tasks.addTasks(output[1], output[0], output[2]);
-                        storage.appendToFile(output[0], i, " | " + output[1] + " | " + output[2]);
+                    case "deadline":
+                        tasksList.addTasks(output[1], output[0], output[2]);
+                        storage.appendToFile(output[0], i, " | " + output[1] + " | " + (userArr.get(i)).getDate());
+                        i++;
+                        break;
+                    case "event":
+                        tasksList.addTasks(output[1], output[0], output[2]);
+                        storage.appendToFile(output[0], i, " | " + output[1] + " | " + (userArr.get(i)).getDate() + " | " + (userArr.get(i)).getTime());
+                        i++;
                         break;
                     case "list":
-                        tasks.listTasks();
+                        tasksList.listTasks();
                         break;
                     case "done":
-                        tasks.setDone(output[1]);
+                        tasksList.setDone(output[1]);
                         storage.replaceFile("done", output[1]);
                         break;
                     case "delete":
-                        tasks.deleteTasks(output[1]);
+                        tasksList.deleteTasks(output[1]);
+                        storage.replaceFile("delete", output[1]);
+                        i--;
+                        break;
+                    case "find":
+                        tasksList.findTasks(output[1]);
                         break;
                     default:
                         break;
                 }
                 //tasks.getList().get(i).print();
                 output = ui.takeUi();
-                i++;
             }
         } catch (IOException e) {
             System.out.println("");

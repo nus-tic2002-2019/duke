@@ -1,5 +1,9 @@
 package uiParser;
+import java.time.*;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import exceptions.*;
 
 public class Parser {
@@ -16,13 +20,15 @@ public class Parser {
         taskCommands.add("delete");
         taskCommands.add("list");
         taskCommands.add("bye");
+        taskCommands.add("find");
     }
 
     public String[] parseUi(String userInput) {
         String[] d = userInput.split(" ");
         String[] d1 = {};
+        String[] d2 = {};
         //action type in d[0]
-        actionType = d[0].toString().toLowerCase();
+        actionType = d[0].toLowerCase();
 
         try {
             validateCommand(d[0]);
@@ -48,16 +54,16 @@ public class Parser {
 
         if (actionType.equals("event")) {
             d1 = d[1].split("/at ");
+            //d2 = d[2].split(" ");
         } else if (actionType.equals("deadline")) {
             d1 = d[1].split("/by ");
         }
 
-        //tasktime in d[2]
+        //d[1]=task, d[2]=dateTime
         if (actionType.equals("event") || actionType.equals("deadline")) {
             d[1] = d1[0];
             d[2] = d1[1];
         }
-
         return d;
     }
 
@@ -76,4 +82,27 @@ public class Parser {
             return;
         }
     }
+
+    public String[] parseDateTime(String datetime) {
+        String[] d = datetime.split(" ");
+        return d;
+    }
+
+    public LocalDate parseDate(String datetime) {
+        String[] d = datetime.split(" ");
+        return LocalDate.parse((d[0]));
+    }
+
+    public LocalTime parseTime(String datetime) {
+        String[] d = datetime.split(" ");
+        return LocalTime.parse(d[1]);
+    }
+
+    /*public LocalDate parsedDate(String taskDate) {
+        return LocalDate.parse(taskDate);
+    }
+
+    public LocalTime parsedTime(String taskTime) {
+        return LocalTime.parse(taskTime);
+    }*/
 }

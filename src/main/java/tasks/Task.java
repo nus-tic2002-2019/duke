@@ -1,5 +1,7 @@
 package tasks;
 
+import java.time.format.DateTimeFormatter;
+
 public class Task {
     private String task;
     boolean done;
@@ -19,6 +21,14 @@ public class Task {
 
     public void isDone() {
         this.done = true;
+    }
+
+    public String getDate(){
+        return task;
+    }
+
+    public String getTime() {
+        return task;
     }
 
     public String getStatusIcon() {

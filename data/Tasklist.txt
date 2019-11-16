@@ -1,3 +1,5 @@
-E | false | Seven Worlds One Planet  | 2 nov
-T | true | finish up week 8 tasks
-D | false | database project  | 6 nov
+T | false | finish up duke project
+D | false | pay bills  | Nov 15 2019
+T | true | finish reading a book
+E | false | christmas party  | Dec 24 2019 | 6:00PM
+E | false | database finals  | Nov 25 2019 | 9:00AM
