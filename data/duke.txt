@@ -1,0 +1,5 @@
+T | ✓ | borrow book
+E | ✘ | party| 21-11-2019
+D | ✓ | submit homework| 19-11-2019
+D | ✘ | return book| 20-11-2019
+E | ✘ | party| 21-11-2019
