@@ -8,11 +8,14 @@ import ui.Ui;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.Vector;
 
 import static date.time.management.DateTime.Comparision;
+import static date.time.management.DateTime.DateTimeChangingInformationCollector;
 import static parser.Parser.*;
+import static taskclasses.Task.TaskDescriptionUpdate;
 import static ui.Ui.*;
 
 
@@ -54,6 +57,7 @@ public class TaskList {
                 case "todo":
                     New_task = new Todo(Description(Input));
                     List.add(New_task);
+
                     break;
                 //if the input is Deadline;
                 case "deadline": {
@@ -784,23 +788,29 @@ public class TaskList {
 
         try {
             //To get the Description information from user;
-            System.out.println("     Please key in the Task description which the task exist in the Task list.");
+            System.out.println("     Please key in the Task description which the task exist in the Task list or key-in 'list' to view all the task in the Task List.");
             Scanner in_date = new Scanner(System.in);
-            description = in_date.nextLine();
+            description = in_date.nextLine().toLowerCase();
 
-            //To get Task information from user;
-            System.out.println("     Please key in the task.");
-            Scanner in_task = new Scanner(System.in);
-            task = in_task.nextLine();
+            switch (description) {
+                case "list":
+                    Print_List(List, Datetype, Timetype);
+                    return ToDoAfterTask(List, Datetype, Timetype);
+                default:
+                    //To get Task information from user;
+                    System.out.println("     Please key in the task.");
+                    Scanner in_task = new Scanner(System.in);
+                    task = in_task.nextLine();
 
-            //To create task according to user key-in information;
-            Task_NeedsToDo = Task_Generator(task);
+                    //To create task according to user key-in information;
+                    Task_NeedsToDo = Task_Generator(task);
 
-            ExistTaskInList = ExistTaskFinder_Description(description, List, Datetype, Timetype);
+                    ExistTaskInList = ExistTaskFinder_Description(description, List, Datetype, Timetype);
 
-            //To create ToDoAfter Task;
-            Task_ToDoAfter = new ToDoAfter("task", ExistTaskInList, Task_NeedsToDo);
-            return Task_ToDoAfter;
+                    //To create ToDoAfter Task;
+                    Task_ToDoAfter = new ToDoAfter("task", ExistTaskInList, Task_NeedsToDo);
+                    return Task_ToDoAfter;
+            }
         }
         catch (DukeException e){
             Separated_Line();
@@ -885,9 +895,6 @@ public class TaskList {
 
     /**
      * The method which used in ToDoAfter_Task method catch area. To let customer decide whether want to continue.
-     * @param ErrorOutput The message about the error
-     * @param ToDoAfter The ToDoAfter vector list
-     * @param List The task vector list
      * @throws InputDateTimeTooEarly If the Task time input incorrectly, then the method will throw an error to user to ask user to try again.
      */
     private static void ContinueOrNot() throws InputDateTimeTooEarly, DateTimeInputFormatWrongly {
@@ -1059,5 +1066,75 @@ public class TaskList {
                 ToDoAfter toDoAfter = toDoAfterList.get(i);
                 ToCheckToDoAfterTaskStatus(toDoAfter, taskList, toDoAfterList);
             }
+    }
+
+    /**
+     *The function to get update choice, whether the user choose task date or task description;
+     * @param List The Task List
+     * @param DateType Date printing format
+     * @param TimeType Time printing format
+     * @throws InputDateTimeTooEarly If the updated datetime is earlier than current datetime, then the error information will be throw to user;
+     */
+    public static void UpDateInformation(Vector<Task> List, String DateType, String TimeType) throws InputDateTimeTooEarly, DateTimeInputWrongly, EnumDayIndexWrongly, MonthIndexWrong {
+        System.out.println("     Please choose the Task index in the Task List or Key-in 'list' to print out all task in Task List.");
+        Scanner s = new Scanner(System.in);
+        String UserInput = s.nextLine().toLowerCase();
+        int index;
+        try {
+            switch (UserInput) {
+                case "list":
+                    Print_List(List, DateType, TimeType);
+                    UpDateInformation(List, DateType, TimeType);
+                    break;
+                default:
+                    index = Integer.parseInt(UserInput);
+
+                    if(index > List.size() || index <= 0){
+                        Separated_Line();
+                        System.out.println("     The index you chose is out of range. Please try again.");
+                        Separated_Line();
+                        UpDateInformation(List, DateType, TimeType);
+                        break;
+                    }
+
+                    Task task = List.get(index-1);
+                    String type = task.getType();
+
+                    if(type.equals("T")){
+                        System.out.println("     The task you chose is a todo type task. There is no date/time information in the task.\n" +
+                                "     The update function closed with no change.");
+                        break;
+                    }
+
+                    System.out.println("     Please choose the aspect you want to update:\n" +
+                            "      1. Task Date\n" +
+                            "      2. Task description.");
+
+                    Scanner input = new Scanner(System.in);
+                    String choice = input.nextLine().toLowerCase();
+
+                    switch (choice) {
+                        case "1":
+                        case "date":
+                        case "task date":
+                            DateTimeChangingInformationCollector(task, type);
+                            break;
+                        case "2":
+                        case "description":
+                        case "task description":
+                            TaskDescriptionUpdate(task);
+                            break;
+                        default:
+                            System.out.println("     The choice you chose does not correct. Please try again.");
+                            UpDateInformation(List, DateType, TimeType);
+                    }
+            }
+        }
+        catch (NumberFormatException e){
+            Separated_Line();
+            System.out.println("      The index number you chose is not an Integer. Please try again.");
+            Separated_Line();
+            UpDateInformation(List, DateType, TimeType);
+        }
     }
 }

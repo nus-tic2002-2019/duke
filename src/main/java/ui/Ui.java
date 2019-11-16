@@ -7,6 +7,8 @@ import taskclasses.ToDoAfter;
 import thrownexceptions.*;
 import java.util.Scanner;
 import java.util.Vector;
+
+import static date.time.management.DateTime.*;
 import static taskclasses.TaskList.*;
 
 public class Ui {
@@ -196,6 +198,23 @@ public class Ui {
         }
     }
 
+    private static void HelpingFunction(){
+        System.out.println(
+                "todo:      A task type. User key-in format: todo description\n+" +
+                "event:     A task type. User key-in format: event description /at: YYYY-MM-DD HH:MM -> YYYY-MM-DD HH:MM\n" +
+                "deadline:  A task type. User key-in format: deadline description /by: YYYY-MM-DD HH:MM\n" +
+                "done:      An action on task to mark specific index of Task in the Task List status become done. User key-in format: done index\n" +
+                "delete:    An action on task to delete specific index of Task in the Task List. User key-in format: delete index\n" +
+                "list:      An action on Task and ToDoAfter Task. After key-in 'list', there will pop out three option to print out. 1. Task list; 2. ToDoAfter List. 3.Both. \n" +
+                "bye:       An action to finish conversation(To stop program). User key-in format: bye\n" +
+                "search:    To search specific task or ToDoAfter task base on description or date or time or task type. User key-in format: 'search' then follow instruction pop out.\n" +
+                "find:      Same as search above.\n" +
+                "todoafter: A special task type to keep a todoafter task with condition existing task in the task list or specific date which cannot earlier than the creation date. User Key-in format: 'todoafter' then follow instruction pop out.\n" +
+                "datetype:  An action to change printing datetype. User key-in format: 'datetype'.\n" +
+                "timetype:  An action to change printing timetype. User key-in format: 'timetype'.\n" +
+                "update:    An action to update task in Task List. This can update whether date, time or description. User key-in format: 'update.");
+    }
+
     /**
      * The inter-action UI with user
      * @param List Task List
@@ -250,6 +269,12 @@ public class Ui {
                 case "timetype":
                     Time_Type = Parser.Time_Display_Format();
                     break;
+                case "help":
+                    HelpingFunction();
+                    break;
+                case "update":
+                    UpDateInformation(List, Date_Type, Time_Type);
+                    break;
                 default:
                     System.out.println("    Invalid Input! Please try again!");
             }
@@ -271,35 +296,42 @@ public class Ui {
                     System.out.println("     \u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
                     break;
             }
+            System.out.println("      Or you can key-in 'help' to know more details about Duke input option information. ");
         }
         catch (DoneNumberException e){
             System.out.println("      The task you want to done is invalid! Please key-in again!");
+            System.out.println("      Or you can key-in 'help' to know more details about Duke input option information. ");
         }
         catch (DeleteNumberException e){
             System.out.println("      The number of task you want to delete is invalid! Please key-in again!");
+            System.out.println("      Or you can key-in 'help' to know more details about Duke input option information. ");
         }
         catch (InputTimeBeforeLocal e) {
             System.out.println("      The input time cannot earlier then local time.");
+            System.out.println("      Or you can key-in 'help' to know more details about Duke input option information. ");
         }
         catch (DateTimeInputFormatWrongly e){
             System.out.println("      The input Datetime format wrongly. Please try again.");
+            System.out.println("      Or you can key-in 'help' to know more details about Duke input option information. ");
         }
         catch (SearchTypeWrong e) {
             System.out.println("      The search type wrongly. Please try again.");
+            System.out.println("      Or you can key-in 'help' to know more details about Duke input option information. ");
         }
         catch (DateTimeInputWrongly e) {
             System.out.println("      The date or time input wrongly. Please try again.");
+            System.out.println("      Or you can key-in 'help' to know more details about Duke input option information. ");
         }
         catch (MonthIndexWrong monthIndexWrong) {
             System.out.println("      The month input is not correct. Please try again.");
+            System.out.println("      Or you can key-in 'help' to know more details about Duke input option information. ");
         }
         catch (EnumDayIndexWrongly enumDayIndexWrongly) {
             System.out.println("      The day input is not correct. Please try again.");
+            System.out.println("      Or you can key-in 'help' to know more details about Duke input option information. ");
         }
 
         Separated_Line();
-//        System.out.println("     What else can I do for you?");
-//        Separated_Line();
         chatting_Vector_Task(List, ToDoAfterList, Date_Type, Time_Type);
     }
 }

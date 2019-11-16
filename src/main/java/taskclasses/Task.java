@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 
 public class Task {
     private String description;
@@ -18,7 +19,7 @@ public class Task {
     protected DateTime Starting;
     protected DateTime Ending;
 
-    public boolean isDone = false;
+    protected boolean isDone = false;
 
     /**
      * Constructs a Task class without any initialization.
@@ -135,5 +136,18 @@ public class Task {
      */
     public void UpdateIsDone(boolean current){
         this.isDone = current;
+    }
+
+    private void descriptionUpdater(String Description){
+        description = Description;
+    }
+
+    public static void TaskDescriptionUpdate(Task task){
+        System.out.println("      Please key-in the new description to replace the original description.");
+
+        Scanner s = new Scanner(System.in);
+        String description = s.nextLine();
+
+        task.descriptionUpdater(description);
     }
 }

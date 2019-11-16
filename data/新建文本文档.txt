@@ -1,5 +1,0 @@
-todo play
-deadline te by: 2019-11-11 12:00
-event project meeting at: 2019-11-11 14:00 -> 2019-11-11 15:00
-
-E|false|project meeting|2019-11-11T15:00:00|2019-11-11T15:00:00

@@ -23,7 +23,16 @@ public class Parser {
      * @throws DukeException The error which the input is not correct.
      */
     public static void Input_Length_Checking(String First_Word, String[] Input_Words) throws DukeException {
-        if(!First_Word.equals("list") && !First_Word.equals("bye") && !First_Word.equals("search") && !First_Word.equals("datetype") && !First_Word.equals("timetype") && !First_Word.equals("find") && Input_Words.length == 1 && !First_Word.equals("todoafter")){
+        if(!First_Word.equals("list") &&
+                !First_Word.equals("bye") &&
+                !First_Word.equals("help") &&
+                !First_Word.equals("update") &&
+                !First_Word.equals("search") &&
+                !First_Word.equals("datetype") &&
+                !First_Word.equals("timetype") &&
+                !First_Word.equals("find") &&
+                !First_Word.equals("todoafter") &&
+                Input_Words.length == 1){
             throw new DukeException(First_Word);
         }
     }
