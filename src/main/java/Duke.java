@@ -28,22 +28,25 @@ public class Duke {
             } catch (Exception e) {
                 filteredInputText = "<No Text Entered>";
                 if (filteredInputCommand.equals("deadline")){
-                    System.out.println("Command usage: deadline <task> /<date>");
+                    System.out.println("____________________________________________________________\n" + "Command usage: deadline <task> /<date>");
                     filteredInputCommand = "";
                 }
                 if (filteredInputCommand.equals("todo")){
-                    System.out.println("Command usage: todo <task>");
+                    System.out.println("____________________________________________________________\n" + "Command usage: todo <task>");
                     filteredInputCommand = "";
                 }
                 if (filteredInputCommand.equals("event")){
-                    System.out.println("Command usage: event <task> /<date>");
+                    System.out.println("____________________________________________________________\n" + "Command usage: event <task> /<date>");
+                    filteredInputCommand = "";
+                }
+                if (filteredInputCommand.equals("done")){
+                    System.out.println("____________________________________________________________\n" + "Command usage: done <number>");
                     filteredInputCommand = "";
                 }
             }
             try {
                 filteredInputText = filteredInputText.substring(0, (filteredInputText.indexOf('/')));
             } catch (Exception e) {
-
             }
             try {
                 filteredInputDate = rawInput.substring(rawInput.indexOf('/'));
@@ -51,11 +54,11 @@ public class Duke {
             } catch (Exception e) {
                 filteredInputDate = "<No Date Entered>";
                 if (filteredInputCommand.equals("deadline")){
-                    System.out.println("Command usage: deadline <task> /<date>");
+                    System.out.println("____________________________________________________________\n" + "Command usage: deadline <task> /<date>");
                     filteredInputCommand = "";
                 }
                 if (filteredInputCommand.equals("event")){
-                    System.out.println("Command usage: event <task> /<date>");
+                    System.out.println("____________________________________________________________\n" + "Command usage: event <task> /<date>");
                     filteredInputCommand = "";
                 }
             }
@@ -68,6 +71,22 @@ public class Duke {
                     System.out.println("____________________________________________________________\n");
                     break;
                 case "done":
+                    try {
+                        int doneInt = Integer.parseInt(filteredInputText.substring(1));
+                        doneInt--;
+                        String filteredList = TasksList.get(doneInt);
+                        if ( filteredList.indexOf("][") == 2 ) {
+                            TasksList.set(doneInt, (filteredList.substring(0, 3) + "[" + "\u2713" + "]" + filteredList.substring(6)));
+                        } else {
+                            TasksList.set(doneInt, ("[" + "\u2713" + "]" + filteredList.substring(3)));
+                        }
+                        System.out.println("____________________________________________________________\n" + "Nice! I've marked this task as done:");
+                        System.out.println(TasksList.get(doneInt));
+                        System.out.println("____________________________________________________________");
+                    } catch (Exception e) {
+                        System.out.println("____________________________________________________________\n" + "Command usage: todo <task>");
+                        System.out.println("Available commands: deadline, event, todo, list, bye\n" + "You have entered an invalid command, please try again\n" + "____________________________________________________________");
+                    }
                     break;
                 case "todo":
                     TasksList.add("[T][" + "\u2718" + "]" + filteredInputText);
@@ -90,7 +109,7 @@ public class Duke {
                             "____________________________________________________________\n"); break;
                 case "bye": break;
                 default:
-                    System.out.println("Available commands: deadline, event, todo, list, bye\n" + "You have entered an invalid command, please try again\n");
+                    System.out.println("Available commands: deadline, event, todo, list, bye\n" + "You have entered an invalid command, please try again\n" + "____________________________________________________________");
                     break;
             }
         }
