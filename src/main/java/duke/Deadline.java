@@ -1,9 +1,16 @@
+package duke;
+
 public class Deadline extends Todo {
     private String date;
 
-    public Deadline(String todo, String date) {
+    public Deadline(String todo, String date) throws DukeException {
         super(todo);
-        setDate(date);
+        String[] dateTime = date.split(" ");
+        try {
+            setDate(Parser.formatTime(dateTime[1]) + ", " + Parser.formatTime(dateTime[2]));
+        } catch (DukeException error) {
+            throw error;
+        }
     }
 
     public void setTodo(String todo) {
@@ -23,7 +30,7 @@ public class Deadline extends Todo {
     }
 
     public String display() {
-        return getTodo() + "(by:" + getDate() + ")";
+        return getTodo() + "(by: " + getDate() + ")";
     }
 
     public String getType() {

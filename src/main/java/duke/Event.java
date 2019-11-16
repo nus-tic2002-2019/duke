@@ -1,9 +1,16 @@
+package duke;
+
 public class Event extends Todo {
     private String date;
 
-    public Event(String todo, String date) {
+    public Event(String todo, String date) throws DukeException {
         super(todo);
-        setDate(date);
+        String[] dateTime = date.split(" ");
+        try {
+            setDate(Parser.formatDate(dateTime[1]) + ", " + Parser.formatTime(dateTime[2]));
+        } catch (DukeException error) {
+            throw error;
+        }
     }
 
     public void setTodo(String todo) {
@@ -23,7 +30,7 @@ public class Event extends Todo {
     }
 
     public String display() {
-        return getTodo() + "(at:" + getDate() + ")";
+        return getTodo() + "(at: " + getDate() + ")";
     }
 
     public String getType() {

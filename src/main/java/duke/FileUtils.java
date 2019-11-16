@@ -1,10 +1,12 @@
+package duke;
+
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.IOException;
 
 public class FileUtils {
-    private String path;
-    private boolean appendToFile = false;
+    private static String path;
+    private static boolean appendToFile = false;
 
     public FileUtils(String filePath) {
         path = filePath;
@@ -15,18 +17,22 @@ public class FileUtils {
         appendToFile = appendValue;
     }
 
-    public void setAppend(boolean value) {
+    public static void setPath(String filePath) {
+        path = filePath;
+    }
+
+    public static void setAppend(boolean value) {
         appendToFile = value;
     }
 
-    public void clearFile() throws IOException {
+    public static void clearFile() throws IOException {
         FileWriter write = new FileWriter(path, appendToFile);
         PrintWriter print = new PrintWriter(write);
         print.printf("%s", "");
         print.close();
     }
 
-    public void writeToFile(String data) throws IOException {
+    public static void writeToFile(String data) throws IOException {
         FileWriter write = new FileWriter(path, appendToFile);
         PrintWriter print = new PrintWriter(write);
         print.printf("%s" + "%n", data);
