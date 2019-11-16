@@ -9,6 +9,9 @@ public class DeleteCommand extends Command{
         super(input);
     }
 
+    /**
+     * Delete item from the array list
+     */
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException, IOException{
         if((input.substring(6).trim()).isEmpty()){

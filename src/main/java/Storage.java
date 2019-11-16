@@ -23,7 +23,9 @@ public class Storage {
             createFile();
         }
     }
-
+    /** 
+     * create a file when storage file is not found
+     */
     public void createFile() {
         try {
             if (file.getParentFile().mkdirs()) {
@@ -36,7 +38,8 @@ public class Storage {
     }
 
     /**
-     * Save file
+     * save input from user to file
+     * @throws IOException
      */
     public void saveToFile() throws IOException {
         FileWriter fileWriter = new FileWriter(file.getAbsolutePath());
@@ -77,8 +80,7 @@ public class Storage {
     }
 
     /**
-     * Read file
-     * 
+     * Read file and add item to array list when start of Duke
      * @throws DukeException
      * @throws ParseException
      */

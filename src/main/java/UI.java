@@ -34,9 +34,10 @@ public class UI{
     public void goodbyeMessage(){
         System.out.println(constantString("Bye. Hope to see you again soon!"));
     }
-
-    
-
+    /**
+     * get input from user
+     * @return
+     */
     public String readUserInput(){
         String input = in.nextLine();
         while(shouldIgnore(input)){

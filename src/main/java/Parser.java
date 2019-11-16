@@ -1,4 +1,10 @@
 public class Parser{
+    /**
+     * to determint which command to run
+     * @param userInput
+     * @return
+     * @throws DukeException
+     */
     public static Command parseInput(String userInput) throws DukeException{
         String input = userInput;
         switch(input.split(" ")[0]){

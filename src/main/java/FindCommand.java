@@ -12,6 +12,9 @@ public class FindCommand extends Command{
         super(input);
     }
 
+    /**
+     *  look for the key work from array list and show to user
+     */
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException{
         if(input.split(" ")[1].trim().isEmpty()){

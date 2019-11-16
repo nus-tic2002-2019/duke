@@ -9,6 +9,10 @@ public class DoneCommand extends Command{
         super(input);
     }
 
+    /**
+     * to mark the task in the array list as done
+     */
+
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException, IOException{
         if((input.substring(4).trim()).isEmpty()){
