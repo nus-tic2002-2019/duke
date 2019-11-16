@@ -100,24 +100,32 @@ public class Duke {
             listEmpty(taskList);
             String theStr = line.substring(5);
             String[] strArr = theStr.split(",");
-            int[] intArr = new int[strArr.length];
-            for (int i = 0; i < strArr.length; i++) {
-                String num = strArr[i];
-                intArr[i] = Integer.parseInt(num);
-                indexOutOfRange(taskList.size(), intArr[i]);
+            if (strArr[0].equals("all")){
+                for (int i = 0; i < taskList.size(); i++) {
+                    Task t = taskList.get(i);
+                    t.markAsDone();
+                }
+                UI.printOutput((taskList));
+            }else {
+                int[] intArr = new int[strArr.length];
+                for (int i = 0; i < strArr.length; i++) {
+                    String num = strArr[i];
+                    intArr[i] = Integer.parseInt(num);
+                    indexOutOfRange(taskList.size(), intArr[i]);
+                }
+
+                UI.printLine();
+                UI.printMarkedAsDone();
+
+                assert intArr != null && intArr.length > 0 : "List variable is null or empty";
+                for (int i = 0; i < intArr.length; i++) {
+                    Task t = taskList.get(intArr[i] - 1);
+                    t.markAsDone();
+                    UI.printInLine(" " + t.toString());
+                }
+
+                UI.printLine();
             }
-
-            UI.printLine();
-            UI.printMarkedAsDone();
-
-            assert intArr != null && intArr.length > 0 : "List variable is null or empty";
-            for (int i = 0; i < intArr.length; i++) {
-                Task t = taskList.get(intArr[i] - 1);
-                t.markAsDone();
-                UI.printInLine(" " + t.toString());
-            }
-
-            UI.printLine();
         }
         catch (NumberFormatException e) {
             UI.printNumberFormatException();
@@ -216,32 +224,36 @@ public class Duke {
      * @param line the command that user input
      */
     static void deleteTask(String line) {
-        try {
+            try {
             listEmpty(taskList);
-            String theStr = line.substring(7, line.length());
+            String theStr = line.substring(7);
             String[] strArr = theStr.split(",");
-            int[] intArr = new int[strArr.length];
+            if (strArr[0].equals("all")){
+                UI.printOutput((taskList));
+                taskList.clear();
+                UI.printNumberOfTasks(taskList);
+            }else {
+                int[] intArr = new int[strArr.length];
 
-            assert intArr != null && intArr.length > 0 : "List variable is null or empty";
-            for (int i = 0; i < strArr.length; i++) {
-                String num = strArr[i];
-                intArr[i] = Integer.parseInt(num);
-                indexOutOfRange(taskList.size(), intArr[i]);
+                assert intArr != null && intArr.length > 0 : "List variable is null or empty";
+                for (int i = 0; i < strArr.length; i++) {
+                    String num = strArr[i];
+                    intArr[i] = Integer.parseInt(num);
+                    indexOutOfRange(taskList.size(), intArr[i]);
+                }
+
+                UI.printLine();
+                UI.printRemoveTask();
+
+                for (int i = 0; i < intArr.length; i++) {
+                    Task t = taskList.get(intArr[i] - (i + 1));
+                    UI.printInLine(" " + t.toString());
+                    taskList.remove(intArr[i] - (i + 1));
+                }
+
+                UI.printNumberOfTasks(taskList);
+                UI.printLine();
             }
-
-            UI.printLine();
-            UI.printRemoveTask();
-
-
-
-            for (int i = 0; i < intArr.length; i++) {
-                Task t = taskList.get(intArr[i]-(i+1));
-                UI.printInLine(" " + t.toString());
-                taskList.remove(intArr[i]-(i+1));
-            }
-
-            UI.printNumberOfTasks(taskList);
-            UI.printLine();
         } catch (NumberFormatException e) {
             UI.printNumberFormatException();
         } catch (IndexOutOfRangeException e) {
