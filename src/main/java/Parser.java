@@ -1,7 +1,6 @@
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 
@@ -36,25 +35,12 @@ public class Parser {
         }
     }
 
-    public static DateTime convert_string_to_dateTime(String text) throws DukeException{
-        if(!text.contains(" ")){
-            LocalDate d1 = convert_string_to_date(text);
-            return new DateTime(d1);
-        }
-        int dividerPosition2 = text.indexOf(" ");
-        String taskDate = text.substring(9, dividerPosition2);
-        String taskTime = text.substring(dividerPosition2 + 1 );
-        LocalDate d1 = convert_string_to_date(taskDate);
-        LocalTime t1 = LocalTime.parse(taskTime);
-        return new DateTime(d1, t1);
-    }
 
-
-    public static LocalDate convert_string_to_date(String text) throws DukeException {
+    public static LocalDate convertStringToDate(String text) throws DukeException {
         LocalDate today = LocalDate.now();
         LocalDate d1;
         if(!text.contains("-")){
-            return check_for_other_wording(text);
+            return checkForOtherWording(text);
         }
         try {
             d1 = LocalDate.parse(text);
@@ -70,7 +56,7 @@ public class Parser {
     }
 
 
-    public static LocalDate check_for_other_wording(String text) throws DukeException{
+    public static LocalDate checkForOtherWording(String text) throws DukeException{
         text = text.toLowerCase();
         LocalDate today = LocalDate.now();
         DayOfWeek dayOfToday = today.getDayOfWeek();
@@ -110,4 +96,35 @@ public class Parser {
                 throw new DukeException("Please state date");
         }
     }
+
+    public static LocalTime convertStringToTime(String text, LocalDate taskDate) throws DukeException{
+        LocalTime now = LocalTime.now();
+        LocalDate today = LocalDate.now();
+        LocalTime t1;
+        if(!text.contains(":")){
+            text = convertTimeTextToTimeStyle(text);
+        }
+        try {
+            t1 = LocalTime.parse(text);
+        }
+        catch (DateTimeParseException e){
+            throw new DukeException("Please set time as 1301 or 13:01");
+        }
+
+        if(today.isEqual(taskDate) && now.isAfter(t1)) {
+            throw new DukeException("Date and Time should be a future Date and Time.");
+        }
+        return t1;
+    }
+
+    public static String convertTimeTextToTimeStyle(String text) throws DukeException{
+        if (!text.substring(4).isEmpty()){
+            throw new DukeException("Invalid time! Please keep it to 4 digit");
+        }
+        String hour = text.substring(0,2);
+        String min = text.substring(2,4);
+        String newTime = hour + ":" + min;
+        return newTime;
+    }
+
 }

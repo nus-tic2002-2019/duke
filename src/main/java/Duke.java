@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 
 public class Duke {
     //private UI ui;
@@ -18,8 +16,10 @@ public class Duke {
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
+            ui.showError(e.getMessage());
             ui.showLoadingError();
             tasks = new TaskList();
+
         }
 
     }

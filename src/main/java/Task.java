@@ -4,10 +4,7 @@ public abstract class Task {
     protected String storeWords;
     protected boolean isDone;
     protected TaskType taskType;
-
     protected int taskIndex;
-
-
 
     public Task(String thingsToDo){
         this.storeWords = thingsToDo;

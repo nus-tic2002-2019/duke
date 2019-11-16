@@ -36,7 +36,7 @@ public class Ui {
         System.out.println("WE GOT AN ERROR:" + errorMessage);
     }
     public static void showLoadingError(){
-        System.out.println("There are currently no task, proceeding to create");
+        System.out.println("There are currently problem with loading the task, proceeding to create a new empty list");
     }
 
     public static void showAllArrayList(ArrayList<Task> taskList){
@@ -49,7 +49,7 @@ public class Ui {
 
     public static void showAllTask(TaskList tasks){
         for(int i = 0; i< tasks.getSize(); i++){
-            System.out.println((i+1) + ". " + tasks.getTask(i).toString());
+            System.out.println("Task Number " + (tasks.getTask(i).getTaskIndex() +1) + ": " + tasks.getTask(i).toString());
         }
     }
 
@@ -57,8 +57,9 @@ public class Ui {
         System.out.println("I have deleted the following: \n" + deletedTask);
     }
 
-    public static void doneMsg(String doneTask){
-        System.out.println("Nice! I've marked this task as done: \n" + doneTask);
+    public static void doneMsg(String doneTask, int taskIndex){
+        System.out.println("Nice! I've marked this task as done: \n" +
+                "Task Number "+ taskIndex + ": " + doneTask);
     }
 
 }

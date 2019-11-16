@@ -11,8 +11,11 @@ public class DoneCommand extends Command {
         try {
             int taskIndex = Integer.parseInt(taskItem.substring(5)) - 1;
             Task doneTask = tasks.getTask(taskIndex);
+            if(doneTask.getIsDone()){
+                throw new DukeException("Task is already done");
+            }
             doneTask.edit_done(true);
-            Ui.doneMsg(doneTask.toString());
+            Ui.doneMsg(doneTask.toString(), doneTask.getTaskIndex());
         }
         catch(NumberFormatException e){
             throw new DukeException("Please key in task number");
