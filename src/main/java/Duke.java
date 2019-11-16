@@ -98,18 +98,18 @@ public class Duke {
             String[] splitStr = userInput.split("\\s+");
             int index = Integer.valueOf(splitStr[1]) - 1;
             System.out.println("Nice! I've marked this task as done: ");
-            if(type.get(index) == "E" || type.get(index) == "D")
+            if(type.get(index).contains("E") || type.get(index).contains("D"))
                 System.out.println("[" + getMark(mark.get(index)) + "] " + list.get(index) + " " + dateS.get(index).format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")");
             else
                 System.out.println("[" + getMark(mark.get(index)) + "] " + list.get(index));
 
         } else if (userInput.contains("delete")) {
-            save();
+
             String[] splitStr = userInput.split("\\s+");
             int index = Integer.parseInt(splitStr[1]) - 1;
 
             System.out.println("Noted. I've removed this task: ");
-            if(type.get(index) == "E" || type.get(index) == "D")
+            if(type.get(index).contains("E") || type.get(index).contains("D"))
                 System.out.println("[" + type.get(index) + "][" + getMark(mark.get(index)) + "] " + list.get(index) + " " + dateS.get(index).format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")");
             else
                 System.out.println("[" + type.get(index) + "][" + getMark(mark.get(index)) + "] " + list.get(index));
@@ -117,7 +117,8 @@ public class Duke {
             list.remove(index);
             type.remove(index);
             mark.remove(index);
-
+            dateS.remove(index);
+            save();
             System.out.println("Now you have " + list.size() + " tasks in the list.");
         } else {
             save();
