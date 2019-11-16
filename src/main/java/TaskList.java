@@ -53,6 +53,27 @@ public class TaskList {
     }
 
     /*
+     * This method updates task's date and time.
+     * @param index Task's index .
+     * @param datetime Task's updated date and time.
+     * @return task Updated Task object.
+     */
+    public static Task updateTask(int index,String datetime){
+        Task task = tasklist.get(index);
+        if(task.getTaskType()=='E'){
+            Event event;
+            event = (Event) tasklist.get(index);
+            event.setLast(datetime);
+        }
+        if(task.getTaskType()=='D'){
+            Deadline deadline;
+            deadline = (Deadline) tasklist.get(index);
+            deadline.setLast(datetime);
+        }
+        return task;
+    }
+
+    /*
      * Returns number of tasks in task list.
      */
     int getTaskSize(){

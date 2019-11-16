@@ -63,4 +63,13 @@ public class Deadline extends Task {
         this.by = DateTime.format(formatter);
         return by;
     }
+
+    /*
+     * Set Deadline's date and Time.
+     */
+    public void setLast(String by) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime DateTime = LocalDateTime.parse(by,formatter);
+        this.by = DateTime.format(formatter);
+    }
 }

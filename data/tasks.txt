@@ -1,5 +1,7 @@
 T | 0 | hello | 
-E | 1 | wedding | 2019-10-05 06:30
+E | 1 | wedding | 2019-10-11 00:15
 T | 1 | first entry | 
 E | 0 | meeting | 2019-11-12 09:35
-D | 0 | assignment | 2019-09-20 08:40
+D | 0 | assignment | 2019-10-10 10:10
+T | 1 | more task | 
+T | 1 | update task | 

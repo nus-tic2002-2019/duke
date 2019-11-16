@@ -63,4 +63,14 @@ public class Event extends Task {
         this.at = DateTime.format(formatter);
         return at;
     }
+
+    /*
+     * Set Event's date and Time.
+     */
+    public void setLast(String at) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime DateTime = LocalDateTime.parse(at,formatter);
+        this.at = DateTime.format(formatter);
+    }
+
 }

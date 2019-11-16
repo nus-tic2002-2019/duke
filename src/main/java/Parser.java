@@ -26,6 +26,15 @@ public class Parser {
                 return new ExitCommand();
             case "done":
                 return new DoneCommand(Integer.parseInt(task[1]));
+            case "update":
+                if(taskLen < 2) {
+                    throw new DukeException(command);
+                } else {
+                    String[] descrip = task[1].split(" /to ", 2);
+                    UpdateCommand upCommand = new UpdateCommand(Integer.parseInt(descrip[0]), descrip[1]);
+                    return upCommand;
+
+                }
             case "delete":
                 if(taskLen < 2) {
                     throw new DukeException(command);
