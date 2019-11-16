@@ -1,14 +1,29 @@
 package Tasks;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Deadlines extends Task {
 
-    protected String by;
 
-    public Deadlines(String description, String by) {
+    protected Date date;
+
+
+
+    public Deadlines(String description, Date date){
         super(description);
         isDone = false;
-        this.by = by;
-        description = description+by;
+        this.date = date;
+    }
+
+    public String printDeadlineDte(){
+        SimpleDateFormat formatter = new SimpleDateFormat("E, dd MMM yyyy HH:mm");
+
+        //System.out.println("WHAT IS THIS : " + formatter);
+
+        String strDate = formatter.format(this.date);
+
+        return strDate;
     }
 
     @Override
@@ -22,6 +37,6 @@ public class Deadlines extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + this.getStatusIcon() + this.description + " (by: " + by + ")";
+        return "[D]" + this.getStatusIcon() + this.description + " (by: " + printDeadlineDte() + ")";
     }
 }
