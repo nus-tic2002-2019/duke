@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.io.FileWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 public class Duke {
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -13,8 +12,19 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
+        String formattingLine1 = "____________________________________________________________\n";
+        String formattingLine2 = "____________________________________________________________";
+        String availableCommands = "Available commands: deadline, event, todo, list, delete, done, find, need, bye\n";
+        String invalidCommand = "You have entered an invalid command, please try again\n";
+        String deadlineUsage = "Command usage: deadline <task> /<yyyy>-<mm>-<dd>";
+        String deleteUsage = "Command usage: delete <task number>";
+        String todoUsage = "Command usage: todo <task number>";
+        String eventUsage = "Command usage: event <task> /<date>";
+        String doneUsage = "Command usage: done <number>";
+        String findUsage = "Command usage: find <text to find>";
+        String needUsage = "Command usage: need <task> /<time>";
         System.out.println("Hello from\n" + logo);
-        System.out.println("____________________________________________________________\n" + "Hello! I'm Duke\n" + "What can I do for you?\n" + "____________________________________________________________\n");
+        System.out.println(formattingLine1 + "Hello! I'm Duke\n" + "What can I do for you?\n" + formattingLine1);
         Scanner input = new Scanner(System.in);
         String rawInput = "";
         String filteredInputCommand = "";
@@ -29,24 +39,15 @@ public class Duke {
             while ((arrayInput = fileInput.readLine()) != null) {
                 TasksList.add(arrayInput);
             }
-            System.out.println("____________________________________________________________\n" + "Backup succesfully read, listing existing tasks:");
-            System.out.println("____________________________________________________________");
+            System.out.println(formattingLine1 + "Backup succesfully read, listing existing tasks:");
+            System.out.println(formattingLine2);
             for (int i = 0; i < TasksList.size(); i++){
                 System.out.println((i+1)+"."+TasksList.get(i));
             }
-            System.out.println("____________________________________________________________\n");
+            System.out.println(formattingLine1);
         } catch (Exception e) {
-            System.out.println("____________________________________________________________\n" + "Error reading from backup, new list created\n" + "____________________________________________________________\n");
+            System.out.println(formattingLine1 + "Error reading from backup, new list created\n" + formattingLine1);
         }
-        /*try {
-            Scanner fileInput = new Scanner(new File("output.txt"));
-            while (fileInput.hasNext()){
-                TasksList.add(fileInput.next());
-            }
-            fileInput.close();
-        } catch (Exception e) {
-            System.out.println("____________________________________________________________\n" + "Error reading from file, new list created\n" + "____________________________________________________________\n");
-        }*/
         while ( !rawInput.equals("bye") ) {
             rawInput = input.nextLine();
             try {
@@ -57,35 +58,37 @@ public class Duke {
             try {
                 filteredInputText = rawInput.substring(rawInput.indexOf(' '));
             } catch (Exception e) {
-                filteredInputText = "<No Text Entered>";
-                if (filteredInputCommand.equals("delete")){
-                    System.out.println("____________________________________________________________\n" + "Command usage: delete <task number>");
-                    filteredInputCommand = "";
+                switch ( filteredInputCommand ) {
+                    case "delete":
+                        System.out.println(formattingLine1 + deleteUsage);
+                        filteredInputCommand = "";
+                        break;
+                    case "deadline":
+                        System.out.println(formattingLine1 + deadlineUsage);
+                        filteredInputCommand = "";
+                        break;
+                    case "todo":
+                        System.out.println(formattingLine1 + todoUsage);
+                        filteredInputCommand = "";
+                        break;
+                    case "event":
+                        System.out.println(formattingLine1 + eventUsage);
+                        filteredInputCommand = "";
+                        break;
+                    case "done":
+                        System.out.println(formattingLine1 + doneUsage);
+                        filteredInputCommand = "";
+                        break;
+                    case "find":
+                        System.out.println(formattingLine1 + findUsage);
+                        filteredInputCommand = "";
+                        break;
+                    case "need":
+                        System.out.println(formattingLine1 + needUsage);
+                        filteredInputCommand = "";
+                        break;
                 }
-                if (filteredInputCommand.equals("deadline")){
-                    System.out.println("____________________________________________________________\n" + "Command usage: deadline <task> /<date>");
-                    filteredInputCommand = "";
-                }
-                if (filteredInputCommand.equals("todo")){
-                    System.out.println("____________________________________________________________\n" + "Command usage: todo <task number>");
-                    filteredInputCommand = "";
-                }
-                if (filteredInputCommand.equals("event")){
-                    System.out.println("____________________________________________________________\n" + "Command usage: event <task> /<date>");
-                    filteredInputCommand = "";
-                }
-                if (filteredInputCommand.equals("done")){
-                    System.out.println("____________________________________________________________\n" + "Command usage: done <number>");
-                    filteredInputCommand = "";
-                }
-                if (filteredInputCommand.equals("find")){
-                    System.out.println("____________________________________________________________\n" + "Command usage: find <text to find>");
-                    filteredInputCommand = "";
-                }
-                if (filteredInputCommand.equals("need")){
-                    System.out.println("____________________________________________________________\n" + "Command usage: need <task> /<time>");
-                    filteredInputCommand = "";
-                }
+                //filteredInputText = "<No Text Entered>";
             }
             try {
                 filteredInputText = filteredInputText.substring(0, (filteredInputText.indexOf('/')));
@@ -98,13 +101,15 @@ public class Duke {
                 System.out.println("debug" + inputdateFormat.format(ldInputDate));
             } catch (Exception e) {
                 //filteredInputDate = "<No Date Entered>";
-                if (filteredInputCommand.equals("deadline")){
-                    System.out.println("____________________________________________________________\n" + "Command usage: deadline <task> /<yyyy>-<mm>-<dd>");
-                    filteredInputCommand = "";
-                }
-                if (filteredInputCommand.equals("event")){
-                    System.out.println("____________________________________________________________\n" + "Command usage: event <task> /<date>");
-                    filteredInputCommand = "";
+                switch ( filteredInputCommand ) {
+                    case "deadline":
+                        System.out.println(formattingLine1 + deadlineUsage);
+                        filteredInputCommand = "";
+                        break;
+                    case "event":
+                        System.out.println(formattingLine1 + eventUsage);
+                        filteredInputCommand = "";
+                        break;
                 }
             }
             try {
@@ -113,32 +118,32 @@ public class Duke {
                 filteredInputTime = Integer.parseInt(filteredInputDate);
             } catch (Exception e) {
                 if (filteredInputCommand.equals("need")){
-                    System.out.println("____________________________________________________________\n" + "Command usage: need <task> /<time>");
+                    System.out.println(formattingLine1 + needUsage);
                     filteredInputCommand = "";
                 }
             }
             switch ( filteredInputCommand ) {
                 case "list":
-                    System.out.println("____________________________________________________________");
+                    System.out.println(formattingLine2);
                     for (int i = 0; i < TasksList.size(); i++){
                         System.out.println((i+1)+"."+TasksList.get(i));
                     }
-                    System.out.println("____________________________________________________________\n");
+                    System.out.println(formattingLine1);
                     break;
                 case "find":
-                    System.out.println("____________________________________________________________");
-                    boolean foundTextFlag = true;
+                    System.out.println(formattingLine2);
+                    boolean missingText = true;
                     for (int i = 0; i < TasksList.size(); i++){
                         boolean foundText = TasksList.get(i).contains(filteredInputText);
                         if (foundText){
                             System.out.println((i+1)+"."+TasksList.get(i));
-                            foundTextFlag = false;
+                            missingText = false;
                         }
                     }
-                    if (foundTextFlag){
+                    if (missingText){
                         System.out.println("No results");
                     }
-                    System.out.println("____________________________________________________________\n");
+                    System.out.println(formattingLine1);
                     break;
                 case "done":
                     try {
@@ -150,121 +155,71 @@ public class Duke {
                         } else {
                             TasksList.set(doneInt, ("[" + "\u2713" + "]" + filteredList.substring(3)));
                         }
-                        System.out.println("____________________________________________________________\n" + "Nice! I've marked this task as done:");
-                        System.out.println(TasksList.get(doneInt));
-                        System.out.println("____________________________________________________________");
+                        System.out.println(formattingLine1 + "Nice! I've marked this task as done:" +
+                                TasksList.get(doneInt) + formattingLine2);
                     } catch (Exception e) {
-                        System.out.println("____________________________________________________________\n" + "Command usage: todo <task number>");
-                        System.out.println("Available commands: deadline, event, todo, list, delete, done, find, need, bye\n" + "You have entered an invalid command, please try again\n" + "____________________________________________________________");
+                        System.out.println(formattingLine1 + todoUsage);
+                        System.out.println(availableCommands + invalidCommand + formattingLine2);
                     }
                     break;
                 case "todo":
                     TasksList.add("[T][" + "\u2718" + "]" + filteredInputText);
-                    System.out.println("____________________________________________________________\n" +
+                    System.out.println(formattingLine1 +
                             "Got it. I've added this todo:\n" + "[T][" + "\u2718" + "]" +
                             filteredInputText +"\n" + "Now you have " + TasksList.size() + " tasks in the list.\n" +
-                            "____________________________________________________________\n");
+                            formattingLine1);
                     break;
                 case "event":
                     TasksList.add("[E][" + "\u2718" + "]" + filteredInputText + " (at: " + inputdateFormat.format(ldInputDate) + ")");
-                    System.out.println("____________________________________________________________\n" +
+                    System.out.println(formattingLine1 +
                             "Got it. I've added this event:\n" + "[E][" + "\u2718" + "]" + filteredInputText + " (at: " + inputdateFormat.format(ldInputDate) + ")" +"\n" +
                             "Now you have " + TasksList.size() + " tasks in the list.\n" +
-                            "____________________________________________________________\n"); break;
+                            formattingLine1);
+                    break;
                 case "deadline":
                     TasksList.add("[D][" + "\u2718" + "]" + filteredInputText + " (by: " + inputdateFormat.format(ldInputDate) + ")");
-                    System.out.println("____________________________________________________________\n" +
+                    System.out.println(formattingLine1 +
                             "Got it. I've added this deadline:\n" + "[D][" + "\u2718" + "]" + filteredInputText + " (by: " + inputdateFormat.format(ldInputDate) + ")" +"\n" +
                             "Now you have " + TasksList.size() + " tasks in the list.\n" +
-                            "____________________________________________________________\n"); break;
+                            formattingLine1);
+                    break;
                 case "need":
                     TasksList.add("[D][" + "\u2718" + "]" + filteredInputText + " (by: " + inputdateFormat.format(ldInputDate) + ")");
-                    System.out.println("____________________________________________________________\n" +
+                    System.out.println(formattingLine1 +
                             "Got it. I've added this need:\n" + "[D][" + "\u2718" + "]" + filteredInputText + " (need: " + filteredInputTime + ")" +"\n" +
                             "Now you have " + TasksList.size() + " tasks in the list.\n" +
-                            "____________________________________________________________\n"); break;
+                            formattingLine1);
+                    break;
                 case "delete":
                     try {
                         int deleteInt = Integer.parseInt(filteredInputText.substring(1));
                         deleteInt--;
                         String tempStorage = TasksList.get(deleteInt);
                         TasksList.remove(deleteInt);
-                        System.out.println("____________________________________________________________\n" + "Noted. I've removed this task:");
-                        System.out.println(tempStorage);
-                        System.out.println("Now you have " + TasksList.size() + " tasks in the list.\n");
-                        System.out.println("____________________________________________________________");
+                        System.out.println(formattingLine1 + 
+                                "Noted. I've removed this task: " + tempStorage + "\n" +
+                                "Now you have " + TasksList.size() + " tasks in the list.\n" +
+                                formattingLine2);
                     } catch (Exception e) {
-                        System.out.println("____________________________________________________________\n" + "Command usage: delete <task number>");
-                        System.out.println("Available commands: deadline, event, todo, list, delete, done, find, need, bye\n" + "You have entered an invalid command, please try again\n" + "____________________________________________________________");
+                        System.out.println(formattingLine1 + deleteUsage + availableCommands + invalidCommand + formattingLine2);
                     }
                     break;
-                case "bye": break;
+                case "bye":
+                    break;
                 default:
-                    System.out.println("Available commands: deadline, event, todo, list, delete, done, find, need, bye\n" + "You have entered an invalid command, please try again\n" + "____________________________________________________________");
+                    System.out.println(availableCommands + invalidCommand + formattingLine2);
                     break;
             }
             try{
-                FileWriter writer = new FileWriter("backup.txt");
+                FileWriter fileOutput = new FileWriter("backup.txt");
                 for(String str: TasksList) {
-                    writer.write(str + System.lineSeparator());
+                    fileOutput.write(str + System.lineSeparator());
                 }
-                writer.close();
+                fileOutput.close();
             } catch (Exception e) {
-
+                System.out.println(formattingLine1 + "---WARNING WARNING WARNING WARNING WARNING---\nError writing to backup, your list is --> NOT <-- saved\n---WARNING WARNING WARNING WARNING WARNING---\n" + formattingLine1);
             }
-
         }
-        System.out.println("____________________________________________________________\n" + "Bye. Hope to see you again soon!\n" + "____________________________________________________________");
+        System.out.println(formattingLine1 + "Bye. Hope to see you again soon!\n" + formattingLine2);
     }
 }
-
-/*public class Duke {
-    public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("____________________________________________________________\n" + "Hello! I'm Duke\n" + "What can I do for you?\n" + "____________________________________________________________\n");
-        Scanner input = new Scanner(System.in);
-        String text = "";
-        String filteredtext = "";
-        ArrayList<String> list = new ArrayList<String>();
-        while ( !text.equals("bye") ) {
-            text = input.nextLine();
-            try {
-                filteredtext = text.substring(0, text.indexOf(' '));
-            } catch (Exception e) {
-                filteredtext = text;
-            }
-            if (filteredtext.equals("done")){
-                System.out.println("____________________________________________________________\n" + "Nice! I've marked this task as done:");
-                String getTaskNum = text.substring(5);
-                int doneInt = Integer.parseInt(getTaskNum);
-                doneInt--;
-                String filteredList = list.get(doneInt);
-                //System.out.println(filteredList);
-                //System.out.println(filteredList.indexOf("]["));
-                //int newFilter = filteredList.indexOf("][");
-                if ( filteredList.indexOf("][") == 2 ) {
-                    list.set(doneInt, (filteredList.substring(0, 3) + "[" + "\u2713" + "]" + filteredList.substring(6)));
-                } else {
-                    list.set(doneInt, ("[" + "\u2713" + "]" + filteredList.substring(3)));
-                }
-                System.out.println(list.get(doneInt));
-                System.out.println("____________________________________________________________");
-            }
-
-            switch ( filteredtext ) {
-                case "bye":  System.out.println("____________________________________________________________\n" + "Bye. Hope to see you again soon!\n" + "____________________________________________________________"); break;
-                case "list": System.out.println("____________________________________________________________"); for (int i = 0; i < list.size(); i++){System.out.println((i+1)+"."+list.get(i));} System.out.println("____________________________________________________________\n"); break;
-                case "done": break;
-                case "todo": list.add("[T][" + "\u2718" + "]" + text); System.out.println("____________________________________________________________\n" + "Got it. I've added this task:\n" + "[T][" + "\u2718" + "]" + text +"\n" + "Now you have " + list.size() + " tasks in the list.\n" + "____________________________________________________________\n"); break;
-                case "event": list.add("[E][" + "\u2718" + "]" + text); System.out.println("____________________________________________________________\n" + "Got it. I've added this task:\n" + "[E][" + "\u2718" + "]" + text +"\n" + "Now you have " + list.size() + " tasks in the list.\n" + "____________________________________________________________\n"); break;
-                case "deadline": list.add("[D][" + "\u2718" + "]" + text); System.out.println("____________________________________________________________\n" + "Got it. I've added this task:\n" + "[D][" + "\u2718" + "]" + text +"\n" + "Now you have " + list.size() + " tasks in the list.\n" + "____________________________________________________________\n"); break;
-                default: System.out.println("____________________________________________________________\n" + "added: " + text +"\n" + "____________________________________________________________\n"); list.add("[" + "\u2718" + "]" + text);
-            }
-        }
-    }
-}*/
