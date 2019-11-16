@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.FileWriter;
@@ -17,6 +19,29 @@ public class Duke {
         String filteredInputText = "";
         String filteredInputDate = "";
         ArrayList<String> TasksList = new ArrayList<String>();
+        try (BufferedReader fileInput = new BufferedReader(new FileReader("backup.txt"))) {
+            String arrayInput;
+            while ((arrayInput = fileInput.readLine()) != null) {
+                TasksList.add(arrayInput);
+            }
+            System.out.println("____________________________________________________________\n" + "Backup succesfully read, listing existing tasks:");
+            System.out.println("____________________________________________________________");
+            for (int i = 0; i < TasksList.size(); i++){
+                System.out.println((i+1)+"."+TasksList.get(i));
+            }
+            System.out.println("____________________________________________________________\n");
+        } catch (Exception e) {
+            System.out.println("____________________________________________________________\n" + "Error reading from backup, new list created\n" + "____________________________________________________________\n");
+        }
+        /*try {
+            Scanner fileInput = new Scanner(new File("output.txt"));
+            while (fileInput.hasNext()){
+                TasksList.add(fileInput.next());
+            }
+            fileInput.close();
+        } catch (Exception e) {
+            System.out.println("____________________________________________________________\n" + "Error reading from file, new list created\n" + "____________________________________________________________\n");
+        }*/
         while ( !rawInput.equals("bye") ) {
             rawInput = input.nextLine();
             try {
@@ -133,7 +158,7 @@ public class Duke {
                     break;
             }
             try{
-                FileWriter writer = new FileWriter("output.txt");
+                FileWriter writer = new FileWriter("backup.txt");
                 for(String str: TasksList) {
                     writer.write(str + System.lineSeparator());
                 }
