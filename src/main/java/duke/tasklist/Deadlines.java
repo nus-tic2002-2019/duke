@@ -45,6 +45,11 @@ public class Deadlines extends Task {
         return "D | " + taskStatus + " | " + super.getTaskPriorityToString() + " | " + super.getDescription() + " | " + Date.format(saveDateFormat) + "\r";
     }
 
+    @Override
+    public LocalDate getDate(){
+        return Date;
+    }
+
 
 
 }

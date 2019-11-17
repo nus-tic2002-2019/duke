@@ -1,4 +1,7 @@
 package duke.tasklist;
+
+import java.time.LocalDate;
+
 /**
  * Represent a Todo task in a list. It extends from the Task class and
  * A Todo object refers to a Todo task which has description and priority level.
@@ -37,5 +40,10 @@ public class Todo extends Task {
         int taskStatus = isDone ? 1:0;
         return "T | " + taskStatus + " | " + super.getTaskPriorityToString() + " | " + super.getDescription() + "\r";
     }
+
+    public LocalDate getDate(){
+        return LocalDate.now();
+    }
+
 
 }

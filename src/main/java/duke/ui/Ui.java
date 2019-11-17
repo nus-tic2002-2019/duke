@@ -46,6 +46,7 @@ public class Ui {
 
         System.out.println ("    Hello! I'm Duke");
         System.out.println ("    What can I do for you?");
+        System.out.println ("    Type \"help\" to see what I can understand");
 
     }
     /**
@@ -64,7 +65,9 @@ public class Ui {
         System.out.println ("    File not located");
 
     }
-    //probably not needed. Need to review.
+    /**
+     * The showError method shows the Unknown Command error if the user enter a command that is not recognize by Duke
+     */
     public void showError(String errorMsg){
         System.out.println(errorMsg);
     }
@@ -91,17 +94,26 @@ public class Ui {
         Parser processCommand = new Parser(textInput);
         try {
             switch (processCommand.getCommand()) {
+            case "help":
+                howToUseDuke();
+                break;
+            case "overdue":
+                taskList.displayList(taskList.lateTask(), "late");
+                break;
             case "find":
-                taskList.displayList(taskList.findInList(processCommand.getTaskDescription()));
+                taskList.displayList(taskList.findInList(processCommand.getTaskDescription()), "find");
                 break;
             case "sort":
-                taskList.displayList(taskList.priorityHighToLow());
+                taskList.displayList(taskList.priorityHighToLow(), "sort");
                 break;
             case "list":
-                taskList.displayList(taskList.getList());
+                taskList.displayList(taskList.getList(), "list");
                 break;
             case "done":
-                taskList.markInList(processCommand.getListIndex());
+                taskList.markInList(processCommand.getListIndex(),true);
+                break;
+            case "undone":
+                taskList.markInList(processCommand.getListIndex(),false);
                 break;
             case "delete":
                 taskList.deleteFromList(processCommand.getListIndex());
@@ -132,16 +144,34 @@ public class Ui {
                 dukeBye();
                 break;
             }
-            if (!processCommand.getCommand().equals("find") || !processCommand.getCommand().equals("sort"))
+            if (!processCommand.getCommand().equals("find") ||
+                    !processCommand.getCommand().equals("sort") ||
+                    !processCommand.getCommand().equals("overdue"))
                 Storage.saveList(Storage.getFile().getAbsolutePath(), tasks);
         }
         catch (IOException e){
             throw new DukeException("    Unable to save to file");
         }
         catch (ArrayIndexOutOfBoundsException e){
-            throw new DukeException("    Unknown Command");
+            throw new DukeException("    I'm not sure what is that. Type \"help\" to see what I can understand");
         }
 
+    }
+
+    private void howToUseDuke(){
+        System.out.println("     Things Duke can help you with               | Command:");
+        System.out.println("     ____________________________________________|_______________________________________________________________");
+        System.out.println("     To show the task list loaded:               | \"list\"");
+        System.out.println("     To add new Todo:                            | \"todo description /priority level(high, medium or low)\"");
+        System.out.println("     To add new Deadlines:                       | \"deadline description /priority level(high, medium or low) /by yyyy-mm-dd\"");
+        System.out.println("     To add new Event:                           | \"event description /priority level(high, medium or low) /at yyyy-mm-dd Start time (HH:mm) - End time (HH:mm)\"");
+        System.out.println("     To mark a Task as Done:                     | \"done [list index of task] e.g. done 4\"");
+        System.out.println("     To mark a Task as Not Done:                 | \"undone [list index of task] e.g. undone 5\"");
+        System.out.println("     To delete a Task from the list:             | \"delete [list index of task] e.g. delete 3\"");
+        System.out.println("     To sort the list from High to Low Priority: | \"sort\"");
+        System.out.println("     To search for overdue tasks:                | \"overdue\"");
+        System.out.println("     To end this program:                        | \"bye\"");
+        System.out.println("     NOTE: Your list is automatically save to the file whenever you add a task, delete a task, or mark a task as done!");
     }
     /**
      * The getTextInput method returns the Scanner object created by the UI constructor

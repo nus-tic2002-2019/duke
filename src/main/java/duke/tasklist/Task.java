@@ -1,4 +1,7 @@
 package duke.tasklist;
+
+import java.time.LocalDate;
+
 /**
  * Represent a task in a list.
  *
@@ -59,5 +62,5 @@ public abstract class Task {
 
     public abstract String saveToFile();
 
-
+    public abstract LocalDate getDate();
 }

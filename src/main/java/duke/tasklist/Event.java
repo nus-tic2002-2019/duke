@@ -9,8 +9,8 @@ import java.time.format.DateTimeFormatter;
  */
 
 public class Event extends Task {
-    protected LocalDate Date;
-    protected LocalTime startTime, endTime;
+    private LocalDate Date;
+    private LocalTime startTime, endTime;
     private DateTimeFormatter displayDateFormat = DateTimeFormatter.ofPattern("MMM d yyyy");
     private DateTimeFormatter displayTimeFormat = DateTimeFormatter.ofPattern("HH:mm");
     private DateTimeFormatter saveDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -51,5 +51,9 @@ public class Event extends Task {
     public String saveToFile(){
         int taskStatus = isDone ? 1:0;
         return "E | " + taskStatus + " | " + super.getTaskPriorityToString() + " | " + super.getDescription() + " | " + Date.format(saveDateFormat) + " " + startTime.format(saveTimeFormat) + " - " + endTime.format(saveTimeFormat) + "\r";
+    }
+
+    public LocalDate getDate() {
+        return Date;
     }
 }

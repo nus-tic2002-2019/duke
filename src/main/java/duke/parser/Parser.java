@@ -1,6 +1,5 @@
 package duke.parser;
 
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
@@ -35,13 +34,17 @@ public class Parser {
         command = textInputArr[0].toLowerCase();
         if (command.equals("list") ||
                 command.equals("bye") ||
-                command.equals("sort")) {
+                command.equals("overdue") ||
+                command.equals("sort") ||
+                command.equals("help")) {
             isSingleCommand = true;
         }
         if (textInputArr.length < 2 && !isSingleCommand) {
-            throw new DukeException("    unknown Command");
+            throw new DukeException("    I'm not sure what is that. Type \"help\" to see what I can understand");
         }
         switch(command.toLowerCase()){
+        case "undone":
+            //Fallthrough
         case "done":
             //Fallthrough
         case "delete":
@@ -49,7 +52,7 @@ public class Parser {
             break;
         case "find":
             if (textInputArr.length < 2 ) {
-                throw new DukeException("Please indicate a keyword to search in the list");
+                throw new DukeException("    Please indicate a keyword to search in the list");
             }
             taskDescription = textInputArr[1];
             break;
@@ -67,6 +70,10 @@ public class Parser {
         case "event":
             getEventDetails(textInputArr[1]);
             break;
+        default:
+            if (!isSingleCommand) {
+                throw new DukeException("    I'm not sure what is that. Type \"help\" to see what I can understand");
+            }
         }
 
     }
@@ -83,7 +90,7 @@ public class Parser {
         String[] getDeadlineDetails = inputDetails.split(" /priority ", 2);
         //extract deadline Description
         if (getDeadlineDetails.length < 2)
-            throw new DukeException("    ☹ OOPS!!! There are missing or incorrect details!\n" + "    Please type \"deadline description /priority level /by yyyy-mm-dd\"");
+            throw new DukeException("    ☹ OOPS!!! There are missing or incorrect details!\n" + "    Please type \"deadline description /priority level(high, medium or low) /by yyyy-mm-dd\"");
         deadlineDescription = getDeadlineDetails[0];
         //extract deadline priority
         String[] getDeadlinePriority = getDeadlineDetails[1].split(" /by ", 2);
@@ -101,8 +108,11 @@ public class Parser {
 
     private void getEventDetails(String inputDetails) throws DukeException{
         String[] getEventDetails = inputDetails.split(" /priority ", 2); // separate Event Description from Priority, Date and Time
-        if (getEventDetails.length < 2)
-            throw new DukeException("    ☹ OOPS!!! There are missing or incorrect details!\n" + "    Please type as follows:\n" + "    \"event description /priority level(high, medium or low) /at yyyy-mm-dd Start time (HH:mm) - End time (HH:mm)\""); //throw exception if missing date & time
+        if (getEventDetails.length < 2) {
+            throw new DukeException("    ☹ OOPS!!! There are missing or incorrect details!\n" +
+                    "    Please type as follows:\n" +
+                    "    \"event description /priority level(high, medium or low) /at yyyy-mm-dd Start time (HH:mm) - End time (HH:mm)\"");
+        }
         eventDescription = getEventDetails[0];
         String[] getEventPriority = getEventDetails[1].split(" /at ", 2);
         strToPriority(getEventPriority[0]);
@@ -137,7 +147,6 @@ public class Parser {
             throw new DukeException("    Please use high, medium or low as priority level");
         }
     }
-
 
     /**
      * The getCommand method return the command which is understood by Duke
@@ -197,9 +206,5 @@ public class Parser {
      * The getTaskDescription method return the description for each task type after parsing the command
      */
     public String getTaskDescription(){return taskDescription;}
-
-
-
-
 
 }
