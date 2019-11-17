@@ -1,10 +1,11 @@
-package DukeCommands;
+package newDuke.DukeCommands;
 
-import main.Storage;
-import main.TaskList;
-import main.UI;
-import DukeTasks.Task;
+import newDuke.main.Storage;
+import newDuke.main.TaskList;
+import newDuke.main.UI;
+import newDuke.DukeTasks.Task;
 import java.util.ArrayList;
+import newDuke.DukeExceptions.Exception;
 
 /**
  * A Command indicate that a Task from the TaskList and Storage has been completed.
@@ -14,9 +15,10 @@ public class DoneCommand implements Command {
     /**
      * Indicates which element of the TaskList has been completed.
      */
-    private int taskNum;
-    public DoneCommand(int taskNum) {
-        this.taskNum = taskNum;
+    private String[] doneDetails;
+	private int taskNum;
+    public DoneCommand(String [] doneDetails) {
+        this.doneDetails = doneDetails;
     }
 
     /**
@@ -27,11 +29,22 @@ public class DoneCommand implements Command {
      */
 
     public String execute(TaskList taskList, Storage storage) {
-        ArrayList<Task> list = taskList.getTaskList();
-        Task currTask = list.get(taskNum);
-        currTask.setStatusIconTrue();
-        storage.writeToFile(list);
-
-        return UI.done(currTask);
+		
+        try{
+			try {
+			taskNum = Integer.valueOf(doneDetails[1]) - 1;
+			ArrayList<Task> list = taskList.getTaskList();
+			Task currTask = list.get(taskNum);
+			currTask.setStatusIconTrue();
+			storage.writeToFile(list);
+			return UI.done(currTask);
+			} catch (ArrayIndexOutOfBoundsException nfe){
+				throw new Exception(Exception.Code.EMPTY_DONE_DESCRIPTION);
+			} catch (IndexOutOfBoundsException ioobe){
+				throw new Exception(Exception.Code.INVALID_TASK_NUMBER);
+			}
+		} catch (Exception e){
+			return e.errorDescription();
+		}
     }
 }
