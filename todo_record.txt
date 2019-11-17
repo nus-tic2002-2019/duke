@@ -1,0 +1,16 @@
+[T][✘] sleep
+[D][✘] submit repor (by:     1 (by: 2019 5pm))))))
+[D][✘] retun boo (by:     2 (by: 2019 4pm))))))
+[E][✘] maths class on  (by:      2019 7-9pm))))))
+[E][✘] team project meeting on  (by:      2019 2-4pm))))))
+[D][✘] team project meeting on  (by:      2019 2-4pm))))))
+[D][✘] ubmit repor (by:     1 (by: 2019 5pm))))))
+[T][✘] watching movie
+[T][✓] gaming
+[T][✓] sleeping 
+[T][✓] thinking
+[T][✘] waiting
+[T][✓] dreaming
+[T][✓] reading 
+[T][✘] doing maths
+[T][✓] book flight ticket
