@@ -2,6 +2,7 @@ package command;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.time.*;
 import error_handling.*;
@@ -30,6 +31,11 @@ public class CommandList {
             public void run(String content) {
                 list.print();
             };
+        } );
+        keywords.put("find", new Command() {
+            public void run(String content) {
+                cmdFind(content, list);
+            }
         } );
         keywords.put("done", new Command() {
             public void run(String content) throws Exception {
@@ -118,7 +124,14 @@ public class CommandList {
 
         return parts;
     }
-
+    private void cmdFind(String tofind, TempTaskList list) {
+        ArrayList<Task> find = new ArrayList<Task>();
+        for (int i = 0; i < list.size() ;++i) {
+            if (list.get(i).getContent().contains(tofind))
+                find.add(list.get(i));
+        }
+        ui.findMessage(find);
+    }
 
     private void cmdMarkDone(String content, TempTaskList list) throws Exception {
         try {

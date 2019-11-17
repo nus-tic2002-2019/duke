@@ -19,6 +19,7 @@ public class TempTaskList {
     public void add(Task task) {
         list.add(task);
     }
+    public ArrayList<Task> getAllTasks() {return list;}
     public int size() {
         return list.size();
     }

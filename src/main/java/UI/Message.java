@@ -93,7 +93,16 @@ public class Message {
     public void dateTimeErrMessage () {
         System.out.println("\t☹ OOPS!!! Please input a time in format as \" yyyy-mm-dd time-time (24h)\" ");
     }
-
+    public void findMessage (ArrayList<Task> list) {
+        if (list.size() == 0) {
+            System.out.println("\tNo matching task, dear ~");
+        } else {
+            System.out.println("\tHere are the matching tasks in your list:");
+            for (int i = 0; i < list.size(); ++i) {
+                System.out.println("\t" + i+1 + "." + list.get(i));
+            }
+        }
+    }
     public void existingUser (String username) {
         System.out.println("\tWelcome back, " + username);
     }
