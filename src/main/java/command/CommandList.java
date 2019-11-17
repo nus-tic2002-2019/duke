@@ -49,6 +49,13 @@ public class CommandList {
             }
         } );
 
+        keywords.put("do", new Command() {
+            public void run(String content) throws Exception {
+                cmdMarkDo(content, list);
+                file.write(list);
+            }
+        } );
+
         keywords.put("delete", new Command() {
             public void run(String content) throws Exception {
                 cmdDelete(content, list);
@@ -149,6 +156,24 @@ public class CommandList {
             } else {
                 list.get(listIndex).setCompleted();
                 printMarkDone(list, listIndex);
+            }
+        } catch (NumberFormatException e) {
+            ui.doneTaskNoMessage();
+        } catch (IndexOutOfBoundsException e) {
+            ui.doneValidTaskNoMessage();
+        }
+    }
+    private void cmdMarkDo(String content, TempTaskList list) throws Exception {
+        try {
+            int listIndex = Integer.parseInt(content) - 1;
+            if (listIndex < 0 || listIndex > list.size()) {
+                throw new IndexOutOfBoundsException();
+            }
+            if (list.get(listIndex).getCompleted()) {
+                ui.doneAlreadyMessage();
+            } else {
+                list.get(listIndex).setIncompleted();
+                ui.markDoMessage(list.get(listIndex));
             }
         } catch (NumberFormatException e) {
             ui.doneTaskNoMessage();

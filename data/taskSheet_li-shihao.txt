@@ -1,8 +1,13 @@
-T | 1 | read book
+T | 0 | read book Algorithms
 D | 1 | return book | 2018-02-28
 E | 1 | project meeting | 2019-10-11 02:00-04:00
-E | 1 | project bullshitting | 2019-12-25 02:00-13:15
-T | 1 | join sports club
-T | 1 | go to 3f
-D | 0 | duke | 2019-11-17
-D | 0 | exam | 2018-05-07
+E | 1 | project management | 2019-12-25 02:00-13:15
+T | 0 | join sports club
+T | 0 | meeting at 5F when free
+D | 1 | duke | 2019-11-17
+D | 0 | exam | 2019-12-04
+E | 0 | conf.call with customer | 2019-11-18 10:30-12:00
+D | 0 | security report | 2019-11-20
+T | 0 | do laundry
+D | 0 | finish milk | 2019-11-29
+E | 0 | sleep after exam | 2019-12-04 03:30-07:00

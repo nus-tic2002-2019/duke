@@ -55,6 +55,10 @@ public class Message {
         System.out.println("\tNice! I've marked this task as done: ");
         System.out.println("\t  " + task);
     }
+    public void markDoMessage (Task task) {
+        System.out.println("\tNoted! I've marked this task as incompleted: ");
+        System.out.println("\t  " + task);
+    }
 
     public void markDelete (TempTaskList list, Task task) {
         System.out.println("\tNoted. I've removed this task:");

@@ -37,6 +37,10 @@ public abstract class Task{
         completed = true;
         return;
     }
+    public void setIncompleted () {
+        completed = false;
+        return;
+    }
 
 
     @Override
