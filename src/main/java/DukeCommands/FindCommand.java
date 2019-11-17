@@ -34,14 +34,15 @@ public class FindCommand implements Command {
             for (String nameComponent : taskNameComponents) {
                 if (nameComponent.equalsIgnoreCase(searchTerm)) {
                     toReturn.append("     ");
-                    toReturn.append(taskcount);
-                    toReturn.append(".");
-                    toReturn.append(task);
+					toReturn.append("Task Number is: ");
+					toReturn.append(taskcount);
+					toReturn.append(") ");
+                    toReturn.append(task.toString());
                     toReturn.append("\n");
-                    taskcount++;
                     break;
                 }
             }
+			taskcount++;
         }
         return toReturn.toString();
     }
