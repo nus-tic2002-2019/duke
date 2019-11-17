@@ -65,6 +65,10 @@ public class Duke {
                 } else if (line.startsWith("delete")) {
                     int taskItem = Integer.parseInt(line.substring(7));
                     Task.deleteTask(tasks, taskItem);
+                } else if (line.startsWith("find")) {
+                    String find = line.substring(5);
+
+                    Task.findTask(tasks, find);
                 } else if (line.startsWith("todo")) {
                     String todo = line.substring(5);
 

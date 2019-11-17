@@ -64,6 +64,26 @@ public class Task {
         System.out.println("Noted. I've remove this task:" + System.lineSeparator() + t + System.lineSeparator() + "Now you have " + task.size() + " tasks in the list.");
     }
 
+    /**
+     * The findTask method prints all the task that contains certain keyword(s).
+     */
+    public static void findTask(ArrayList<Task> task, String s) {
+        int i = 1;
+        boolean status = false;
+        System.out.println("Here are the matching tasks in your list:");
+        for (Task t : task) {
+            if (t.getDescription().contains(s)) {
+                status = true;
+                System.out.print(i + ".");
+                System.out.println(t);
+                i++;
+            }
+        }
+        if (!status) {
+            System.out.println("Sorry, no match found!");
+        }
+    }
+
     @Override
     public String toString() {
         return " [" + getStatusIcon() + "]" + getDescription();
