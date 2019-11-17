@@ -48,12 +48,22 @@ public class Duke {
     /** Runs the program until termination.  */
     public void run() {
         ui.showWelcome();
+        boolean firstRun = true;
         boolean isExit = false;
+        Command c;
+
         while (!isExit) {
             try {
+                if (firstRun) {
+                    firstRun = false;
+                    c = Parser.parse("reminder");
+                    c.execute(tasks, ui, storage);
+                    ui.showLine();
+
+                }
                 String fullCommand = ui.readCommand();
                 ui.showLine(); // show the divider line ("_______")
-                Command c = Parser.parse(fullCommand);
+                c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (DukeException e) {
@@ -66,5 +76,6 @@ public class Duke {
                 ui.showLine();
             }
         }
+
     }
 }

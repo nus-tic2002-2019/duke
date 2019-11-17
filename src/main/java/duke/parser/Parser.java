@@ -23,6 +23,7 @@ public class Parser {
     public static final String KEYWORD_PENDING_1 = Keyword.VIEW_BY_STATUS_1;
     public static final String KEYWORD_PENDING_2 = Keyword.VIEW_BY_STATUS_2;
     public static final String KEYWORD_FIND = Keyword.FIND;
+    public static final String KEYWORD_REMINDER = Keyword.REMINDER;
     public static final String ERR_NOT_A_INT = "Please enter an integer";
 
 
@@ -62,6 +63,8 @@ public class Parser {
                     throw new DukeException("Please enter a parameter after \"find\"");
                 }
                 return new FindCommand(parameter);
+            case(KEYWORD_REMINDER):
+                return new ViewByUpcomingCommand();
             case(KEYWORD_DONE):
                 parameter = removeKeyword(input, KEYWORD_DONE);
                 if (Utility.isNumber(parameter)) {
@@ -178,7 +181,7 @@ public class Parser {
      */
     private static String getCleanDateStr(String input) throws DukeException {
         checkDate(input);
-        input = input.substring(input.lastIndexOf("/") + 1);
+        input = input.substring(input.lastIndexOf("/") + 1).trim();
         input = changeDateFormat(input);
         return input;
     }

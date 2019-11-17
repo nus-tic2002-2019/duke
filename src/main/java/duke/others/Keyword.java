@@ -13,5 +13,6 @@ public class Keyword {
     public static final String VIEW_BY_STATUS_2 = "list pending";
     public static final String VIEW_ALL = "list";
     public static final String FIND = "find";
+    public static final String REMINDER = "reminder";
 
 }
