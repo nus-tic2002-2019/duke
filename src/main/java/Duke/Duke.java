@@ -1,21 +1,42 @@
-package Duke;
+package duke;
 
 import java.io.IOException;
 
-import Command.Command;
-import Exception.DukeException;
-import Parser.Parser;
-import Storage.Storage;
-import Tasklist.*;
-import Ui.Ui;
+//import java.text.ParseException;
+//import java.text.SimpleDateFormat;
+//import java.time.LocalDate;
+//import java.time.format.DateTimeFormatter;
+//import java.time.temporal.ChronoUnit;
+//import java.util.Date;
+//======================
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import java.util.Date;
+//======================
+import command.Command;
+import exception.DukeException;
+import parser.Parser;
+import storage.Storage;
+import tasklist.*;
+import ui.Ui;
 
 public class Duke {
     private Storage storage;
     private TaskList tasks;
-//    private Parser par
     private Ui ui;
 
+    /**
+     * Main application constructor to initialize duke application
+     * @param filePath path of which the tasks file is located.
+     */
     public Duke(String filePath) {
+
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -26,6 +47,11 @@ public class Duke {
         }
     }
 
+
+
+    /**
+     * To run Duke application and process commands based user input
+     */
     public void run() {
         //...
         ui.showWelcome();
@@ -33,7 +59,7 @@ public class Duke {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line ("_______")
+                ui.showLine();
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
@@ -47,19 +73,12 @@ public class Duke {
         ui.showBye();
     }
 
+    /**
+     * Main Duke application entry point
+     * @param args any arguments to be passed to Duke main application. arguments are not processed
+     */
     public static void main(String[] args) {
-//        new Duke("data/tasks.txt").run();
         new Duke("data/Duke.txt").run();
+        return;
     }
 }
-// list
-//  todo borrow book
-//  deadline return book /by Sunday
-//  event project meeting /at Mon 2-4pm
-// todo read this
-
-// Todo :
-// 1. Save into file
-// 2. Load from file into tasklists
-// 3. strengthen exceptions catching
-// 4.

@@ -1,9 +1,9 @@
-package Storage;
+package storage;
 
-import Command.Command;
-import Parser.Parser;
-import Tasklist.Task;
-import Tasklist.TaskList;
+import command.Command;
+import parser.Parser;
+import tasklist.Task;
+import tasklist.TaskList;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -11,24 +11,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Exception.DukeException;
-
+import exception.DukeException;
+import util.Util;
 
 public class Storage {
 
     private static String strFilePath = "";
 
     /**
-     *
-     * @param strFileInput
+     * Constructor for Storage
+     * @param strFileInput file path of the storage or location of the file
      */
     public Storage (String strFileInput){
         this.strFilePath = strFileInput;
     }
 
     /**
-     *
-     * @return
+     * To load the file and prepared an empty of ArrayList of Task
+     * @return ArrayList of Task object
      */
     public ArrayList<Task> load()
     {
@@ -62,8 +62,9 @@ public class Storage {
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 line = s.nextLine();
+
                 Command c = Parser.parseFile(line);
-                c.readfileformat(tasks);
+                c.readFileFormat(tasks);
             }
         }
         catch (DukeException | IOException e)
