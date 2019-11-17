@@ -1,9 +1,10 @@
-D | 0 | do homework | 11 Apr 2019
-D | 0 | duke | 12 Apr 2019
-D | 0 | biils | Date not specified
-E | 0 | class gathering | 01 Jan 2019
-E | 0 | dinner | 15 Jan 2019
-E | 0 | wedding | Date not specified
-T | 0 | study 
-D | 0 | proj submission | 18 Apr 2019
+D | 1 | duke | 12 Oct 2019
+D | 0 | duke | 15 Oct 2019
+D | 0 | duke | 27 Oct 2019
+D | 0 | duke | Date not specified
+E | 0 | class gathering | 12 Dec 2019
+E | 0 | class gathering | 15 Dec 2019
+E | 0 | class gathering | 27 Dec 2019
+E | 0 | class gathering | Date not specified
+T | 0 | homework
 

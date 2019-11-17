@@ -90,14 +90,14 @@ public class Duke {
      * @param line the command that user input
      */
     static void done(String line){
-        try {
-            listEmpty(taskList);
-            String theStr = line.substring(5);
-            String[] strArr = theStr.split(",");
-            if (strArr[0].equals("all")){
-                for (int i = 0; i < taskList.size(); i++) {
-                    Task t = taskList.get(i);
-                    t.markAsDone();
+                        try {
+                            listEmpty(taskList);
+                            String theStr = line.substring(5);
+                            String[] strArr = theStr.split(",");
+                            if (strArr[0].equals("all")){
+                                for (int i = 0; i < taskList.size(); i++) {
+                                    Task tasks = taskList.get(i);
+                                    tasks.markAsDone();
                 }
                 UI.printOutput((taskList));
             }else {
@@ -113,9 +113,9 @@ public class Duke {
 
                 assert intArr != null && intArr.length > 0 : "List variable is null or empty";
                 for (int i = 0; i < intArr.length; i++) {
-                    Task t = taskList.get(intArr[i] - 1);
-                    t.markAsDone();
-                    UI.printInLine(" " + t.toString());
+                    Task tasks = taskList.get(intArr[i] - 1);
+                    tasks.markAsDone();
+                    UI.printInLine(" " + tasks.toString());
                 }
 
                 UI.printLine();
@@ -139,8 +139,8 @@ public class Duke {
      */
     static void todoTask(String line) {
         String taskDescription = line.substring(5);
-        Task t = new ToDo(taskDescription);
-        taskList.add(t);
+        Task todo = new ToDo(taskDescription);
+        taskList.add(todo);
         UI.printLine();
         UI.printAddedTask();
         UI.printTask(taskList);
@@ -166,8 +166,8 @@ public class Duke {
                     //Format date 12 Oct 2019, to string "12 Oct 2019"
                     Date date = dateFormat.parse(str[1]);
                     String strDate = dateFormat.format(date);
-                    Task t = new Event(taskDescription[1], strDate);
-                    taskList.add(t);
+                    Task event = new Event(taskDescription[1], strDate);
+                    taskList.add(event);
                     UI.printLine();
                     UI.printAddedTask();
                     UI.printTask(taskList);
@@ -181,8 +181,8 @@ public class Duke {
             } else {
                 //e.g event dinner
                 String taskDescription = line.substring(6);
-                Task t = new Event(taskDescription, "Date not specified");
-                taskList.add(t);
+                Task event = new Event(taskDescription, "Date not specified");
+                taskList.add(event);
                 UI.printLine();
                 UI.printAddedTask();
                 UI.printTask(taskList);
@@ -201,8 +201,8 @@ public class Duke {
                     //Format date 12 Oct 2019, to string "12 Oct 2019"
                     Date date = dateFormat.parse(str[1]);
                     String strDate = dateFormat.format(date);
-                    Task t = new Deadline(taskDescription[1], strDate);
-                    taskList.add(t);
+                    Task deadline = new Deadline(taskDescription[1], strDate);
+                    taskList.add(deadline);
                     UI.printLine();
                     UI.printAddedTask();
                     UI.printTask(taskList);
@@ -215,8 +215,8 @@ public class Duke {
             }else {
                 //e.g deadline duke
                 String taskDescription = line.substring(9);
-                Task t = new Deadline(taskDescription, "Date not specified");
-                taskList.add(t);
+                Task deadline = new Deadline(taskDescription, "Date not specified");
+                taskList.add(deadline);
                 UI.printLine();
                 UI.printAddedTask();
                 UI.printTask(taskList);
@@ -255,8 +255,8 @@ public class Duke {
                 UI.printRemoveTask();
 
                 for (int i = 0; i < intArr.length; i++) {
-                    Task t = taskList.get(intArr[i] - (i + 1));
-                    UI.printInLine(" " + t.toString());
+                    Task tasks = taskList.get(intArr[i] - (i + 1));
+                    UI.printInLine(" " + tasks.toString());
                     taskList.remove(intArr[i] - (i + 1));
                 }
 
