@@ -48,7 +48,6 @@ public class TaskList {
     public void append_Todo(ArrayList<Task> myArr_List, String line, int count) {
        // try {
             myArr_List.add(new Todo(line.substring(5))); //new
-            System.out.println("todo" + myArr_List.get(count));
 
         //} catch (IndexOutOfBoundsException e) {
          //   System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
@@ -63,10 +62,9 @@ public class TaskList {
      *
      */
     public void append_Deadline (ArrayList<Task> myArr_List, String line, int count) {
-        int close_Bracket = line.indexOf(')');
         int position = line.indexOf("by");
 
-        myArr_List.add(new Deadlines(line.substring(9, position - 1), (line.substring((position + 4), close_Bracket)))); //new
+        myArr_List.add(new Deadlines(line.substring(9, position - 1), (line.substring((position + 3))))); //new
     }
 
     /**
@@ -78,11 +76,9 @@ public class TaskList {
      */
     public void append_Event (ArrayList<Task> myArr_list, String line, int count, String FilePath) {
 
-        int position_By = line.indexOf("by");
+        int position_By = line.indexOf("at");
         // int position_time = line.indexOf(" ", position_slash);
-        System.out.println(line.substring(6, position_By - 1));
-        System.out.println(line.substring(position_By +3));
-        myArr_list.add(new Event(line.substring(6, position_By - 1), line.substring(position_By +3))); //new
+        myArr_list.add(new Event(line.substring(6, position_By - 1), line.substring(position_By + 3))); //new
 
         // try {
         //     append_new_data(FilePath, myArr_list.get(count).toString() + System.lineSeparator());

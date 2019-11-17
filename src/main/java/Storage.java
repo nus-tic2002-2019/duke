@@ -13,7 +13,8 @@ public class Storage {
     String horizontal_line = ("____________________________________\n");
 
     /**
-     * Load data from the txt file to Array List whenever program started
+     * Load data from the txt file to Array List whenever program launched
+     * return Array List to the main program for other functions
      *
      * @param FilePath a default link to where the txt file is saved
      * @throws IOException
@@ -37,8 +38,8 @@ public class Storage {
                 break;
 
             case 'E' :
-                index_Position = input.indexOf("by");
-                myArr_List.add(new Event(input.substring(7, index_Position-2), input.substring(index_Position+3)));
+                index_Position = input.indexOf("at");
+                myArr_List.add(new Event(input.substring(7, index_Position-2), input.substring(index_Position+4, input.length()-1)));
                 break;
 
             case 'D' :
