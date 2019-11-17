@@ -66,6 +66,17 @@ public class UserInterface {
                     throw new DukeException("Unable to mark task as done.");
                 }
                 break;
+            case "undo":
+                try {
+                    int itemNumber = Parser.getItemNumber(line);
+                    if (Task.setDone(itemNumber, false)) {
+                        System.out.println("I've unmarked this task as done:");
+                        System.out.println("[✗] " + Task.getTask(itemNumber).display());
+                    }
+                } catch (NumberFormatException | StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException error) {
+                    throw new DukeException("Unable to mark task as not done.");
+                }
+                break;
             case "todo":
             case "event":
             case "deadline":
@@ -101,7 +112,7 @@ public class UserInterface {
                     FileUtils.setAppend(true);
                     for (int i = 0; i < Task.getSize(); i++) {
                         Todo item = Task.getTask(i);
-                        FileUtils.writeToFile(item.getType() + " | " + item.getDone() + " | " + item.getTodo());
+                        FileUtils.writeToFile(item.getType() + " | " + item.getDone() + " | " + item.display());
                     }
                     FileUtils.setAppend(false);
                     System.out.println("Saved successfully.");

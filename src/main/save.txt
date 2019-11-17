@@ -1,0 +1,3 @@
+T | false | breakfast at 6am
+E | false | shower (at: Nov 18 2019, Mon, 0800 AM)
+D | false | project submission (by: Nov 17 2019, Sun, 1159 PM)
