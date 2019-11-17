@@ -10,6 +10,7 @@ import tic2002.ui.Ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 public class Parser {
     //Declare constant variables
@@ -46,6 +47,11 @@ public class Parser {
     //Getter
     public boolean getIsExit() {
         return isExit;
+    }
+
+    //Parse string to date
+    public LocalDate parseStringToDate(String dateInput) {
+        return LocalDate.parse(dateInput);
     }
 
     //Run user command

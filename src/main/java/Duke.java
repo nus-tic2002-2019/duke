@@ -31,6 +31,11 @@ public class Duke {
                 String input = ui.getUserInput();
 
                 parser = new Parser(ui, input, tasks, storage);
+
+                //Test
+                String testDate = "2019-11-18";
+                System.out.println(parser.parseStringToDate(testDate) );
+
                 parser.runCommand();
 
                 isExit = parser.getIsExit();
@@ -42,6 +47,7 @@ public class Duke {
 
     public static void main(String[] args) {
         Duke duke = new Duke();
+
         duke.runApp();
     }
 }
