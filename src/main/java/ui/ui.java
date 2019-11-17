@@ -1,6 +1,12 @@
 package duke.ui;
 
+/**
+ * Start of the ui module
+ */
 public class ui {
+    /**
+     * The various commonly used text (Error messages, welcome/goodbye greetongs, command explanations and formats) that make up the user interface of Duke
+     */
     public void welcome(){
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"

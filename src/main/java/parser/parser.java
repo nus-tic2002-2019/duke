@@ -6,11 +6,21 @@ import duke.storage.storage;
 import duke.tasklist.tasklist;
 import duke.ui.ui;
 
+/**
+ * Start of the parser module
+ */
 public class parser {
+    /**
+     * Create variables for user interface (ui), list storing (storage), and task handling (taskList)
+     */
     private static ui ui;
     private static storage storage;
     private static tasklist tasklist;
 
+    /**
+     * Takes the raw text string from the user and filters the text into the appropriate types (commands, tasks, date, hour) to be forwarded to the tasklist modules
+     * @param rawInput raw text from the user input
+     */
     public void rawParser(String rawInput){
         ui = new ui();
         storage = new storage();
