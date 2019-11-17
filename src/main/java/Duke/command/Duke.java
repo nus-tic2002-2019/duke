@@ -235,7 +235,7 @@ public class Duke {
     */
     public static void save() {
         try {
-            FileOutputStream fos = new FileOutputStream("c:\\users\\shado\\desktop\\tasks.txt");
+            FileOutputStream fos = new FileOutputStream("C:\\Users\\shado\\Desktop\\project\\duke\\src\\main\\java\\Duke\\tasks.txt");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(task);
             oos.close();
@@ -253,7 +253,7 @@ public class Duke {
     public static ArrayList<Task> load(){
         ArrayList<Task> task1 = null;
         try{
-            FileInputStream fis = new FileInputStream("c:\\users\\shado\\desktop\\tasks.txt");
+            FileInputStream fis = new FileInputStream("C:\\Users\\shado\\Desktop\\project\\duke\\src\\main\\java\\Duke\\tasks.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);
             task1 = (ArrayList<Task>) ois.readObject();
             ois.close();
