@@ -80,7 +80,11 @@ public class Ui {
 
     }
     /**
-     * The dukeInput method takes a string input and process the different commands.
+     * The dukeInput method takes a string input and process the following commands.
+     * find, sort, list, done, delete, set, todo, deadline, event, bye.
+     * @param tasks is the list which which the command will apply to
+     * @param textInput is the text input by the user
+     * @throws DukeException if the command is unknown (i.e. not as of the above)
      */
 
     public void dukeInput (taskList tasks, String textInput) throws DukeException {
@@ -127,21 +131,21 @@ public class Ui {
             case "bye":
                 dukeBye();
                 break;
-            default:
-                throw new DukeException("Unknown Command");
             }
             if (!processCommand.getCommand().equals("find") || !processCommand.getCommand().equals("sort"))
                 Storage.saveList(Storage.getFile().getAbsolutePath(), tasks);
         }
         catch (IOException e){
-            throw new DukeException("Unable to save to file");
+            throw new DukeException("    Unable to save to file");
         }
         catch (ArrayIndexOutOfBoundsException e){
-            throw new DukeException("Unknown Command");
+            throw new DukeException("    Unknown Command");
         }
 
     }
-
+    /**
+     * The getTextInput method returns the Scanner object created by the UI constructor
+     */
     public static Scanner getTextInput(){return textInput;};
 
 }

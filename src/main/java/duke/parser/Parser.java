@@ -39,7 +39,7 @@ public class Parser {
             isSingleCommand = true;
         }
         if (textInputArr.length < 2 && !isSingleCommand) {
-            throw new DukeException("unknown Command");
+            throw new DukeException("    unknown Command");
         }
         switch(command.toLowerCase()){
         case "done":

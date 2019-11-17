@@ -54,7 +54,7 @@ public class taskList {
 
 
         } catch (NumberFormatException e){
-            throw new DukeException("Please indicate task number");
+            throw new DukeException("    Please indicate task number");
         }
 
     }
@@ -117,7 +117,7 @@ public class taskList {
 
 
         } catch (NumberFormatException e){
-            throw new DukeException("Please indicate task number");
+            throw new DukeException("    Please indicate task number");
         }
 
     }

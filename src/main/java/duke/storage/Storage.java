@@ -74,7 +74,7 @@ public class Storage {
                 tasksList.add(new Event(taskDescription, eventDate, eStartTime, eEndTime, isDone, taskPriority));
                 break;
             default:
-                throw new DukeException("unknown task found");
+                throw new DukeException("    unknown task found");
             }
         }
         return tasksList;
