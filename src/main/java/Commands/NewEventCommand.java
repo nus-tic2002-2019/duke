@@ -45,9 +45,9 @@ public class NewEventCommand extends Command {
         String taskDes = taskItem.substring(6, dividerPosition2);
         String taskDateTime = taskItem.substring(dividerPosition2+5);
         Events event = eventTimeSetter(taskDes, taskDateTime);
-        assert event.getTaskType() == TaskType.EVENTS; //Checking whether the task has been created as a event before adding and saving
+        //Checking whether the task has been created as an Events before adding and saving
+        assert event.getTaskType() == TaskType.EVENTS;
         tasks.addTask(event);
-
         storage.save(tasks);
     }
 

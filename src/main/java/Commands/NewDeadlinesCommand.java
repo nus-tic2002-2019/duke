@@ -40,11 +40,11 @@ public class NewDeadlinesCommand extends Command {
         if (!taskItem.contains(" /by ")) {
             throw new DukeException("Please state /by yyyy-mm-dd");
         }
-
         int dividerPosition2 = taskItem.indexOf(" /by ");
         String taskDes = taskItem.substring(9, dividerPosition2);
         String taskDateTime = taskItem.substring(dividerPosition2 + 5);
         Deadlines deadline = deadlineTimeSetter(taskDes, taskDateTime);
+        //Checking whether the task has been created as a Deadlines before adding and saving
         assert deadline.getTaskType() == TaskType.DEADLINES;
         tasks.addTask(deadline);
         storage.save(tasks);

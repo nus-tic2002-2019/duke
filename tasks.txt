@@ -1,9 +1,28 @@
-1 | T | 0 | sleep
-2 | E | 0 | slee | 2019-11-18
-3 | E | 0 | tal | 2019-11-18
-4 | E | 0 | wor | 2019-11-18
-5 | E | 0 | wor | 2019-11-18 23:12
-6 | D | 1 | duke | 2019-11-18
-7 | D | 0 | duke | 2019-11-18 00:00
-8 | D | 0 | duke | 2019-11-18 23:59
-9 | E | 0 | talk | 2019-11-18 11:11
+1 | T | 1 | sleep
+2 | E | 0 | lunch with friends | 2019-11-18
+3 | E | 0 | Dinner with Family | 2019-11-18
+4 | E | 0 | Work | 2019-11-18
+5 | E | 0 | Seminar | 2019-11-18 23:12
+6 | D | 1 | Duke | 2019-11-18
+7 | D | 0 | LMS | 2019-11-18 00:00
+8 | D | 0 | Video for Duke | 2019-11-18 23:59
+9 | E | 0 | Friendly talk | 2019-11-18 11:11
+10 | T | 0 | sleep early
+11 | T | 1 | shop for a new fan
+12 | E | 0 | Go online shopping with 12/12 sales | 2019-12-12 00:00
+13 | D | 0 | online sales ending | 2019-12-12 23:59
+14 | T | 1 | play games
+15 | E | 0 | monday sales | 2019-11-18 12:00
+16 | T | 0 | go outside and exercise
+17 | E | 0 | running club | 2019-11-18
+18 | E | 0 | swimming club | 2019-12-01 13:00
+19 | D | 0 | duke | 2019-11-17
+20 | E | 0 | go out | 2019-12-12
+21 | E | 0 | Reservist | 2019-11-19 09:00
+22 | D | 1 | Module 123 report | 2019-11-30 23:59
+23 | T | 0 | run
+24 | T | 0 | do a eat
+25 | T | 0 | do a catch up with james
+26 | E | 0 | go school | 2019-12-12 09:00
+27 | D | 0 | Phone bills | 2019-12-12 13:00
+28 | E | 0 | running by MBS | 2019-12-12 18:00

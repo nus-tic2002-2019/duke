@@ -40,6 +40,8 @@ public class DeleteCommand extends Command {
         }
         catch(NumberFormatException e){
             throw new DukeException("Please key in task number");
+        }catch (IndexOutOfBoundsException e){
+            throw new DukeException("Please key in task number that is in the list");
         }
     }
 

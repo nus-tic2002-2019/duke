@@ -85,7 +85,7 @@ public class Ui {
     public static void showAllArrayList(ArrayList<Task> taskList){
         int i=1;
         for(Task task: taskList){
-            System.out.println(i + ". Tasks.Task number: " + task.getTaskIndex()+1 + task.toString());
+            System.out.println(i + ". Task number " + (task.getTaskIndex()+1) +": " + task.toString());
             i++;
         }
     }
@@ -118,7 +118,7 @@ public class Ui {
      */
     public static void doneMsg(String doneTask, int taskIndex){
         System.out.println("Nice! I've marked this task as done: \n" +
-                "Tasks.Task Number "+ taskIndex + ": " + doneTask);
+                "Task Number "+ taskIndex + ": " + doneTask);
     }
 
     /**
@@ -176,7 +176,7 @@ public class Ui {
     public static void displayListOfHelpFunction(){
         System.out.println("List of command that DUKE have: \n" +
                 "(*Commands.Command are not case sensitive)\n" +
-                "(**Words with double * are case sensitive");
+                "(**Words with double * are case sensitive)\n");
         System.out.println("\"Hi\": Say hello to the bot\n" +
                 "How to use: \n" +
                 "Type Hi\n" +
@@ -187,24 +187,24 @@ public class Ui {
                 "E.g. Type something: Bye\n");
         System.out.println("\"Todo\": Set a task that you want to do\n" +
                 "How to use: \n" +
-                "Type Todo (Your To Do Tasks.Task)\n" +
+                "Type Todo (Your To Do Task)\n" +
                 "E.g. Type something: Todo Get a pet\n");
         System.out.println("\"Event\": Set a event task\n" +
                 "How to use: \n" +
-                "Type Event (Your event Tasks.Task) /at (YYYY-MM-DD OR Monday-Sunday(Full spelling or First 3 letter)) (Optional: hh:mm OR hhmm <24 Hours format>) \n" +
+                "Type Event (Your event Task) /at (YYYY-MM-DD OR Monday-Sunday(Full spelling or First 3 letter)) (Optional: hh:mm OR hhmm <24 Hours format>) \n" +
                 "E.g. Type something: Event Countdown party /at 2019/12/31\n" +
                 "Type something: Event Basketball /at Wed 18:00 \n");
         System.out.println("\"Deadline\": Set a deadline task\n" +
                 "How to use: \n" +
-                "Type Deadline (Your event Tasks.Task) /by (YYYY-MM-DD OR Monday-Sunday(Full spelling or First 3 letter)) (Optional: hh:mm OR hhmm <24 Hours format>)\n" +
-                "E.g. Type something: Deadline Duke.Duke project /by 2019/11/17 2359 \n" +
+                "Type Deadline (Your event Task) /by (YYYY-MM-DD OR Monday-Sunday(Full spelling or First 3 letter)) (Optional: hh:mm OR hhmm <24 Hours format>)\n" +
+                "E.g. Type something: Deadline Duke project /by 2019/11/17 2359 \n" +
                 "Type something: Deadline Pay phone bills /by Sat\n");
         System.out.println("\"List\": Bring out the list of task\n" +
                 "How to use: \n" +
                 "Type List\n" +
                 "E.g. Type something: list\n");
         System.out.println("\"Find\": Find a task with the word you want to find\n" +
-                "How to use: " +
+                "How to use: \n" +
                 "Type Find (The word**)\n" +
                 "E.g. Type something: Find bill\n");
         System.out.println("\"Schedule\": Find the Schedule for the day\n" +
@@ -213,13 +213,14 @@ public class Ui {
                 "E.g. Type something: Schedule Sunday\n");
         System.out.println("\"Done\": Set a task to Done\n" +
                 "How to use: \n" +
-                "Type Done (Tasks.Task Number)\n" +
+                "Type Done (Task Number)\n" +
                 "E.g. Type something: Done 5\n");
         System.out.println("\"Delete\": Delete a task(Be careful: Once you delete a task, it is gone forever. And all other task number changes) \n" +
                 "How to use: \n" +
-                "Type Delete (Tasks.Task Number)\n" +
+                "Type Delete (Task Number)\n" +
                 "E.g. Type something: Delete 5\n");
         System.out.println("\"Clearlist\": Clear and remove all the task in the task list\n" +
+                "*Note: Clearlist will not save until you add another task, so if you want to undo your clear, restart the program\n" +
                 "How to use: \n" +
                 "Type Clearlist\n" +
                 "E.g. Type something: Clearlist\n");

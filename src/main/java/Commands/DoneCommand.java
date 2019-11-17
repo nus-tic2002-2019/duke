@@ -38,7 +38,9 @@ public class DoneCommand extends Command {
                 throw new DukeException("Tasks.Task is already done");
             }
             doneTask.editDone(true);
-            Ui.doneMsg(doneTask.toString(), doneTask.getTaskIndex()+1);
+            String taskString = doneTask.toString();
+            int getTaskIndex = doneTask.getTaskIndex()+1;
+            Ui.doneMsg(taskString, getTaskIndex);
         }
         catch(NumberFormatException e){
             throw new DukeException("Please key in task number");

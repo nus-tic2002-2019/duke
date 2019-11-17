@@ -28,10 +28,10 @@ public class ScheduleCommand extends Command {
     /**
      * The command will extract the events and deadlines that are on the date the user input
      * It will spilt up into events with time, events without time and deadlines and display them
-     * @param tasks the tasklist
-     * @param ui the ui
-     * @param storage the storage
-     * @throws DukeException any expected error
+     * @param tasks the tasklist that store all the task
+     * @param ui the ui that will display messages
+     * @param storage the storage to save or load from the txt file
+     * @throws DukeException any expected error like empty command
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try{
