@@ -1,0 +1,5 @@
+T | 1 | read book
+D | 0 | report | Fri Dec 20 23:00:00 SGT 2019
+E | 0 | meeting | Fri Dec 20 23:00:00 SGT 2019
+T | 1 | join sports club
+T | 0 | read book

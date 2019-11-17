@@ -1,7 +1,11 @@
 public class Task {
-    protected String description;
-    protected boolean isDone;
+    public String description;
+    public boolean isDone;
 
+    /**
+     * Constructs a new Task and initialise with the specified inputby the user .
+     * @param description
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;

@@ -1,3 +1,4 @@
+
 public class ByeCommand extends Command{
     public static final String MESSAGE_BYE_ACKNOWLEDGEMENT = "Bye. Hope to see you again soon!";
 

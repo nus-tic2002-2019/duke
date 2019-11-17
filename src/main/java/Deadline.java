@@ -1,9 +1,15 @@
+
 import java.util.Date;
 
 public class Deadline extends Task {
 
-    protected Date by;
+    public Date by;
 
+    /**
+     * Constructs a new Deadline and initialise with the specified input and time by the user .
+     * @param description user input
+     * @param by date time
+     */
     public Deadline(String description, Date by) {
         super(description);
         Date now = new Date();

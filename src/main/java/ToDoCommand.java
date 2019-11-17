@@ -12,7 +12,7 @@ public class ToDoCommand extends Command{
     public void execute(TaskList taskList, UI ui, Storage storage) throws IOException{
         todo = new Todo(input.substring(5));
         TaskList.addList(todo);
-        ui.showOutputToUser("Got it. I've added this task:\n\t  " + todo.toString() + "\n\t Now you have " + TaskList.getSize() + " tasks in the list.");
+        ui.showOutputToUser("Got it. I've added this task:\n\t" + todo.toString() + "\n\t Now you have " + TaskList.getSize() + " tasks in the list.");
         storage.saveToFile();
     }
 } 

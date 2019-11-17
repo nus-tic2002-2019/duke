@@ -18,8 +18,8 @@ public class Duke {
         while (true) {
             try {
                 String fullCommand = ui.readUserInput();
-                Command c = Parser.parseInput(fullCommand);
-                c.execute(taskList, ui, storage);
+                Command command = Parser.parseInput(fullCommand);
+                command.execute(taskList, ui, storage);
             }
             catch (Exception e) {
                 ui.showError(e.getMessage());
@@ -27,7 +27,7 @@ public class Duke {
         }
     }
     public static void main(String[] args) throws IOException, ParseException, DukeException {
-        new Duke("/Users/joseph/Desktop/tic2002Duke/src/main/java/data/taskList.txt").run();
+        new Duke("/Users/joseph/Desktop/tic2002Duke/src/main/java/data/List.txt").run();
     }
 
 } 

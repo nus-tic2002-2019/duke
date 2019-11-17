@@ -10,13 +10,11 @@ import java.io.FileNotFoundException;
 
 public class Storage {
 
-    private String filePath;
     private File file;
     private BufferedReader fileRead;
 
     public Storage(String filePath) {
         try {
-            this.filePath = filePath;
             this.file = new File(filePath);
             fileRead = new BufferedReader(new FileReader(filePath));
         } catch (FileNotFoundException e) {
@@ -75,7 +73,7 @@ public class Storage {
             fileWriter.write(add);
             fileWriter.close();
         } catch (IOException e) {
-            new IOException("The file " + file.getAbsolutePath() + " has encountered an error writing.");
+            new IOException("The file " + file.getAbsolutePath() + " has encountered an error writing." + e);
         }
     }
 

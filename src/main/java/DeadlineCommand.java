@@ -3,6 +3,7 @@ import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+
 public class DeadlineCommand extends Command {
 
     private Deadline deadline;
@@ -19,16 +20,16 @@ public class DeadlineCommand extends Command {
      * @throws DukeException
      */
 
-    public static Date convertDateTime(String deadline) throws ParseException, DukeException {
+    public static Date convertDateTime(String time) throws ParseException, DukeException {
         SimpleDateFormat format = new SimpleDateFormat ("dd-MM-yyyy HH:mm:ss");
         Date date;
             try {
-                date = format.parse(deadline);
+                date = format.parse(time);
                 return date;
             } catch (ParseException e) {
-                System.out.println("Unable to parse using " + format);
                 System.out.println("Please use format \"dd-MM-yyyy HH:mm:ss\" ");
                 System.out.println("Default date will be inserted instead.");
+                System.out.println(e);
             }
         return new Date();
     }
@@ -38,11 +39,12 @@ public class DeadlineCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws  DukeException, IOException {
+        String time = input.split(" ")[2] + " " + input.split(" ")[3];
         try {
-            if (input.split(" ")[3] == "☹ OOPS!!! The date of a deadline cannot be empty.") {
-                throw new DukeException(input);
+            if (input.split(" ")[3] == " ") {
+                throw new DukeException("☹ OOPS!!! The date of a event cannot be empty.");
             }
-            deadline = new Deadline(input.split(" ")[1],convertDateTime(input.split(" ")[3]));
+            deadline = new Deadline(input.split(" ")[1],convertDateTime(time));
             TaskList.addList(deadline);
             ui.showOutputToUser("Got it. I've added this task:\n\t  " + deadline.toString() + "\n\t Now you have " + TaskList.getSize() + " tasks in the list.");
             storage.saveToFile();

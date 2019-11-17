@@ -26,29 +26,38 @@ public class EventCommand extends Command{
                 date = format.parse(time);
                 return date;
             } catch (ParseException e) {
-                System.out.println("Unable to parse using " + format);
                 System.out.println("Please use format \"dd-MM-yyyy HH:mm:ss\" ");
                 System.out.println("Default date will be inserted instead.");
+                System.out.println(e);
             }
         return new Date();
     }
 
-    /**
+    /***
      * save the key in task to array list and to file
+     * @param taskList
+     * @param ui
+     * @param storage
+     * @throws DukeException
+     * @throws IOException
      */
 
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException, IOException {
+        String time = input.split(" ")[2] + " " + input.split(" ")[3];
         try {
             if (input.split(" ")[3] == "") {
                 throw new DukeException("☹ OOPS!!! The date of a event cannot be empty.");
             }
-            event = new Event(input.split(" ")[1],convertDateTime(input.split(" ")[3]));
+            event = new Event( input.split(" ")[1],convertDateTime(time));
             TaskList.addList(event);
             ui.showOutputToUser("Got it. I've added this task:\n\t  " + event.toString() + "\n\t Now you have " + TaskList.getSize() + " tasks in the list.");
             storage.saveToFile();
         } catch (IndexOutOfBoundsException | DukeException | ParseException e) {
+            System.out.println(e);
             System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+           
         }
     }
+    
 } 
