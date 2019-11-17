@@ -24,7 +24,7 @@ public class Duke {
 
 //        String[] list = new String[100];
 //        Duke.command.Duke.tasks.Task[] task = new Duke.command.Duke.tasks.Task[100];
-
+        task = load();
         String line;
         Scanner in = new Scanner(System.in);
         while(true) {
@@ -42,7 +42,7 @@ public class Duke {
                 } else if (line.length() > 3 && line.substring(0, 4).equalsIgnoreCase("done")) {
                     try {
                         int number = Integer.parseInt(line.substring(5));
-                        assert number < 1 : "task index must bigger than 0.";
+                        assert number > 0 : "task index must bigger than 0.";
                         task.get(number - 1).markAsDone();
                         System.out.println("Nice! I have marked this task as done:");
                         System.out.println(task.get(number - 1).getStatusIcon() + task.get(number - 1).getDescription());
@@ -164,6 +164,17 @@ public class Duke {
             catch (Exception e1)
             {
                 checkException("Keywords cannot be empty.");
+            }
+        }
+        else if(word[0].equalsIgnoreCase("empty"))
+        {
+            try {
+                task.clear();
+                System.out.println("Deleted all task records");
+            }
+            catch (Exception e1)
+            {
+                checkException(e1.getMessage());
             }
         }
         else {
