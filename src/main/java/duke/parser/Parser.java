@@ -12,19 +12,26 @@ import duke.command.ViewByStatusCommand;
 import duke.others.DukeException;
 import duke.others.Utility;
 import duke.others.DateFormat;
+import duke.others.Keyword;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
 
-    public static final String KEYWORD_DONE = "done";
-    public static final String KEYWORD_DELETE = "delete";
-    public static final String KEYWORD_TODO = "todo";
-    public static final String KEYWORD_DEADLINE = "deadline";
-    public static final String KEYWORD_EVENT = "event";
+    public static final String KEYWORD_EXIT_1 = Keyword.EXIT_1;
+    public static final String KEYWORD_EXIT_2 = Keyword.EXIT_2;
+    public static final String KEYWORD_DONE = Keyword.DONE;
+    public static final String KEYWORD_DELETE = Keyword.DELETE;
+    public static final String KEYWORD_TODO = Keyword.ADD_TODO;
+    public static final String KEYWORD_DEADLINE = Keyword.ADD_DEADLINE;
+    public static final String KEYWORD_EVENT = Keyword.ADD_EVENT;
+    public static final String KEYWORD_LIST_DATE = Keyword.VIEW_BY_DATE;
+    public static final String KEYWORD_LIST = Keyword.VIEW_ALL;
+    public static final String KEYWORD_PENDING_1 = Keyword.VIEW_BY_STATUS_1;
+    public static final String KEYWORD_PENDING_2 = Keyword.VIEW_BY_STATUS_2;
     public static final String ERR_NOT_A_INT = "Please enter an integer";
-    public static final String KEYWORD_LIST_DATE = "list date";
+
 
     /**
      * Parses user input.
@@ -45,13 +52,13 @@ public class Parser {
         String date = "";
 
         switch (keyword) {
-            case ("bb"):
-            case ("bye"):
+            case (KEYWORD_EXIT_1):
+            case (KEYWORD_EXIT_2):
                 return new ExitCommand();
-            case ("list"):
+            case (KEYWORD_LIST):
                 return new ViewAllCommand();
-            case("pending"):
-            case("list pending"):
+            case(KEYWORD_PENDING_1):
+            case(KEYWORD_PENDING_2):
                 return new ViewByStatusCommand();
             case(KEYWORD_LIST_DATE):
                 date = getCleanDateStr(input);
