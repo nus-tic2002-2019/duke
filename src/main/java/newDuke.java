@@ -15,9 +15,9 @@ public class newDuke {
     private TaskList taskList;
 
     /**
-     * Constructs an instance of Duke and instantiates Storage and TaskList.
+     * Constructs an instance of Duke and instantiates Storage and TaskList. 
+     * Throws a file contents format error exception if file contents cannot be read.
      */
-
     public newDuke() {
 		try {
 			storage = new Storage();
@@ -38,17 +38,13 @@ public class newDuke {
      * As long as a ByeCommand is not parsed, Duke will continue parsing for more commands. If a ByeCommand is
      * parsed, the while loop is terminated and Duke terminates.
      *
-     * @throws IOException When the Parser f
+     * @throws IOException When the Parser fails
      */
 
     private String run(String command) throws IOException {
-		// System.out.println(UI.bye());
         Parser parser = new Parser();
-        // Scanner sc = new Scanner(System.in);
         Command c = parser.parse(command);
         return c.execute(taskList, storage);
-		//return "test";
-
     }
 	public static void main(String[] args) {
 		String line;	
