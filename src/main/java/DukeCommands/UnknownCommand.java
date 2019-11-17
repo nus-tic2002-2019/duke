@@ -1,8 +1,8 @@
-package DukeCommands;
+package newDuke.DukeCommands;
 
-import DukeExceptions.Exception;
-import main.Storage;
-import main.TaskList;
+import newDuke.DukeExceptions.Exception;
+import newDuke.main.Storage;
+import newDuke.main.TaskList;
 
 /**
  * A Command meant to handle the event in which an unknown command is given by the user.
@@ -23,6 +23,7 @@ public class UnknownCommand implements Command {
      */
 
     public String execute(TaskList taskList, Storage storage) {
-		return new Exception(Exception.Code.UNKNOWN_COMMAND).toString();
+		return new Exception(Exception.Code.UNKNOWN_COMMAND).errorDescription();
+		//return "test"; 
     }
 }
