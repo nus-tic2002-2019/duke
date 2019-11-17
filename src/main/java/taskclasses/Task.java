@@ -31,7 +31,7 @@ public class Task {
      * @param description Task description.
      * @param type Task Type: Todo, Event and Deadline.
      */
-    Task(String description, String type){
+    public Task(String description, String type){
         this.description = description;
         this.type = type;
         isDone = false;

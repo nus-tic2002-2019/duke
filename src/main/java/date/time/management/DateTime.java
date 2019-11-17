@@ -124,7 +124,7 @@ public class DateTime {
 
         switch (DayOrHourOrMinus){
             case "D":
-                if(input>0){
+                //if(input>0){
                     localDateTime = localDateTime.plusDays(input);
                     localDate = localDate.plusDays(input);
                     dateTime.Date_Input = localDate;
@@ -135,23 +135,23 @@ public class DateTime {
                         dateTime.Date_Input = localDate.minusDays(input);
                         throw new InputDateTimeTooEarly();
                     }
-                }
-                else {
-                    localDateTime = localDateTime.minusDays(input);
-                    localDate = localDate.minusDays(input);
-                    dateTime.Date_Input = localDate;
-                    dateTime.DateTime_Input = localDateTime;
-
-
-                    if(localDateTime.isBefore(creation)){
-                        dateTime.DateTime_Input = localDateTime.plusDays(input);
-                        dateTime.Date_Input = localDate.plusDays(input);
-                        throw new InputDateTimeTooEarly();
-                    }
-                }
+                //}
+//                else {
+//                    localDateTime = localDateTime.minusDays(input);
+//                    localDate = localDate.minusDays(input);
+//                    dateTime.Date_Input = localDate;
+//                    dateTime.DateTime_Input = localDateTime;
+//
+//
+//                    if(localDateTime.isBefore(creation)){
+//                        dateTime.DateTime_Input = localDateTime.plusDays(input);
+//                        dateTime.Date_Input = localDate.plusDays(input);
+//                        throw new InputDateTimeTooEarly();
+//                    }
+//                }
                 break;
             case "H":
-                if(input>0){
+//                if(input>0){
                     localDateTime = localDateTime.plusHours(input);
                     localTime = localTime.plusHours(input);
                     dateTime.Time_Input = localTime;
@@ -162,22 +162,22 @@ public class DateTime {
                         dateTime.Time_Input = localTime.minusHours(input);
                         throw new InputDateTimeTooEarly();
                     }
-                }
-                else {
-                    localDateTime = localDateTime.minusHours(input);
-                    localTime = localTime.minusHours(input);
-                    dateTime.Time_Input = localTime;
-                    dateTime.DateTime_Input = localDateTime;
-
-                    if(localDateTime.isBefore(creation)){
-                        dateTime.DateTime_Input = localDateTime.plusHours(input);
-                        dateTime.Time_Input = localTime.plusHours(input);
-                        throw new InputDateTimeTooEarly();
-                    }
-                }
+//                }
+//                else {
+//                    localDateTime = localDateTime.minusHours(input);
+//                    localTime = localTime.minusHours(input);
+//                    dateTime.Time_Input = localTime;
+//                    dateTime.DateTime_Input = localDateTime;
+//
+//                    if(localDateTime.isBefore(creation)){
+//                        dateTime.DateTime_Input = localDateTime.plusHours(input);
+//                        dateTime.Time_Input = localTime.plusHours(input);
+//                        throw new InputDateTimeTooEarly();
+//                    }
+//                }
                 break;
             case "M":
-                if(input>0){
+//                if(input>0){
                     localDateTime = localDateTime.plusMinutes(input);
                     localTime = localTime.plusMinutes(input);
                     dateTime.Time_Input = localTime;
@@ -188,25 +188,25 @@ public class DateTime {
                         dateTime.Time_Input = localTime.minusMinutes(input);
                         throw new InputDateTimeTooEarly();
                     }
-                }
-                else {
-                    localDateTime = localDateTime.minusMinutes(input);
-                    localTime = localTime.minusMinutes(input);
-                    dateTime.Time_Input = localTime;
-                    dateTime.DateTime_Input = localDateTime;
-                    if(localDateTime.isBefore(creation)){
-                        dateTime.DateTime_Input = localDateTime.plusMinutes(input);
-                        dateTime.Time_Input = localTime.plusMinutes(input);
-                        throw new InputDateTimeTooEarly();
-                    }
-                }
+//                }
+//                else {
+//                    localDateTime = localDateTime.minusMinutes(input);
+//                    localTime = localTime.minusMinutes(input);
+//                    dateTime.Time_Input = localTime;
+//                    dateTime.DateTime_Input = localDateTime;
+//                    if(localDateTime.isBefore(creation)){
+//                        dateTime.DateTime_Input = localDateTime.plusMinutes(input);
+//                        dateTime.Time_Input = localTime.plusMinutes(input);
+//                        throw new InputDateTimeTooEarly();
+//                    }
+//                }
                 break;
         }
     }
 
     private static int ChangingValue (){
         System.out.println("      Please input the value you want to change. \n" +
-                "(positive integer means increase, negative integer means minus)");
+                "      (positive integer means increase, negative integer means minus)");
 
         Scanner ss = new Scanner(System.in);
         return Integer.parseInt(ss.nextLine());
@@ -214,9 +214,9 @@ public class DateTime {
 
     private static String getDayHourMinute(){
         System.out.println("     Please choose one of the following:\n" +
-                "1. Day\n" +
-                "2. Hour\n" +
-                "3. Minute");
+                "      1. Day\n" +
+                "      2. Hour\n" +
+                "      3. Minute");
 
         Separated_Line();
         Scanner s = new Scanner(System.in);
@@ -236,10 +236,10 @@ public class DateTime {
     }
 
     private static String getEventTaskDateTimeUpdateChoice() throws InputChoiceOutOfRange {
-        System.out.println("The task is 'event' type task. Please choose:\n" +
-                "1. Starting DateTime\n" +
-                "2. Ending DateTime\n" +
-                "3. Both of above");
+        System.out.println("      The task is 'event' type task. Please choose:\n" +
+                "      1. Starting DateTime\n" +
+                "      2. Ending DateTime\n" +
+                "      3. Both of above");
 
         Scanner s = new Scanner(System.in);
         String choice = s.nextLine();

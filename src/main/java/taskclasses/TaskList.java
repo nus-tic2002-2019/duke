@@ -283,12 +283,14 @@ public class TaskList {
             return;
         }
 
+        System.out.println("     Here are the ToDoAfter task(s) in your list:");
+
         for(int i=0; i<ToDoAfter.size(); i++){
             int j = i+1;
             ToDoAfter toDoAfter = ToDoAfter.get(i);
             Task_Type =toDoAfter.getToDoAfter_Type();
 
-            assert ("date".equals(Task_Type) || "task".equals(Task_Type)): "The ToDoAfter Task type is not either 'date' or 'task'";
+            assert ("date".equals(Task_Type) || "task".equals(Task_Type)): "     The ToDoAfter Task type is not either 'date' or 'task'";
 
             //Task type
             if ("date".equals(Task_Type)) { //Date type
@@ -301,18 +303,19 @@ public class TaskList {
                     date_with_type = Date_Type_Two(date);
                 }
 
-                System.out.print("      " + j + ". ");
+                System.out.print("       " + j + ".");
                 System.out.println("ToDoAfter type: " + Task_Type);
-                System.out.print("       " + "Task: ");
+                System.out.print("         " + "Task: ");
                 Print_Task(toDoAfter.getToDoAfterTask(), Date_Type, Time_Type);
-                System.out.println("        " + "ToDoAfter Date: " + date_with_type);
+                System.out.println("");
+                System.out.println("         " + "ToDoAfter Date: " + date_with_type);
             } else {
-                System.out.println("     " + j + ". " + "Type: Task");
-                System.out.print("        " + "Task: ");
+                System.out.println("       " + j + "." + "Type: Task");
+                System.out.print("         " + "Task: ");
 
                 Print_Task(toDoAfter.getTask(), Date_Type, Time_Type);
 
-                System.out.print("\n" + "        Task will do: ");
+                System.out.print("\n" + "         Task will do: ");
 
                 Print_Task(toDoAfter.getToDoAfterTask(), Date_Type, Time_Type);
 
@@ -378,7 +381,6 @@ public class TaskList {
                 Print_List(temp_List,Date_Type, Time_Type);
                 break;
             case "2": //To search ToDoAfter List only
-                //Print_List_ToDoAfter(ToDoAfterList, Date_Type, Time_Type);
                 for(i=0; i<ToDoAfterList.size(); i++){
 
                     toDoAfter = ToDoAfterList.get(i);
@@ -408,6 +410,62 @@ public class TaskList {
                 }
                 Print_List_ToDoAfter(ToDoAfterList, Date_Type, Time_Type);
                 break;
+            default:
+                for(i=0; i<List.size(); i++){
+
+                    task = List.get(i);
+                    type = task.getType();
+
+                    switch (type) {
+                        case "E":
+                            start = task.getStarting_Time();
+                            end = task.getEnding_Time();
+                            Date_Start = start.getDate_Input();
+                            Date_End = end.getDate_Input();
+
+                            if(input.compareTo(Date_Start) == 0|| input.compareTo(Date_End) == 0|| (input.isAfter(Date_Start) && input.isBefore(Date_End))) {
+                                temp_List.add(task);
+                            }
+
+                            break;
+                        case "D":
+                            Deadline = task.getDeadline_timing();
+                            Date_Deadline = Deadline.getDate_Input();
+
+                            if(input.compareTo(Date_Deadline) == 0) temp_List.add(task);
+
+                            break;
+                    }
+                }
+                Print_List(temp_List,Date_Type, Time_Type);
+                for(i=0; i<ToDoAfterList.size(); i++){
+
+                    toDoAfter = ToDoAfterList.get(i);
+                    task = toDoAfter.getToDoAfterTask();
+                    type = task.getType();  //Either "E", "T" or "D" from the ToDoAfterTask;
+
+                    switch (type) {
+                        case "E":
+                            start = task.getStarting_Time();
+                            end = task.getEnding_Time();
+                            Date_Start = start.getDate_Input();
+                            Date_End = end.getDate_Input();
+
+                            if(input.compareTo(Date_Start) == 0|| input.compareTo(Date_End) == 0|| (input.isAfter(Date_Start) && input.isBefore(Date_End))) {
+                                temp_ToDoAfter.add(task);
+                            }
+
+                            break;
+                        case "D":
+                            Deadline = task.getDeadline_timing();
+                            Date_Deadline = Deadline.getDate_Input();
+
+                            if(input.compareTo(Date_Deadline) == 0) temp_ToDoAfter.add(task);
+
+                            break;
+                    }
+                }
+                Print_List_ToDoAfter(ToDoAfterList, Date_Type, Time_Type);
         }
     }
 
@@ -427,7 +485,7 @@ public class TaskList {
         LocalTime Date_Deadline, Date_Start, Date_End, input = LocalTime.parse(Time);
         DateTime Deadline, start, end;
         Vector<Task> temp_List = new Vector<>();
-        Vector<Task> temp_ToDoAfter = new Vector<>();
+        Vector<ToDoAfter> temp_ToDoAfter = new Vector<>();
         String type;
         int i=0;
         Task task;
@@ -464,6 +522,90 @@ public class TaskList {
                 }
                 Print_List(temp_List,Date_Type, Time_Type);
                 break;
+            case "2":
+                for(ToDoAfter value : ToDoAfterList){
+                    task = value.getToDoAfterTask();
+                    type = task.getType();
+
+                    switch(type){
+                        case "E":
+                            start = task.getStarting_Time();
+                            end = task.getEnding_Time();
+                            Date_Start = start.getTime_Input();
+                            Date_End = end.getTime_Input();
+
+                            if(input.compareTo(Date_Start) == 0 ||
+                            input.compareTo(Date_End) == 0 ||
+                                    (input.isAfter(Date_Start) && input.isBefore(Date_End))){
+                                temp_ToDoAfter.add(value);
+                            }
+                            break;
+                        case "D":
+                            Deadline = task.getDeadline_timing();
+                            Date_Deadline = Deadline.getTime_Input();
+
+                            if(input.compareTo(Date_Deadline) == 0) temp_ToDoAfter.add(value);
+                            break;
+                    }
+                }
+                Print_List_ToDoAfter(temp_ToDoAfter, Date_Type, Time_Type);
+                break;
+            default:
+                for(i=0; i<List.size(); i++){
+
+                    task = List.get(i);
+                    type = task.getType();
+
+                    switch (type) {
+                        case "E":
+                            start = task.getStarting_Time();
+                            end = task.getEnding_Time();
+                            Date_Start = start.getTime_Input();
+                            Date_End = end.getTime_Input();
+
+                            if(input.compareTo(Date_Start) == 0 ||
+                                    input.compareTo(Date_End) == 0 ||
+                                    (input.isAfter(Date_Start) && input.isBefore(Date_End))) {
+                                temp_List.add(task);
+                            }
+
+                            break;
+                        case "D":
+                            Deadline = task.getDeadline_timing();
+                            Date_Deadline = Deadline.getTime_Input();
+
+                            if(input.compareTo(Date_Deadline) == 0) temp_List.add(task);
+
+                            break;
+                    }
+                }
+                Print_List(temp_List,Date_Type, Time_Type);
+                for(ToDoAfter value : ToDoAfterList){
+                    task = value.getToDoAfterTask();
+                    type = task.getType();
+
+                    switch(type){
+                        case "E":
+                            start = task.getStarting_Time();
+                            end = task.getEnding_Time();
+                            Date_Start = start.getTime_Input();
+                            Date_End = end.getTime_Input();
+
+                            if(input.compareTo(Date_Start) == 0 ||
+                                    input.compareTo(Date_End) == 0 ||
+                                    (input.isAfter(Date_Start) && input.isBefore(Date_End))){
+                                temp_ToDoAfter.add(value);
+                            }
+                            break;
+                        case "D":
+                            Deadline = task.getDeadline_timing();
+                            Date_Deadline = Deadline.getTime_Input();
+
+                            if(input.compareTo(Date_Deadline) == 0) temp_ToDoAfter.add(value);
+                            break;
+                    }
+                }
+                Print_List_ToDoAfter(temp_ToDoAfter, Date_Type, Time_Type);
         }
     }
 
@@ -482,7 +624,7 @@ public class TaskList {
     private static void Print_List_Description(Vector<Task> List, String Description, String Date_Type, String Time_Type, Vector<ToDoAfter> ToDoAfterList, String List_Type) throws DateTimeInputWrongly, EnumDayIndexWrongly, MonthIndexWrong {
         String ListTask_Description;
         Vector<Task> temp_List = new Vector<>();
-        Vector<Task> temp_ToDoAfter = new Vector<>();
+        Vector<ToDoAfter> temp_ToDoAfter = new Vector<>();
         Task task;
 
         switch (List_Type){
@@ -497,6 +639,35 @@ public class TaskList {
                 }
                 Print_List(temp_List, Date_Type, Time_Type);
                 break;
+            case "2":
+                for(ToDoAfter value : ToDoAfterList){
+                    task = value.getToDoAfterTask();
+                    ListTask_Description = task.getDescription();
+
+                    if(ListTask_Description.equals(Description)){
+                        temp_ToDoAfter.add(value);
+                    }
+                }
+                Print_List_ToDoAfter(temp_ToDoAfter, Date_Type, Time_Type);
+            default:
+                for (Task value : List) {
+                    task = value;
+                    ListTask_Description = task.getDescription();
+
+                    if (Description.equals(ListTask_Description)) {
+                        temp_List.add(task);
+                    }
+                }
+                Print_List(temp_List, Date_Type, Time_Type);
+                for(ToDoAfter value : ToDoAfterList){
+                    task = value.getToDoAfterTask();
+                    ListTask_Description = task.getDescription();
+
+                    if(ListTask_Description.equals(Description)){
+                        temp_ToDoAfter.add(value);
+                    }
+                }
+                Print_List_ToDoAfter(temp_ToDoAfter, Date_Type, Time_Type);
         }
     }
 
@@ -515,8 +686,10 @@ public class TaskList {
     private static void Print_List_Type(Vector<Task> List, String Type, String Date_Type, String Time_Type, Vector<ToDoAfter> ToDoAfterList, String List_Type) throws DateTimeInputWrongly, EnumDayIndexWrongly, MonthIndexWrong {
         String ListTask_Type;
         Vector<Task> temp_List = new Vector<>();
-        Vector<Task> temp_ToDoAfter = new Vector<>();
+        Vector<ToDoAfter> temp_ToDoAfter = new Vector<>();
         Task task;
+
+        assert(Integer.parseInt(List_Type) < 4): "The List_Type can only be 1, 2 or 3.";
 
         switch (List_Type){
             case "1": //Task List;
@@ -530,6 +703,36 @@ public class TaskList {
                 }
                 Print_List(temp_List, Date_Type, Time_Type);
                 break;
+            case "2":
+                for(ToDoAfter value : ToDoAfterList){
+                    task = value.getToDoAfterTask();
+                    String type = task.getType();
+
+                    if(type.equals(Type)){
+                        temp_ToDoAfter.add(value);
+                    }
+                }
+                Print_List_ToDoAfter(temp_ToDoAfter, Date_Type, Time_Type);
+                break;
+            default:
+                for (Task value : List) {
+                    task = value;
+                    ListTask_Type = task.getType();
+
+                    if (Type.equals(ListTask_Type)) {
+                        temp_List.add(task);
+                    }
+                }
+                Print_List(temp_List, Date_Type, Time_Type);
+                for(ToDoAfter value : ToDoAfterList){
+                    task = value.getToDoAfterTask();
+                    String type = task.getType();
+
+                    if(type.equals(Type)){
+                        temp_ToDoAfter.add(value);
+                    }
+                }
+                Print_List_ToDoAfter(temp_ToDoAfter, Date_Type, Time_Type);
         }
     }
 
@@ -869,12 +1072,14 @@ public class TaskList {
                 case "1": //Date type
                     ToDoAfter_task = ToDoAfterDate();
                     ToDoAfterList.add(ToDoAfter_task);
+                    System.out.println("      The task has been added to the list.");
                     //To check whether the new ToDoAfter task needs to add into Task List;
                     ToCheckToDoAfterTaskStatus(ToDoAfter_task, List, ToDoAfterList);
                     break;
                 case "2": //Task type
                     ToDoAfter_task = ToDoAfterTask(List, Datetype, Timetype); //To get the ToDoAfter task from user information;
                     ToDoAfterList.add(ToDoAfter_task);
+                    System.out.println("      The task has been added to the list.");
                     //To check whether the new ToDoAfter task needs to add into Task List;
                     ToCheckToDoAfterTaskStatus(ToDoAfter_task, List, ToDoAfterList);
                     break;
@@ -1059,7 +1264,12 @@ public class TaskList {
                     if(temp_Task_status){
                         List.add(GoingToDo_Task);
                         toDoAfterList.remove(toDoAfter);
+//                        System.out.println("       The condition task status is 'done'. This ToDoAfter task is automatic transfer to Task List. \n" +
+//                                "      The task has been added to Task List.");
                     }
+//                    else{
+//                        System.out.println("      The ToDoAfter task has been added to ToDoAfter Task List.");
+//                    }
 
                     break;
                 case "date":
@@ -1067,7 +1277,12 @@ public class TaskList {
                     if(!Comparision(date.toString())) {
                         List.add(GoingToDo_Task);
                         toDoAfterList.remove(toDoAfter);
+//                        System.out.println("      The condition date is passed. This ToDoAfter task is automatic transfer to Task List.\n" +
+//                                "      The task has been added to Task List.");
                     }
+//                    else {
+//                        System.out.println("      The ToDoAfter task has been added to ToDoAfter Task List.");
+//                    }
             }
         }
         catch (TheTaskNotExistInTheList e){
@@ -1122,12 +1337,6 @@ public class TaskList {
                     Task task = List.get(index-1);
                     String type = task.getType();
 
-                    if(type.equals("T")){
-                        System.out.println("     The task you chose is a todo type task. There is no date/time information in the task.\n" +
-                                "     The update function closed with no change.");
-                        break;
-                    }
-
                     System.out.println("     Please choose the aspect you want to update:\n" +
                             "      1. Task Date\n" +
                             "      2. Task description.");
@@ -1139,12 +1348,28 @@ public class TaskList {
                         case "1":
                         case "date":
                         case "task date":
+                            if(type.equals("T")){
+                                System.out.println("     The task you chose is a todo type task. There is no date/time information in the task.\n" +
+                                        "     The update function closed with no change.");
+                                Separated_Line();
+                                break;
+                            }
                             DateTimeChangingInformationCollector(task, type);
+                            Separated_Line();
+                            System.out.println("      The task updated to:");
+                            System.out.print("       ");
+                            Print_Task(task, DateType, TimeType);
+                            System.out.println("");
                             break;
                         case "2":
                         case "description":
                         case "task description":
                             TaskDescriptionUpdate(task);
+                            Separated_Line();
+                            System.out.println("      The task updated to:");
+                            System.out.print("       ");
+                            Print_Task(task, DateType, TimeType);
+                            System.out.println("");
                             break;
                         default:
                             System.out.println("     The choice you chose does not correct. Please try again.");
