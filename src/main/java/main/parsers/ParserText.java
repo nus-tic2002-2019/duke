@@ -2,6 +2,7 @@ package main.parsers;
 
 
 import main.DukeException;
+import main.Storage;
 import main.commands.*;
 import main.taskLists.Deadline;
 import main.taskLists.Event;
@@ -10,12 +11,9 @@ import main.taskLists.ToDo;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import static main.UI.dukePrint;
 
-/**
- * Parse the input of the user and returns a command based on the input.
- *
- * @return Command  The command with reference to the given input.
- */
+
 public class ParserText<T> {
 
     private static final String OUTPUT_DELIMITER = "\\|";
@@ -31,11 +29,12 @@ public class ParserText<T> {
 
         String[] command = input.split(INPUT_DELIMITER);
 
-        // Bad attempt at a Lamda Function
+
         UtilityFunc parsedDate = (Object n) -> {
             try {
                 return LocalDate.parse((CharSequence) n);
             } catch (Exception e) {
+
                 return (String) n;
             }
         };
@@ -60,11 +59,25 @@ public class ParserText<T> {
                 new ArchiveCommand();
                 break;
 
+            case "LOADVIEW":
+                Storage.loadview();
+                break;
+
+            case "LOAD":
+                try {
+                    Storage.loadFile(Integer.parseInt(input.split(INPUT_DELIMITER)[1]));
+                } catch (IndexOutOfBoundsException e) {
+                    dukePrint("\t☹ OOPS!!! I can't process this action without specifying the task!");
+                } catch (NumberFormatException e) {
+                    dukePrint("\t☹ OOPS!!! I can only accept numerical values. Type `list` to see the values");
+                }
+                break;
+
             case "FIND":
                 try {
                     new FindCommand(input.split(INPUT_DELIMITER, 2)[1]);
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("\t☹ OOPS!!! I can't search the UnSearchable!");
+                    dukePrint("\t☹ OOPS!!! I can't search the UnSearchable!");
                 }
 
                 break;
@@ -73,9 +86,9 @@ public class ParserText<T> {
                 try {
                     new DeleteCommand(Integer.parseInt(input.split(INPUT_DELIMITER)[1]));
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println("\t☹ OOPS!!! I can't process this action without specifying the task!");
+                    dukePrint("\t☹ OOPS!!! I can't process this action without specifying the task!");
                 } catch (NumberFormatException e) {
-                    System.out.println("\t☹ OOPS!!! I do not have the ability to parse words to numbers yet. " +
+                    dukePrint("\t☹ OOPS!!! I do not have the ability to parse words to numbers yet. " +
                             "Please use a numerical value!");
                 }
                 break;
@@ -84,9 +97,9 @@ public class ParserText<T> {
                 try {
                     new DoneCommand(input.split(INPUT_DELIMITER)[1]);
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println("\t☹ OOPS!!! I can't process this action without specifying the task!");
+                    dukePrint("\t☹ OOPS!!! I can't process this action without specifying the task!");
                 } catch (NumberFormatException e) {
-                    System.out.println("\t☹ OOPS!!! I can only accept numerical values. Type `list` to see the values");
+                    dukePrint("\t☹ OOPS!!! I can only accept numerical values. Type `list` to see the values");
                 }
                 break;
 
@@ -95,8 +108,8 @@ public class ParserText<T> {
                     String deadlineDesc = (input.split(INPUT_DELIMITER, 2)[1]).split("/by")[0];
                     var subStringDeadline = input.substring(input.lastIndexOf("/by") + 3).trim();
                     Object doWhen = (subStringDeadline.equalsIgnoreCase(input.substring(2))) ?
-                            " No Deadline Given" : parsedDate.convert(subStringDeadline); //Parse Date here
-                    Task deadline = new Deadline(deadlineDesc, doWhen);
+                            " No Deadline Given" :  parsedDate.convert(subStringDeadline); //Parse Date here
+                    Task deadline = new Deadline<>(deadlineDesc, doWhen);
                     new AddCommand(deadline);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("\t☹ OOPS!!! I can't process this action without specifying the task!");
@@ -108,11 +121,11 @@ public class ParserText<T> {
                     String eventDesc = (input.split(INPUT_DELIMITER, 2)[1]).split("/at")[0];
                     var subStringEvent = input.substring(input.lastIndexOf("/at") + 3).trim();
                     Object doAt = (subStringEvent.equalsIgnoreCase(input.substring(2))) ?
-                            " No Location Given" : parsedDate.convert(subStringEvent); // Parse Date here
-                    Task event = new Event(eventDesc, doAt);
+                            " No Location Given" :  parsedDate.convert(subStringEvent); // Parse Date here
+                    Task event = new Event<>(eventDesc, doAt);
                     new AddCommand(event);
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println("\t☹ OOPS!!! I can only accept numerical values. Type `list` to see the values");
+                    dukePrint("\t☹ OOPS!!! I can only accept numerical values. Type `list` to see the values");
                 }
                 break;
 
@@ -122,12 +135,12 @@ public class ParserText<T> {
                     Task todo = new ToDo(TodoDesc);
                     new AddCommand(todo);
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println("\t☹ OOPS!!! I can't process this action without specifying the task!");
+                    dukePrint("\t☹ OOPS!!! I can't process this action without specifying the task!");
                 }
                 break;
 
             default:
-                System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                dukePrint("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
 
         }
     }
@@ -160,7 +173,7 @@ public class ParserText<T> {
                     ((Deadline) input).getBy()
             );
         } else {
-            System.out.println("☹ OOPS!!! I'm sorry, but I don't know how to Parse this");
+            dukePrint("☹ OOPS!!! I'm sorry, but I don't know how to Parse this");
         }
 
         return parsedInput;
@@ -175,6 +188,16 @@ public class ParserText<T> {
      */
     public static Task inputParse(String input) {
 
+        // Bad attempt at a Lamda Function
+        UtilityFunc parsedDate = (Object n) -> {
+            try {
+                return LocalDate.parse((CharSequence) n);
+            } catch (Exception e) {
+
+                return (String) n;
+            }
+        };
+
         String task = input.split(OUTPUT_DELIMITER)[0];
         Boolean status = Boolean.parseBoolean(input.split(OUTPUT_DELIMITER)[1]);
         String desc = input.split(OUTPUT_DELIMITER)[2];
@@ -185,13 +208,13 @@ public class ParserText<T> {
             output = new ToDo(desc);
             output.setStatus(status);
         } else if (task.matches("D")) {
-            output = new Deadline(desc, input.split(OUTPUT_DELIMITER)[3]);
+            output = new Deadline<>(desc, parsedDate.convert(input.split(OUTPUT_DELIMITER)[3]));
             output.setStatus(status);
         } else if (task.matches("E")) {
-            output = new Event(desc, input.split(OUTPUT_DELIMITER)[3]);
+            output = new Event<>(desc, parsedDate.convert(input.split(OUTPUT_DELIMITER)[3]));
             output.setStatus(status);
         } else {
-            System.out.println("☹ OOPS!!! I'm sorry, but I don't know how to Parse this");
+            dukePrint("☹ OOPS!!! I'm sorry, but I don't know how to Parse this");
         }
 
         return output;

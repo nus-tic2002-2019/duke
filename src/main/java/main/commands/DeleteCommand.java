@@ -21,11 +21,10 @@ public class DeleteCommand extends Command<Integer> {
             Tasks.remove(input - 1);
             UI.deletedCommand(t);
         } catch (Exception e) {
-            System.out.println("\tI can't delete something that does not exist. Maybe try 'list' to list current tasks?");
+            UI.dukePrint("\tI can't delete something that does not exist. Maybe try 'list' to list current tasks?");
         }
 
 
     }
-
 
 }

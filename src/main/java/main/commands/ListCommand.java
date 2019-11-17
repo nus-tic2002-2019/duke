@@ -10,6 +10,6 @@ public class ListCommand extends Command<String> {
 
     @Override
     public void execute(String input) {
-        UI.listTasks();
+        UI.listTasks(false);
     }
 }

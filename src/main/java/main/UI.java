@@ -17,9 +17,15 @@ public class UI {
 
     //TODO Create UI Methods for displaying duke Exception Messages
 
+    public static void dukePrint(String input) {
+        UI.line();
+        System.out.println(input);
+        UI.line();
+    }
+
     public static void completeTask(int index) {
         UI.line();
-        System.out.println("\tNice! I've marked this Task as Done:");
+        System.out.println("\tNice! I've changed the status of this Task:");
         System.out.println("\t" + Tasks.get(index));
         UI.line();
     }
@@ -37,7 +43,7 @@ public class UI {
         UI.line();
     }
 
-    private static void line() {
+    static void line() {
         System.out.println("\t____________________________________________________________");
     }
 
@@ -60,11 +66,17 @@ public class UI {
         UI.line();
     }
 
-    public static void listTasks() {
+    public static void listTasks(boolean b) {
         UI.line();
         int count = 0;
         if (Tasks.size() > 0) {
-            System.out.println("\tHere are the Tasks in your List:");
+            if (b){
+                System.out.println("\tAdded these Tasks into your List:");
+
+            } else {
+                System.out.println("\tHere are the Tasks in your List:");
+            }
+
             for (Object input : Tasks) {
                 System.out.println("\t" + (count + 1) + ". " +
                         input.toString());
@@ -82,7 +94,7 @@ public class UI {
         UI.line();
         if (seached_set.size() > 0) {
             System.out.println("\tHere are the matching tasks in your list:");
-            int count = 1;
+            int count = 0;
             for (Task element : seached_set) {
                 System.out.println("\t" + (count + 1) + ". " +
                         element.toString());
@@ -110,7 +122,7 @@ public class UI {
     /**
      * Prints the Welcome Logo of Duke
      */
-    void welcome() {
+    public static void welcome(Boolean t) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -119,6 +131,10 @@ public class UI {
         System.out.println("Hello from\n" + logo);
         System.out.println("\t____________________________________________________________");
         System.out.println("\tHello! I'm Duke\n\tWhat can I do for you?");
+
+        if (!t) {
+            System.out.println("\tYou have existing tasks to do!\n\tType 'load' to view existing tasks!");
+        }
 
         System.out.println("\t____________________________________________________________");
     }

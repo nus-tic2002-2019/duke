@@ -30,8 +30,8 @@ public class Duke {
 
         UI interaction = new UI();
 
-        interaction.welcome();
-        storage.start();
+        interaction.welcome(storage.start());
+
 
         while (response.isTrue) {
             Scanner in = new Scanner(System.in);

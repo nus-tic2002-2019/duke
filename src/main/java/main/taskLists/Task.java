@@ -10,7 +10,7 @@ public abstract class Task {
     }
 
     public void Done() {
-        this.isDone = true;
+        this.isDone = !this.isDone;
     }
 
     public void setStatus(Boolean input) {

@@ -1,7 +1,6 @@
 package main;
 
 
-import main.commands.ClearCommand;
 import main.parsers.ParserText;
 import main.taskLists.Task;
 
@@ -29,14 +28,16 @@ public class Storage {
      *
      * @throws IOException
      */
-    public void start() throws IOException {
+    public Boolean start() throws IOException {
         this.file = new File(filepath);
 
         //Create the file
         if (file.createNewFile()) {
-            System.out.println("New File is created!");
+            return true;
         } else {
-            this.load();
+           return this.load();
+
+
         }
     }
 
@@ -44,19 +45,35 @@ public class Storage {
      * Loads contents of Text file into ArrayList
      *
      * @throws IOException
+     * @return
      */
-    public void load() throws IOException {
+    public Boolean load() throws IOException {
 
         BufferedReader br = new BufferedReader(new FileReader(file));
         String read;
 
         if (file.length() == 0) {
-            System.out.println("File is Empty");
+            return true;
         } else {
             while ((read = br.readLine()) != null)
                 Tasks.add(ParserText.inputParse(read));
-            System.out.println("\tRecords read from file, type 'list' to check them out");
+            return false;
         }
+    }
+
+    public static void load(File load) throws IOException {
+
+        BufferedReader br = new BufferedReader(new FileReader(load));
+        String read;
+
+        if (load.length() == 0) {
+
+        } else {
+            while ((read = br.readLine()) != null)
+                Tasks.add(ParserText.inputParse(read));
+        }
+
+        UI.listTasks(true);
     }
 
     /**
@@ -65,10 +82,45 @@ public class Storage {
     public static void archive() throws IOException, DukeException {
 
         Date date = new Date() ;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss") ;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd") ;
         File file = new File("C:\\Users\\yralle.lesly.gimpaya\\Desktop\\duke\\src\\data\\tasks_" + dateFormat.format(date) + ".txt") ;
         BufferedWriter out = new BufferedWriter(new FileWriter(file));
         writeToFile(out);
+
+    }
+
+    public static void loadview() {
+
+        File folder = new File("C:\\Users\\yralle.lesly.gimpaya\\Desktop\\duke\\src\\data\\");
+        File[] listoffiles = folder.listFiles();
+
+        int count = 1;
+
+        UI.line();
+        if (listoffiles.length != 0) {
+            System.out.println("\tHere are the files in Archive:");
+        }
+        for (int i = 0; i < listoffiles.length; i++) {
+            if (listoffiles[i].isFile()) {
+                System.out.println("\tFile " + count +" " + listoffiles[i].getName());
+            } else if (listoffiles[i].isDirectory()) {
+                System.out.println("\tDirectory " + count +" " + listoffiles[i].getName());
+            }
+            count++;
+        }
+        UI.line();
+    }
+
+    public static void loadFile(int input){
+
+        File folder = new File("C:\\Users\\yralle.lesly.gimpaya\\Desktop\\duke\\src\\data\\");
+        File[] listoffiles = folder.listFiles();
+
+        try{
+            Storage.load(listoffiles[input -1]);
+        } catch(Exception e){
+            UI.dukePrint("\tOpps, something Unexpected happened!");
+        }
 
     }
 
@@ -106,7 +158,7 @@ public class Storage {
 
            writeToFile(buffer);
 
-        } catch (IOException e) {
+            } catch (IOException e) {
             System.err.format("IOException: %s%n", e);
         }
 

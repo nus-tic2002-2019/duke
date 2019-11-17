@@ -19,7 +19,7 @@ public class DoneCommand extends Command<String> {
             Tasks.get(index).Done();
             UI.completeTask(index);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("\t☹ OOPS!!! I don't seem to have this Task logged");
+            UI.dukePrint("\t☹ OOPS!!! I don't seem to have this Task logged");
         }
 
 
