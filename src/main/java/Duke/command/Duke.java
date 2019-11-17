@@ -136,6 +136,30 @@ public class Duke {
                 checkException(e1.getMessage());
             }
         }
+        else if(word[0].equalsIgnoreCase("find"))
+        {
+            try {
+                String keyword = word[1];
+                int size = 0;
+                for(int i = 0; i < task.size(); i++)
+                {
+                    if(null != task.get(i)) size++;
+                }
+
+                System.out.println("Here are the matching tasks in your list:");
+                for(int i=0;i<size;i++)
+                {
+                    String des = task.get(i).getDescription();
+                    if(des.contains(keyword)) {
+                        System.out.println(i + 1 + "." + task.get(i).getStatusIcon() + task.get(i).getDescription());
+                    }
+                }
+            }
+            catch (Exception e1)
+            {
+                checkException("Keywords cannot be empty.");
+            }
+        }
         else {
             t = new Task(input);
             System.out.println("Got it. I've added this task:");
