@@ -10,7 +10,7 @@ public class parser {
     private static ui ui;
     private static storage storage;
     private static tasklist tasklist;
-    
+
     public void rawParser(String rawInput){
         ui = new ui();
         storage = new storage();
