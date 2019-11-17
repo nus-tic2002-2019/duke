@@ -1,10 +1,11 @@
-package DukeCommands;
+package newDuke.DukeCommands;
 
-import main.Storage;
-import main.TaskList;
-import main.UI;
-import DukeTasks.Task;
-import DukeTasks.Event;
+import newDuke.main.Storage;
+import newDuke.main.TaskList;
+import newDuke.main.UI;
+import newDuke.DukeTasks.Task;
+import newDuke.DukeTasks.Event;
+import newDuke.DukeExceptions.Exception;
 
 
 /**
@@ -12,12 +13,12 @@ import DukeTasks.Event;
  */
 
 public class EventCommand implements Command {
+	private String eventDetailsWhole;
     private String eventName;
-    private String date;
+    private String venue;
 	
-    public EventCommand(String eventName, String date) {
-        this.eventName = eventName;
-        this.date = date;
+    public EventCommand(String eventDetailsWhole) {
+        this.eventDetailsWhole = eventDetailsWhole;
     }
 	
     /**
@@ -32,9 +33,24 @@ public class EventCommand implements Command {
      */
 
     public String execute(TaskList taskList, Storage storage) {
-        Task event = new Event(eventName, date);
-        taskList.addTaskList(event);
-        storage.writeToFile(taskList.getTaskList());
-        return UI.newTask(taskList.getTaskList());
-    }
+		try {
+			try {
+				String[] eventDetails = eventDetailsWhole.split(" /at ");
+				eventName = eventDetails[0].substring(6);
+				venue = eventDetails[1];
+				Task event = new Event(eventName, venue);
+				taskList.addTaskList(event);
+				storage.writeToFile(taskList.getTaskList());
+				return UI.newTask(taskList.getTaskList());
+			} catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e){
+				if ( eventName == null || eventName.trim().length() == 0){
+					throw new Exception(Exception.Code.EMPTY_EVENT_DESCRIPTION);
+				} else {
+					throw new Exception(Exception.Code.MISSING_EVENT_VENUE);
+				}
+			}
+		} catch (Exception e){
+			return e.errorDescription();
+		}
+	}
 }
