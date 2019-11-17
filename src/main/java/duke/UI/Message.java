@@ -1,7 +1,7 @@
-package UI;
+package duke.UI;
 
-import storage.TempTaskList;
-import task.Task;
+import duke.storage.TempTaskList;
+import duke.task.Task;
 
 import java.io.*;
 import java.util.*;
@@ -46,22 +46,22 @@ public class Message {
         }
     }
     public void addTaskMessage (Task task, int numberOfTask) {
-        System.out.println("\tGot it. I've added this task: ");
+        System.out.println("\tGot it. I've added this duke.task: ");
         System.out.println("\t  " + task);
         System.out.printf("\tNow you have %d tasks in the list."
                 + System.lineSeparator(), numberOfTask);
     }
     public void markDoneMessage (Task task) {
-        System.out.println("\tNice! I've marked this task as done: ");
+        System.out.println("\tNice! I've marked this duke.task as done: ");
         System.out.println("\t  " + task);
     }
     public void markDoMessage (Task task) {
-        System.out.println("\tNoted! I've marked this task as incompleted: ");
+        System.out.println("\tNoted! I've marked this duke.task as incompleted: ");
         System.out.println("\t  " + task);
     }
 
     public void markDelete (TempTaskList list, Task task) {
-        System.out.println("\tNoted. I've removed this task:");
+        System.out.println("\tNoted. I've removed this duke.task:");
         System.out.println("\t  " + task);
         System.out.printf("\tNow you have %d tasks in the list.", list.size());
     }
@@ -73,7 +73,7 @@ public class Message {
         System.out.println("\t☹ OOPS!!! Separate content and time block with \" /at \" ");
     }
     public void emptyTaskMessage () {
-        System.out.println("\t☹ OOPS!!! The description of a task cannot be empty.");
+        System.out.println("\t☹ OOPS!!! The description of a duke.task cannot be empty.");
     }
     public void dontKnowWhatToDoMessage () {
         System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(" );
@@ -85,10 +85,10 @@ public class Message {
         System.out.println("\t☹ OOPS!!! Please input a valid Task No. ~");
     }
     public void doneAlreadyMessage () {
-        System.out.println("\t🥳 Hooray! This task has already been marked done ~");
+        System.out.println("\t🥳 Hooray! This duke.task has already been marked done ~");
     }
     public void notDoneAlreadyMessage () {
-        System.out.println("\t🙄 Yes you should! This task was not completed in the first place =_=|||");
+        System.out.println("\t🙄 Yes you should! This duke.task was not completed in the first place =_=|||");
     }
 
     public void errorFileMessage () {
@@ -103,7 +103,7 @@ public class Message {
     }
     public void findMessage (ArrayList<Integer> no, ArrayList<Task> list) {
         if (list.size() == 0) {
-            System.out.println("\tNo matching task, dear ~");
+            System.out.println("\tNo matching duke.task, dear ~");
         } else {
             System.out.println("\tHere are the matching tasks in your list:");
             for (int i = 0; i < list.size(); ++i) {

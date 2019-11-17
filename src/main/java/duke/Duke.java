@@ -1,10 +1,12 @@
+package duke;
+
 import java.io.*;
 import java.util.*;
-import error_handling.*;
-import command.*;
-import storage.*;
-import UI.*;
-import parse.*;
+import duke.error_handling.*;
+import duke.command.*;
+import duke.storage.*;
+import duke.UI.*;
+import duke.parse.*;
 
 public class Duke {
 
@@ -56,7 +58,7 @@ public class Duke {
                 continue;
 
             String firstWord = keywords.splitKeyword(userInput)[0];
-            // Some command is single word; Some command must have second part after space
+            // Some duke.command is single word; Some duke.command must have second part after space
             String content = null;
 
             if (keywords.splitKeyword(userInput).length != 1) {
@@ -96,8 +98,8 @@ public class Duke {
     public static void cmdPrintList(ArrayList<Task> list) {
         System.out.println("\tHere are the tasks in your list: ");
         int taskNumber = 1;
-        for (Task task : list) {
-            System.out.printf("\t%d.%s" + System.lineSeparator(),taskNumber, task);
+        for (Task duke.task : list) {
+            System.out.printf("\t%d.%s" + System.lineSeparator(),taskNumber, duke.task);
             ++taskNumber;
         }
     }

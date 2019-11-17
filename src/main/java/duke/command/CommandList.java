@@ -1,15 +1,14 @@
-package command;
+package duke.command;
 
 import java.io.IOException;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.time.*;
-import error_handling.*;
-import parse.Parser;
-import storage.*;
-import task.*;
-import UI.*;
+import duke.error_handling.*;
+import duke.parse.Parser;
+import duke.storage.*;
+import duke.task.*;
+import duke.UI.*;
 
 
 public class CommandList {
@@ -125,7 +124,7 @@ public class CommandList {
     }
 
     public String[] splitKeyword(String userInput) throws DukeException {
-        //command: list
+        //duke.command: list
 
         userInput = userInput.trim();
         String[] parts = userInput.split(" ", 2);

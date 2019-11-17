@@ -1,11 +1,11 @@
-package parse;
+package duke.parse;
 
-import task.*;
+import duke.task.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import UI.*;
+import duke.UI.*;
 
 
 public class Parser {

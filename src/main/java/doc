@@ -1,19 +1,19 @@
 ## list
 
 ## Q
-1. Describe the vision for Duke 
+1. Describe the vision for duke.Duke 
 
 2. Must-have features 
 
 3. State the feature as a user story \
    As a user I can add tasks so that I can keep records of what to do 
-4. Give some terms that can be added in the glossary of Duke \
+4. Give some terms that can be added in the glossary of duke.Duke \
    todo - \
    deadline - \
    event - 
-5. Give a Non-functional requirement for Duke \
+5. Give a Non-functional requirement for duke.Duke \
    access list at **O(1)**
 
-6. Give a UI prototype for Duke \
+6. Give a duke.UI prototype for duke.Duke \
    [image]
    

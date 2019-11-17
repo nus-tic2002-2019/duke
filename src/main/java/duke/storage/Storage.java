@@ -1,16 +1,12 @@
-package storage;
-import parse.Parser;
-import task.*;
-import UI.Message;
+package duke.storage;
+import duke.parse.Parser;
+import duke.task.*;
+import duke.UI.Message;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Scanner;
-import java.util.stream.Stream;
-import parse.Parser;
 
 public class Storage {
 

@@ -1,8 +1,8 @@
-package storage;
+package duke.storage;
 
-import task.*;
+import duke.task.*;
 import java.util.ArrayList;
-import UI.Message;
+import duke.UI.Message;
 import java.util.*;
 
 public class TempTaskList {

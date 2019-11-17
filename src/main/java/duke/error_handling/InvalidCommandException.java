@@ -1,7 +1,7 @@
-package error_handling;
+package duke.error_handling;
 
 /**
- * This Exception triggered when no matched Keyword in the command list
+ * This Exception triggered when no matched Keyword in the duke.command list
  */
 
 public class InvalidCommandException extends DukeException {

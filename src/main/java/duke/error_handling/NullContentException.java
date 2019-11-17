@@ -1,4 +1,4 @@
-package error_handling;
+package duke.error_handling;
 
 public class NullContentException extends DukeException{
     public NullContentException() {
