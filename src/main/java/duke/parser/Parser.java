@@ -8,6 +8,7 @@ import duke.command.ExitCommand;
 import duke.command.UnknownCommand;
 import duke.command.ViewAllCommand;
 import duke.command.ViewByDateCommand;
+import duke.command.ViewByStatusCommand;
 import duke.others.DukeException;
 import duke.others.Utility;
 import duke.others.DateFormat;
@@ -25,11 +26,18 @@ public class Parser {
     public static final String ERR_NOT_A_INT = "Please enter an integer";
     public static final String KEYWORD_LIST_DATE = "list date";
 
-    protected static String date;
-
+    /**
+     * Parses user input.
+     */
     public Parser() {
     }
 
+    /**
+     * Parses user input into command for execution.
+     *
+     * @param input full user input string.
+     * @return the command based on the user input.
+     */
     public static Command parse(String input) throws DukeException, DateTimeParseException {
         String keyword = getKeyword(input.trim());
         String parameter = "";
@@ -44,9 +52,9 @@ public class Parser {
                 return new ViewAllCommand();
             case("pending"):
             case("list pending"):
-                return new ViewAllCommand(false);
+                return new ViewByStatusCommand();
             case(KEYWORD_LIST_DATE):
-                date = getDateStr(input);
+                date = getCleanDateStr(input);
                 return new ViewByDateCommand(LocalDate.parse(date));
             case(KEYWORD_DONE):
                 parameter = removeKeyword(input, KEYWORD_DONE);
@@ -64,20 +72,26 @@ public class Parser {
                 }
             case(KEYWORD_DEADLINE):
             case(KEYWORD_EVENT):
-                checkDesc(input, keyword);
-                desc = removeKeyword(input, keyword);
-                date = getDateStr(input);
+                parameter = removeKeyword(input, keyword);
+                checkDesc(parameter);
+                date = getCleanDateStr(input);
                 LocalDate dateLocal = LocalDate.parse(date);
-                desc = desc.substring(0, desc.lastIndexOf("/")).trim();
+                desc = parameter.substring(0, parameter.lastIndexOf("/")).trim();
                 return new AddCommand(keyword, desc, dateLocal);
             case(KEYWORD_TODO):
-                checkDesc(input, keyword);
                 desc = removeKeyword(input, keyword);
+                checkDesc(desc);
                 return new AddCommand(keyword, desc);
         }
         return new UnknownCommand();
     }
 
+    /**
+     * Get keyword of the command based on the user input.
+     *
+     * @param input full user input string.
+     * @return keyword of the command.
+     */
     private static String getKeyword(String input) {
         if (input.matches(KEYWORD_DONE + ".*")) {
             return KEYWORD_DONE;
@@ -100,23 +114,42 @@ public class Parser {
         return input;
     }
 
+    /**
+     * Remove keyword to get the command parameters (if applicable).
+     *
+     * @param input full user input string.
+     * @param keyword command keyword.
+     * @return command parameters.
+     */
     private static String removeKeyword(String input, String keyword) {
         return input.replace(keyword, "").trim();
     }
 
-    private static void checkDesc(String input, String keyword) throws DukeException {
-        String desc = removeKeyword(input, keyword);
-        if (desc.length() == 0 || desc.charAt(0) == '/') {
+    /**
+     * Checks if user has input a task description when entering a create task command.
+     *
+     * @param param command parameter.
+     * @throws DukeException if task description is missing from the user input.
+     */
+    private static void checkDesc(String param) throws DukeException {
+        if (param.length() == 0 || param.charAt(0) == '/') {
             throw new DukeException("Task description cannot be empty!!");
         }
     }
 
-    private static void checkDate(String input) throws DukeException {
-        int delimiterIndex = input.lastIndexOf("/");
+    /**
+     * Checks if user has input a date when entering a create Event/Deadline command.
+     *
+     * @param param command parameter.
+     * @throws DukeException if user did not lead the date with a "/" character, did not enter a date or enter an
+     * invalid date format (accepted format = "yyyy-mm-dd" or "yyyy-m-d").
+     */
+    private static void checkDate(String param) throws DukeException {
+        int delimiterIndex = param.lastIndexOf("/");
         if (delimiterIndex == -1) {
             throw new DukeException("Please enter a date and lead it with \"/\"");
         }
-        String date = input.substring(delimiterIndex + 1);
+        String date = param.substring(delimiterIndex + 1);
         if (date.length() == 0)  {
             throw new DukeException("Please include a date after the \"/\" :)");
         }
@@ -126,14 +159,28 @@ public class Parser {
         }
     }
 
-    private static String getDateStr (String input) throws DukeException {
+    /**
+     * Condenses all the methods that needs to be performed to ensure that the date input is correct and return the
+     * correct date format (if applicable).
+     *
+     * @param input full user input string..
+     * @return date string in the correct format (yyyy-mm-dd).
+     * @throws DukeException from checkDate() method.
+     */
+    private static String getCleanDateStr(String input) throws DukeException {
         checkDate(input);
         input = input.substring(input.lastIndexOf("/") + 1);
-        input = getCleanDate(input);
+        input = changeDateFormat(input);
         return input;
     }
 
-    private static String getCleanDate(String date) {
+    /**
+     * Change the date parameter into a format that can be parsed to LocalDate.
+     *
+     * @param date date parameter.
+     * @return a date string in "yyyy-mm-dd" format.
+     */
+    private static String changeDateFormat (String date) {
         String day = date.substring(date.lastIndexOf("-")+1);
         if (day.length() == 1) {
             day = "0" + day;

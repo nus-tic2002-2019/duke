@@ -12,22 +12,46 @@ import duke.others.Utility;
 import java.io.IOException;
 import java.time.LocalDate;
 
+/**
+ * Adds a task to the task list.
+ */
 public class AddCommand extends Command {
     protected String type;
     protected String desc;
     protected LocalDate date;
 
+    /**
+     * Mainly for Deadline and Event tasks.
+     *
+     * @param type task type.
+     * @param desc task description.
+     * @param date occurence/due date depending on task type.
+     */
     public AddCommand(String type, String desc, LocalDate date) {
         this.type = type;
         this.desc = desc;
         this.date = date;
     }
 
+    /**
+     * Mainly for ToDo tasks.
+     *
+     * @param type task type.
+     * @param desc task description.
+     */
     public AddCommand(String type, String desc) {
         this.type = type;
         this.desc= desc;
     }
 
+    /**
+     * Executes the command and add a new task to the task list.
+     *
+     * @param tasks task list.
+     * @param ui text ui.
+     * @param storage storage file.
+     * @throws IOException if there are errors appending the date to the storage file.
+     */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         if (this.type == "todo") {
             tasks.add(new ToDo(this.desc));

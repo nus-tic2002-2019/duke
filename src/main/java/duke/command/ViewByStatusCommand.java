@@ -6,31 +6,23 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
-import java.time.LocalDate;
-
 /**
- * Display list of task based on a user input date.
+ * Display list of pending tasks.
  */
-public class ViewByDateCommand extends Command {
-    protected LocalDate date;
-
-    /**
-     * @param date user input date
-     */
-    public ViewByDateCommand(LocalDate date) {
-        this.date = date;
+public class ViewByStatusCommand extends Command {
+    public ViewByStatusCommand() {
     }
 
     /**
-     * Executes the command and tasks with date equals to the user input date.
+     * Executes the command and tasks that are still not completed/done.
      *
      * @param tasks task list
      * @param ui text ui.
      * @param storage storage file.
-     * @throws DukeException if task list is empty or there are no tasks with date equals to the user input date.
+     * @throws DukeException if task list is empty or there are no tasks with status (isDone) equals to false.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        String input =  getListByDate(tasks, this.date);
+        String input = getPending(tasks);
         if (tasks.isEmpty() || input.length() == 0) {
             throw new DukeException(Messages.LIST_EMPTY);
         }
@@ -38,10 +30,10 @@ public class ViewByDateCommand extends Command {
         ui.print(input);
     }
 
-    private String getListByDate(TaskList tasks, LocalDate date) {
+    private String getPending(TaskList tasks) {
         String input = "";
         for (int i = 0; i < tasks.size(); ++i) {
-            if (tasks.get(i).getDate().equals(date)) {
+            if (!tasks.get(i).getIsDone()) {
                 input += "\t" + (i+1) + ". "+ tasks.get(i).getStatusIconAndDesc() + "\n";
             }
         }
