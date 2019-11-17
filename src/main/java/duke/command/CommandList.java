@@ -15,7 +15,12 @@ public class CommandList {
     private HashMap<String, Command> keywords;
     private Message ui;
 
-
+    /**
+     *
+     *
+     * @param list
+     * @param file
+     */
     public CommandList(TempTaskList list, Storage file) {
         keywords = new HashMap<String, Command>();
         ui = new Message();

@@ -25,6 +25,15 @@ public class Duke {
         new Duke().start();
     }
 
+    /**
+     * main logic:
+     * identify user identity
+     * read from stored file if any to restore the tasks in temporary list
+     * read from user input, if command matches in keyword in HashMap,
+     * method will automatically be triggered to run
+     * "bye" to exit
+     * @throws Exception
+     */
     private void start() throws Exception {
         ui.showGreetingMessage();
 
