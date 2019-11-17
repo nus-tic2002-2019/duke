@@ -10,8 +10,8 @@ import duke.task.*;
 import duke.ui.Ui;
 import java.io.*;
 import java.text.*;
-import java.time.format.DateTimeParseException;
 import java.util.*;
+import priority.Priority;
 /**
  *
  * @author lug3g
@@ -24,7 +24,6 @@ public class Storage {
     }
     
     public void save(TaskList tasks){
-        
         try {
             FileWriter writer = new FileWriter(this.fileName);
             for ( int i = 0; i < tasks.getSize() ; i++ ){
@@ -57,12 +56,12 @@ public class Storage {
                 String line = s.next();
                 String words[] = line.split(" [|] ");
                 if ( words[0].equals("T")) {
-                    Tasks.add(new Todo(words[2]));
+                    Tasks.add(new Todo(words[2],Priority.valueOf(words[3])));
                 }
                 if ( words[0].equals("E")) {
                     try {
                         ui.convertDate(words[3]);
-                        Tasks.add(new Event(words[2],words[3]));
+                        Tasks.add(new Event(words[2],Priority.valueOf(words[3]),words[4]));
                     } catch (ParseException e) {
                         Ui.response("☹ OOPS!!! Please include a valid date description after '/at'.");
                     } catch (DukeException e){
@@ -72,7 +71,7 @@ public class Storage {
                 if ( words[0].equals("D")) {
                     try {
                         ui.convertDate(words[3]);
-                        Tasks.add(new Deadline(words[2],words[3]));
+                        Tasks.add(new Deadline(words[2],Priority.valueOf(words[3]),words[4]));
                     } catch (ParseException e) {
                         Ui.response("☹ OOPS!!! Please include a valid date description after '/by'.");
                     } catch (DukeException e){

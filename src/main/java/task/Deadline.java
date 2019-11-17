@@ -6,6 +6,7 @@
 package duke.task;
 
 import duke.ui.Ui;
+import priority.Priority;
 
 /**
  *
@@ -14,8 +15,8 @@ import duke.ui.Ui;
 public class Deadline extends Todo {
     private String by;
 
-    public Deadline(String description,String by) {
-        super(description);
+    public Deadline(String description, Priority p, String by) {
+        super(description,p);
         this.by = by;
     }
 

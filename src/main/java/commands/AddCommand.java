@@ -10,7 +10,8 @@ import duke.storage.Storage;
 import duke.task.*;
 import duke.ui.Ui;
 import java.text.ParseException;
-import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import priority.Priority;
 ;
 
 /**
@@ -27,8 +28,17 @@ public class AddCommand extends Command {
     }
 
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        String PriorityArray[] = {"LOW","MEDIUM","HIGH"};
+        ui.response("Please insert priority level of task. (LOW, MEDIUM, HIGH)");
+        String p = ui.readCommand();
+        if ( !Arrays.asList(PriorityArray).contains(p.toUpperCase()) ){
+            ui.response("☹ OOPS!!! Please enter a value in the Priority.");
+            return;
+        }
+        Priority taskPriority = Priority.valueOf(p);
         if ( getCommand().equals("todo") ){
-            tasks.getTaskList().add(new Todo( ui.getLine().replaceFirst("todo ", "")));
+            
+            tasks.getTaskList().add(new Todo( ui.getLine().replaceFirst("todo ", ""),taskPriority));
             ui.addResponse(tasks.getTask(tasks.getSize()-1).printTask(),tasks.getSize());
         }
         
@@ -36,7 +46,7 @@ public class AddCommand extends Command {
             try {
                 String words[] = ui.getLine().replaceFirst("event ", "").split(" /at ",2);
                 ui.convertDate(words[1]);
-                tasks.getTaskList().add(new Event(words[0],words[1]));
+                tasks.getTaskList().add(new Event(words[0],taskPriority,words[1]));
                 ui.addResponse(tasks.getTask(tasks.getSize()-1).printTask(),tasks.getSize());
             } catch (ArrayIndexOutOfBoundsException e){
                 ui.response("☹ OOPS!!! Event description needs to include a '/at' followed by the date.");
@@ -51,7 +61,7 @@ public class AddCommand extends Command {
             try {
                 String words[] = ui.getLine().replaceFirst("deadline ", "").split(" /by ",2);
                 ui.convertDate(words[1]);
-                tasks.getTaskList().add(new Deadline(words[0],words[1]));
+                tasks.getTaskList().add(new Deadline(words[0],taskPriority,words[1]));
                 ui.addResponse(tasks.getTask(tasks.getSize()-1).printTask(),tasks.getSize());    
             } catch (ArrayIndexOutOfBoundsException e){
                 ui.response("☹ OOPS!!! Deadline description needs to include a '/by' followed by the date.)");

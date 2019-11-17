@@ -62,7 +62,7 @@ public class Ui {
             throw new DukeException();
         }
         printLine();
-        System.out.println("\tHere are the tasks in your list:");
+        System.out.println("\tHere are the tasks in your list containing tasks in " + stringdate + ":");
         int j = 1;
         for ( int i = 0; i < tasks.getSize() ; i++ ){
             if ( tasks.getTask(i).getDateTime().equals("") ){
@@ -78,6 +78,21 @@ public class Ui {
             }
         }
         printLine();
+    }
+    
+    public static void find(TaskList tasks,String keywords) throws DukeException{
+        if ( tasks.getSize() < 1 ) {
+            throw new DukeException();
+        }
+        printLine();
+        System.out.println("\tHere are the tasks in your list containing the keyword, " + keywords + ":");
+        int j = 1;
+        for ( int i = 0; i < tasks.getSize() ; i++ ){
+            if ( tasks.getTask(i).getDescription().contains(keywords) ){
+                System.out.printf("\t%d. %s\n",j,tasks.getTask(i).printTask());
+                j++;
+            }
+        }
     }
     
     public static void exit(){
@@ -109,7 +124,6 @@ public class Ui {
     public String getLine(){
         return this.line;
     }
-    
     
     public static void convertDate(String stringdate) throws DukeException, ParseException{
         if ( stringdate.equals("") ){

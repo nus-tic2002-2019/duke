@@ -41,5 +41,14 @@ public class ListCommand extends Command {
                 ui.response( "☹ OOPS!!! There is no task on your list. Please add a new task to the system." );
             }           
         }
+        
+        if ( getCommand().equals("find")){
+             try {
+                String keywords = ui.getLine().replaceFirst("find ", "");
+                ui.find(tasks,keywords);
+            } catch (DukeException e) {
+                ui.response( "☹ OOPS!!! There is no task on your list. Please add a new task to the system." );
+            }  
+        }
     }
 }

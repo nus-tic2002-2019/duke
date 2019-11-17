@@ -1,12 +1,15 @@
 package duke.task;
 
+import priority.Priority;
+
 public abstract class Task{
     protected String description;
     private boolean isDone;
-    
-    public Task(String description){
+    private Priority p;
+    public Task(String description, Priority p){
         this.description = description;
         this.isDone=false;
+        this.p = p;
     }
     
     public void setDescription(String description){
@@ -23,6 +26,10 @@ public abstract class Task{
     
     public String getDescription(){
         return this.description;
+    }
+    
+    public Priority getp(){
+        return this.p;
     }
     
     public String getStatusIcon() {
