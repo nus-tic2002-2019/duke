@@ -21,6 +21,9 @@ public class Ui {
 
     }
 
+    /**
+     * Add greeting message to output string.
+     */
     public void welcome() {
         //public static void main(String[] args) throws DukeException {
             String logo = " ____        _        \n"
@@ -44,9 +47,6 @@ public class Ui {
         System.out.println(printline);
     }
 
-    //public static void showline() {
-    //    printUI( "--------------------------------------------------"+  System.lineSeparator());
-    //}
 
     public static void invalid() {
         System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means.");
@@ -56,12 +56,18 @@ public class Ui {
         printUI( message +  System.lineSeparator());
     }
 
+    /**
+     * Bye message to output string.
+     */
     public static void bye() {
         System.out.println("--------------------------------------------------");
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("--------------------------------------------------");
     }
 
+    /**
+     * Generic add task message to output string.
+     */
     public static void added(ArrayList<Task> t, Integer index) {
         System.out.println("--------------------------------------------------");
         System.out.println("Got it. I've added this task:");
@@ -70,6 +76,9 @@ public class Ui {
         System.out.println("--------------------------------------------------");
     }
 
+    /**
+     * Delete message to output string.
+     */
     public static void delete(ArrayList<Task> t, Integer index) {
         System.out.println("--------------------------------------------------");
         System.out.println("Noted. I've removed this task:");
@@ -78,6 +87,9 @@ public class Ui {
         System.out.println("--------------------------------------------------");
     }
 
+    /**
+     * Done message to output string.
+     */
     public static void done(ArrayList<Task> t, Integer index) {
         System.out.println("--------------------------------------------------");
         System.out.println("Nice! I've marked this task as done:");
@@ -85,6 +97,19 @@ public class Ui {
         System.out.println("--------------------------------------------------");
     }
 
+    /**
+     * Undo message to output string.
+     */
+    public static void undo(ArrayList<Task> t, Integer index) {
+        System.out.println("--------------------------------------------------");
+        System.out.println("Ok! I've marked this task as not done yet:");
+        System.out.println(t.get(index-1));
+        System.out.println("--------------------------------------------------");
+    }
+
+    /**
+     * Listing message to output string.
+     */
     public static void list(ArrayList<Task> t, Integer index) {
         //String timeString ="";
         System.out.println("--------------------------------------------------");

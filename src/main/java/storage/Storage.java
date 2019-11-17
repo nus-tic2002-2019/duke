@@ -28,6 +28,10 @@ public class Storage {
         this.filename = filename;
     }
 
+    /**
+     * This method save user's task list to the hard disk at "src/main/java/data/Duke.txt"
+     * @param t : this is the data structure of user tasks.
+     */
     public static void saveFile(ArrayList<Task> t) {
         try {
             FileOutputStream fw = new FileOutputStream(filename);
@@ -40,7 +44,8 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            System.out.println("File not found! A new file - Duke.txt will create");
+            System.out.println("File not found! Duke.txt will be created in C:\\Temp folder");
+
         }
     }
 
@@ -81,108 +86,11 @@ public class Storage {
 
 
         } catch(IOException e) {
-            System.out.println("File not found! A new file - Duke.txt will create");
+            System.out.println("File not found! Duke.txt will be created in C:\\Temp folder");
+
         }
     }
 
 
 }
 
-
-
-
-/**
-
-
-public class Storage {
-    private String filename;
-    public Storage(String filename) {
-        this.filename = filename;
-    }
-
-
-    public static void saveFile(String filePath, String textToAdd, boolean isAppend)  throws IOException {
-        FileWriter fw;
-        if (isAppend==true)
-        {
-            fw = new FileWriter(filePath,true);
-        }
-        else {
-            fw = new FileWriter(filePath);
-
-        }
-        fw.write(textToAdd);
-        fw.write(System.getProperty( "line.separator"));
-
-        fw.close();
-    }
-
-    public static void printFileContents(String filePath) throws FileNotFoundException {
-        File f = new File(filePath); // create a File for the given file path
-        Scanner s = new Scanner(f); // create a Scanner using the File as the source
-        while (s.hasNext()) {
-            System.out.println(s.nextLine());
-        }
-    }
-
-    public static void writeTasks()
-    {
-        try{
-            if (taskItems.size() == 0) {
-                saveFile(strFilePath, "", false);
-            }
-            else {
-                for (int i = 0; i < taskItems.size(); i++) {
-                    saveFile(strFilePath, taskItems.get(i).writeToFile(), i == 0 ? false : true);
-                }
-            }
-        } catch (IOException e)
-        {
-            System.out.println("File not found! A new file - Duke.txt will create");
-        }
-    }
-
-
-
-    public static void readTasksFromFile()
-    {
-        //String strFilePath ="data/Duke.txt";
-        String [] line_arr;
-        String line;
-        int i=0;
-        try {
-            File f = new File(strFilePath); // create a File for the given file path
-
-            Scanner s = new Scanner(f); // create a Scanner using the File as the source
-            while (s.hasNext()) {
-                line = s.nextLine();
-                line_arr = line.split(" \\| ");
-                i++;
-                switch (line_arr[0].toUpperCase()) {
-                    case "T": // Task
-                        Duke.addTask(new Todo(line_arr[2]), false);
-                        if (line_arr[1].equals("1")) {
-                            markDone(i, false);
-                        }
-                        break;
-                    case "D": // Deadline
-                        Duke.addTask(new Deadlines(line_arr[2], line_arr[3]), false);
-                        if (line_arr[1].equals("1")) {
-                            markDone(i, false);
-                        }
-                        break;
-                    case "E": // Event
-                        Duke.addTask(new Events(line_arr[2], line_arr[3]), false);
-                        if (line_arr[1].equals("1")) {
-                            markDone(i, false);
-                        }
-                        break;
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("unable to read from file");
-        }
-    }
-
-}
-**/

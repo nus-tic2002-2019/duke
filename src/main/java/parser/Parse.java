@@ -14,6 +14,7 @@ import task.Task;
 import task.Todo;
 import ui.Ui;
 
+import java.lang.reflect.Array;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,10 +24,13 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Parse {
 
-    private static boolean isExit ;
+    private static boolean isExit;
     private static Errortype errorType = new Errortype();
     private static Ui ui = new Ui();
     //private static Integer index;
@@ -65,7 +69,6 @@ public class Parse {
         }
 
 
-
         switch (command) {
             case "list":
                 ui.list(t, t.size());
@@ -89,7 +92,7 @@ public class Parse {
 
                     resultDateTime = dateParser(timeString);
 
-                    if (!resultDateTime.equals(notDate)){
+                    if (!resultDateTime.equals(notDate)) {
                         t.add(new Deadlines(taskString, resultDateTime));
                         ui.added(t, t.size());
                     }
@@ -99,7 +102,7 @@ public class Parse {
 
             case "event":
                 if (errorType.isTask(user_input) && errorType.isSchedule(user_input)) {
-                    taskString = user_input.split("/")[0].replace("event","").trim();
+                    taskString = user_input.split("/")[0].replace("event", "").trim();
                     timeString = user_input.split("/")[1].replace("at", "").trim();
                     //t.add(new Events(taskString, timeString));
                     //Ui.added(t, t.size());
@@ -132,6 +135,24 @@ public class Parse {
                 //index = idx;
                 break;
 
+            case "undo":
+                if (!(user_input.trim().length() > 4)) {
+                    ui.invalid();
+                    break;
+                }
+
+                //idx = Errortype.toInteger(user_input.split(" ")[1], t.size());
+                idx = errorType.toInteger(user_input.split(" ")[1], t.size());
+                if (idx == -1) {
+                    System.out.println("Oops, please provide a valid task number.");
+                    break;
+                }
+
+                t.get(idx - 1).taskUndo();
+                Ui.undo(t, idx);
+                //index = idx;
+                break;
+
             case "delete":
                 if (!(user_input.trim().length() > 6)) {
                     ui.invalid();
@@ -144,13 +165,13 @@ public class Parse {
                     break;
                 }
                 ui.delete(t, idx);
-                t.remove(idx-1);
+                t.remove(idx - 1);
 
                 //this.index = idx;
                 break;
 
             case "find":
-                if (errorType.isTask(user_input) ){
+                if (errorType.isTask(user_input)) {
                     String wordToFind = user_input.replace("find", "").trim().toLowerCase();
                     findKeyword(t, wordToFind);
                 }
@@ -159,6 +180,14 @@ public class Parse {
             case "sort":
                 sortTask(t);
                 break;
+
+            case "duplicate":
+                if (errorType.isTask(user_input)) {
+                    String wordToFind = user_input.replace("duplicate", "").trim().toLowerCase();
+                    DuplicatesInArray(t);
+                }
+                break;
+
 
             case "bye":
                 ui.bye();
@@ -184,14 +213,14 @@ public class Parse {
         String timeHrs = "";
 
         dateTemp = date.split(" ")[0]; // convert to 2019-11-01 form
-        assert dateTemp.length()==10:dateTemp.length();
+        assert dateTemp.length() == 10 : dateTemp.length();
 
         if (errorType.isTime(date)) { //check if there is a time component
             timeTemp = date.split(" ")[1]; // if true, possibly there is time given
             try {
-                timeHrs = timeTemp.substring(0,2);
-                timeMin = timeTemp.substring(2,4);
-            } catch (ArrayIndexOutOfBoundsException e1){
+                timeHrs = timeTemp.substring(0, 2);
+                timeMin = timeTemp.substring(2, 4);
+            } catch (ArrayIndexOutOfBoundsException e1) {
                 System.out.println("Not a valid time of format hhmm.");
                 return resultDateTime;
             }
@@ -203,15 +232,14 @@ public class Parse {
             try {
                 // assume date format 01-11-2019 then change to this format 2019-11-01
                 dateReverse = dateTemp.split("-")[2] + "-" + dateTemp.split("-")[1] + "-" + dateTemp.split("-")[0];
-            } catch ( ArrayIndexOutOfBoundsException e1){
+            } catch (ArrayIndexOutOfBoundsException e1) {
                 System.out.println("Not a valid date of format yyyy-mm-dd");
                 return resultDateTime;
             }
             try {
                 //date swap successful, now parse the swapped date
                 resultDate = LocalDate.parse(dateReverse);
-            }
-            catch (DateTimeParseException e3) {
+            } catch (DateTimeParseException e3) {
                 //dateConfirm is not a date
                 System.out.println("Not a valid date of format yyyy-mm-dd.");
                 return resultDateTime;
@@ -219,46 +247,48 @@ public class Parse {
         }
         // date format passed testing. to add time component behind date.
         try {
-            resultDateTime = resultDate.atTime(Integer.parseInt(timeHrs), Integer.parseInt(timeMin) );
-        } catch (DateTimeException e4){
+            resultDateTime = resultDate.atTime(Integer.parseInt(timeHrs), Integer.parseInt(timeMin));
+        } catch (DateTimeException e4) {
             System.out.println("Not a valid time.");
             return resultDateTime;
-        } catch (NumberFormatException e5){
+        } catch (NumberFormatException e5) {
             System.out.println("Not a valid time, contains non-numbers");
             return resultDateTime;
         }
         return resultDateTime;
     }
 
-    public static void findKeyword(ArrayList<Task> t, String wordToFind){
+    public static void findKeyword(ArrayList<Task> t, String wordToFind) {
         Boolean isFound = false;
-        for ( int i=0 ; i<t.size() ; i++ ){
+        for (int i = 0; i < t.size(); i++) {
             int n = t.get(i).getDescription().toLowerCase().indexOf(wordToFind);
             //int n = taskString.indexOf(wordToFind);
-            if (n>=0) {
-                ui.singleList(t,i);
-                isFound=true;
+            if (n >= 0) {
+                ui.singleList(t, i);
+                isFound = true;
             }
         }
-        if ( !isFound ){
-            System.out.println("\tOops!! Cannot find what you looking for.");
+        if (!isFound) {
+            System.out.println("Oops!! Cannot find what you looking for.");
         }
     }
 
-    public static void sortTask(ArrayList<Task> t){
+    public static void sortTask(ArrayList<Task> t) {
         // sort [T} to the top first
+        Boolean isFound = false;
         int number_of_Todo_list = 0;
-        for ( int i=0 ; i<t.size() ; i++ ){
-            String command = t.get(i).toString().substring(1,2);
-            if ( command.equals("T") ){
-                Collections.swap(t,number_of_Todo_list,i);
+        for (int i = 0; i < t.size(); i++) {
+            String command = t.get(i).toString().substring(1, 2);
+            if (command.equals("T")) {
+                Collections.swap(t, number_of_Todo_list, i);
                 number_of_Todo_list += 1;
             }
         }
+
         boolean isSwap = false;
-        while (!isSwap){
+        while (!isSwap) {
             isSwap = true;
-            for ( int i=number_of_Todo_list + 1 ; i<t.size() ; i++ ) {
+            for (int i = number_of_Todo_list + 1; i < t.size(); i++) {
                 if (t.get(i - 1).getDate().isAfter(t.get(i).getDate())) {
                     Collections.swap(t, i - 1, i);
                     isSwap = false;
@@ -270,5 +300,33 @@ public class Parse {
         ui.list(t, t.size());
     }
 
-}
+    public static void DuplicatesInArray(ArrayList<Task> t) {
 
+        Boolean isFound = false;
+        // First solution : finding duplicates using brute force method
+        System.out.println("Finding duplicate elements in array using brute force method");
+        {
+            for (int i = 0; i < t.size(); i++) {
+                int n = t.get(i).getDescription().toLowerCase().indexOf(i);
+                //for (int j = i + 1; j < names.length; j++) {
+                for (int j = i + 1; j < t.size(); j++) {
+                    int m = t.get(j).getDescription().toLowerCase().indexOf(j);
+                    //if (names[i].equals(names[j])) {
+                    //if (t[i].equals(t[j])) {
+                    if (n >= m) {
+
+                        ui.singleList(t, i);
+                        isFound = true;
+                        // got the duplicate element
+                    }
+                }
+                if (!isFound) {
+                    System.out.println("Oops!! Cannot find what you looking for.");
+                }
+            }
+        }
+
+    }
+
+
+}

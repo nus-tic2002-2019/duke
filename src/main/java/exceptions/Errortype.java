@@ -17,7 +17,7 @@ public class Errortype {
             }
         } catch (NumberFormatException e) {
             System.out.println("Oops!! Please type a task number.");
-        } catch (DukeException e) {
+        } catch (exceptions.DukeException e) {
             System.out.println("Oops!! Task number does not exist.");
         }
         indexInteger = -1;
@@ -25,9 +25,9 @@ public class Errortype {
     }
 
 
-    public static Boolean isTaskNumberValid(int index, int taskSize) throws DukeException {
+    public static Boolean isTaskNumberValid(int index, int taskSize) throws exceptions.DukeException {
         if ( index < 1 || index > taskSize ){
-            throw new DukeException();
+            throw new exceptions.DukeException();
         }
         return true;
     }
@@ -68,17 +68,3 @@ public class Errortype {
     }
 
 }
-
-/**
- // user input command / not use
- public static String command(String in) {
- String[] s = in.split(" ");
- return s[0].toLowerCase();
- }
-
- // user input task / not use
- public static String userTask(String in) {
- String[] s = in.split("/");
- return s[0].toLowerCase();
- }
- **/
