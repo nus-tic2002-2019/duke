@@ -8,6 +8,8 @@ public class Task {
     /** Represents the status of the task. */
     protected boolean isDone;
     protected String type;
+    protected int doAfter = -1;
+    protected int doBefore =-1;
 
     /**
      * @param desc is the description of the task.
@@ -17,6 +19,33 @@ public class Task {
         this.desc = desc;
         this.isDone = false;
         this.type = type;
+    }
+
+    /**
+     * Sets the task status based on the param.
+     *
+     * @param status used to overwrite the task status.
+     */
+    public void setStatus(boolean status) {
+        this.isDone = status;
+    }
+
+    /**
+     * Sets the doAfter task based on the param.
+     *
+     * @param index task index.
+     */
+    public void setDoAfter(int index) {
+        this.doAfter = index;
+    }
+
+    /**
+     * Sets the doBefore task based on the param.
+     *
+     * @param index task index.
+     */
+    public void setDoBefore(int index) {
+        this.doBefore = index;
     }
 
     /**
@@ -51,20 +80,6 @@ public class Task {
         return "[" + this.type + "][" + this.getStatusIcon() + "] " + this.desc;
     }
 
-    /** Change the task status to complete. */
-    public void markAsDone() {
-        this.isDone = true;
-    }
-
-    /**
-     * Overwrites the task status based on the param.
-     *
-     * @param status used to overwrite the task status.
-     */
-    public void setStatus(boolean status) {
-        this.isDone = status;
-    }
-
     /** @return the task type (deadline, event or todo. */
     public String getType() {
         return this.type;
@@ -78,4 +93,32 @@ public class Task {
     public LocalDate getDate() {
         return null;
     }
+
+    /**
+     * @return doAfter task index.
+     */
+    public int getDoAfter() {
+        return this.doAfter;
+    }
+
+    /**
+     * @return doBefore task index.
+     */
+    public int getDoBefore() {
+        return this.doBefore;
+    }
+
+    /** Change the task status to complete. */
+    public void markAsDone() {
+        this.isDone = true;
+    }
+
+    public boolean isDoAfterEmpty() {
+        return this.doAfter == -1;
+    }
+
+    public boolean isDoBeforeEmpty() {
+        return this.doBefore == -1;
+    }
+
 }

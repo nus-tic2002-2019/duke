@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 import duke.storage.Storage;
@@ -23,7 +24,7 @@ public class DoneCommand extends Command {
     }
 
     /**
-     * Executes the command and sets a specific task to completed/done.
+     * Sets a specific task to completed/done and remind users that they can start on the next task that (if applicable)
      *
      * @param tasks task list.
      * @param ui text ui.
@@ -40,9 +41,15 @@ public class DoneCommand extends Command {
         } else if (tasks.get(index).getIsDone()) {
             throw new DukeException("Task is already done!");
         } else {
-            tasks.get(index).markAsDone();
+            Task currentTask = tasks.get(index);
+            currentTask.markAsDone();
+            String input = "One task off the list!\n\t" + currentTask.getStatusIconAndDesc() + "\n";
+            if (!currentTask.isDoAfterEmpty()) {
+                Task childTask = tasks.get(currentTask.getDoAfter());
+                input += "\nYou can now start on the next task!\n\t" + childTask.getStatusIconAndDesc() + "\n";
+            }
             storage.updateLine(index, index + ";" + Utility.constructInput(tasks.get(index)));
-            ui.print("One task off the list!\n\t" + tasks.get(index).getStatusIconAndDesc() + "\n");
+            ui.print(input);
         }
     }
 }

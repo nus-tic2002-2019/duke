@@ -32,11 +32,14 @@ public class Utility {
         String taskType = task.getType();
         String input = "";
         if (taskType == "D") {
-            input = taskType + ";" + task.getIsDone() + ";" + task.getDesc() + ";" + ((Deadline) task).getDate();
+            input = taskType + ";" + task.getIsDone() + ";" + task.getDesc() + ";" + ((Deadline) task).getDate() +
+                    ";" + task.getDoAfter() + ";" + task.getDoBefore();
         } else if (taskType == "E") {
-            input = taskType + ";" + task.getIsDone() + ";" + task.getDesc() + ";" + ((Event) task).getDate();
+            input = taskType + ";" + task.getIsDone() + ";" + task.getDesc() + ";" + ((Event) task).getDate() +
+                    ";" + task.getDoAfter() + ";" + task.getDoBefore();
         } else {
-            input = taskType + ";" + task.getIsDone() + ";" + task.getDesc() + ";";
+            input = taskType + ";" + task.getIsDone() + ";" + task.getDesc() + ";" + ";" + task.getDoAfter() +
+                    ";" + task.getDoBefore();
         }
         return input;
     }

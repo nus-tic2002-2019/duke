@@ -1,9 +1,2 @@
-0;T;false;1 book;
-1;T;true;book 2;
-2;T;false;3 book 3;
-3;T;false;4book4;
-4;T;false;5none;
-5;D;false;1;2019-08-05
-6;E;false;2;2019-11-18
-7;E;true;3;2019-11-17
-8;E;false;4;2019-11-17
+0;E;false;task1;2019-06-08;-1;-1
+1;T;false;task6;;-1;-1

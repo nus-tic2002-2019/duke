@@ -34,6 +34,8 @@ public class TaskList {
                 taskList.add(new Deadline(delimited[3], LocalDate.parse(delimited[4])));
             }
             taskList.get(taskList.size() - 1).setStatus(Boolean.parseBoolean(delimited[2]));
+            taskList.get(taskList.size() - 1).setDoAfter(Integer.parseInt(delimited[5]));
+            taskList.get(taskList.size() - 1).setDoBefore(Integer.parseInt(delimited[6]));
         }
     }
 
@@ -61,6 +63,16 @@ public class TaskList {
      */
     public Task get(int i) {
         return taskList.get(i);
+    }
+
+    /**
+     * Return the index of a task in the task list.
+     *
+     * @param task task object.
+     * @return task index.
+     */
+    public int getIndex(Task task) {
+        return taskList.indexOf(task);
     }
 
     /**

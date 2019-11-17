@@ -14,5 +14,6 @@ public class Keyword {
     public static final String VIEW_ALL = "list";
     public static final String FIND = "find";
     public static final String REMINDER = "reminder";
-
+    public static final String DO_AFTER_1 = "doafter";
+    public static final String DO_AFTER_2 = "do after";
 }
