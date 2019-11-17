@@ -6,18 +6,22 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Storage {
+    //Declare variables
+    private static String filePath;
+
     //Declare constant variables
     private static final String ERROR_MSG_FILE_NOT_EXIST = "File not found!\n";
 
     //Constructor
     public Storage(String filePath) {
         File f = new File(filePath);
+        this.filePath = filePath;
         //System.out.println("Full path " + f.getAbsolutePath() );
     }
 
     //Getter
-    public static ArrayList<ArrayList<String> > readFile(String filePath) {
-        ArrayList<ArrayList<String> > lineList = new ArrayList<>();
+    public static ArrayList< ArrayList<String> > readFile() {
+        ArrayList< ArrayList<String> > lineList = new ArrayList<>();
 
         File f = new File(filePath);
 
@@ -35,9 +39,19 @@ public class Storage {
     }
 
     //Setter
-    public static void appendToFile(String filePath, String textToAppend) throws IOException {
+    public static void appendToFile(String textToAppend) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
         fw.write(textToAppend + "\n");
+        fw.close();
+    }
+
+    public static void writeToFile(ArrayList<Task> tasksList) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+
+        for (int i = 0; i < tasksList.size(); i++) {
+            fw.write(tasksList.get(i).printToFile() + "\n");
+        }
+
         fw.close();
     }
 

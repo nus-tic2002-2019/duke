@@ -4,7 +4,7 @@ public class Event extends Task {
 
     //Declare constant variables
     protected final String STRING_AT = "at";
-    protected final char STRING_SEPARATOR = '/';
+    protected final char CHAR_SEPARATOR = '/';
 
     //Store keywords' number of characters
     protected int atStrLen = STRING_AT.length();
@@ -14,13 +14,21 @@ public class Event extends Task {
         super(taskDescription.substring(0, taskDescription.indexOf('/') - 1) );
         typeIdt = 'E';
 
-        eventDescription = taskDescription.substring(0, taskDescription.indexOf(STRING_SEPARATOR) - 1);
-        eventAtString = taskDescription.substring(taskDescription.indexOf(STRING_SEPARATOR) + 2 + atStrLen);
+        eventDescription = taskDescription.substring(0, taskDescription.indexOf(CHAR_SEPARATOR) - 1);
+        eventAtString = taskDescription.substring(taskDescription.indexOf(CHAR_SEPARATOR) + 2 + atStrLen);
+    }
+
+    public Event(String taskDescription, String taskTime) {
+        super(taskDescription);
+        typeIdt = 'E';
+
+        eventDescription = taskDescription;
+        eventAtString = taskTime;
     }
 
     //Getter
     public String printToFile() {
-        return(super.printToFile() + STRING_SEPARATOR_WRITE + eventAtString);
+        return(super.printToFile() + CHAR_SEPARATOR_WRITE + eventAtString);
     }
 
     @Override

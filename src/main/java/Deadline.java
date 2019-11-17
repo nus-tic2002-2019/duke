@@ -19,9 +19,17 @@ public class Deadline extends Task {
         deadlineByString = taskDescription.substring(taskDescription.indexOf(STRING_SEPARATOR) + 2 + byStrLen);
     }
 
+    public Deadline(String taskDescription, String taskTime) {
+        super(taskDescription);
+        typeIdt = 'D';
+
+        deadlineDescription = (taskDescription);
+        deadlineByString = taskTime;
+    }
+
     //Getter
     public String printToFile() {
-        return(super.printToFile() + STRING_SEPARATOR_WRITE + deadlineByString);
+        return(super.printToFile() + CHAR_SEPARATOR_WRITE + deadlineByString);
     }
 
     @Override

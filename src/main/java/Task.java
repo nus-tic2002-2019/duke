@@ -5,9 +5,9 @@ public class Task {
     protected char typeIdt;
 
     //Declare constant variables
-    protected static final String STRING_SEPARATOR_WRITE = "|";
-    private static final String STRING_TRUE = "1";
-    private static final String STRING_FALSE = "0";
+    protected static final String CHAR_SEPARATOR_WRITE = "|";
+    private static final String CHAR_FALSE = "0";
+    private static final String CHAR_TRUE = "1";
 
     //Constructor
     public Task(String taskDescription) {
@@ -30,15 +30,15 @@ public class Task {
     }
 
     public String printToFile() {
-        String output = typeIdt + STRING_SEPARATOR_WRITE;
+        String output = typeIdt + CHAR_SEPARATOR_WRITE;
 
         if (isDone) {
-            output += STRING_TRUE;
+            output += CHAR_TRUE;
         } else if (!isDone) {
-            output += STRING_FALSE;
+            output += CHAR_FALSE;
         }
 
-        output += STRING_SEPARATOR_WRITE + taskDescription;
+        output += CHAR_SEPARATOR_WRITE + taskDescription;
 
         return output;
     }
