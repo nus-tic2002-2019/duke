@@ -11,7 +11,8 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * This is a taskList class which manages the list
+ * This is a taskList class which manages the list.
+ * It is able to store Todo, Deadline and Event objects and the individual task details
  *
  */
 public class taskList {
@@ -32,7 +33,7 @@ public class taskList {
         taskList.addAll(listTasks);
     }
     /**
-     * the displayList method simply show the list on the user interface
+     * the displayList method display the list to the user
      */
     public static void displayList (ArrayList<Task> tList){
         System.out.println("     Here are the tasks in your list:");
@@ -41,7 +42,7 @@ public class taskList {
         }
     }
     /**
-     * markInList method provides a way to mark which task is done
+     * markInList method mark the indicated task as done
      * @param textInput is the task number
      */
     public static void markInList(String textInput) throws DukeException {
@@ -58,7 +59,7 @@ public class taskList {
 
     }
     /**
-     * deleteFromList method provides a way to delete a task from list
+     * deleteFromList method delete a task from list
      * @param textInput is the task number
      */
     public static void deleteFromList(String textInput) throws DukeException{
@@ -76,31 +77,31 @@ public class taskList {
         }
     }
     /**
-     * addTodo method provides a way to add a Todo task to list
-     * @param td is the Todo object which you wish to add
+     * addTodo method adds a Todo task to list
+     * @param td is the Todo object to be added to the list
      */
     public static void addTodo (Todo td){
         taskList.add(td);
         ui.dukeReply(taskList);
     }
     /**
-     * addDeadline method provides a way to add a Deadline task to list
-     * @param dl is the Deadline object which you wish to add
+     * addDeadline method adds a Deadline task to list
+     * @param dl is the Deadline object to be added to the list
      */
     public static void addDeadlines (Deadlines dl){
         taskList.add(dl);
         ui.dukeReply(taskList);
     }
     /**
-     * addEvent method provides a way to add an event task to list
-     * @param e is the event object which you wish to add
+     * addEvent method provides adds an Event task to list
+     * @param e is the event object to be added to the list
      */
     public static void addEvent (Event e){
         taskList.add(e);
         ui.dukeReply(taskList);
     }
     /**
-     * getList method provides a way to retrieve the list
+     * getList method retrieve the list of tasks
      * @return the current list of tasks
      */
     public static ArrayList<Task> getList (){

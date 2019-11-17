@@ -32,18 +32,7 @@ public abstract class Task {
     }
 
     public String getTaskPriorityToString(){
-        //printTaskPriority = taskPriority.taskPriorityToString();
-        switch(taskPriority){
-            case LOW:
-                printTaskPriority = "L";
-                break;
-            case MEDIUM:
-                printTaskPriority = "M";
-                break;
-            case HIGH:
-                printTaskPriority = "H";
-
-        }
+        printTaskPriority = Priority.PriorityToString(taskPriority);
         return printTaskPriority;
     }
 

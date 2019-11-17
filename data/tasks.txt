@@ -1,1 +1,1 @@
-T | 1 | H | read bookD | 0 | L | return book | 2019-06-06E | 0 | M | project meeting | 2019-08-06 22:00 - 23:00T | 1 | L | join sports clubD | 0 | L | test save file | 2019-11-09
+T | 1 | H | read bookD | 0 | L | return book | 2019-06-06E | 0 | M | project meeting | 2019-08-06 22:00 - 23:00T | 1 | H | join sports clubD | 0 | L | test save file | 2019-11-09

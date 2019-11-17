@@ -13,10 +13,10 @@ public class Deadlines extends Task {
     private DateTimeFormatter saveDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     /**
      * The Deadline constructor creates a deadline object.
-     * @param description is the description of the Deadline
+     * @param description is the description of the Deadline task
      * @param Date is the deadline Date
      * @param isDone is the Deadline task status
-     * @param taskPriority is the priority level for the task
+     * @param taskPriority is the priority level for the Deadline task
      */
     public Deadlines(String description, LocalDate Date, boolean isDone, Priority taskPriority){
 
@@ -28,7 +28,7 @@ public class Deadlines extends Task {
     /**
      * The getDescription method overrides the method in Task class and
      * returns the task in the following format to be represented on the screen
-     * [D][task status][priority level]Deadline description (Deadline Date)
+     * [D][Deadline task status][priority level]Deadline task description (Deadline Date)
      */
     @Override
     public String getDescription() {
@@ -37,7 +37,7 @@ public class Deadlines extends Task {
     /**
      * The saveToFile method overrides the method in Task class and
      * returns the task in the following format to be save to the file
-     * D | task status | priority level | task description | Deadline Date
+     * D | Deadline task status | priority level | Deadline task description | Deadline Date
      */
     @Override
     public String saveToFile(){

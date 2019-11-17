@@ -17,12 +17,12 @@ public class Event extends Task {
     private DateTimeFormatter saveTimeFormat = DateTimeFormatter.ofPattern("HH:mm");
     /**
      * The event constructor creates an event object.
-     * @param description is the description of the Event
+     * @param description is the description of the Event task
      * @param Date is the Event Date
      * @param startTime is the Event Start Time
      * @param endTime is the Event End Time
      * @param isDone is the Event task status
-     * @param taskPriority is the priority level for the task
+     * @param taskPriority is the priority level for the Event task
      */
     public Event(String description, LocalDate Date, LocalTime startTime, LocalTime endTime, boolean isDone, Priority taskPriority){
         super(description);
@@ -35,7 +35,7 @@ public class Event extends Task {
     /**
      * The getDescription method overrides the method in Task class and
      * returns the task in the following format to be represented on the screen
-     * [E][task status][priority level]Event description (Event Date Start Time - End Time)
+     * [E][Event task status][priority level]Event task description (Event Date Start Time - End Time)
      */
 
     @Override
@@ -45,7 +45,7 @@ public class Event extends Task {
     /**
      * The saveToFile method overrides the method in Task class and
      * returns the task in the following format to be save to the file
-     * E | task status | priority level | task description | Event Date Start Time - End Time
+     * E | Event task status | priority level | Event task description | Event Date Start Time - End Time
      */
     @Override
     public String saveToFile(){

@@ -6,8 +6,7 @@ public enum Priority {
     LOW;
 
     private static Priority taskPriority;
-    //private Priority taskPriority;
-    protected String printTaskPriority;
+    private static String printTaskPriority;
 
     public static Priority priorityFromString(String strTaskPriority){
         switch(strTaskPriority){
@@ -24,7 +23,7 @@ public enum Priority {
         return taskPriority;
     }
 
-    public String taskPriorityToString(){
+    public static String PriorityToString(Priority taskPriority){
 
         switch(taskPriority){
             case LOW:
