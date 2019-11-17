@@ -191,6 +191,7 @@ public class Parser {
     private Command prepareDelete(String args) {
         try {
             final int targetIndex = parseArgsAsDisplayedIndex(args);
+            assert targetIndex>0 : "Invalid number, the index should be larger than 0.";
             return new DeleteCommand(targetIndex);
         }catch (ParseException pe){
             return  new IncorrectCommand("Error");
