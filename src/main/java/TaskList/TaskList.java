@@ -14,7 +14,7 @@ public class TaskList {
         todoListArray.add(addTaskToString);
     }
 
-    /***
+    /***Return a integer of size for todo list array
      *
      * @return  return size of the todo list array
      */
@@ -22,7 +22,7 @@ public class TaskList {
         return todoListArray.size();
     }
 
-    /***
+    /*** Return a String object from getting specific task number from todo list array
      *
      * @param task_counter get the exact task under todo list array
      * @return  todo list array
@@ -31,7 +31,7 @@ public class TaskList {
         return todoListArray.get(task_counter);
     }
 
-    /***
+    /*** Return a String object from remove specific task number from todo list array
      *
      * @param removeTaskNumber support for deleting task from the list at certain task number
      * @return todo list array

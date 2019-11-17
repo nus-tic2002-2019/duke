@@ -28,7 +28,6 @@ public class Parser {
     public static void parseTaskCommand(String full_user_input) throws DukeException {
         String[] input = new String[100];
 
-//        String full_user_input = scannerInput.nextLine();
         input = full_user_input.split(" ");
 
         task_stringIndex_After_taskWord = full_user_input.indexOf(" ");
@@ -75,11 +74,9 @@ public class Parser {
 
             case ("delete"):
                 try {
-//                    if(full_user_input.contains("&")) {
                     assert Integer.parseInt(input[1]) > 0 : "done number must be greater than 0";
                     task_words = Parser.parseEventDeadlineTask(full_user_input);
-                        Ui.deleteTask(Integer.parseInt(task_words.trim()));
-//                    }
+                    Ui.deleteTask(Integer.parseInt(task_words.trim()));
                 } catch (NumberFormatException e) {
                     System.out.println("Please enter which integer after delete ");
                 } catch (IndexOutOfBoundsException e) {
@@ -94,9 +91,7 @@ public class Parser {
                 int count_todo = Ui.task_count;
                 System.out.println(Ui.seperatorLine2);
                 for (listPrint = 0; listPrint < count_todo; listPrint++) {
-//                    System.out.println("        " + listNum + ". " + "[" + Ui.mark[listPrint] + "]" + TaskList.getTaskList(listPrint));
                     System.out.println("        " + listNum + ". " + "[" + Ui.mark.get(listPrint) + "]" + TaskList.getTaskList(listPrint));
-
                     listNum++;
                 }
                 listNum = 1;
@@ -106,10 +101,8 @@ public class Parser {
             case ("done"):
                 try {
                         assert Integer.parseInt(input[1]) > 0 : "done number must be greater than 0";
-//                    if (input[1] != "" && Integer.parseInt(input[1]) > 0) {
                         task_words = Parser.parseEventDeadlineTask(full_user_input);
                         Ui.doneTask(Integer.parseInt(task_words.trim()), input[1]);
-//                    }
                 } catch (IndexOutOfBoundsException e) {
                     Ui.doneNumberEmptyError();
                 } catch (NumberFormatException e) {
@@ -125,9 +118,7 @@ public class Parser {
                     File f = new File("dukesave.txt");
 
                     for (int i = 0; i < TaskList.todoListArraySize(); i++) {
-//                        fw.write("        " + "[" + Ui.mark[i] + "]" + TaskList.getTaskList(i) + System.lineSeparator());
                         fw.write("        " + "[" + Ui.mark.get(i) + "]" + TaskList.getTaskList(i) + System.lineSeparator());
-
                     }
                     System.out.println("File save successfully");
                     fw.close();
@@ -147,9 +138,7 @@ public class Parser {
                 task_words = task_words.trim();
                 for (listPrintFind = 0; listPrintFind < count_todo_find; listPrintFind++) {
                     if(TaskList.getTaskList(listPrintFind).contains(task_words)){
-//                        System.out.println("        " + listNum + ". " + "[" + Ui.mark[listPrintFind] + "]" + TaskList.getTaskList(listPrintFind));
                         System.out.println("        " + listNum + ". " + "[" + Ui.mark.get(listPrintFind) + "]" + TaskList.getTaskList(listPrintFind));
-
                     }
                     listNum++;
                 }
@@ -169,7 +158,6 @@ public class Parser {
                     for (listPrintFind = 0; listPrintFind < count_todo_find; listPrintFind++) {
                         if (TaskList.getTaskList(listPrintFind).contains(task_words)) {
 //                        System.out.println("Here are the matching schedule in your list");
-//                        System.out.println("        " + listNum + ". " + "[" + Ui.mark[listPrintFind] + "]" + TaskList.getTaskList(listPrintFind));
                             System.out.println("        " + listNum + ". " + "[" + Ui.mark.get(listPrintFind) + "]" + TaskList.getTaskList(listPrintFind));
                         }
                         listNum++;
@@ -212,14 +200,13 @@ public class Parser {
         return input;
     }
 
-    /***
+    /***Return a string where after task keywords for detect whether input from user include "/" or "bye" or others.
      *
      * @param user_input when user input event and deadline task, detect the "/" or not include " ",
      *
      * @return return the substring after task keywords.
      */
     public static String parseEventDeadlineTask (String user_input ){
-        int task_stringIndex_After_taskWord = 0;
         int indexOfMultipleItems = 0;
         String task_words ="", by_words = " ";
         task_stringIndex_After_taskWord = user_input.indexOf(" ");
@@ -228,17 +215,10 @@ public class Parser {
             int by_string = user_input.indexOf("/");
             task_words = user_input.substring(task_stringIndex_After_taskWord, by_string);
         }
-
         else if(user_input.contains("bye")){
         }
-
         else{
             task_words = user_input.substring(task_stringIndex_After_taskWord);
-//            if(task_words.contains("&")){
-//                indexOfMultipleItems = task_words.indexOf("&");
-//                System.out.println(indexOfMultipleItems);
-//                task_words.substring(1,2);
-//            }
         }
         return task_words;
     }

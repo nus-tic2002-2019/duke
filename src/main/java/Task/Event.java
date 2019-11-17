@@ -30,7 +30,6 @@ public class Event extends Task {
 
             LocalDate d1 = LocalDate.parse(atDate);
 
-//        String atTime = t1.format(DateTimeFormatter.ofPattern("HH:mm"));
             atDate = d1.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
 
             return "[E]" + super.toString() +  "(at:" + atDate + ")" ;
