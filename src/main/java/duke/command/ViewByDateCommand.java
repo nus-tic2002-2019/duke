@@ -41,6 +41,9 @@ public class ViewByDateCommand extends Command {
     private String getListByDate(TaskList tasks, LocalDate date) {
         String input = "";
         for (int i = 0; i < tasks.size(); ++i) {
+            if (tasks.get(i).getType() == "T") {
+                continue;
+            }
             if (tasks.get(i).getDate().equals(date)) {
                 input += "\t" + (i+1) + ". "+ tasks.get(i).getStatusIconAndDesc() + "\n";
             }

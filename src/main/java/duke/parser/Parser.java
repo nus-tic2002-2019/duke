@@ -42,6 +42,7 @@ public class Parser {
      * @return the duke.command based on the user input.
      */
     public static Command parse(String input) throws DukeException, DateTimeParseException {
+        checkForDelimiter(input);
         String keyword = getKeyword(input.trim());
         String parameter = "";
         String desc = "";
@@ -237,5 +238,17 @@ public class Parser {
         }
         String year = date.substring(0,4);
         return year + "-" + month + "-" + day;
+    }
+
+    /**
+     * Ensure that the users do not input any delimiter character
+     *
+     * @param input full user input string.
+     * @throws DukeException if there the delimiter character is used in input
+     */
+    private static void checkForDelimiter(String input) throws DukeException {
+        if (input.matches(".*;.*")) {
+            throw new DukeException("Please refrain from using the character \";\"");
+        }
     }
 }
