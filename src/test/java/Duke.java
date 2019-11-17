@@ -17,7 +17,6 @@ public class Duke {
     public static ArrayList<Boolean> mark = new ArrayList<>();
     public static ArrayList<LocalDate> dateS = new ArrayList<>();
 
-    //start of program
     public static void main(String[] args) throws DukeException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -35,7 +34,6 @@ public class Duke {
         }
     }
 
-    //check of the type of input, save if necessary
     public static String echo() throws DukeException {
         String userInput;
         Scanner scan = new Scanner(System.in);
@@ -46,7 +44,7 @@ public class Duke {
         if (userInput.contains("done")) {
             splitStr = userInput.split("\\s+");
             mark.set(Integer.valueOf(splitStr[1]) - 1, true);
-        } else if ((!userInput.equals("list")) && (!userInput.equals("bye")) && (!userInput.contains("find")) & (!userInput.contains("delete"))) {
+        } else if ((!userInput.equals("list")) && (!userInput.equals("bye")) && (!userInput.contains("find"))) {
             String typeS = getType(userInput);
             LocalDate dateL =LocalDate.now();//LocalDate.parse("0000-00-00");
 
@@ -59,13 +57,13 @@ public class Duke {
                 throw new DukeException();
             } else {
                 if (typeS == "E" || typeS == "D") {
-                    assert userInput.contains("/") : "Event and deadline should include /by followed by a date";
                     splitStr = userInput.split("/");
                     String[] splitStr2 = splitStr[1].split(" ");
-                    System.out.println(splitStr2.length);
-                    //assert splitStr2.length < 2 : "Event and deadline should include a date(yyyy-mm-dd)";
-                    //assert splitStr2.length > 2 : "Event and deadline only support up to date";
                     dateL = LocalDate.parse(splitStr2[1]);
+                /*    LocalDateTime datetime = LocalDateTime.parse("2019-11-17 1800");
+                    System.out.println(datetime);//splitStr2[1] + " " + splitStr2[2]
+                    System.out.println(datetime.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm")));
+                    System.out.println(datetime.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a")));*/
                     userInput = splitStr[0] + "(" + splitStr2[0];
                 }
 
@@ -78,7 +76,6 @@ public class Duke {
         return userInput;
     }
 
-    //printout result
     public static boolean printout(String userInput) throws DukeException {
         if (userInput.equals("bye")) {
             System.out.println("Bye. Hope to see you again soon!");
@@ -134,7 +131,7 @@ public class Duke {
                     if(type.get(i).contains("E") || type.get(i).contains("D"))
                         System.out.println(num + ". [" + type.get(i) + "][" + getMark(mark.get(i)) + "] " + list.get(i) + " " + dateS.get(i).format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")");
                     else
-                        System.out.println(num  + ". [" + type.get(i) + "][" + getMark(mark.get(i)) + "] " + list.get(i));
+                        System.out.println(num + ". [" + type.get(i) + "][" + getMark(mark.get(i)) + "] " + list.get(i));
                 }
 
             }
@@ -142,21 +139,17 @@ public class Duke {
         else {
             save();
             int size = list.size() - 1;
-
-            if(type.get(size) == "E" || type.get(size) == "D") {
-                System.out.println("Got it. I've added this task: " + userInput + " " + dateS.get(size).format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")");
+            System.out.println("Got it. I've added this task: " + userInput);
+            if(type.get(size) == "E" || type.get(size) == "D")
                 System.out.println("[" + type.get(size) + "][" + getMark(mark.get(size)) + "] " + list.get(size) + " " + dateS.get(size).format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")");
-            } else {
-                System.out.println("Got it. I've added this task: " + userInput);
+            else
                 System.out.println("[" + type.get(size) + "][" + getMark(mark.get(size)) + "] " + list.get(size));
-            }
 
             System.out.println("Now you have " + type.size() + " tasks in the list.");
         }
         return true;
     }
 
-    //return marker
     public static String getMark(boolean result) {
 
         if (result == true)
@@ -165,7 +158,6 @@ public class Duke {
             return "X";
     }
 
-    //return type of input
     public static String getType(String type) throws DukeException {
 
         if (type.contains("todo"))
@@ -180,7 +172,6 @@ public class Duke {
         }
     }
 
-    //save record(s)
     public static void save() throws DukeException {
 
         try {
@@ -201,7 +192,6 @@ public class Duke {
         }
     }
 
-    //load record(s)
     public static void load() throws DukeException {
 
         try {
