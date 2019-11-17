@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.StringReader;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 
 public class TaskList {
     protected static ArrayList<Task> taskList;
 
-    public TaskList(String input) throws IOException {
+    public TaskList(String input) throws IOException, DateTimeParseException {
         this.taskList = new ArrayList();
         BufferedReader reader = new BufferedReader(new StringReader(input));
         String line = null;
@@ -17,9 +20,9 @@ public class TaskList {
             if ("T".equals(delimited[1])) {
                 taskList.add(new ToDo(delimited[3]));
             } else if ("E".equals(delimited[1])) {
-                taskList.add(new Event(delimited[3], delimited[4]));
+                taskList.add(new Event(delimited[3], LocalDate.parse(delimited[4])));
             } else if ("D".equals(delimited[1])) {
-                taskList.add(new Deadline(delimited[3], delimited[4]));
+                taskList.add(new Deadline(delimited[3], LocalDate.parse(delimited[4])));
             }
             taskList.get(taskList.size() - 1).setStatus(Boolean.parseBoolean(delimited[2]));
         }

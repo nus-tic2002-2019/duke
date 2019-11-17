@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.time.LocalDate;
+
 public class Task {
     protected String desc;
     protected boolean isDone;
@@ -41,5 +43,9 @@ public class Task {
 
     public String getType() {
         return this.type;
+    }
+
+    public LocalDate getDate() {
+        return null;
     }
 }

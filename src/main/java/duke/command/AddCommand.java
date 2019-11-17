@@ -10,13 +10,14 @@ import duke.storage.Storage;
 import duke.others.Utility;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class AddCommand extends Command {
     protected String type;
     protected String desc;
-    protected String date;
+    protected LocalDate date;
 
-    public AddCommand(String type, String desc, String date) {
+    public AddCommand(String type, String desc, LocalDate date) {
         this.type = type;
         this.desc = desc;
         this.date = date;

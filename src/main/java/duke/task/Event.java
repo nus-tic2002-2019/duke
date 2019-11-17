@@ -1,18 +1,27 @@
 package duke.task;
 
-public class Event extends Task {
-    protected String date;
+import duke.others.DateFormat;
 
-    public Event(String desc, String date) {
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+public class Event extends Task {
+    protected LocalDate date;
+
+    public Event(String desc, LocalDate date) {
         super(desc, "E");
         this.date = date;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return this.date;
     }
 
+    public String getFormattedDate() {
+        return this.date.format(DateTimeFormatter.ofPattern(DateFormat.EVENT_AND_DEADLINE));
+    }
+
     public String getStatusIconAndDesc() {
-        return "[" + this.type + "][" + this.getStatusIcon() + "] " + this.desc + " (at: " + this.date + ")";
+        return "[" + this.type + "][" + this.getStatusIcon() + "] " + this.desc + " (at: " + getFormattedDate() + ")";
     }
 }
