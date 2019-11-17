@@ -1,10 +1,33 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.io.FileWriter;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import duke.ui.ui;
+import duke.storage.storage;
+import duke.tasklist.tasklist;
+import duke.parser.parser;
+
+public class Duke {
+    private static ui ui;
+    private static storage storage;
+    private static parser parser;
+    private static tasklist tasklist;
+
+    public Duke() {
+        ui = new ui();
+        parser = new parser();
+        ui.welcome();
+        Scanner input = new Scanner(System.in);
+        String rawInput = "";
+        while ( !rawInput.equals("bye") ) {
+            rawInput = input.nextLine();
+            parser.rawParser(rawInput);
+        }
+    }
+
+    public static void main(String[] args) {
+        new Duke();
+    }
+}
+
+/*
 public class Duke {
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -184,7 +207,7 @@ public class Duke {
                             formattingLine1);
                     break;
                 case "need":
-                    TasksList.add("[D][" + "\u2718" + "]" + filteredInputText + " (by: " + inputdateFormat.format(ldInputDate) + ")");
+                    TasksList.add("[N][" + "\u2718" + "]" + filteredInputText + " (need: " + filteredInputTime + ")");
                     System.out.println(formattingLine1 +
                             "Got it. I've added this need:\n" + "[D][" + "\u2718" + "]" + filteredInputText + " (need: " + filteredInputTime + ")" +"\n" +
                             "Now you have " + TasksList.size() + " tasks in the list.\n" +
@@ -223,3 +246,4 @@ public class Duke {
         System.out.println(formattingLine1 + "Bye. Hope to see you again soon!\n" + formattingLine2);
     }
 }
+*/
