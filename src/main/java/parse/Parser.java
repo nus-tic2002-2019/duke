@@ -27,32 +27,36 @@ public class Parser {
     }
 
     public static LocalDateTime getEndTime (String text) {
+        String tillTimeText = text.substring(text.lastIndexOf("-") + 1);
         String atText = Parser.getStartTimeText(text);
         String datetime[] = atText.split(" ");
-        String tillText = datetime[0].split(" ")[0] + " " + datetime[1];
+        String tillText = datetime[0].split(" ")[0] + " " + tillTimeText;
+
         LocalDateTime till = Parser.getDateTime(tillText);
         return till;
     }
 
     public static LocalDateTime getDateTime (String timeText) throws DateTimeParseException {
-        LocalDateTime datetime;
+        LocalDateTime datetime = null;
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd H");
             datetime = LocalDateTime.parse(timeText, formatter);
         } catch (DateTimeParseException e) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm");
             datetime = LocalDateTime.parse(timeText, formatter);
+        } catch (DateTimeException e) {
+            //ui.dateTimeErrMessage();
         }
         return datetime;
     }
 
     public static LocalDate getDate (String dateText) throws DateTimeException {
-        LocalDate dueDate = LocalDate.now();
+        LocalDate dueDate = null;
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             dueDate = LocalDate.parse(dateText, formatter);
         } catch (DateTimeException e) {
-            ui.dateTimeMessage();
+            //ui.dateErrMessage();
         }
         return dueDate;
     }
@@ -99,7 +103,7 @@ public class Parser {
             line = "E" + " | " + completion
                        + " | " + event.getContent()
                        + " | " + event.getStartTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
-                       + "-" + event.getStartTime().format(DateTimeFormatter.ofPattern("HH:mm"));
+                       + "-" + event.getEndTime().format(DateTimeFormatter.ofPattern("HH:mm"));
         }
         return line;
     }

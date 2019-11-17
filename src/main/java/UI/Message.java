@@ -87,8 +87,11 @@ public class Message {
         System.out.println("\t☹ OOPS!!! Error occurred to get the file :-(");
     }
 
-    public void dateTimeMessage () {
+    public void dateErrMessage () {
         System.out.println("\t☹ OOPS!!! Please input a date in format as \" yyyy-mm-dd \" ");
+    }
+    public void dateTimeErrMessage () {
+        System.out.println("\t☹ OOPS!!! Please input a time in format as \" yyyy-mm-dd time-time (24h)\" ");
     }
 
     public void existingUser (String username) {

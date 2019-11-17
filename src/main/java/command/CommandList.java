@@ -1,6 +1,7 @@
 package command;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.time.*;
 import error_handling.*;
@@ -67,6 +68,8 @@ public class CommandList {
                     ui.dlInvalidFormatMessage();
                 } catch (IOException e) {
                     ui.errorFileMessage();
+                } catch (DateTimeException e) {
+                    //ui.dateErrMessage();
                 }
             }
         } );
@@ -81,6 +84,8 @@ public class CommandList {
                     ui.evInvalidFormatMessage();
                 } catch (IOException e) {
                     ui.errorFileMessage();
+                } catch (DateTimeException e) {
+                    //ui.dateTimeErrMessage();
                 }
             }
         } );
@@ -163,7 +168,7 @@ public class CommandList {
         ui.addTaskMessage(list.get(index), list.get(0).getTotalTask());
     }
 
-    private void cmdDeadline(String content, TempTaskList list) throws NullContentException, InvalidCommandException {
+    private void cmdDeadline(String content, TempTaskList list) throws NullContentException, InvalidCommandException, DateTimeException {
         //String content = removeKeyword(userInput);
         if (content == null) {
             throw new NullContentException();
@@ -172,7 +177,11 @@ public class CommandList {
             throw new InvalidCommandException();
         }
         String[] parts = content.split(" /by ");
+
         LocalDate by = Parser.getDate(parts[1]);
+        if (by == null) {
+            throw new DateTimeException("\t☹ OOPS!!! Please input a date in format as \" yyyy-mm-dd \" ");
+        }
 
         list.add(new Deadline(parts[0], by));
         int index = list.get(0).getTotalTask() - 1;
@@ -180,7 +189,7 @@ public class CommandList {
         ui.addTaskMessage(list.get(index), list.get(0).getTotalTask());
     }
 
-    private void cmdEvent(String content, TempTaskList list) throws NullContentException, InvalidCommandException {
+    private void cmdEvent(String content, TempTaskList list) throws NullContentException, InvalidCommandException, DateTimeException {
         //String content = removeKeyword(userInput);
         if (content == null) {
             throw new NullContentException();
@@ -191,7 +200,11 @@ public class CommandList {
         String[] parts = content.split(" /at ");
 
         LocalDateTime at = Parser.getStartTime(parts[1]);
-        LocalDateTime till = Parser.getStartTime(parts[1]);
+        LocalDateTime till = Parser.getEndTime(parts[1]);
+
+        if (at == null || till == null) {
+            throw new DateTimeException("\"\\t☹ OOPS!!! Please input a time in format as \" yyyy-mm-dd time-time (24h) \"");
+        }
 
         list.add(new Event(parts[0], at, till));
         int index = list.get(0).getTotalTask() - 1;
