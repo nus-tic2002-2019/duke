@@ -8,7 +8,7 @@ import java.time.format.DateTimeParseException;
 
 public class Parser {
     /***
-     * to parse command into dukeapp
+     * to parse commands into dukeapp
      * @param input
      * @param ui
      * @param line
@@ -52,7 +52,7 @@ public class Parser {
                     String[] repeatChunk = splitBy[1].split("/repeat");
                     if (repeatChunk.length == 1) {
                         if (replaceString.contains("/repeat")) {
-                            throw new EmptyDescriptionException("Oops. Please place the amount of days between each repeated event. e.g. /repeat");
+                            throw new EmptyDescriptionException("Oops. Please place the amount of days between each repeated event. e.g. /repeat 7");
                         }
                         line.newDeadlineTask(splitBy[0], false, splitBy[1]);
                         ui.printDeadline(line, line.getCount() - 1);
@@ -60,7 +60,7 @@ public class Parser {
                     } else {
                         String[] timesChunk = repeatChunk[1].split("/times");
                         if (timesChunk.length == 1) {
-                            throw new EmptyDescriptionException("Oops. Please place number of times event is to be repeated. e.g. /times");
+                            throw new EmptyDescriptionException("Oops. Please place number of times event is to be repeated. e.g. /times 7");
                         }
                         String daysString = timesChunk[0].trim();
                         int days = Integer.parseInt(daysString); // get number of days
@@ -81,7 +81,7 @@ public class Parser {
                     if(arrOfString.length < 2) {
                         throw new EmptyDescriptionException("Oops. The description of a event cannot be empty");
                     }
-                    String replaceString = input.replace("event", "");
+                    String replaceString = input.replace("event ", "");
                     String [] splitAt = replaceString.split(" /at ");
                     if(splitAt.length < 2) {
                         throw new EmptyDescriptionException("Oops. The date of a event cannot be empty");
@@ -89,7 +89,7 @@ public class Parser {
                     String[] repeatChunk = splitAt[1].split("/repeat");
                     if (repeatChunk.length == 1) {
                         if (replaceString.contains("/repeat")) {
-                            throw new EmptyDescriptionException("Oops. Please place the amount of days between each repeated event. e.g. /repeat");
+                            throw new EmptyDescriptionException("Oops. Please place the amount of days between each repeated event. e.g. /repeat 7");
                         }
                         line.newEventTask(splitAt[0], false, splitAt[1]);
                         ui.printEvent(line, line.getCount() - 1);
@@ -97,7 +97,7 @@ public class Parser {
                     } else {
                         String[] timesChunk = repeatChunk[1].split("/times");
                         if (timesChunk.length == 1) {
-                            throw new EmptyDescriptionException("Oops. Please place number of times event is to be repeated. e.g. /times");
+                            throw new EmptyDescriptionException("Oops. Please place number of times event is to be repeated. e.g. /times 7");
                         }
                         String daysString = timesChunk[0].trim();
                         int days = Integer.parseInt(daysString); // get number of days

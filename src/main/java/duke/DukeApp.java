@@ -9,7 +9,7 @@ public class DukeApp {
     }
 
     /***
-     * to run the application
+     * to run the application by calling the parser, UI and storage classes
      */
     public void run() {
         ui.printWelcomeMessage();

@@ -8,18 +8,20 @@ public class Task implements Serializable {
     protected String taskName;
     protected boolean taskDone;
 
+    /***
+     * constructor of Task class
+     * @param taskName
+     * @param taskDone
+     */
     public Task (String taskName, boolean taskDone)
     {
         this.taskName = taskName;
         this.taskDone = taskDone;
     }
 
-    public Task (String taskName, boolean taskDone, String frequency)
-    {
-        this.taskName = taskName;
-        this.taskDone = taskDone;
-    }
-
+    /***
+     * deaful constructor
+     */
     public Task() {
 
     }

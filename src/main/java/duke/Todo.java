@@ -6,8 +6,8 @@ import java.io.IOException;
 public class Todo extends Task {
     /***
      * overloaded constructor from task name and task done
-     * @param taskName
-     * @param taskDone
+     * @param taskName name of the task
+     * @param taskDone whether the task is done
      */
     public Todo (String taskName, boolean taskDone) {
         super(taskName, taskDone); // calls the parent constructor

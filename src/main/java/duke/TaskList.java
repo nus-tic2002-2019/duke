@@ -18,21 +18,19 @@ public class TaskList implements Serializable{
         return count;
     }
 
-    public Task get(int index)
-    {
+    public Task get(int index) {
         return line.get(index);
     }
 
-    public void add(Task t)
-    {
+    public void add(Task t) {
         line.add(t);
         count++;
     }
 
     /***
      * create new task
-     * @param x
-     * @param done
+     * @param x task name
+     * @param done whether task is done
      */
     public void newTodoTask(String x, boolean done) {
         Todo t = new Todo(x, done);
@@ -42,15 +40,22 @@ public class TaskList implements Serializable{
 
     /***
      * create new deadline task
-     * @param name
-     * @param done
-     * @param by
+     * @param name name of the task
+     * @param done whether the task is done
+     * @param by date and time of deadline task
      */
     public void newDeadlineTask(String name, boolean done, String by) {
         Deadline d = new Deadline(name, false, by);
         line.add(d);
         count++;
     }
+
+    /***
+     *
+     * @param name name of the task
+     * @param done whether the task is done
+     * @param date date and time of deadline task in LocalDateTime format
+     */
     public void newDeadlineTask(String name, boolean done, LocalDateTime date) {
         Deadline d = new Deadline(name, false, date);
         line.add(d);
@@ -58,15 +63,21 @@ public class TaskList implements Serializable{
     }
     /***
      * create new event task
-     * @param name
-     * @param done
-     * @param at
+     * @param name name of the task
+     * @param done whether the task is done
+     * @param at date and time of event task
      */
     public void newEventTask(String name, boolean done, String at) {
         Event e = new Event(name, false, at);
         line.add(e);
         count ++;
     }
+
+    /***
+     * @param name name of the task
+     * @param done whether the task is done
+     * @param date date and time of event task using LocalDateTime format
+     */
     public void newEventTask(String name, boolean done, LocalDateTime date) {
         Event e = new Event(name, false, date);
         line.add(e);
@@ -87,6 +98,11 @@ public class TaskList implements Serializable{
 
     }
 
+    /***
+     * method to find keyword in task list
+     * @param keyword keyword to be searched through the whole task list
+     * @return all tasks containing the keyword
+     */
     public TaskList find(String keyword) {
         System.out.println(keyword);
         TaskList results = new TaskList();

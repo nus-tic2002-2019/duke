@@ -12,6 +12,13 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Task{
         protected LocalDateTime at;
+
+    /***
+     * constructor to create event task
+     * @param taskName name of the task
+     * @param taskDone whether the task is done
+     * @param at date and time of event
+     */
         public Event (String taskName, boolean taskDone, String at) {
             super(taskName, taskDone); // calls the parent constructor
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d hh:mma");
@@ -20,6 +27,13 @@ public class Event extends Task{
             assert this.at.compareTo(LocalDateTime.now()) > 0 : "Cannot put event in the past";
 
         }
+
+    /***
+     * constructor to create event task with date in LocalDateTime format being parsed in
+     * @param taskName name of the task
+     * @param taskDone whether the task is done
+     * @param date date and time of event task in LocalDateTime format
+     */
     public Event (String taskName, boolean taskDone, LocalDateTime date) {
         super(taskName, taskDone); // calls the parent constructor
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d hh:mma");

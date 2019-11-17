@@ -12,6 +12,13 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task{
     protected LocalDateTime by;
+
+    /***
+     * constructor with by string
+     * @param taskName name of the task
+     * @param taskDone whether the task is done
+     * @param by date and time of deadline task
+     */
     public Deadline (String taskName, boolean taskDone, String by) {
         super(taskName, taskDone); // calls the parent constructor
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d hh:mma");
@@ -19,6 +26,13 @@ public class Deadline extends Task{
         //to ensure that the event date is in the future
         assert this.by.compareTo(LocalDateTime.now()) > 0 : "Cannot put deadline in the past";
     }
+
+    /***
+     * constructor using LocalDateTime to parse in date
+     * @param taskName name of the task
+     * @param taskDone whether the task is done
+     * @param date date and time of deadline task in LocalDateTime format
+     */
     public Deadline (String taskName, boolean taskDone, LocalDateTime date) {
         super(taskName, taskDone); // calls the parent constructor
         by = date;
