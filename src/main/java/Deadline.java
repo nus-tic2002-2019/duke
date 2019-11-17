@@ -1,13 +1,13 @@
 public class Deadline extends Task {
-    //Declare variables
-    protected String deadlineByString;
-
     //Declare constant variables
     protected final String STRING_BY = "by";
     protected final char CHAR_SEPARATOR = '/';
 
     //Store keywords' number of characters
     protected int byStrLen = STRING_BY.length();
+
+    //Declare variables
+    protected String deadlineByString;
 
     //Constructor
     public Deadline(String taskDescription) {

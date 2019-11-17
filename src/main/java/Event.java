@@ -1,13 +1,13 @@
 public class Event extends Task {
-    //Declare variables
-    protected String eventAtString;
-
     //Declare constant variables
     protected final String STRING_AT = "at";
     protected final char CHAR_SEPARATOR = '/';
 
     //Store keywords' number of characters
     protected int atStrLen = STRING_AT.length();
+
+    //Declare variables
+    protected String eventAtString;
 
     //Constructor
     public Event(String taskDescription) {

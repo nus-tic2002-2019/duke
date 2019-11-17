@@ -1,9 +1,4 @@
 public abstract class Task {
-    //Declare variables
-    protected String taskDescription;
-    protected boolean isDone;
-    protected char typeIdt;
-
     //Declare constant variables
     protected static final char CHAR_TODO = 'T';
     protected static final char CHAR_DEADLINE = 'D';
@@ -12,6 +7,11 @@ public abstract class Task {
     private static final String CHAR_FALSE = "0";
     private static final String CHAR_TRUE = "1";
 
+    //Declare variables
+    protected String taskDescription;
+    protected boolean isDone;
+    protected char typeIdt;
+
     //Constructor
     public Task(String taskDescription) {
         this.taskDescription = taskDescription;
@@ -19,16 +19,8 @@ public abstract class Task {
     }
 
     //Getter
-    public String getTaskDescription() {
-        return taskDescription;
-    }
-
     public String getStatusIcon() {
         return (isDone ? "\u2713" : "\u2718");
-    }
-
-    public char getTypeIdentification() {
-        return typeIdt;
     }
 
     public String printToFile() {
