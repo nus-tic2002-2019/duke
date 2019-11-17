@@ -10,7 +10,7 @@ import duke.UI.*;
 
 public class Parser {
 
-    private static Message ui = new Message();
+    //private static Message ui = new Message();
 
     public Parser () {
     }

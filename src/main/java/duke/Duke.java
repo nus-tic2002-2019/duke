@@ -15,7 +15,7 @@ public class Duke {
     private TempTaskList list;
     private CommandList keywords;
 
-    public Duke() throws Exception{
+    public Duke() {
         ui = new Message();
         list = new TempTaskList();
 

@@ -16,7 +16,11 @@ public class CommandList {
     private Message ui;
 
     /**
-     *
+     * HashMap Stores all the keywords and their respective function
+     * Upon matching Key with correct format (Exception handles the rest, calling Message ui)
+     * Value is Lambda expression method will run automatically
+     * Values are all <Command()> Interface with run() method
+     * Updating the TempTaskList first if necessary and then write to the text file storage
      *
      * @param list
      * @param file
@@ -113,33 +117,6 @@ public class CommandList {
         } );
     }
 
-    public Command get(String keyword) {
-        return keywords.get(keyword);
-    }
-
-    public boolean containsKey(String keyword) {
-        return keywords.containsKey(keyword);
-    }
-
-    public void  add(String keyword, Command method) {
-        keywords.put(keyword, method);
-    }
-    public Command delete(String keyword) {
-        return keywords.remove(keyword);
-    }
-
-    public String[] splitKeyword(String userInput) throws DukeException {
-        //duke.command: list
-
-        userInput = userInput.trim();
-        String[] parts = userInput.split(" ", 2);
-        parts[0] = parts[0].toLowerCase().trim();
-        if (parts.length != 1) {
-            parts[1] = parts[1].trim();
-        }
-
-        return parts;
-    }
     private void cmdFind(String tofind, TempTaskList list) {
         ArrayList<Task> find = new ArrayList<Task>();
         ArrayList<Integer> no = new ArrayList<Integer>();
@@ -153,6 +130,19 @@ public class CommandList {
         ui.findMessage(no, find);
     }
 
+    /**
+     * This method will be called when keyword "done" is matched
+     * It sets the status of a given task (by task no.) to completed (true)
+     * It also catches many Exception to show error msg
+     * such as the String followed bt "done":
+     * is not an valid task number
+     * is not number at all
+     * the task is already completed
+     * Lastly it call function to print the message which task is done
+     * @param content
+     * @param list
+     * @throws Exception
+     */
     private void cmdMarkDone(String content, TempTaskList list) throws Exception {
         try {
             int listIndex = Integer.parseInt(content) - 1;
@@ -215,8 +205,8 @@ public class CommandList {
         }
 
         list.add(new Todo(content));
-        int index = list.get(0).getTotalTask() - 1;
-        ui.addTaskMessage(list.get(index), list.get(0).getTotalTask());
+        int index = list.size() - 1;
+        ui.addTaskMessage(list.get(index), list.size());
     }
 
     private void cmdDeadline(String content, TempTaskList list) throws NullContentException, InvalidCommandException, DateTimeException {
@@ -235,9 +225,9 @@ public class CommandList {
         }
 
         list.add(new Deadline(parts[0], by));
-        int index = list.get(0).getTotalTask() - 1;
+        int index = list.size() - 1;
 
-        ui.addTaskMessage(list.get(index), list.get(0).getTotalTask());
+        ui.addTaskMessage(list.get(index), list.size());
     }
 
     private void cmdEvent(String content, TempTaskList list) throws NullContentException, InvalidCommandException, DateTimeException {
@@ -258,13 +248,42 @@ public class CommandList {
         }
 
         list.add(new Event(parts[0], at, till));
-        int index = list.get(0).getTotalTask() - 1;
+        int index = list.size() - 1;
 
-        ui.addTaskMessage(list.get(index), list.get(0).getTotalTask());
+        ui.addTaskMessage(list.get(index), list.size());
     }
 
     private void printMarkDone(TempTaskList list, int listIndex) {
         ui.markDoneMessage(list.get(listIndex));
+    }
+
+
+    public Command get(String keyword) {
+        return keywords.get(keyword);
+    }
+
+    public boolean containsKey(String keyword) {
+        return keywords.containsKey(keyword);
+    }
+
+    public void  add(String keyword, Command method) {
+        keywords.put(keyword, method);
+    }
+    public Command delete(String keyword) {
+        return keywords.remove(keyword);
+    }
+
+    public String[] splitKeyword(String userInput) throws DukeException {
+        //duke.command: list
+
+        userInput = userInput.trim();
+        String[] parts = userInput.split(" ", 2);
+        parts[0] = parts[0].toLowerCase().trim();
+        if (parts.length != 1) {
+            parts[1] = parts[1].trim();
+        }
+
+        return parts;
     }
 
 }
