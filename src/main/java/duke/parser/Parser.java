@@ -1,14 +1,6 @@
 package duke.parser;
 
-import duke.command.Command;
-import duke.command.AddCommand;
-import duke.command.DeleteCommand;
-import duke.command.DoneCommand;
-import duke.command.ExitCommand;
-import duke.command.UnknownCommand;
-import duke.command.ViewAllCommand;
-import duke.command.ViewByDateCommand;
-import duke.command.ViewByStatusCommand;
+import duke.command.*;
 import duke.others.DukeException;
 import duke.others.Utility;
 import duke.others.DateFormat;
@@ -30,6 +22,7 @@ public class Parser {
     public static final String KEYWORD_LIST = Keyword.VIEW_ALL;
     public static final String KEYWORD_PENDING_1 = Keyword.VIEW_BY_STATUS_1;
     public static final String KEYWORD_PENDING_2 = Keyword.VIEW_BY_STATUS_2;
+    public static final String KEYWORD_FIND = Keyword.FIND;
     public static final String ERR_NOT_A_INT = "Please enter an integer";
 
 
@@ -63,6 +56,12 @@ public class Parser {
             case(KEYWORD_LIST_DATE):
                 date = getCleanDateStr(input);
                 return new ViewByDateCommand(LocalDate.parse(date));
+            case(KEYWORD_FIND):
+                parameter = removeKeyword(input, KEYWORD_FIND).trim();
+                if (parameter.length() == 0) {
+                    throw new DukeException("Please enter a parameter after \"find\"");
+                }
+                return new FindCommand(parameter);
             case(KEYWORD_DONE):
                 parameter = removeKeyword(input, KEYWORD_DONE);
                 if (Utility.isNumber(parameter)) {
@@ -117,6 +116,9 @@ public class Parser {
         }
         else if (input.matches(KEYWORD_LIST_DATE + ".*")) {
             return KEYWORD_LIST_DATE;
+        }
+        else if (input.matches(KEYWORD_FIND + ".*")) {
+            return KEYWORD_FIND;
         }
         return input;
     }

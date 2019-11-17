@@ -19,6 +19,7 @@ import java.util.Scanner;
 public class Storage {
     protected String path;
     protected String data;
+    protected boolean isEmpty;
 
     /**
      * The file used to store task list data.
@@ -28,6 +29,7 @@ public class Storage {
     public Storage(String filePath) {
         this.path = filePath;
         this.data = "";
+        this.isEmpty = false;
     }
 
     /**
@@ -42,6 +44,9 @@ public class Storage {
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
             this.data = this.data + s.nextLine() + System.lineSeparator();
+        }
+        if (this.data.length() > 0) {
+            this.isEmpty = true;
         }
         return this.data;
     }
@@ -71,8 +76,7 @@ public class Storage {
      */
     public void append(String textToAppend) throws IOException {
         FileWriter fw = new FileWriter(this.path, true);
-        fw.write(System.lineSeparator());
-        fw.write(textToAppend);
+        fw.write(textToAppend + System.lineSeparator());
         fw.close();
     }
 
