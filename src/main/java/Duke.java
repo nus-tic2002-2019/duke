@@ -90,15 +90,15 @@ public class Duke {
      * @param line the command that user input
      */
     static void done(String line){
-                        try {
-                            listEmpty(taskList);
-                            String theStr = line.substring(5);
-                            String[] strArr = theStr.split(",");
-                            if (strArr[0].equals("all")){
-                                for (int i = 0; i < taskList.size(); i++) {
-                                    Task tasks = taskList.get(i);
-                                    tasks.markAsDone();
-                }
+        try {
+            listEmpty(taskList);
+            String theStr = line.substring(5);
+            String[] strArr = theStr.split(",");
+            if (strArr[0].equals("all")) {
+                for (int i = 0; i < taskList.size(); i++) {
+                    Task tasks = taskList.get(i);
+                    tasks.markAsDone();
+            }
                 UI.printOutput((taskList));
             }else {
                 int[] intArr = new int[strArr.length];
@@ -189,7 +189,7 @@ public class Duke {
                 UI.printNumberOfTasks(taskList);
                 UI.printLine();
             }
-        }else if (line.charAt(0) == 'd'){
+        } else if (line.charAt(0) == 'd'){
             //e.g deadline duke /by 12 oct 2019
             if (line.contains("/by")) {
                 //str[1] to get date - 12 oct 2019
@@ -212,7 +212,7 @@ public class Duke {
                     UI.printParseException();
                 }
 
-            }else {
+            } else {
                 //e.g deadline duke
                 String taskDescription = line.substring(9);
                 Task deadline = new Deadline(taskDescription, "Date not specified");
@@ -233,35 +233,35 @@ public class Duke {
      * @param line the command that user input
      */
     static void deleteTask(String line) {
-            try {
+        try {
             listEmpty(taskList);
             String theStr = line.substring(7);
             String[] strArr = theStr.split(",");
-            if (strArr[0].equals("all")){
+            if (strArr[0].equals("all")) {
                 UI.printOutput((taskList));
                 taskList.clear();
                 UI.printNumberOfTasks(taskList);
-            }else {
-                int[] intArr = new int[strArr.length];
+            } else {
+            int[] intArr = new int[strArr.length];
 
-                assert intArr != null && intArr.length > 0 : "List variable is null or empty";
-                for (int i = 0; i < strArr.length; i++) {
-                    String num = strArr[i];
-                    intArr[i] = Integer.parseInt(num);
-                    indexOutOfRange(taskList.size(), intArr[i]);
-                }
+            assert intArr != null && intArr.length > 0 : "List variable is null or empty";
+            for (int i = 0; i < strArr.length; i++) {
+                String num = strArr[i];
+                intArr[i] = Integer.parseInt(num);
+                indexOutOfRange(taskList.size(), intArr[i]);
+            }
 
-                UI.printLine();
-                UI.printRemoveTask();
+            UI.printLine();
+            UI.printRemoveTask();
 
-                for (int i = 0; i < intArr.length; i++) {
-                    Task tasks = taskList.get(intArr[i] - (i + 1));
-                    UI.printInLine(" " + tasks.toString());
-                    taskList.remove(intArr[i] - (i + 1));
-                }
+            for (int i = 0; i < intArr.length; i++) {
+                Task tasks = taskList.get(intArr[i] - (i + 1));
+                UI.printInLine(" " + tasks.toString());
+                taskList.remove(intArr[i] - (i + 1));
+            }
 
-                UI.printNumberOfTasks(taskList);
-                UI.printLine();
+            UI.printNumberOfTasks(taskList);
+            UI.printLine();
             }
         } catch (NumberFormatException e) {
             UI.printNumberFormatException();
@@ -298,88 +298,82 @@ public class Duke {
     static void searchDate(String line) throws ParseException {
         ArrayList<Task> foundTasks = new ArrayList<>();
         String[] str;
-                try {
-                    listEmpty(taskList);
-                    containsWordSearch(line);
-                    //e.g find EVENT on 12 oct 2019
-                    if (line.contains("on")) {
-                        str = line.split(" on ", 2);
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
-                        //Format string "12 oct 2019" to date
-                        Date date = dateFormat.parse(str[1]);
-                        //Get task type e.g event
-                        String taskType = str[0].substring(5).toLowerCase();
+        try {
+            listEmpty(taskList);
+            containsWordSearch(line);
+            //e.g find EVENT on 12 oct 2019
+            if (line.contains("on")) {
+                str = line.split(" on ", 2);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+                //Format string "12 oct 2019" to date
+                Date date = dateFormat.parse(str[1]);
+                //Get task type e.g event
+                String taskType = str[0].substring(5).toLowerCase();
 
-                        assert taskList != null && taskList.size() > 0 : "List variable is null or empty";
-                        //Loop taskList to check conditions for findDate
-                        for (int i = 0; i < taskList.size(); i++) {
-                            if (taskList.get(i).findDate(date, taskType)) {
-                                foundTasks.add(taskList.get(i));
-                            }
-                        }
+                assert taskList != null && taskList.size() > 0 : "List variable is null or empty";
+                //Loop taskList to check conditions for findDate
+                for (int i = 0; i < taskList.size(); i++) {
+                    if (taskList.get(i).findDate(date, taskType)) {
+                        foundTasks.add(taskList.get(i));
                     }
-
-                    //e.g find EVENT from 12 oct 2019
-                    if (line.contains("from")) {
-                        str = line.split(" from ", 2);
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
-                        //Format string "12 oct 2019" to date
-                        Date date = dateFormat.parse(str[1]);
-                        String taskType = str[0].substring(5).toLowerCase();
-
-                        assert taskList != null && taskList.size() > 0 : "List variable is null or empty";
-                        //Loop taskList to check conditions for findFromDateRange
-                        for (int i = 0; i < taskList.size(); i++) {
-                            if (taskList.get(i).findFromDateRange(date, taskType)) {
-                                foundTasks.add(taskList.get(i));
-                            }
-                        }
-                    }
-
-                    //e.g find EVENT between 12 oct 2019 to 16 oct 2019
-                    if (line.contains("between") && line.contains("to")) {
-                        str = line.split(" between ", 2);
-                        //From: dateRange[0], To: dateRange[1]
-                        String[] dateRange = str[1].split(" to ", 2);
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
-                        //Format string "12 oct 2019" to date
-                        Date date1 = dateFormat.parse(dateRange[0]);
-                        Date date2 = dateFormat.parse(dateRange[1]);
-                        String taskType = str[0].substring(5).toLowerCase();
-
-                        assert taskList != null && taskList.size() > 0 : "List variable is null or empty";
-                        //Loop taskList to check conditions for findBetweenDateRange
-                        for (int i = 0; i < taskList.size(); i++) {
-                            if (taskList.get(i).findBetweenDateRange(date1, date2, taskType)) {
-                                foundTasks.add(taskList.get(i));
-                            }
-                        }
-                    }
-
-                    //e.g find all EVENTS
-                    if (line.contains("all")) {
-                        str = line.split(" ", 3);
-                        //e.g "events"
-                        String type = str[2].toLowerCase();
-
-                        assert taskList != null && taskList.size() > 0 : "List variable is null or empty";
-                        //Loop taskList to check conditions for taskType
-                        for (int i = 0; i < taskList.size(); i++) {
-                            if (taskList.get(i).taskType(type)) {
-                                foundTasks.add(taskList.get(i));
-                            }
-                        }
-                    }
-                    if (foundTasks.isEmpty()){
-                        UI.printTaskNotFound();
-                    }else {
-                        UI.printOutput((foundTasks));
-                    }
-                } catch (StringFormatException e) {
-                    UI.printStringFormatException();
-                } catch (ListEmptyException e) {
-                   UI.printListEmpty();
                 }
+                //e.g find EVENT from 12 oct 2019
+            } else if (line.contains("from")) {
+                str = line.split(" from ", 2);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+                //Format string "12 oct 2019" to date
+                Date date = dateFormat.parse(str[1]);
+                String taskType = str[0].substring(5).toLowerCase();
+
+                assert taskList != null && taskList.size() > 0 : "List variable is null or empty";
+                //Loop taskList to check conditions for findFromDateRange
+                for (int i = 0; i < taskList.size(); i++) {
+                    if (taskList.get(i).findFromDateRange(date, taskType)) {
+                        foundTasks.add(taskList.get(i));
+                    }
+                }
+                //e.g find EVENT between 12 oct 2019 to 16 oct 2019
+            } else if (line.contains("between") && line.contains("to")) {
+                str = line.split(" between ", 2);
+                //From: dateRange[0], To: dateRange[1]
+                String[] dateRange = str[1].split(" to ", 2);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+                //Format string "12 oct 2019" to date
+                Date date1 = dateFormat.parse(dateRange[0]);
+                Date date2 = dateFormat.parse(dateRange[1]);
+                String taskType = str[0].substring(5).toLowerCase();
+
+                assert taskList != null && taskList.size() > 0 : "List variable is null or empty";
+                //Loop taskList to check conditions for findBetweenDateRange
+                for (int i = 0; i < taskList.size(); i++) {
+                    if (taskList.get(i).findBetweenDateRange(date1, date2, taskType)) {
+                        foundTasks.add(taskList.get(i));
+                    }
+                }
+                //e.g find all EVENTS
+            } else if (line.contains("all")) {
+                str = line.split(" ", 3);
+                //e.g "events"
+                String type = str[2].toLowerCase();
+
+                assert taskList != null && taskList.size() > 0 : "List variable is null or empty";
+                //Loop taskList to check conditions for taskType
+                for (int i = 0; i < taskList.size(); i++) {
+                    if (taskList.get(i).taskType(type)) {
+                        foundTasks.add(taskList.get(i));
+                    }
+                }
+            }
+            if (foundTasks.isEmpty()){
+                UI.printTaskNotFound();
+            } else {
+                UI.printOutput((foundTasks));
+            }
+        } catch (StringFormatException e) {
+            UI.printStringFormatException();
+        } catch (ListEmptyException e) {
+           UI.printListEmpty();
+        }
 
     }
 

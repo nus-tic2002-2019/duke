@@ -45,7 +45,7 @@ public class Event extends Task {
 
     @Override
     public String saveFormat() {
-        return ("E " + super.saveFormat() + " | " + this.time);
+        return("E " + super.saveFormat() + " | " + this.time);
     }
 
 
@@ -60,11 +60,11 @@ public class Event extends Task {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
         if (this.time.equals("Date not specified")){
             return false;
-        }else {
+        } else {
             Date date = dateFormat.parse(this.time);
             if (dateSearch.compareTo(date) == 0 && taskType.equals("event")) {
                 return true;
-            }else {
+            } else {
                 return false;
             }
         }
@@ -81,12 +81,11 @@ public class Event extends Task {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
         if (this.time.equals("Date not specified")){
             return false;
-        }else {
+        } else {
             Date date = dateFormat.parse(this.time);
             if ((dateSearch.compareTo(date) == 0 && taskType.equals("event")) || (dateSearch.compareTo(date) < 0 && taskType.equals("event"))) {
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
         }
@@ -104,14 +103,13 @@ public class Event extends Task {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
         if (this.time.equals("Date not specified")){
             return false;
-        }else {
+        } else {
             Date date = dateFormat.parse(this.time);
             if (fromDate.compareTo(date) == 0 && taskType.equals("event") || endDate.compareTo(date) == 0 && taskType.equals("event")) {
                 return true;
-            }else if (fromDate.compareTo(date) < 0 && endDate.compareTo(date) > 0 && taskType.equals("event")){
+            } else if (fromDate.compareTo(date) < 0 && endDate.compareTo(date) > 0 && taskType.equals("event")){
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
         }

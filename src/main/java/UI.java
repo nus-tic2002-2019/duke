@@ -10,7 +10,6 @@ public class UI {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        ArrayList<Task> taskList = new ArrayList<Task>();
         System.out.print("Hello! I'm Duke\n" + "What can I do for you?\n");
     }
     public static void bye() {

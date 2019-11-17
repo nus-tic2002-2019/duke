@@ -28,24 +28,23 @@ public class Task{
 
 
     public String getStatusIcon() {
-        return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
+        return(isDone ? "\u2713" : "\u2718"); //return tick or X symbols
     }
 
-    public void markAsDone(){
+    public void markAsDone() {
         isDone = true;
         getStatusIcon();
     }
 
     public String toString() {
-        return ("[" + this.getStatusIcon() + "] " + description);
+        return("[" + this.getStatusIcon() + "] " + description);
     }
 
     public String saveFormat(){
         if (this.isDone == Boolean.parseBoolean("true")){
-            return ("| 1 | " + this.description);
-        }
-        else {
-            return ("| 0 | " + this.description);
+            return("| 1 | " + this.description);
+        } else {
+            return("| 0 | " + this.description);
         }
     }
 
@@ -85,7 +84,7 @@ public class Task{
      * @param taskType the task type of the object
      */
     public boolean taskType(String taskType){
-        if (taskType.equals("tasks")){
+        if (taskType.equals("tasks")) {
             return true;
         }
         return false;

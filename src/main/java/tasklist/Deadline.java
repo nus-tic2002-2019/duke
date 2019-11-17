@@ -41,13 +41,13 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return ("[D]" + super.toString() + " (by: " + this.time + ")");
+        return("[D]" + super.toString() + " (by: " + this.time + ")");
     }
 
 
     @Override
     public String saveFormat() {
-        return ("D " + super.saveFormat() + " | " + this.time);
+        return("D " + super.saveFormat() + " | " + this.time);
     }
 
     /****
@@ -61,11 +61,11 @@ public class Deadline extends Task {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
         if (this.time.equals("Date not specified")){
             return false;
-        }else {
+        } else {
             Date date = dateFormat.parse(this.time);
             if (dateSearch.compareTo(date) == 0 && taskType.equals("deadline")) {
                 return true;
-            }else {
+            } else {
                 return false;
             }
         }
@@ -82,12 +82,11 @@ public class Deadline extends Task {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
         if (this.time.equals("Date not specified")){
             return false;
-        }else {
+        } else {
             Date date = dateFormat.parse(this.time);
             if ((dateSearch.compareTo(date) == 0 && taskType.equals("deadline")) || (dateSearch.compareTo(date) < 0 && taskType.equals("deadline"))) {
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
         }
@@ -105,14 +104,13 @@ public class Deadline extends Task {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
         if (this.time.equals("Date not specified")){
             return false;
-        }else {
+        } else {
             Date date = dateFormat.parse(this.time);
             if (fromDate.compareTo(date) == 0 && taskType.equals("deadline") || endDate.compareTo(date) == 0 && taskType.equals("deadline")) {
                 return true;
-            }else if (fromDate.compareTo(date) < 0 && endDate.compareTo(date) > 0 && taskType.equals("deadline")){
+            } else if (fromDate.compareTo(date) < 0 && endDate.compareTo(date) > 0 && taskType.equals("deadline")){
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
         }

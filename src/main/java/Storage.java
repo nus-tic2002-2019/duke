@@ -52,18 +52,16 @@ public class Storage {
             if (storeArray[0].equals("T")){
                 Task t= new ToDo(storeArray[2], Boolean.valueOf(storeArray[1]));
                 Duke.taskList.add(t);
-            }
-            else if (storeArray[0].equals("D")){
-                try{
+            } else if (storeArray[0].equals("D")){
+                try {
                     Task t= new Deadline(storeArray[2], Boolean.valueOf(storeArray[1]),storeArray[3]);
                     Duke.taskList.add(t);
                 }catch (ArrayIndexOutOfBoundsException e){
                     Task t= new Deadline(storeArray[2], Boolean.valueOf(storeArray[1]));
                     Duke.taskList.add(t);
                 }
-            }
-            else if (storeArray[0].equals("E")){
-                try{
+            } else if (storeArray[0].equals("E")){
+                try {
                     Task t= new Event(storeArray[2], Boolean.valueOf(storeArray[1]),storeArray[3]);
                     Duke.taskList.add(t);
                 }catch (ArrayIndexOutOfBoundsException e){
