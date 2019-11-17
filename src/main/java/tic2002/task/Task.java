@@ -1,3 +1,5 @@
+package tic2002.task;
+
 public abstract class Task {
     //Declare constant variables
     protected static final char CHAR_TODO = 'T';

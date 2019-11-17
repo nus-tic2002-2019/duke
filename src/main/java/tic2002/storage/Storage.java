@@ -1,3 +1,11 @@
+package tic2002.storage;
+
+import tic2002.task.Deadline;
+import tic2002.task.Event;
+import tic2002.task.Task;
+import tic2002.task.Todo;
+import tic2002.ui.Ui;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -110,9 +118,9 @@ public class Storage {
                 Todo tempTodo = new Todo(fromLineList.get(i).get(2) );
 
                 if (fromLineList.get(i).get(1).equals(CHAR_FALSE) ) {
-                    tempTodo.isDone = false;
+                    tempTodo.resetDone();
                 } else if (fromLineList.get(i).get(1).equals(CHAR_TRUE) ) {
-                    tempTodo.isDone = true;
+                    tempTodo.setDone();
                 }
 
                 toTasksArray.add(tempTodo);
@@ -121,9 +129,9 @@ public class Storage {
                 Deadline tempDeadline = new Deadline(fromLineList.get(i).get(2), fromLineList.get(i).get(3) );
 
                 if (fromLineList.get(i).get(1).equals(CHAR_FALSE) ) {
-                    tempDeadline.isDone = false;
+                    tempDeadline.resetDone();
                 } else if (fromLineList.get(i).get(1).equals(CHAR_TRUE) ) {
-                    tempDeadline.isDone = true;
+                    tempDeadline.setDone();
                 }
 
                 toTasksArray.add(tempDeadline);
@@ -132,9 +140,9 @@ public class Storage {
                 Event tempEvent = new Event(fromLineList.get(i).get(2), fromLineList.get(i).get(3) );
 
                 if (fromLineList.get(i).get(1).equals(CHAR_FALSE) ) {
-                    tempEvent.isDone = false;
+                    tempEvent.resetDone();
                 } else if (fromLineList.get(i).get(1).equals(CHAR_TRUE) ) {
-                    tempEvent.isDone = true;
+                    tempEvent.setDone();
                 }
 
                 toTasksArray.add(tempEvent);

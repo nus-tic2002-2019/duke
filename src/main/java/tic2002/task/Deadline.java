@@ -1,3 +1,5 @@
+package tic2002.task;
+
 public class Deadline extends Task {
     //Declare constant variables
     protected final String STRING_BY = "by";

@@ -1,5 +1,7 @@
-T|0|test
 E|1|test|test
 T|1|test 2
 T|0|test
 E|0|work|soon later :(
+T|0|test
+D|0|test test|dk when
+E|0|sleep sleep|anytime but can't :(

@@ -1,3 +1,8 @@
+package tic2002.ui;
+
+import tic2002.exception.DukeException;
+import tic2002.task.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
