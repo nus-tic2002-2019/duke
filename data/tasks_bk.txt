@@ -1,0 +1,3 @@
+T | 0 | hello | 
+E | 1 | wedding | 3pm
+T | 0 | first entry | 
