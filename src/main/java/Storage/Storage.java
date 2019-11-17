@@ -33,6 +33,7 @@ public class Storage {
     public ArrayList<Task> load()
     {
         File f = new File(strFilePath);
+//        System.out.println(f.getAbsoluteFile());
         ArrayList<Task> t;
         if (!f.exists()){
              t = new ArrayList<>();

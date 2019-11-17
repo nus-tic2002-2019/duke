@@ -65,9 +65,11 @@ public class TaskList {
      * @param t Task object to be added
      */
     //public static void addTask(Task t, boolean bWrite){
-    public static void addTask(Task t){
+    public static void addTask(Task t, boolean isFile){
         taskitems.add(t);
-        System.out.println("added:" + t.toString());
+        if (!isFile) {
+            System.out.println("added:" + t.toString());
+        }
     }
 
     /**
@@ -85,10 +87,12 @@ public class TaskList {
      *
      * @param pos
      */
-    public static void markDone(int pos) {
+    public static void markDone(int pos, boolean isFile) {
         taskitems.get(pos-1).markDone(true);
+        if (!isFile) {
             System.out.println("Nice! I've marked this task as done:");
             System.out.println("    [" + taskitems.get(pos - 1).getStatusIcon() + "]" + taskitems.get(pos - 1).toString());
+        }
     }
 
     /**
@@ -96,7 +100,6 @@ public class TaskList {
      * @param pos position of task in the tasklist based on what user see
      */
     public static void removeItem(int pos) throws DukeException {
-        System.out.println("pos: " + pos + " size:" + taskitems.size());
         if (pos>taskitems.size())
         {
             throw new DukeException("Invalid serial number. task number is greater than number of tasks available");
