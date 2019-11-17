@@ -1,10 +1,35 @@
-import task.*;
+import duke.task.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * <h1>Duke: Hello!</h1>
+ * The Duke program implements an application that
+ * simply displays "Hello World!" to the standard output.
+ * <p>
+ * The Duke Project is a Personal Assistant Chabot that
+ * helps a user to keep track of various things/activities.
+ * The key features of Duke are to add, delete and list tasks.
+ * These tasks are classified by type either as ToDos (tasks
+ * without date and time attached to it), Deadlines (tasks
+ * that need to be done before a specific date & time) or
+ * Events (tasks that start and end at a specific time with a
+ * given date). Each task is marked with special characters
+ * that (1) indicates its task type and (2) status. Other
+ * interesting features involves deleting task, updating
+ * task and saving task to a duke.txt file.
+ *
+ *
+ * @author  Benjamin Barrot Rabang III
+ * @version 1.0
+ * @since   2019-11-17
+ */
 public class Duke {
     private ArrayList<Task> tasks = new ArrayList<Task>();
     private Storage storage;
@@ -23,7 +48,7 @@ public class Duke {
         }
     }
 
-    private void run() throws IOException, IndexOutOfBoundsException, NumberFormatException {
+    private void run() throws IOException, IndexOutOfBoundsException {
         while (true) {
             String line;
             Scanner in = new Scanner(System.in);
@@ -40,9 +65,6 @@ public class Duke {
                 } else if (line.startsWith("delete")) {
                     int taskItem = Integer.parseInt(line.substring(7));
                     Task.deleteTask(tasks, taskItem);
-                    //String str = String.valueOf(taskItem);
-                    //fileaccess.removeLine(((task.get(taskItem-1)).getDescription()));
-                    //fileaccess.removeLine(String.valueOf(taskItem-1));
                 } else if (line.startsWith("todo")) {
                     String todo = line.substring(5);
 
@@ -51,18 +73,22 @@ public class Duke {
                     storage.writeToFile("[" + (tasks.get(tasks.size()-1)).getStatusIcon() + "]" + "[T] " + todo + System.lineSeparator());
                 } else if (line.startsWith("deadline")) {
                     String deadline = line.substring(9, (line.indexOf("/") - 1));
-                    String by = line.substring((line.indexOf("/") + 4));
+                    LocalDateTime ldt = LocalDateTime.parse(line.substring(25,35) + "T" + line.substring(36));
+                    String by = ldt.format(DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm:ssa"));
 
                     taskRecord(new Deadline(deadline, by));
                     (tasks.get(tasks.size() - 1)).printTask(tasks);
                     storage.writeToFile("[" + (tasks.get(tasks.size()-1)).getStatusIcon() + "]" + "[D] " + deadline + " (by: " + by + ")" + System.lineSeparator());
                 } else if (line.startsWith("event")) {
                     String event = line.substring(6, (line.indexOf("/") - 1));
-                    String at = line.substring((line.indexOf("/") + 4));
+                    LocalDateTime ldt = LocalDateTime.parse(line.substring(26,36) + "T" + line.substring(37,45));
+                    LocalTime lt = LocalTime.parse(line.substring(46));
+                    String at1 = ldt.format(DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm:ssa"));
+                    String at2 = lt.format(DateTimeFormatter.ofPattern("hh:mm:ssa"));
 
-                    taskRecord(new Event(event, at));
+                    taskRecord(new Event(event, (at1 + " - " + at2)));
                     (tasks.get(tasks.size() - 1)).printTask(tasks);
-                    storage.writeToFile("[" + (tasks.get(tasks.size()-1)).getStatusIcon() + "]" + "[E] " + event + " (at: " + at + ")" + System.lineSeparator());
+                    storage.writeToFile("[" + (tasks.get(tasks.size()-1)).getStatusIcon() + "]" + "[E] " + event + " (on: " + (at1 + " - " + at2) + ")" + System.lineSeparator());
                 } else {
                     throw new DukeException();
                 }
@@ -71,8 +97,6 @@ public class Duke {
                 System.out.println("\u2639" + " OOPS!!! The description of " + line  + " cannot be empty or incomplete. Check your input format.");
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("\u2639" + " OOPS!!! It's either the ArrayList is empty or the index entered is out of bound.");
-            } catch (NumberFormatException e) {
-                System.out.println("\u2639" + " OOPS!!! Make sure the input format is correct. Check your spacing, punctuations, etc.");
             } catch (DukeException e) {
                 System.out.println("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
@@ -89,7 +113,5 @@ public class Duke {
         System.out.println("Hello! I'm Duke.\nWhat can I do for you?");
 
         new Duke("data/duke.txt").run();
-        //Duke duke = new Duke();
-        //duke.run();
     }
 }

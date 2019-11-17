@@ -1,4 +1,4 @@
-import task.Task;
+import duke.task.Task;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,6 +7,11 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Storage class contains all the methods for file access. It includes
+ * automatic creation of a duke.txt file, automatic loading of the file contents
+ * and saving new tasks and updates to the duke.txt file.
+ */
 public class Storage {
     private String filepath;
     private File file;
@@ -16,10 +21,20 @@ public class Storage {
         this.file = new File(filepath);
     }
 
+    /**
+     * During program start up, the createFile method automatically creates
+     * a new duke.txt file at "C:\Users\Shit\Documents\Duke Project\data" directory
+     * if there is no duke.txt file existing in this directory.
+     */
     void createFile() throws IOException {
         file.createNewFile();
     }
 
+    /**
+     * During program start up, the loadFile method automatically loads
+     * the contents of the existing duke.txt file located at
+     * "C:\Users\Shit\Documents\Duke Project\data" directory.
+     */
     void loadFile(ArrayList<Task> tasks) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
 
@@ -28,19 +43,16 @@ public class Storage {
         }
     }
 
+    /**
+     * The writeToFile method automatically updates the duke.txt file located
+     * at "C:\Users\Shit\Documents\Duke Project\data" directory should there
+     * be added task, deleted task and updated status.
+     */
     void writeToFile(String text) throws IOException {
         FileWriter filewriter = new FileWriter(filepath, true);
 
         filewriter.write(text);
         filewriter.close();
     }
-
-    /*public void removeLine(String lineContent) throws IOException {
-        File file = new File(filepath);
-        List<String> out = Files.lines(file.toPath())
-                .filter(line -> !line.contains(lineContent))
-                .collect(Collectors.toList());
-        Files.write(file.toPath(), out, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
-    }*/
 
 }

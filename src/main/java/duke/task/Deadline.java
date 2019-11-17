@@ -1,5 +1,8 @@
-package task;
+package duke.task;
 
+/**
+ * The Deadline class extends the Task class to format the string output of Deadline tasks.
+ */
 public class Deadline extends Task {
     protected String by;
 
