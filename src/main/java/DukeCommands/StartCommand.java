@@ -1,8 +1,8 @@
-package DukeCommands;
+package newDuke.DukeCommands;
 
-import main.Storage;
-import main.TaskList;
-import main.UI;
+import newDuke.main.Storage;
+import newDuke.main.TaskList;
+import newDuke.main.UI;
 
 /**
  * A Command to handle "bye" inputs resulting in a termination of the Duke program.
