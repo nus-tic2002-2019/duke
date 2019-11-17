@@ -1,11 +1,11 @@
-package DukeCommands;
+package newDuke.DukeCommands;
 
-import main.Storage;
-import main.TaskList;
-import main.UI;
-import DukeTasks.Task;
+import newDuke.main.Storage;
+import newDuke.main.TaskList;
+import newDuke.main.UI;
+import newDuke.DukeTasks.Task;
 import java.util.ArrayList;
-import DukeExceptions.Exception;
+import newDuke.DukeExceptions.Exception;
 
 /**
  * A Command to remove a Task from the TaskList and Storage.
