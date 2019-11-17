@@ -8,12 +8,25 @@ import UI.Ui;
 
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public class FindCommand extends Command {
-
+    /**
+     *
+     * @param taskDes
+     */
     public FindCommand(String taskDes){
         super(taskDes);
     }
 
+    /**
+     *
+     * @param tasks
+     * @param ui
+     * @param storage
+     * @throws DukeException
+     */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if(tasks.getSize()<= 0){
             throw new DukeException("Sorry. There isn't a list");

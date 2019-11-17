@@ -9,8 +9,16 @@ import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 
+/**
+ *
+ */
 public class Parser {
-
+    /**
+     *
+     * @param fullCommand
+     * @return
+     * @throws DukeException
+     */
     public static Command parse(String fullCommand) throws DukeException {
         String keyCommand = fullCommand.split(" ")[0].toLowerCase();
         switch(keyCommand){
@@ -42,7 +50,12 @@ public class Parser {
         }
     }
 
-
+    /**
+     *
+     * @param text
+     * @return
+     * @throws DukeException
+     */
     public static LocalDate convertStringToDate(String text) throws DukeException {
 
         LocalDate d1;
@@ -58,7 +71,12 @@ public class Parser {
         return d1;
     }
 
-
+    /**
+     *
+     * @param text
+     * @return
+     * @throws DukeException
+     */
     public static LocalDate checkForOtherWording(String text) throws DukeException {
         text = text.toLowerCase();
         LocalDate today = LocalDate.now();
@@ -67,15 +85,17 @@ public class Parser {
         int dayOfTodayIntValue = dayOfToday.getValue();
         int commandDayIntValue = commandDay.getValue();
         int date_diff = (commandDayIntValue + 7 - dayOfTodayIntValue) % 7;
-
-            System.out.println(commandDayIntValue);
-        System.out.println(dayOfTodayIntValue);
-        System.out.println(date_diff);
         LocalDate d1 = today.plus(date_diff, ChronoUnit.DAYS);
         return d1;
 
     }
 
+    /**
+     *
+     * @param text
+     * @return
+     * @throws DukeException
+     */
     public static DayOfWeek getCommandDay(String text) throws DukeException {
         switch(text){
             case "mon":
@@ -104,6 +124,12 @@ public class Parser {
         }
     }
 
+    /**
+     *
+     * @param text
+     * @return
+     * @throws DukeException
+     */
     public static LocalTime convertStringToTime(String text) throws DukeException {
 
         LocalTime t1;
@@ -119,6 +145,12 @@ public class Parser {
         return t1;
     }
 
+    /**
+     *
+     * @param text
+     * @return
+     * @throws DukeException
+     */
     public static String convertTimeTextToTimeStyle(String text) throws DukeException {
         if (!text.substring(4).isEmpty()){
             throw new DukeException("Invalid time! Please keep it to 4 digit");

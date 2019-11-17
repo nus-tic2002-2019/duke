@@ -12,14 +12,29 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.IOException;
 
+/**
+ *
+ */
 public class Storage {
 
     private static String filePath;
 
+    /**
+     *
+     * @param filePath
+     */
     public Storage(String filePath){
         this.filePath = filePath;
     }
 
+    /**
+     *
+     * @param taskType
+     * @param taskDes
+     * @param taskDateTime
+     * @return
+     * @throws DukeException
+     */
     private static Task creatingEventOrDeadline(String taskType, String taskDes, String taskDateTime) throws DukeException {
         if(!(taskType.contains("E") || taskType.contains("D"))){
             throw new DukeException("Unknown task Type");
@@ -31,6 +46,12 @@ public class Storage {
 
     }
 
+    /**
+     *
+     * @param text
+     * @return
+     * @throws DukeException
+     */
     private static Task convertTaskFromFile(String text) throws DukeException {
         Task task;
         int firstDivider = text.indexOf("| ");
@@ -52,13 +73,18 @@ public class Storage {
             throw new DukeException("Unknown boolean");
         }
         if(taskDoneString.contains("1")){
-            task.edit_done(true);
+            task.editDone(true);
         }
 
         return task;
     }
 
-
+    /**
+     *
+     * @return
+     * @throws FileNotFoundException
+     * @throws DukeException
+     */
     private static ArrayList<Task> getListOfTask() throws FileNotFoundException, DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         File f = new File(filePath); // create a File for the given file path
@@ -74,6 +100,12 @@ public class Storage {
 
         return tasks;
     }
+
+    /**
+     *
+     * @return
+     * @throws DukeException
+     */
     public static ArrayList<Task> load() throws DukeException {
         try {
             ArrayList<Task> tasks = getListOfTask();
@@ -84,6 +116,13 @@ public class Storage {
 
     }
 
+    /**
+     *
+     * @param task
+     * @return
+     * @throws DukeException
+     * @throws IllegalStateException
+     */
     private static String convertTaskStoring(Task task) throws DukeException, IllegalStateException {
         String storingTask;
         switch (task.getTaskType()){
@@ -115,6 +154,10 @@ public class Storage {
         return storingTask;
     }
 
+    /**
+     *
+     * @param lists
+     */
     public static void save(TaskList lists){
         try {
             FileWriter fileWrite = new FileWriter(filePath);

@@ -13,12 +13,25 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ *
+ */
 public class ScheduleCommand extends Command {
-
+    /**
+     *
+     * @param taskDes
+     */
     public ScheduleCommand(String taskDes){
         super(taskDes);
     }
 
+    /**
+     *
+     * @param tasks
+     * @param ui
+     * @param storage
+     * @throws DukeException
+     */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try{
             taskItem.substring(9);
@@ -56,9 +69,15 @@ public class ScheduleCommand extends Command {
         ui.displaySchedule(scheduleWithTime, scheduleWithoutTime, deadlines, date);
     }
 
+    /**
+     *
+     * @param deadlines
+     * @throws DukeException
+     */
+
     private void sort_TaskByTime_deadlines(ArrayList<Deadlines> deadlines) throws DukeException {
         int indexOfDeadlineWithoutTime = deadlines.size()-1;
-        for(int j = 0; j < deadlines.size() - 1; j++) {
+        for(int j = 0; j < deadlines.size() - 1; j++) { //bubble sort
             boolean isSorted = true;
             for (int i = 0; i < deadlines.size() - j - 1; i++) {
                 Deadlines deadline1 = deadlines.get(i);
@@ -90,6 +109,12 @@ public class ScheduleCommand extends Command {
             indexOfDeadlineWithoutTime++;
         }
     }
+
+    /**
+     *
+     * @param events
+     * @throws DukeException
+     */
     private void sort_TaskByTime_events(ArrayList<Events> events) throws DukeException {
         for(int j = 0; j < events.size() - 1; j++) {
             boolean isSorted = true;

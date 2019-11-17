@@ -7,13 +7,19 @@ import UI.Ui;
 import Exception.DukeException;
 import Parser.Parser;
 
+/**
+ *
+ */
 public class Duke {
-
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     *
+     * @param filePath
+     */
     public Duke(String filePath) {
         ui = new Ui();
        // tasks = new Tasks.TaskList();
@@ -30,6 +36,9 @@ public class Duke {
 
     }
 
+    /**
+     *
+     */
     public void run() {
         ui.showDukeWelcome();
         boolean isExit = false;
@@ -48,6 +57,10 @@ public class Duke {
         }
     }
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         new Duke("tasks.txt").run();
     }

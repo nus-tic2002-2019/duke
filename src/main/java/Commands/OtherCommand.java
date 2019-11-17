@@ -5,13 +5,25 @@ import Tasks.*;
 import UI.*;
 import Storage.*;
 
+/**
+ *
+ */
 public class OtherCommand extends Command {
-
+    /**
+     *
+     * @param taskDes
+     */
     public OtherCommand(String taskDes){
         super(taskDes);
     }
 
-
+    /**
+     *
+     * @param tasks
+     * @param ui
+     * @param storage
+     * @throws DukeException
+     */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         switch(taskItem){
             case "hi":

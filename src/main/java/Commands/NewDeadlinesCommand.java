@@ -10,13 +10,26 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
-
+/**
+ *
+ */
 
 public class NewDeadlinesCommand extends Command {
+    /**
+     *
+     * @param taskDes
+     */
     public NewDeadlinesCommand(String taskDes){
         super(taskDes);
     }
 
+    /**
+     *
+     * @param tasks
+     * @param ui
+     * @param storage
+     * @throws DukeException
+     */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try{
             taskItem.substring(9);
@@ -34,6 +47,14 @@ public class NewDeadlinesCommand extends Command {
         tasks.addTask(deadlineTimeSetter(taskDes, taskDateTime));
         storage.save(tasks);
     }
+
+    /**
+     *
+     * @param taskDes
+     * @param taskDateTime
+     * @return
+     * @throws DukeException
+     */
     public static Deadlines deadlineTimeSetter(String taskDes, String taskDateTime) throws DukeException {
         try{
             if (!taskDateTime.contains(" ")) {
