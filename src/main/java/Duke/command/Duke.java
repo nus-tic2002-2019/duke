@@ -93,7 +93,7 @@ public class Duke {
                 System.out.println("Now you have " + temp+" items in the list.");
             }
             catch (Exception e1){
-                checkException("Duke.command.Duke.tasks.Deadline description and time cannot be empty.");
+                checkException(e1.getMessage()+"Deadline description and time cannot be empty.");
             }
         }
         else if(word[0].equalsIgnoreCase("event"))
