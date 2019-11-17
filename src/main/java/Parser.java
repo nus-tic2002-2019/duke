@@ -4,21 +4,30 @@ public class Parser {
      * To return the type of command from Users for easy reference in main program
      */
     public String user_input(String input) {
-        String input_action = "" ;
+        String input_Action = "" ;
 
-        if(input.toLowerCase().contains("bye"))            input_action = "bye";
-        else if(input.toLowerCase().contains("list"))      input_action = "list";
-        else if(input.toLowerCase().contains("done"))      input_action = "done";
-        else if(input.toLowerCase().contains("todo"))      input_action = "todo";
-        else if(input.toLowerCase().contains("deadline"))  input_action = "deadline";
-        else if(input.toLowerCase().contains("event"))     input_action = "event";
-        else if(input.toLowerCase().contains("delete"))    input_action = "delete";
-        else if(input.toLowerCase().contains("find"))      input_action = "find" ;
-        else if(input.toLowerCase().contains("edit"))      input_action = "edit" ;
-
-        else {
-            input_action = "unknown";
+        if(input.toLowerCase().contains("bye")) {
+            input_Action = "bye";
+        } else if(input.toLowerCase().contains("list")){
+            input_Action = "list";
+        } else if(input.toLowerCase().contains("done")) {
+            input_Action = "done";
+        } else if(input.toLowerCase().contains("todo")) {
+            input_Action = "todo";
+        } else if(input.toLowerCase().contains("deadline")) {
+            input_Action = "deadline";
+        } else if(input.toLowerCase().contains("event")) {
+            input_Action = "event";
+        } else if(input.toLowerCase().contains("delete")) {
+            input_Action = "delete";
+        } else if(input.toLowerCase().contains("find")) {
+            input_Action = "find" ;
+        } else if(input.toLowerCase().contains("edit")) {
+            input_Action = "edit" ;
+        } else {
+            input_Action = "unknown";
         }
-        return input_action;
+
+        return input_Action;
     }
 }
