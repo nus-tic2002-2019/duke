@@ -30,9 +30,9 @@ public class Duke {
         while(true) {
             line = in.nextLine();
             if( line.length() == 0) {
-                System.out.println("Input cannot be empty.");
-            }
-            else {
+                    assert line.length() != 0 : "Input cannot be empty";
+                }
+                else {
 
                 if (line.equals("list")) PrintTask(task);
                 else if (line.equals("blah")) System.out.println("blah");
@@ -40,11 +40,17 @@ public class Duke {
                     System.out.println("Bye. Hope to see you again soon");
                     break;
                 } else if (line.length() > 3 && line.substring(0, 4).equalsIgnoreCase("done")) {
-                    int number = Integer.parseInt(line.substring(5));
-                    task.get(number - 1).markAsDone();
-                    System.out.println("Nice! I have marked this task as done:");
-                    System.out.println(task.get(number - 1).getStatusIcon() + task.get(number - 1).getDescription());
-
+                    try {
+                        int number = Integer.parseInt(line.substring(5));
+                        assert number < 1 : "task index must bigger than 0.";
+                        task.get(number - 1).markAsDone();
+                        System.out.println("Nice! I have marked this task as done:");
+                        System.out.println(task.get(number - 1).getStatusIcon() + task.get(number - 1).getDescription());
+                    }
+                    catch(Exception e)
+                    {
+                        checkException("invalid task index.");
+                    }
                 }
                 else if(line.equalsIgnoreCase("load")) task = load();
                 else if(line.equalsIgnoreCase("save")) save();
