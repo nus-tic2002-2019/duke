@@ -17,10 +17,7 @@ class UITest {
 
         UI.dukePrint("\tThis is a test Message to be printed by Duke!");
 
-        String expectedOutput = "\t____________________________________________________________\n" +
-                "\tThis is a test Message to be printed by Duke!\n" +
-                "\t____________________________________________________________\n";
-
+        String expectedOutput = "\tThis is a test Message to be printed by Duke!";
         Assert.assertEquals(expectedOutput,outContent.toString());
     }
 }

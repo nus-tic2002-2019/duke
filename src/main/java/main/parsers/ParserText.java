@@ -25,6 +25,16 @@ public class ParserText<T> {
         this.isTrue = true;
     }
 
+
+    /**
+     * This is a parser created for this application.
+     * The input parameters are parsed and the respective commands are called.
+     *
+     * @param
+     * input - User Input to the application
+     * @throws DukeException - catches Duke exceptions and returns a suitable message to the user
+     * @throws IOException
+     */
     public static void parsetext(String input) throws DukeException, IOException {
 
         String[] command = input.split(INPUT_DELIMITER);
@@ -146,10 +156,14 @@ public class ParserText<T> {
     }
 
     /**
-     * This method Parses the Task Object into a String format for writing to text files
+     * Returns a String Object that can be then be inserted into the text file.
+     * This method only returns a String if it is able to parse the input provided
      *
-     * @param input
+     * @param
+     *  Task Object that is to be Parsed
+     *
      * @return
+     *  String Object that is to be written to a text file.
      */
     public static String outputParse(Task input) {
 
