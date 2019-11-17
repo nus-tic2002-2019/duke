@@ -48,7 +48,7 @@ public class DeadlineCommand extends Command{
         try {
             //tasks.addTask(new Deadlines(Parser.parseDeadline(commandline)[0], Parser.parseDeadline(commandline)[1]), true);
             //System.out.println("This is datetime: ##" + Parser.parseDeadline(commandline)[1] + "##");
-            tasks.addTask(new Deadlines(Parser.parseDeadline(commandline)[0], convertDateTime(Parser.parseDeadline(commandline)[1])));
+            tasks.addTask(new Deadlines(Parser.parseDeadline(commandline)[0], convertDateTime(Parser.parseDeadline(commandline)[1])),false);
         }
         catch (DukeException e){
             Ui.showError(e.getMessage());
@@ -63,9 +63,9 @@ public class DeadlineCommand extends Command{
      */
     public void readFileFormat(TaskList tasks) throws DukeException, IOException {
         try {
-            tasks.addTask(new Deadlines(Parser.parseDeadlineFile(commandline)[2], convertDateTime(Parser.parseDeadlineFile(commandline)[3])));
+            tasks.addTask(new Deadlines(Parser.parseDeadlineFile(commandline)[2], convertDateTime(Parser.parseDeadlineFile(commandline)[3])),true);
             if(Parser.parseDeadlineFile(commandline)[1].equals("1")){
-                tasks.markDone(tasks.size());
+                tasks.markDone(tasks.size(),true);
             }
         }
         catch (DukeException e){

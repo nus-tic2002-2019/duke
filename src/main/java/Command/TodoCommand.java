@@ -23,7 +23,7 @@ public class TodoCommand extends Command{
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
         try{
             //tasks.addTask(new Todo(Parser.parseTodo(commandline)),true);
-            tasks.addTask(new Todo(Parser.parseTodo(commandline)));
+            tasks.addTask(new Todo(Parser.parseTodo(commandline)),false);
         }
         catch (DukeException e)
         {
@@ -39,9 +39,9 @@ public class TodoCommand extends Command{
      */
     public void readFileFormat(TaskList tasks) throws DukeException, IOException {
         try{
-            tasks.addTask(new Todo(Parser.parseTodoFile(commandline)[2]));
+            tasks.addTask(new Todo(Parser.parseTodoFile(commandline)[2]),true);
             if(Parser.parseTodoFile(commandline)[1].equals("1")){
-                tasks.markDone(tasks.size());
+                tasks.markDone(tasks.size(),true);
             }
         }
         catch (DukeException e)

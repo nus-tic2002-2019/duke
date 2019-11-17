@@ -32,7 +32,7 @@ public class DoneCommand extends Command{
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException{
 
         try {
-            tasks.markDone(Parser.parseIntegerParameter(commandline));
+            tasks.markDone(Parser.parseIntegerParameter(commandline),false);
         }
         catch (DukeException e){
             Ui.showError(e.getMessage());

@@ -32,7 +32,7 @@ public class EventCommand extends Command {
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
         try {
-            tasks.addTask(new Events(Parser.parseEvent(commandline)[0], convertDateTime(Parser.parseEvent(commandline)[1])));
+            tasks.addTask(new Events(Parser.parseEvent(commandline)[0], convertDateTime(Parser.parseEvent(commandline)[1])),false   );
 //            tasks.addTask(new Deadlines(Parser.parseDeadlineFile(commandline)[2], convertDateTime(Parser.parseDeadlineFile(commandline)[3])), false);
         }
         catch (DukeException e){
@@ -49,9 +49,9 @@ public class EventCommand extends Command {
      */
     public void readFileFormat(TaskList tasks) throws DukeException, IOException {
         try {
-            tasks.addTask(new Events(Parser.parseEventFile(commandline)[2], convertDateTime( Parser.parseEventFile(commandline)[3])));
+            tasks.addTask(new Events(Parser.parseEventFile(commandline)[2], convertDateTime( Parser.parseEventFile(commandline)[3])),true);
             if(Parser.parseEventFile(commandline)[1].equals("1")){
-                tasks.markDone(tasks.size());
+                tasks.markDone(tasks.size(),true);
             }
         }
         catch (DukeException e){
