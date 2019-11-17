@@ -85,12 +85,4 @@ public abstract class Task {
 	* @return A String representation of this Task formatted for the storage file.
 	*/
 	public abstract String toSave();
-	/**
-	* Returns a String date of the Task.
-	*
-	* <p></p>To be implemented by Deadline Task class.
-	*
-	* @return A String that returns the date of Deadline.
-	*/
-	public abstract String getDate();
 }
