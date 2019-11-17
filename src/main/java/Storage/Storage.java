@@ -69,7 +69,8 @@ public class Storage {
             throw new DukeException("Unknown task type");
         }
         task = new ToDos(taskDetails);
-        if(!(taskDoneString.contains("0")||taskDoneString.contains("1"))) { // to create assertion
+        if(!(taskDoneString.contains("0")||taskDoneString.contains("1"))) {
+
             throw new DukeException("Unknown boolean");
         }
         if(taskDoneString.contains("1")){

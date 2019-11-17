@@ -44,7 +44,9 @@ public class NewDeadlinesCommand extends Command {
         int dividerPosition2 = taskItem.indexOf(" /by ");
         String taskDes = taskItem.substring(9, dividerPosition2);
         String taskDateTime = taskItem.substring(dividerPosition2 + 5);
-        tasks.addTask(deadlineTimeSetter(taskDes, taskDateTime));
+        Deadlines deadline = deadlineTimeSetter(taskDes, taskDateTime);
+        assert deadline.getTaskType() == TaskType.DEADLINES;
+        tasks.addTask(deadline);
         storage.save(tasks);
     }
 

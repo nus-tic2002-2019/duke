@@ -5,6 +5,7 @@ import Parser.Parser;
 import Storage.Storage;
 import Tasks.Events;
 import Tasks.TaskList;
+import Tasks.TaskType;
 import UI.Ui;
 
 import java.time.LocalDate;
@@ -43,8 +44,10 @@ public class NewEventCommand extends Command {
         int dividerPosition2 = taskItem.indexOf(" /at ");
         String taskDes = taskItem.substring(6, dividerPosition2);
         String taskDateTime = taskItem.substring(dividerPosition2+5);
+        Events event = eventTimeSetter(taskDes, taskDateTime);
+        assert event.getTaskType() == TaskType.EVENTS;
+        tasks.addTask(event);
 
-        tasks.addTask(eventTimeSetter(taskDes, taskDateTime));
         storage.save(tasks);
     }
 

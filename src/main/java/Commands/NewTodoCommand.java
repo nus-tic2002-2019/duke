@@ -31,7 +31,9 @@ public class NewTodoCommand extends Command {
         catch(StringIndexOutOfBoundsException e){
             throw new DukeException("Todo command can't be empty");
         }
-        tasks.addTask(new ToDos(taskItem.substring(5)));
+        ToDos todo = new ToDos(taskItem.substring(5));
+        assert todo.getTaskType() == TaskType.TODOS;
+        tasks.addTask(todo);
         storage.save(tasks);
     }
 
