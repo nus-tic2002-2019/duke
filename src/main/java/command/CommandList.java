@@ -32,6 +32,11 @@ public class CommandList {
                 list.print();
             };
         } );
+        keywords.put("sort", new Command() {
+            public void run(String content) {
+                list.sort();
+            };
+        } );
         keywords.put("find", new Command() {
             public void run(String content) {
                 cmdFind(content, list);
