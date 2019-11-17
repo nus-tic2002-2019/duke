@@ -13,6 +13,10 @@ public class ViewDoneCommand extends Command {
 
     public static final String COMMAND_WORD="viewdone";
 
+    public static final String MESSAGE_USAGE="||"+COMMAND_WORD+": view the finished tasks done during a specific period.\n" +
+            "Syntax: "+COMMAND_WORD+" from/TIME to/TIME (all the time format is YYYY-MM-dd HHmm)\n" +
+            "Example: "+COMMAND_WORD+" from/2019-08-08 0800 to/2019-12-12 1200";
+
     private LocalDateTime fromTime,toTime;
 
     public ViewDoneCommand(LocalDateTime fromTime,LocalDateTime toTime){

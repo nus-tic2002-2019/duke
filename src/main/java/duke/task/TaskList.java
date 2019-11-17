@@ -106,6 +106,13 @@ public class TaskList implements Iterable<Task>{
         return new TaskList(taskList);
     }
 
+    /**
+     * clear all the task in the tasklist
+     */
+    public void clear() {
+        taskList.clear();
+    }
+
     @Override
     public Iterator<Task> iterator() {
         return taskList.iterator();

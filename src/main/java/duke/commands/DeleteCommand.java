@@ -8,6 +8,10 @@ public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD="delete";
 
+    public static final String MESSAGE_USAGE="||"+COMMAND_WORD+": delete a task from the task list based on the index.\n" +
+            "Syntax: delete INDEX\n" +
+            "Example: "+COMMAND_WORD+" 2 (this will remove the No.2 task from the task list.)";
+
     public DeleteCommand(int targetIndex) {
         super(targetIndex);
     }

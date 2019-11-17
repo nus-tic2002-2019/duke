@@ -12,6 +12,9 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD="find";
 
+    public static final String MESSAGE_USAGE= "||"+COMMAND_WORD+": finds the specific tasks based on the keywords you entered.\n" +
+            "Syntax: find KEYWORDS\n" +
+            "Example: "+COMMAND_WORD+"find book(will return the task that contains the keyword book.";
 
     private final Set<String> keywords;
 
