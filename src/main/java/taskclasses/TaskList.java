@@ -340,7 +340,7 @@ public class TaskList {
         LocalDate Date_Deadline, Date_Start, Date_End, input = LocalDate.parse(Date);
         DateTime Deadline, start, end;
         Vector<Task> temp_List = new Vector<>();
-        Vector<Task> temp_ToDoAfter = new Vector<>();
+        Vector<ToDoAfter> temp_ToDoAfter = new Vector<>();
         String type;
         int i=0;
         Task task;
@@ -395,7 +395,7 @@ public class TaskList {
                             Date_End = end.getDate_Input();
 
                             if(input.compareTo(Date_Start) == 0|| input.compareTo(Date_End) == 0|| (input.isAfter(Date_Start) && input.isBefore(Date_End))) {
-                                temp_ToDoAfter.add(task);
+                                temp_ToDoAfter.add(toDoAfter);
                             }
 
                             break;
@@ -403,7 +403,7 @@ public class TaskList {
                             Deadline = task.getDeadline_timing();
                             Date_Deadline = Deadline.getDate_Input();
 
-                            if(input.compareTo(Date_Deadline) == 0) temp_ToDoAfter.add(task);
+                            if(input.compareTo(Date_Deadline) == 0) temp_ToDoAfter.add(toDoAfter);
 
                             break;
                     }
@@ -452,7 +452,7 @@ public class TaskList {
                             Date_End = end.getDate_Input();
 
                             if(input.compareTo(Date_Start) == 0|| input.compareTo(Date_End) == 0|| (input.isAfter(Date_Start) && input.isBefore(Date_End))) {
-                                temp_ToDoAfter.add(task);
+                                temp_ToDoAfter.add(toDoAfter);
                             }
 
                             break;
@@ -460,12 +460,12 @@ public class TaskList {
                             Deadline = task.getDeadline_timing();
                             Date_Deadline = Deadline.getDate_Input();
 
-                            if(input.compareTo(Date_Deadline) == 0) temp_ToDoAfter.add(task);
+                            if(input.compareTo(Date_Deadline) == 0) temp_ToDoAfter.add(toDoAfter);
 
                             break;
                     }
                 }
-                Print_List_ToDoAfter(ToDoAfterList, Date_Type, Time_Type);
+                Print_List_ToDoAfter(temp_ToDoAfter, Date_Type, Time_Type);
         }
     }
 

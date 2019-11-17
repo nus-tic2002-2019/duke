@@ -142,7 +142,7 @@ public class Parser {
      * Output type: "2nd of December 2019"
      * @param task The task which needs to be convert;
      * @param START_END To let program know which type of task needs to convert;
-     * @return return converted Date;
+     * @return return converted Date for event task;
      */
     public static String Date_Type_Two(Task task, String START_END) throws DateTimeInputWrongly, MonthIndexWrong, EnumDayIndexWrongly {
         DateTime DATE;
@@ -168,6 +168,11 @@ public class Parser {
         return date;
     }
 
+    /**
+     * Date printing type 2
+     * @param localDate deadline task
+     * @return return converted Date for deadline task
+     */
     public static String Date_Type_Two(LocalDate localDate) throws MonthIndexWrong, EnumDayIndexWrongly {
         int MONTH, YEAR, DAY;
         String month, day, date;

@@ -62,7 +62,7 @@ public class Ui {
             System.out.print(" (by: " + New_Task.getDateTime() + ")");
 
         } else if (First_Word.equals("event")) {
-            System.out.print(" (at: " + New_Task.getDateTime() + ")");
+            System.out.print(" (at: " + New_Task.getStarting_DateTime_String() + " -> " + New_Task.getEnding_DateTime_String() + ")");
         }
 
         System.out.println();
