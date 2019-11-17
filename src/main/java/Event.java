@@ -18,6 +18,11 @@ public class Event extends Task {
         eventAtString = taskDescription.substring(taskDescription.indexOf(STRING_SEPARATOR) + 2 + atStrLen);
     }
 
+    //Getter
+    public String printToFile() {
+        return(super.printToFile() + STRING_SEPARATOR_WRITE + eventAtString);
+    }
+
     @Override
     public String toString() {
         return "[" + typeIdt + "][" + getStatusIcon() + "] " + eventDescription + " (" + STRING_AT + ": " + eventAtString + ")";

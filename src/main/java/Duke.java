@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner; //Import Java Scanner
 import java.util.ArrayList; //Import Java ArrayList
 
@@ -13,21 +14,16 @@ public class Duke {
     private static final String STRING_TODO = "todo";
     private static final String STRING_DEADLINE = "deadline";
     private static final String STRING_EVENT = "event";
-
-    private static final String MSG_GREET = "____________________________________________________________\n"
-            + "Hello! I'm Duke\n"
-            + "What can I do for you?\n"
-            + "____________________________________________________________";
-
-    private static final String MSG_BYE = "____________________________________________________________\n"
-            + "Bye. Hope to see you again soon!\n"
-            + "____________________________________________________________";
-
-    private static final String MSG_PRE_TASK = "____________________________________________________________\n"
-            + "Got it. I've added this task:";
-
-    private static final String MSG_POST_TASK = "Now you have " + (tasks.size()) + " tasks in the list."
-            + "\n____________________________________________________________";
+    private static final String LINE_SEPARATOR = "____________________________________________________________\n";
+    private static final String MSG_GREET = LINE_SEPARATOR + "Hello! I'm Duke\n" + "What can I do for you?\n" + LINE_SEPARATOR;
+    private static final String MSG_BYE = LINE_SEPARATOR + "Bye. Hope to see you again soon!\n" + LINE_SEPARATOR;
+    private static final String MSG_LIST = LINE_SEPARATOR + "Here are the tasks in your list:";
+    private static final String MSG_DONE = LINE_SEPARATOR + "Nice! I've marked this task as done:";
+    private static final String MSG_DELETE = LINE_SEPARATOR + "Noted. I've removed this task:";
+    private static final String MSG_PRE_TASK = LINE_SEPARATOR + "Got it. I've added this task:";
+    private static final String MSG_POST_TASK_1 = "Now you have ";
+    private static final String MSG_POST_TASK_2 = " tasks in the list.\n" + LINE_SEPARATOR;
+    private static final String ERROR_MSG_IO = "Input or output failure!\n";
 
     //Store keywords' number of characters
     private static int doneStrLen = STRING_DONE.length();
@@ -40,10 +36,18 @@ public class Duke {
     private static String[] errorInputList = {"blah"};
 
     public static void greetUser() {
-        System.out.println(MSG_GREET);
+        System.out.print(MSG_GREET);
     }
 
-    public static void runApp() throws StringIndexOutOfBoundsException, DukeException {
+    public static void appendTaskToFile(Storage appStorage, String filePath, Task currentTask, String errorMessage) {
+        try {
+            appStorage.appendToFile(filePath, currentTask.printToFile() );
+        } catch (IOException e) {
+            System.out.println(errorMessage);
+        }
+    }
+
+    public static void runApp(Storage appStorage, String filePath) throws StringIndexOutOfBoundsException, DukeException {
         //Get user input
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
@@ -62,14 +66,13 @@ public class Duke {
 
         } else if (input.equals(STRING_LIST) ) {
             //List tasks
-            System.out.println("____________________________________________________________");
-            System.out.println("Here are the tasks in your list:");
+            System.out.println(MSG_LIST);
             for (int i = 0; i < tasks.size(); i++) {
                 System.out.print(i + 1);
                 System.out.print(".");
                 System.out.println(tasks.get(i));
             }
-            System.out.println("____________________________________________________________");
+            System.out.print(LINE_SEPARATOR);
 
         } else if (input.length() >= doneStrLen && (input.substring(0, doneStrLen) ).equals(STRING_DONE) ) {
             //Mark task as done
@@ -82,10 +85,9 @@ public class Duke {
             tasks.get(taskNum).setDone();
 
             //Print completed task
-            System.out.println("____________________________________________________________");
-            System.out.println("Nice! I've marked this task as done:");
+            System.out.println(MSG_DONE);
             System.out.println(tasks.get(taskNum));
-            System.out.println("____________________________________________________________");
+            System.out.print(LINE_SEPARATOR);
 
         } else if (input.length() >= deleteStrLen && (input.substring(0, deleteStrLen) ).equals(STRING_DELETE) ){
             //Delete task
@@ -98,10 +100,9 @@ public class Duke {
             tasks.get(taskNum).resetDone();
 
             //Print task to be deleted
-            System.out.println("____________________________________________________________");
-            System.out.println("Noted. I've removed this task:");
+            System.out.println(MSG_DELETE);
             System.out.println(tasks.get(taskNum));
-            System.out.println("____________________________________________________________");
+            System.out.print(LINE_SEPARATOR);
 
             //Delete task
             tasks.remove(taskNum);
@@ -118,27 +119,33 @@ public class Duke {
 
                 inputExtract = input.substring(todoStrLen + 1, input.length() );
                 tasks.add(new Todo(inputExtract) );
+                appendTaskToFile(appStorage, filePath, tasks.get(tasks.size() -1), ERROR_MSG_IO);
             } else if (input.length() >= deadlineStrLen && (input.substring(0, deadlineStrLen) ).equals(STRING_DEADLINE) ) {
                 //Add deadline
                 inputExtract = input.substring(deadlineStrLen + 1, input.length() );
                 tasks.add(new Deadline(inputExtract) );
+                appendTaskToFile(appStorage, filePath, tasks.get(tasks.size() -1), ERROR_MSG_IO);
             } else if (input.length() >= eventStrLen && (input.substring(0, eventStrLen) ).equals(STRING_EVENT) ) {
                 //Add event
                 inputExtract = input.substring(eventStrLen + 1, input.length() );
                 tasks.add(new Event(inputExtract) );
+                appendTaskToFile(appStorage, filePath, tasks.get(tasks.size() -1), ERROR_MSG_IO);
             } else {
                 //Add task
                 inputExtract = input;
                 tasks.add(new Task(inputExtract) );
+                appendTaskToFile(appStorage, filePath, tasks.get(tasks.size() -1), ERROR_MSG_IO);
             }
 
             System.out.println(MSG_PRE_TASK);
             System.out.println(tasks.get(tasks.size() -1) );
-            System.out.println(MSG_POST_TASK);
+            System.out.print(MSG_POST_TASK_1);
+            System.out.print(tasks.size() );
+            System.out.print(MSG_POST_TASK_2);
         }
 
         //Recurring method
-        runApp();
+        runApp(appStorage, filePath);
     }
 
     public static void main(String[] args) {
@@ -148,25 +155,27 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        System.out.println("Bye!");
+        //System.out.println("Bye!");
 
         //Declare constant variables
-        final String MSG_INDEX_ERROR = "____________________________________________________________\n"
-                +"OOPS!!! The description of a done/todo/deadline/event cannot be empty.\n"
-                + "____________________________________________________________\n";
+        final String STORAGE_PATH_DUKE = "src/main/data/duke.txt";
+        final String ERROR_MSG_INDEX = LINE_SEPARATOR +"OOPS!!! The description of a done/todo/deadline/event cannot be empty.\n" + LINE_SEPARATOR;
+        final String ERROR_MSG_DUKE = LINE_SEPARATOR +"OOPS!!! I'm sorry, but I don't know what that means :-(\n" + LINE_SEPARATOR;
 
-        final String MSG_DUKE_ERROR = "____________________________________________________________\n"
-                +"OOPS!!! I'm sorry, but I don't know what that means :-(\n"
-                + "____________________________________________________________\n";
+        //New storage
+        Storage dukeStorage = new Storage(STORAGE_PATH_DUKE);
+
+        //Test read file
+        dukeStorage.readFile(STORAGE_PATH_DUKE);
 
         greetUser();
 
         try {
-            runApp();
+            runApp(dukeStorage, STORAGE_PATH_DUKE);
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println(MSG_INDEX_ERROR);
+            System.out.println(ERROR_MSG_INDEX);
         } catch (DukeException e) {
-            System.out.println(MSG_DUKE_ERROR);
+            System.out.println(ERROR_MSG_DUKE);
         }
     }
 }

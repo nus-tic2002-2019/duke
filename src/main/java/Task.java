@@ -4,6 +4,11 @@ public class Task {
     protected boolean isDone;
     protected char typeIdt;
 
+    //Declare constant variables
+    protected static final String STRING_SEPARATOR_WRITE = "|";
+    private static final String STRING_TRUE = "1";
+    private static final String STRING_FALSE = "0";
+
     //Constructor
     public Task(String taskDescription) {
         this.taskDescription = taskDescription;
@@ -22,6 +27,20 @@ public class Task {
 
     public char getTypeIdentification() {
         return typeIdt;
+    }
+
+    public String printToFile() {
+        String output = typeIdt + STRING_SEPARATOR_WRITE;
+
+        if (isDone) {
+            output += STRING_TRUE;
+        } else if (!isDone) {
+            output += STRING_FALSE;
+        }
+
+        output += STRING_SEPARATOR_WRITE + taskDescription;
+
+        return output;
     }
 
     //Setter
