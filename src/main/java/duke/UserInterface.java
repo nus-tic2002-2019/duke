@@ -1,14 +1,15 @@
 package duke;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserInterface {
-    private Scanner in = new Scanner(System.in);
+    private static Scanner in = new Scanner(System.in);
     /**
      * Greets user upon running application.
      */
-    public void showWelcome() {
+    public static void showWelcome() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -20,7 +21,7 @@ public class UserInterface {
     /**
      * Prints placeholder lines for UI.
      */
-    public void showLine() {
+    public static void showLine() {
         System.out.println("____________________________________________________________");
     }
 
@@ -29,7 +30,7 @@ public class UserInterface {
      *
      * @return String returns the value that that the user has entered.
      */
-    public String readCommand() {
+    public static String readCommand() {
         return in.nextLine();
     }
 
@@ -39,7 +40,7 @@ public class UserInterface {
      * @param choice This is the first parameter to handleInput, identifies which choice to make.
      * @param line This is the second parameter to handleInput, stores the original input value.
      */
-    public void handleInput(String choice, String line) throws DukeException {
+    public static void handleInput(String choice, String line) throws DukeException {
         switch (choice) {
             case "hello":
             case "hi":
@@ -108,6 +109,20 @@ public class UserInterface {
                     throw new DukeException("Unable to save to file.");
                 }
                 break;
+            case "find":
+                String find = Parser.getBody(line);
+                ArrayList<Todo> foundItems = Parser.find(find);
+                System.out.println("Here are the matching tasks in your list:");
+                for (int i = 0; i < foundItems.size(); i++) {
+                    System.out.println(i+1 + "." + foundItems.get(i).getType() + "[" + (foundItems.get(i).getDone() ? "✓" : "✗") + "] " + foundItems.get(i).display());
+                }
+                break;
+            case "sort":
+                String sort = Parser.getBody(line);
+                Task.sortTask(sort);
+                System.out.println("Done sorting your items: ");
+                Task.printTaskList();
+                break;
             default:
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
@@ -115,7 +130,7 @@ public class UserInterface {
     /**
      * Executed when program ends, to inform user that the program has been terminated.
      */
-    public void goodbye() {
+    public static void goodbye() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 }

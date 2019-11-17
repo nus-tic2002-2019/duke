@@ -1,6 +1,7 @@
 package duke;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -41,6 +42,24 @@ public class Parser {
     }
 
     /**
+     * Takes in a string item. Will find todo that contains the string.
+     *
+     * @return ArrayList<Todo> returns an ArrayList of matching todo.
+     */
+    public static ArrayList<Todo> find(String item) throws DukeException {
+        ArrayList<Todo> foundItems = new ArrayList<Todo>();
+        for (int i = 0; i < Task.getSize(); i++) {
+            String[] words = Task.getTask(i).getTodo().split(" ");
+            for (String word: words) {
+                if (word.equals(item)) {
+                    foundItems.add(Task.getTask(i));
+                }
+            }
+        }
+        return foundItems;
+    }
+
+    /**
      * Reads String format of a date input ("d/MM/yyyy") and outputs ("MMM d yyyy, E")
      *
      * @return String returns date format ("MMM d yyyy, E")
@@ -52,7 +71,7 @@ public class Parser {
             Date formatDate = format.parse(date);
             return display.format(formatDate);
         } catch (Exception error) {
-            throw new DukeException("Problem formatting date, please format as 'd/MM/yyyy (e.g. 20/09/2019 0800)'");
+            throw new DukeException("Problem formatting date, please format as 'd/MM/yyyy - (e.g. 20/09/2019)'");
         }
     }
 
@@ -68,7 +87,7 @@ public class Parser {
             Date _24HourDateTime = _24HourFormat.parse(time);
             return _12HourFormat.format(_24HourDateTime);
         } catch (Exception error) {
-            throw new DukeException("Problem formatting date and time, please format as 'HHmm (e.g. 20/09/2019 0800)'");
+            throw new DukeException("Problem formatting time, please format as 'HHmm - (e.g. 0800)'");
         }
     }
 }

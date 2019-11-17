@@ -27,8 +27,12 @@ public class Task {
             System.out.println(todo.indexOf("/by"));
             throw new DukeException("We are unable to add that deadline. Try specifying /by for an event. E.g. 'Project /by 17/11/2019 2359'");
         }
-        Todo deadline = new Deadline(todo.split("/by", 2)[0], todo.split("/by", 2)[1]);
-        taskList.add(deadline);
+        try {
+            Todo deadline = new Deadline(todo.split("/by", 2)[0], todo.split("/by", 2)[1]);
+            taskList.add(deadline);
+        } catch (DukeException error) {
+            throw error;
+        }
     }
 
     public static Todo getTask(int index) throws DukeException {
@@ -67,6 +71,68 @@ public class Task {
     public static void printTaskList() {
         for (int i = 0; i < getSize(); i++) {
             System.out.println(i+1 + "." + taskList.get(i).getType() + "[" + (taskList.get(i).getDone() ? "✓" : "✗") + "] " + taskList.get(i).display());
+        }
+    }
+
+    public static void sortTask(String type) {
+        ArrayList <Todo> tempList = new ArrayList<>();;
+        switch(type) {
+            case "todo":
+                for (int i = 0; i < getSize(); i++) {
+                    if (taskList.get(i).getType().equals("T")) {
+                        tempList.add(taskList.get(i));
+                    }
+                }
+                for (int i = 0; i < getSize(); i++) {
+                    if (taskList.get(i).getType().equals("E")) {
+                        tempList.add(taskList.get(i));
+                    }
+                }
+                for (int i = 0; i < getSize(); i++) {
+                    if (taskList.get(i).getType().equals("D")) {
+                        tempList.add(taskList.get(i));
+                    }
+                }
+                taskList = tempList;
+                break;
+            case "event":
+                for (int i = 0; i < getSize(); i++) {
+                    if (taskList.get(i).getType().equals("E")) {
+                        tempList.add(taskList.get(i));
+                    }
+                }
+                for (int i = 0; i < getSize(); i++) {
+                    if (taskList.get(i).getType().equals("T")) {
+                        tempList.add(taskList.get(i));
+                    }
+                }
+                for (int i = 0; i < getSize(); i++) {
+                    if (taskList.get(i).getType().equals("D")) {
+                        tempList.add(taskList.get(i));
+                    }
+                }
+                taskList = tempList;
+                break;
+            case "deadline":
+                for (int i = 0; i < getSize(); i++) {
+                    if (taskList.get(i).getType().equals("D")) {
+                        tempList.add(taskList.get(i));
+                    }
+                }
+                for (int i = 0; i < getSize(); i++) {
+                    if (taskList.get(i).getType().equals("T")) {
+                        tempList.add(taskList.get(i));
+                    }
+                }
+                for (int i = 0; i < getSize(); i++) {
+                    if (taskList.get(i).getType().equals("E")) {
+                        tempList.add(taskList.get(i));
+                    }
+                }
+                taskList = tempList;
+                break;
+            default:
+                break;
         }
     }
 

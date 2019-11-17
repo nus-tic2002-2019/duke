@@ -7,7 +7,7 @@ public class Deadline extends Todo {
         super(todo);
         String[] dateTime = date.split(" ");
         try {
-            setDate(Parser.formatTime(dateTime[1]) + ", " + Parser.formatTime(dateTime[2]));
+            setDate(Parser.formatDate(dateTime[1]) + ", " + Parser.formatTime(dateTime[2]));
         } catch (DukeException error) {
             throw error;
         }
