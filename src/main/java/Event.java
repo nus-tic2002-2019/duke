@@ -1,24 +1,25 @@
 public class Event extends Task {
-    protected String eDescription;
-    protected String eAt;
+    protected String eventDescription;
+    protected String eventAtString;
 
-    //Declare variables for keywords
-    protected String keyAt = "at";
+    //Declare constant variables
+    protected final String STRING_AT = "at";
+    protected final char STRING_SEPARATOR = '/';
 
     //Store keywords' number of characters
-    protected int numAt = keyAt.length();
+    protected int atStrLen = STRING_AT.length();
 
     //Constructor
-    public Event(String description) {
-        super(description.substring(0, description.indexOf('/') - 1) );
+    public Event(String taskDescription) {
+        super(taskDescription.substring(0, taskDescription.indexOf('/') - 1) );
         typeIdt = 'E';
 
-        eDescription = description.substring(0, description.indexOf('/') - 1);
-        eAt = description.substring(description.indexOf('/') + 2 + numAt);
+        eventDescription = taskDescription.substring(0, taskDescription.indexOf(STRING_SEPARATOR) - 1);
+        eventAtString = taskDescription.substring(taskDescription.indexOf(STRING_SEPARATOR) + 2 + atStrLen);
     }
 
     @Override
     public String toString() {
-        return "[" + typeIdt + "][" + getStatusIcon() + "] " + eDescription + " (" + keyAt + ": " + eAt + ")";
+        return "[" + typeIdt + "][" + getStatusIcon() + "] " + eventDescription + " (" + STRING_AT + ": " + eventAtString + ")";
     }
 }

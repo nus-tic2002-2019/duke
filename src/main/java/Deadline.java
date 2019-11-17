@@ -1,24 +1,26 @@
 public class Deadline extends Task {
-    protected String eDescription;
-    protected String eBy;
+    //Declare variables
+    protected String deadlineDescription;
+    protected String deadlineByString;
 
-    //Declare variables for keywords
-    protected String keyBy = "by";
+    //Declare constant variables
+    protected final String STRING_BY = "by";
+    protected final char STRING_SEPARATOR = '/';
 
     //Store keywords' number of characters
-    protected int numBy = keyBy.length();
+    protected int byStrLen = STRING_BY.length();
 
     //Constructor
-    public Deadline(String description) {
-        super(description.substring(0, description.indexOf('/') - 1) );
+    public Deadline(String taskDescription) {
+        super(taskDescription.substring(0, taskDescription.indexOf('/') - 1) );
         typeIdt = 'D';
 
-        eDescription = description.substring(0, description.indexOf('/') - 1);
-        eBy = description.substring(description.indexOf('/') + 2 + numBy);
+        deadlineDescription = (taskDescription.substring(0, taskDescription.indexOf(STRING_SEPARATOR) - 1) );
+        deadlineByString = taskDescription.substring(taskDescription.indexOf(STRING_SEPARATOR) + 2 + byStrLen);
     }
 
     @Override
     public String toString() {
-        return "[" + typeIdt + "][" + getStatusIcon() + "] " + eDescription + " (" + keyBy + ": " + eBy + ")";
+        return "[" + typeIdt + "][" + getStatusIcon() + "] " + deadlineDescription + " (" + STRING_BY + ": " + deadlineByString + ")";
     }
 }

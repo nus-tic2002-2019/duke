@@ -1,18 +1,19 @@
 public class Task {
-    protected String description;
+    //Declare variables
+    protected String taskDescription;
     protected boolean isDone;
     protected char typeIdt;
 
     //Constructor
-    public Task(String description) {
-        this.description = description;
+    public Task(String taskDescription) {
+        this.taskDescription = taskDescription;
         isDone = false;
         typeIdt = 'A';
     }
 
     //Getter
-    public String getDescription() {
-        return description;
+    public String getTaskDescription() {
+        return taskDescription;
     }
 
     public String getStatusIcon() {
@@ -34,6 +35,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + typeIdt + "][" + getStatusIcon() + "] " + description;
+        return "[" + typeIdt + "][" + getStatusIcon() + "] " + taskDescription;
     }
 }

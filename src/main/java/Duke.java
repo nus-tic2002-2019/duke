@@ -5,43 +5,42 @@ public class Duke {
     //Create task ArrayList
     private static ArrayList<Task> tasks = new ArrayList<Task>();
 
-    //Declare variables for keywords
-    private static String byeString = "bye";
-    private static String listString = "list";
-    private static String doneString = "done";
-    private static String deleteString = "delete";
-    private static String todoString = "todo";
-    private static String deadlineString = "deadline";
-    private static String eventString = "event";
+    //Declare constant variables
+    private static final String STRING_BYE = "bye";
+    private static final String STRING_LIST = "list";
+    private static final String STRING_DONE = "done";
+    private static final String STRING_DELETE = "delete";
+    private static final String STRING_TODO = "todo";
+    private static final String STRING_DEADLINE = "deadline";
+    private static final String STRING_EVENT = "event";
 
-    //Store keywords' number of characters
-    private static int doneStrLen = doneString.length();
-    private static int deleteStrLen = deleteString.length();
-    private static int todoStrLen = todoString.length();
-    private static int deadlineStrLen = deadlineString.length();
-    private static int eventStrLen = eventString.length();
-
-    //Declare error inputs in an array
-    private static String[] errorInputList = {"blah"};
-
-    //Declare string to print
-    private static String greetString = "____________________________________________________________\n"
+    private static final String MSG_GREET = "____________________________________________________________\n"
             + "Hello! I'm Duke\n"
             + "What can I do for you?\n"
             + "____________________________________________________________";
 
-    private static String bye = "____________________________________________________________\n"
+    private static final String MSG_BYE = "____________________________________________________________\n"
             + "Bye. Hope to see you again soon!\n"
             + "____________________________________________________________";
 
-    private static String preTaskMsg = "____________________________________________________________\n"
+    private static final String MSG_PRE_TASK = "____________________________________________________________\n"
             + "Got it. I've added this task:";
 
-    private static String postTaskMsg = "Now you have " + (tasks.size()) + " tasks in the list."
+    private static final String MSG_POST_TASK = "Now you have " + (tasks.size()) + " tasks in the list."
             + "\n____________________________________________________________";
 
+    //Store keywords' number of characters
+    private static int doneStrLen = STRING_DONE.length();
+    private static int deleteStrLen = STRING_DELETE.length();
+    private static int todoStrLen = STRING_TODO.length();
+    private static int deadlineStrLen = STRING_DEADLINE.length();
+    private static int eventStrLen = STRING_EVENT.length();
+
+    //Declare error inputs in an array
+    private static String[] errorInputList = {"blah"};
+
     public static void greetUser() {
-        System.out.println(greetString);
+        System.out.println(MSG_GREET);
     }
 
     public static void runApp() throws StringIndexOutOfBoundsException, DukeException {
@@ -56,12 +55,12 @@ public class Duke {
             }
         }
 
-        if (input.equals(byeString) ) {
+        if (input.equals(STRING_BYE) ) {
             //Bye
-            System.out.println(bye);
+            System.out.println(MSG_BYE);
             return;
 
-        } else if (input.equals(listString) ) {
+        } else if (input.equals(STRING_LIST) ) {
             //List tasks
             System.out.println("____________________________________________________________");
             System.out.println("Here are the tasks in your list:");
@@ -72,7 +71,7 @@ public class Duke {
             }
             System.out.println("____________________________________________________________");
 
-        } else if (input.length() >= doneStrLen && (input.substring(0, doneStrLen) ).equals(doneString) ) {
+        } else if (input.length() >= doneStrLen && (input.substring(0, doneStrLen) ).equals(STRING_DONE) ) {
             //Mark task as done
 
             //Get task index
@@ -88,7 +87,7 @@ public class Duke {
             System.out.println(tasks.get(taskNum));
             System.out.println("____________________________________________________________");
 
-        } else if (input.length() >= deleteStrLen && (input.substring(0, deleteStrLen) ).equals(deleteString) ){
+        } else if (input.length() >= deleteStrLen && (input.substring(0, deleteStrLen) ).equals(STRING_DELETE) ){
             //Delete task
 
             //Get task index
@@ -109,7 +108,7 @@ public class Duke {
         } else {
             String inputExtract;
 
-            if (input.length() >= todoStrLen && (input.substring(0, todoStrLen) ).equals(todoString) ) {
+            if (input.length() >= todoStrLen && (input.substring(0, todoStrLen) ).equals(STRING_TODO) ) {
                 //Add to-do
 
                 //Exception of to-do without title
@@ -119,11 +118,11 @@ public class Duke {
 
                 inputExtract = input.substring(todoStrLen + 1, input.length() );
                 tasks.add(new Todo(inputExtract) );
-            } else if (input.length() >= deadlineStrLen && (input.substring(0, deadlineStrLen) ).equals(deadlineString) ) {
+            } else if (input.length() >= deadlineStrLen && (input.substring(0, deadlineStrLen) ).equals(STRING_DEADLINE) ) {
                 //Add deadline
                 inputExtract = input.substring(deadlineStrLen + 1, input.length() );
                 tasks.add(new Deadline(inputExtract) );
-            } else if (input.length() >= eventStrLen && (input.substring(0, eventStrLen) ).equals(eventString) ) {
+            } else if (input.length() >= eventStrLen && (input.substring(0, eventStrLen) ).equals(STRING_EVENT) ) {
                 //Add event
                 inputExtract = input.substring(eventStrLen + 1, input.length() );
                 tasks.add(new Event(inputExtract) );
@@ -133,9 +132,9 @@ public class Duke {
                 tasks.add(new Task(inputExtract) );
             }
 
-            System.out.println(preTaskMsg);
+            System.out.println(MSG_PRE_TASK);
             System.out.println(tasks.get(tasks.size() -1) );
-            System.out.println(postTaskMsg);
+            System.out.println(MSG_POST_TASK);
         }
 
         //Recurring method
@@ -151,12 +150,12 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         System.out.println("Bye!");
 
-        //Declare string to print
-        String indexErrorMessage = "____________________________________________________________\n"
+        //Declare constant variables
+        final String MSG_INDEX_ERROR = "____________________________________________________________\n"
                 +"OOPS!!! The description of a done/todo/deadline/event cannot be empty.\n"
                 + "____________________________________________________________\n";
 
-        String dukeErrorMessage = "____________________________________________________________\n"
+        final String MSG_DUKE_ERROR = "____________________________________________________________\n"
                 +"OOPS!!! I'm sorry, but I don't know what that means :-(\n"
                 + "____________________________________________________________\n";
 
@@ -165,9 +164,9 @@ public class Duke {
         try {
             runApp();
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println(indexErrorMessage);
+            System.out.println(MSG_INDEX_ERROR);
         } catch (DukeException e) {
-            System.out.println(dukeErrorMessage);
+            System.out.println(MSG_DUKE_ERROR);
         }
     }
 }
