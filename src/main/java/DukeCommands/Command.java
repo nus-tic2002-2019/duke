@@ -1,10 +1,10 @@
-package DukeCommands;
+package newDuke.DukeCommands;
 
 import java.io.IOException;
-import main.Storage;
-import main.TaskList;
-import main.UI;
-import DukeExceptions.Exception;
+import newDuke.main.Storage;
+import newDuke.main.TaskList;
+import newDuke.main.UI;
+import newDuke.DukeExceptions.Exception;
 
 /**
  * An interface to be implemented by all the Command type objects.
