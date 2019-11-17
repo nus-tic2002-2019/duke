@@ -1,6 +1,6 @@
 package duke;
 
-public class Todo extends Task {
+public class Todo {
     protected String todo;
     protected boolean done;
 
