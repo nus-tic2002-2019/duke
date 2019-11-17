@@ -1,0 +1,6 @@
+T | 1 | read book
+D | 0 | return book | 22/10/2019 1500
+E | 0 | project meeting | 01/11/2019 1800
+T | 1 | join sports club
+E | 0 | project meeting | 22/10/2019 1500
+E | 0 | project meeting  | 01/12/2019 1800
