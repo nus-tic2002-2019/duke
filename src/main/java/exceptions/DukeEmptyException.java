@@ -1,3 +1,5 @@
+package exceptions;
+
 public class DukeEmptyException extends Exception{
 
     public DukeEmptyException(String taskName) {

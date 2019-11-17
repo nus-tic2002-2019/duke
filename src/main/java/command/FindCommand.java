@@ -1,6 +1,12 @@
-/**
+package command; /**
  * subclass command to find or search for task using key words
  */
+
+import exceptions.DukeException;
+import task.Storage;
+import task.Task;
+import task.TaskList;
+import ui.UI;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -18,7 +24,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException{
+    public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
         if(input.split(" ")[1].trim().isEmpty()){
             throw new DukeException("The selector of a find cannot be empty.");
         }
@@ -30,7 +36,7 @@ public class FindCommand extends Command {
 
         for(int i = 0; i<taskList.getSize(); i++){
             Task task = taskList.getTask(i);
-            if(task.description.contains(input)){
+            if(task.getDescription().contains(input)){
                 matchedTasks.add(task.toString());
                 isMatch = true;
             }

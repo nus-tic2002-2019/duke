@@ -1,11 +1,20 @@
+package command;
+
+import command.Command;
+import exceptions.DukeEmptyException;
+import exceptions.DukeException;
+import task.Deadline;
+import task.Storage;
+import task.TaskList;
+import ui.UI;
+
 import java.io.IOException;
 import java.util.Arrays;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.time.format.DateTimeFormatter;
 
-public class AddDeadlineCommand extends Command{
+public class AddDeadlineCommand extends Command {
     public static final String INPUT_WORD = "deadline";
     private Deadline deadline;
 

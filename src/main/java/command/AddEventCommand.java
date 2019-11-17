@@ -1,14 +1,21 @@
-/**
+package command; /**
  * Constructs a new AddEventCommand and initialise with isExit boolean value
  */
 
+import exceptions.DukeEmptyException;
+import exceptions.DukeException;
+import task.Event;
+import task.Storage;
+import task.TaskList;
+import ui.UI;
+
 import java.io.IOException;
-import java.util.Arrays;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 
-public class AddEventCommand extends Command{
+public class AddEventCommand extends Command {
     public static final String INPUT_WORD = "event";
     private Event event;
 

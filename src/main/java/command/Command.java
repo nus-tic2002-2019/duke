@@ -1,3 +1,11 @@
+package command;
+
+import exceptions.DukeEmptyException;
+import exceptions.DukeException;
+import task.Storage;
+import task.TaskList;
+import ui.UI;
+
 import java.io.IOException;
 
 public class Command{

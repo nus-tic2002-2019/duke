@@ -1,3 +1,5 @@
+package task;
+
 /**
  * task class to initiate a "tick" or "cross" for every task
  */
@@ -14,6 +16,7 @@ public class Task {
     public String getStatusIcon() {
         return (this.isDone ? "\u2713" : "\u2718");
     }
+    public String getDescription() { return this.description; }
 
     public String toString() {
         return getStatusIcon() + this.description;

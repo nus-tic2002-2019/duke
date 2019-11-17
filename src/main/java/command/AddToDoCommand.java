@@ -1,7 +1,17 @@
+package command;
+
+import command.Command;
+import exceptions.DukeEmptyException;
+import exceptions.DukeException;
+import task.Storage;
+import task.TaskList;
+import task.ToDo;
+import ui.UI;
+
 import java.io.IOException;
         //import java.util.Arrays;
 
-public class AddToDoCommand extends Command{
+public class AddToDoCommand extends Command {
     public static final String INPUT_WORD = "todo";
     private ToDo todo;
 

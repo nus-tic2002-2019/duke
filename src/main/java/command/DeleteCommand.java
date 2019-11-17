@@ -1,26 +1,31 @@
-import java.io.IOException;
-       // import java.util.Arrays;
+package command;
 
-public class DoneCommand extends Command{
-    public static final String INPUT_WORD = "done";
-    public static final String MESSAGE_DELETE_SUCCESS = "Noted. I've marked this task as done:\n\t ";
+import exceptions.DukeException;
+import task.Storage;
+import task.TaskList;
+import ui.UI;
+
+import java.io.IOException;
+
+public class DeleteCommand extends Command{
+    public static final String INPUT_WORD = "delete";
+    public static final String MESSAGE_DELETE_SUCCESS = "Noted. I've removed this task:\n\t ";
     private int index;
 
-    public DoneCommand(boolean isExit, String input){
+    public DeleteCommand(boolean isExit, String input){
         super(isExit, input);
     }
 
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException, IOException{
-        //if((input.substring(4).trim()).isEmpty()){
+        //if((input.substring(6).trim()).isEmpty())
         if(input.split(" ")[1].trim().isEmpty()){
-            throw new DukeException("The selector of a done cannot be empty.");
+           throw new DukeException("The selector of a delete cannot be empty.");
         }
         try{
             index = prepareIndex(input);
-            (taskList.getTask(index)).setDone();
             ui.showOutputToUser(MESSAGE_DELETE_SUCCESS + taskList.getTask(index).toString());
-            //taskList.deleteFromTaskList(index);
+            taskList.deleteFromTaskList(index);
             storage.saveToFile();
         }
         catch (NumberFormatException e) {

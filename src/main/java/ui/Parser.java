@@ -1,3 +1,8 @@
+package ui;
+
+import command.*;
+import exceptions.DukeException;
+
 /**
  * Represent Parse class
  * Make sense of user input and update data into the data structure
