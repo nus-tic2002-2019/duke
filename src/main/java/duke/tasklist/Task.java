@@ -7,9 +7,9 @@ import java.time.LocalDate;
  *
  */
 public abstract class Task {
-    protected String description, printTaskPriority;
-    protected boolean isDone;
-    protected Priority taskPriority;
+    private String description, printTaskPriority;
+    boolean isDone;
+    Priority taskPriority;
 
 
     public Task(String description) {

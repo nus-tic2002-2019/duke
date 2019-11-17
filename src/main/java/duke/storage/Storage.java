@@ -16,18 +16,20 @@ import java.time.LocalDate;
  * to read the data from the file and write changes to the file.
  */
 public class Storage {
-    protected String fileName;
-    protected static File taskFile;
-    private Scanner loadTask;
-    private boolean isDone;
-    Priority taskPriority;
+    private static File taskFile;
+
     /**
      * The Storage Constructor accept the location of the file and creates a new File object for that file
      * @param fileName the full path of the file
+     * @throws IOException if the file cannot be created
      */
-    public Storage (String fileName){
-        this.fileName = fileName;
+    public Storage (String fileName) throws IOException{
         taskFile = new File(fileName);
+        if (taskFile.createNewFile()){
+            System.out.println("    tasks.txt has been created");
+        } else {
+            System.out.println("    task.txt has been found");
+        }
     }
     /**
      * The loadList method attempts to load the list from the file and store into a list
@@ -35,10 +37,9 @@ public class Storage {
      * @throws DukeException if the file contains a task which cannot be recognise
      * @throws FileNotFoundException if there is any problem reading data from the file
      */
-
     public List<Task> loadList() throws DukeException, FileNotFoundException {
         List<Task> tasksList = new ArrayList<>();
-        loadTask = new Scanner(taskFile);
+        Scanner loadTask = new Scanner(taskFile);
         while (loadTask.hasNext()){
             String[] readFileArr = loadTask.nextLine().split(" \\| ", 5);
 
@@ -48,12 +49,14 @@ public class Storage {
             String strTaskPriority = readFileArr[2];
             String taskDescription = readFileArr[3];
 
+            boolean isDone;
             if (taskStatus.equals("1")){
                 isDone = true;
             }
             else isDone = false;
 
-            taskPriority = Priority.priorityFromString(strTaskPriority);
+            Priority taskPriority = Priority.priorityFromString(strTaskPriority);
+            assert taskPriority !=null : "taskPriority should not be null";
 
             switch (taskType) {
             case "T":
@@ -86,7 +89,7 @@ public class Storage {
      * @throws IOException if there is problem writing tot he file
      */
 
-    public static void saveList(String fileName, taskList tasks) throws IOException {
+    public static void saveList(String fileName, TaskList tasks) throws IOException {
       FileWriter taskSave = new FileWriter(fileName);
         ArrayList<Task> taskList = tasks.getList();
         for (Task eachTask:taskList){

@@ -1,39 +1,45 @@
+package duke;
+
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 import duke.exception.DukeException;
 
-import duke.tasklist.taskList;
+import duke.tasklist.TaskList;
 import duke.ui.Ui;
 import duke.storage.Storage;
 
 
 public class Duke {
 
-    private static taskList tasks;
+    private static TaskList tasks;
     private static Ui userInterface;
     private static Storage storage;
-    private static Scanner in = new Scanner(System.in);
 
     /**
      * The Duke constructor creates the main program known as Duke, and preload the tasks saved in a file.
      * @param filePath is the full path where the file is located.
-     * @exception DukeException if file not found
+     * @throws DukeException if file cannot be created.
      *
      */
 
-    public Duke (String filePath){
+    public Duke (String filePath) throws DukeException {
         userInterface = new Ui();
         userInterface.showWelcome();
-        storage = new Storage(filePath);
+
         try{
-            tasks = new taskList(storage.loadList());
+            storage = new Storage(filePath);
+            tasks = new TaskList(storage.loadList());
            }
         catch (DukeException e){
-            tasks = new taskList();
+            tasks = new TaskList();
         }
         catch (FileNotFoundException e){
            userInterface.showLoadingError();
+        }
+        catch (IOException e){
+            throw new DukeException("unable to create tasks.txt");
         }
     }
 
@@ -61,9 +67,9 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws DukeException{
 
-       new Duke("data/tasks.txt").run();
+       new Duke("tasks.txt").run();
 
     }
 

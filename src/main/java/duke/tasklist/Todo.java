@@ -40,7 +40,11 @@ public class Todo extends Task {
         int taskStatus = isDone ? 1:0;
         return "T | " + taskStatus + " | " + super.getTaskPriorityToString() + " | " + super.getDescription() + "\r";
     }
-
+    /**
+     * The getDate method overrides the method in Task class and
+     * returns the date for the task. For Todo task, the date will
+     * always be the local day TODAY.
+     */
     public LocalDate getDate(){
         return LocalDate.now();
     }

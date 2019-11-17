@@ -8,20 +8,20 @@ import java.time.format.DateTimeFormatter;
  */
 
 public class Deadlines extends Task {
-    protected LocalDate Date;
+    private LocalDate date;
     private DateTimeFormatter displayDateFormat = DateTimeFormatter.ofPattern("MMM d yyyy");
     private DateTimeFormatter saveDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     /**
      * The Deadline constructor creates a deadline object.
      * @param description is the description of the Deadline task
-     * @param Date is the deadline Date
+     * @param date is the deadline date
      * @param isDone is the Deadline task status
      * @param taskPriority is the priority level for the Deadline task
      */
-    public Deadlines(String description, LocalDate Date, boolean isDone, Priority taskPriority){
+    public Deadlines(String description, LocalDate date, boolean isDone, Priority taskPriority){
 
         super(description);
-        this.Date = Date;
+        this.date = date;
         super.isDone = isDone;
         super.taskPriority = taskPriority;
     }
@@ -32,7 +32,7 @@ public class Deadlines extends Task {
      */
     @Override
     public String getDescription() {
-        return "[D]" + "[" + getStatusIcon() + "][" + super.getTaskPriorityToString() + "]" + super.getDescription() + " (by:" + Date.format(displayDateFormat) + ")";
+        return "[D]" + "[" + getStatusIcon() + "][" + super.getTaskPriorityToString() + "]" + super.getDescription() + " (by:" + date.format(displayDateFormat) + ")";
     }
     /**
      * The saveToFile method overrides the method in Task class and
@@ -42,12 +42,15 @@ public class Deadlines extends Task {
     @Override
     public String saveToFile(){
         int taskStatus = isDone ? 1:0;
-        return "D | " + taskStatus + " | " + super.getTaskPriorityToString() + " | " + super.getDescription() + " | " + Date.format(saveDateFormat) + "\r";
+        return "D | " + taskStatus + " | " + super.getTaskPriorityToString() + " | " + super.getDescription() + " | " + date.format(saveDateFormat) + "\r";
     }
-
+    /**
+     * The getDate method overrides the method in Task class and
+     * returns the date for the task.
+     */
     @Override
     public LocalDate getDate(){
-        return Date;
+        return date;
     }
 
 

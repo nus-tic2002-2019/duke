@@ -10,59 +10,63 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * This is a taskList class which manages the list.
+ * This is a TaskList class which manages the list.
  * It is able to store Todo, Deadline and Event objects and the individual task details
- *
- */
-public class taskList {
+ * */
+public class TaskList {
     private static ArrayList<Task> taskList;
     private static ArrayList<Task> findTaskInList;
     private static ArrayList<Task> findLateTasks;
     private static Ui ui = new Ui();
     /**
-     * The first taskList constructor which accept no parameters simply create an empty list.
+     * The first TaskList constructor which accept no parameters simply create an empty list.
      */
-    public taskList(){
+    public TaskList(){
         taskList = new ArrayList<>();
     }
     /**
-     * The second taskList constructor accept a list of tasks, create a new list and load the tasks into the list.
+     * The second TaskList constructor accept a list of tasks, create a new list and load the tasks into the list.
      * @param listTasks a list of containing multiple tasks object
      */
-    public taskList(List<Task> listTasks){
+    public TaskList(List<Task> listTasks){
         taskList = new ArrayList<>();
         taskList.addAll(listTasks);
     }
     /**
      * the displayList method display the list to the user
-     * @param tList the taskList which is to be displayed
+     * @param tList the TaskList which is to be displayed
      * @param command to display various messages according to the command
      */
     public static void displayList (ArrayList<Task> tList, String command){
+        assert command != null:"command cannot be null";
         switch (command) {
         case "late":
             if(findLateTasks.size() == 0){
                 System.out.println("    You do not have any overdue task");
             }else {
-                System.out.println("     Here are the overdue tasks in your list:");
+                System.out.println("    Here are the overdue tasks in your list:");
             }
             break;
         case "list":
             if (taskList.size() == 0){
                 System.out.println("    Your list is empty");
             } else {
-                System.out.println("     Here are the tasks in your list:");
+                System.out.println("    Here are the tasks in your list:");
             }
             break;
         case "find":
             if (findTaskInList.size() == 0){
                 System.out.println("    We did not find any matching task in your list");
             } else {
-                System.out.println("     Here are the matching tasks in your list:");
+                System.out.println("    Here are the matching tasks in your list:");
             }
             break;
         case "sort":
-            System.out.println("     The tasks in your list are now sorted from High to Low Priority:\n" + "     NOTE: Sorted list is not save to file");
+            if (taskList.size() == 0){
+                System.out.println("    Your list is empty");
+            } else {
+                System.out.println("     The tasks in your list are now sorted from High to Low Priority:\n");
+            }
             break;
         }
         for (int index = 1; index <= tList.size(); index++){
@@ -88,12 +92,20 @@ public class taskList {
 
         } catch (NumberFormatException e){
             throw new DukeException("    Please indicate task number");
+        } catch (IndexOutOfBoundsException e){
+            if (taskList.size() == 0){
+                throw new DukeException("    Duke cannot mark a task as done or not done in an empty list");
+            }else {
+                throw new DukeException("    Please indicate a task number within the list");
+            }
         }
 
     }
     /**
      * deleteFromList method delete a task from list
      * @param textInput is the task number
+     * @throws DukeException if the user did not indicate a task number, the task number did not exist,
+     * or the user attempt to delete from an empty list
      */
     public static void deleteFromList(String textInput) throws DukeException{
         try {
@@ -106,7 +118,11 @@ public class taskList {
         } catch (NumberFormatException e){
             throw new DukeException("    Please indicate task number");
         } catch (IndexOutOfBoundsException e){
-            throw new DukeException("    Please indicate a task number within the list");
+            if (taskList.size() == 0){
+                throw new DukeException("    Duke cannot delete from an empty list");
+            }else {
+                throw new DukeException("    Please indicate a task number within the list");
+            }
         }
     }
     /**
@@ -144,8 +160,8 @@ public class taskList {
      * setTaskPriority method is to set the priority for the indicated task index
      * @param textInput is the task index in the list provided by the user
      * @param taskPriorityLevel is the priority level which the user wish to set for the task index indicated
+     * @throws DukeException when the task index is missing from the input
      */
-
     public static void setTaskPriority(String textInput, Priority taskPriorityLevel) throws DukeException {
         try {
 
@@ -164,9 +180,7 @@ public class taskList {
      * @return returns the sorted list
      */
     public static ArrayList<Task> priorityHighToLow() {
-        ArrayList<Task> sortPriorityList = new ArrayList<Task>();
-        sortPriorityList = (ArrayList<Task>) taskList.clone();
-        Collections.sort(sortPriorityList, new Comparator<Task>() {
+        Collections.sort(taskList, new Comparator<Task>() {
             @Override
             public int compare(Task t1, Task t2) {
                 if (t1.getTaskPriority() == t2.getTaskPriority()){
@@ -175,7 +189,7 @@ public class taskList {
                 return t1.getTaskPriority().compareTo(t2.getTaskPriority());
             }
         });
-        return sortPriorityList;
+        return taskList;
     }
     /**
      * findInList method is to find a keyword matching the task description in the list
@@ -190,7 +204,10 @@ public class taskList {
         }
         return findTaskInList;
     }
-
+    /**
+     * lateTask method is to find tasks which is overdue from today's date
+     * @return returns a list of tasks which has the matching keyword in it's description
+     */
     public static ArrayList<Task> lateTask(){
         findLateTasks = new ArrayList<>();
         for (Task task:taskList){

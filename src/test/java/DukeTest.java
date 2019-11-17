@@ -1,20 +1,15 @@
 import duke.exception.DukeException;
 import duke.tasklist.Deadlines;
 import duke.tasklist.Priority;
+import duke.tasklist.TaskList;
 import duke.tasklist.Todo;
-import duke.tasklist.taskList;
 import duke.parser.Parser;
 import duke.storage.Storage;
 
 import duke.ui.Ui;
 import org.junit.jupiter.api.Test;
-
-
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -22,22 +17,22 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class DukeTest {
 
     @Test
-    //1 method from Todo Class
+    //getDescription from Todo Class
     public void testTodoGetDescription(){
         assertEquals("[T][\u2718][H]test Todo High Priority", new Todo("test Todo High Priority", false, Priority.HIGH).getDescription());
     }
 
     @Test
-    //1 method from Deadlines Class
+    //saveToFile method from Deadlines Class
     public void testDeadlineSaveToFile(){
         assertEquals("D | 1 | L | test save to file | 2019-06-06\r", new Deadlines("test save to file", LocalDate.parse("2019-06-06"), true, Priority.LOW).saveToFile());
     }
 
     @Test
-    //1 method from taskList Class
+    //deleteFromList method from TaskList.
     public void testDeleteFromList(){
         try{
-            taskList loadList = new taskList(new Storage("testtasks.txt").loadList());
+            TaskList loadList = new TaskList(new Storage("testtasks.txt").loadList());
             loadList.deleteFromList("1");
             assertEquals(4, loadList.getList().size());
         } catch (FileNotFoundException | DukeException e){
@@ -46,7 +41,7 @@ public class DukeTest {
     }
 
     @Test
-    //1 Exception from Parser Class
+    //DukeException from Parser Class
     public void missingTime_Parser_throwException(){
         String textInput = "event test wrong time format /priority High /at 2019-11-15 22:00";
         try {

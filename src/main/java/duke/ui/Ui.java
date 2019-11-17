@@ -90,7 +90,7 @@ public class Ui {
      * @throws DukeException if the command is unknown (i.e. not as of the above)
      */
 
-    public void dukeInput (taskList tasks, String textInput) throws DukeException {
+    public void dukeInput (TaskList tasks, String textInput) throws DukeException {
         Parser processCommand = new Parser(textInput);
         try {
             switch (processCommand.getCommand()) {
@@ -98,42 +98,42 @@ public class Ui {
                 howToUseDuke();
                 break;
             case "overdue":
-                taskList.displayList(taskList.lateTask(), "late");
+                TaskList.displayList(TaskList.lateTask(), "late");
                 break;
             case "find":
-                taskList.displayList(taskList.findInList(processCommand.getTaskDescription()), "find");
+                TaskList.displayList(TaskList.findInList(processCommand.getTaskDescription()), "find");
                 break;
             case "sort":
-                taskList.displayList(taskList.priorityHighToLow(), "sort");
+                TaskList.displayList(TaskList.priorityHighToLow(), "sort");
                 break;
             case "list":
-                taskList.displayList(taskList.getList(), "list");
+                TaskList.displayList(TaskList.getList(), "list");
                 break;
             case "done":
-                taskList.markInList(processCommand.getListIndex(),true);
+                TaskList.markInList(processCommand.getListIndex(),true);
                 break;
             case "undone":
-                taskList.markInList(processCommand.getListIndex(),false);
+                TaskList.markInList(processCommand.getListIndex(),false);
                 break;
             case "delete":
-                taskList.deleteFromList(processCommand.getListIndex());
+                TaskList.deleteFromList(processCommand.getListIndex());
                 break;
             case "set":
-                taskList.setTaskPriority(processCommand.getListIndex(), processCommand.getTaskPriority());
+                TaskList.setTaskPriority(processCommand.getListIndex(), processCommand.getTaskPriority());
                 break;
             case "todo":
-                taskList.addTodo(new Todo(processCommand.getTodoDescription(),
+                TaskList.addTodo(new Todo(processCommand.getTodoDescription(),
                         false,
                         processCommand.getTaskPriority()));
                 break;
             case "deadline":
-                taskList.addDeadlines(new Deadlines(processCommand.getDeadlineDescription(),
+                TaskList.addDeadlines(new Deadlines(processCommand.getDeadlineDescription(),
                         processCommand.getDeadlineDate(),
                         false,
                         processCommand.getTaskPriority()));
                 break;
             case "event":
-                taskList.addEvent(new Event(processCommand.getEventDescription(),
+                TaskList.addEvent(new Event(processCommand.getEventDescription(),
                         processCommand.getEventDate(),
                         processCommand.getEventStartTime(),
                         processCommand.getEventEndTime(),
@@ -145,9 +145,9 @@ public class Ui {
                 break;
             }
             if (!processCommand.getCommand().equals("find") ||
-                    !processCommand.getCommand().equals("sort") ||
-                    !processCommand.getCommand().equals("overdue"))
+                    !processCommand.getCommand().equals("overdue")){
                 Storage.saveList(Storage.getFile().getAbsolutePath(), tasks);
+            }
         }
         catch (IOException e){
             throw new DukeException("    Unable to save to file");
@@ -157,6 +157,11 @@ public class Ui {
         }
 
     }
+
+    /**
+     * The getTextInput method returns the Scanner object created by the UI constructor
+     */
+    public static Scanner getTextInput(){return textInput;}
 
     private void howToUseDuke(){
         System.out.println("     Things Duke can help you with               | Command:");
@@ -171,11 +176,8 @@ public class Ui {
         System.out.println("     To sort the list from High to Low Priority: | \"sort\"");
         System.out.println("     To search for overdue tasks:                | \"overdue\"");
         System.out.println("     To end this program:                        | \"bye\"");
-        System.out.println("     NOTE: Your list is automatically save to the file whenever you add a task, delete a task, or mark a task as done!");
+        System.out.println("     NOTE: Your list is automatically save to the file whenever you add a task, delete a task, or mark a task as done/not done!");
     }
-    /**
-     * The getTextInput method returns the Scanner object created by the UI constructor
-     */
-    public static Scanner getTextInput(){return textInput;};
+;
 
 }
