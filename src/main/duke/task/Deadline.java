@@ -1,4 +1,6 @@
-package main.java;
+package main.duke.task;
+
+import main.duke.exception.DukeMissingDescException;
 
 public class Deadline extends Task{
     private String deadline;
