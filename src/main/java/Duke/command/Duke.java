@@ -4,14 +4,15 @@ import Duke.tasks.Deadline;
 import Duke.tasks.Event;
 import Duke.tasks.Task;
 import Duke.tasks.Todo;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/*Duke.java
+Run Duke program*/
 public class Duke {
 
     private static ArrayList<Task> task = new ArrayList<Task>();
+    /*Main mathod*/
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -56,7 +57,12 @@ public class Duke {
         t.markAsDone();
 
     }
-
+    /*
+    Identify user input and Store task object into task list.
+    @para task current task list.
+    @para input text input from user
+    @return task new task list.
+    */
     public static ArrayList<Task> StoreTask(ArrayList<Task> task, String input) {
         //int count = list.length;
         int count = 0;
@@ -93,7 +99,7 @@ public class Duke {
                 System.out.println("Now you have " + temp+" items in the list.");
             }
             catch (Exception e1){
-                checkException(e1.getMessage()+"Deadline description and time cannot be empty.");
+                checkException("Deadline description and time cannot be empty.");
             }
         }
         else if(word[0].equalsIgnoreCase("event"))
@@ -140,8 +146,11 @@ public class Duke {
 
         return task;
     }
-
-
+    /*
+    Display all items inside task list.
+    @param task current task list.
+    @return details of all tasks.
+    */
     public static void PrintTask(ArrayList<Task> task)
     {
         int size = 0;
@@ -158,6 +167,11 @@ public class Duke {
         }
     }
 
+    /*
+    Handle error message
+    @param msg customised message to be displayed.
+    @return details of error.
+    */
     public static void checkException(String msg){
         try{
             throw new DukeException(msg);
@@ -167,10 +181,17 @@ public class Duke {
         }
     }
 
+    /*
+    remove task from task list
+    @param index index of task to be removed
+    */
     public static void deleteTask(int index){
         task.remove(index);
     }
 
+    /*
+    save current task list into hard disk.
+    */
     public static void save() {
         try {
             FileOutputStream fos = new FileOutputStream("c:\\users\\shado\\desktop\\tasks.txt");
@@ -185,6 +206,9 @@ public class Duke {
         }
     }
 
+    /*
+    load task list from hard disk.
+    */
     public static ArrayList<Task> load(){
         ArrayList<Task> task1 = null;
         try{
