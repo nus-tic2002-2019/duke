@@ -39,19 +39,23 @@ public class DeleteCommand extends Command {
         } else if (tasks.size() <= this.index) {
             throw new DukeException("Please enter a task number between 1 and " + tasks.size());
         } else {
-            Task currentTask = tasks.get(this.index);
-            if (!currentTask.isDoBeforeEmpty()) {
-                Task parentTask = tasks.get(currentTask.getDoBefore());
-                parentTask.setDoAfter(-1);
-            }
-            if (!currentTask.isDoAfterEmpty()) {
-                Task childTask = tasks.get(currentTask.getDoAfter());
-                childTask.setDoBefore(-1);
-            }
+            updateChildAndParent(tasks);
             ui.print("Yessir! Task removed!!\n\t"
                     + tasks.get(this.index).getStatusIconAndDesc() + "\n" + (tasks.size() - 1) + " tasks to go!");
             tasks.remove(this.index);
             storage.save(tasks);
+        }
+    }
+
+    private void updateChildAndParent(TaskList tasks) {
+        Task currentTask = tasks.get(this.index);
+        if (!currentTask.isDoBeforeEmpty()) {
+            Task parentTask = tasks.get(currentTask.getDoBefore());
+            parentTask.setDoAfter(-1);
+        }
+        if (!currentTask.isDoAfterEmpty()) {
+            Task childTask = tasks.get(currentTask.getDoAfter());
+            childTask.setDoBefore(-1);
         }
     }
 }

@@ -21,7 +21,7 @@ public class Duke {
     private Ui ui;
 
     public static void main(String[] args) {
-        new Duke("/Users/spencernah/code/duke/data/data.txt").run();
+        new Duke("/Users/spencernah/code/duke/data/data_test.txt").run();
     }
 
     /**
@@ -59,7 +59,6 @@ public class Duke {
                     c = Parser.parse("reminder");
                     c.execute(tasks, ui, storage);
                     ui.showLine();
-
                 }
                 String fullCommand = ui.readCommand();
                 ui.showLine(); // show the divider line ("_______")
@@ -76,6 +75,5 @@ public class Duke {
                 ui.showLine();
             }
         }
-
     }
 }

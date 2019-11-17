@@ -113,10 +113,16 @@ public class Task {
         this.isDone = true;
     }
 
+    /**
+     * @return true if there is no Do After task.
+     */
     public boolean isDoAfterEmpty() {
         return this.doAfter == -1;
     }
 
+    /**
+     * @return true if there is no Do Before task.
+     */
     public boolean isDoBeforeEmpty() {
         return this.doBefore == -1;
     }

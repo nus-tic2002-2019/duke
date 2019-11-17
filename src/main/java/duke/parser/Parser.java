@@ -105,7 +105,8 @@ public class Parser {
                 if (!Utility.isNumber(taskIndex2)) {
                     throw new DukeException(ERR_NOT_A_INT);
                 }
-                return new SetDoAfterCommand(Integer.parseInt(taskIndex1)-1, Integer.parseInt(taskIndex2)-1);
+                return new SetDoAfterCommand(Integer.parseInt(taskIndex1)-1,
+                        Integer.parseInt(taskIndex2)-1);
 
         }
         return new UnknownCommand();

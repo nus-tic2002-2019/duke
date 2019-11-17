@@ -9,15 +9,28 @@ import duke.task.*;
 
 import duke.ui.Ui;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class ParserTest {
 
-    TaskList tasks = new TaskList();
     Ui ui = new Ui();
     Storage storage = new Storage("/Users/spencernah/code/duke/data/data_test.txt");
+    TaskList tasks;
+
+    @BeforeEach
+    public void setup() {
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Test
     public void parse_ViewByDateCommand_noDate() {

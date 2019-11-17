@@ -36,6 +36,14 @@ public class SetDoAfterCommand extends Command {
      * @throws IOException if there are errors updating the specific line of data in the storage file.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
+        if (this.parentIndex >= tasks.size() || this.childIndex >= tasks.size() ||
+                this.parentIndex < 0 || this.childIndex < 0) {
+            throw new DukeException("Tasks number is out of range. Please select a number between 1 -" +
+                    (tasks.size()+1) + ".");
+        }
+        if (this.parentIndex == this.childIndex) {
+            throw new DukeException("Please choose 2 different tasks");
+        }
         Task parentTask = tasks.get(this.parentIndex);
         Task childTask = tasks.get(this.childIndex);
         String input;
@@ -49,9 +57,9 @@ public class SetDoAfterCommand extends Command {
         else {
             input = "New Do After task for " + parentTask.getDesc();
         }
+        input += "\n\t[" + parentTask.getDesc() + "] -> [" + childTask.getDesc() + "]";
         parentTask.setDoAfter(this.childIndex);
         childTask.setDoBefore(this.parentIndex);
-        input += "\n\t[" + parentTask.getDesc() + "] -> [" + childTask.getDesc() + "]";
         storage.updateLine(parentIndex, parentIndex + ";" + Utility.constructInput(tasks.get(parentIndex)));
         storage.updateLine(childIndex, childIndex + ";" + Utility.constructInput(tasks.get(childIndex)));
         ui.print(input);
