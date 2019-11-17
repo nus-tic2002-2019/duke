@@ -5,7 +5,7 @@ import Tasks.TaskList;
 import UI.Ui;
 
 /**
- *
+ * Command to exit the program
  */
 public class ByeCommand extends Command {
     /**

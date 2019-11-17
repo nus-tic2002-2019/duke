@@ -7,7 +7,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The event class which the user want to store
+ * The event class which the user want to store with date and time
  */
 public class Events extends Task {
     protected LocalDate taskDate;

@@ -96,7 +96,7 @@ public class Ui {
      */
     public static void showAllTask(TaskList tasks){
         for(int i = 0; i< tasks.getSize(); i++){
-            System.out.println("Tasks.Task Number " + (tasks.getTask(i).getTaskIndex() +1) + ": " + tasks.getTask(i).toString());
+            System.out.println("Task Number " + (tasks.getTask(i).getTaskIndex() +1) + ": " + tasks.getTask(i).toString());
         }
     }
 

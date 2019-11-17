@@ -14,11 +14,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- *
+ * Schedule Command will find all events and deadlines with the dates that the user input
  */
 public class ScheduleCommand extends Command {
     /**
-     *
+     * Constructs the schedule command
      * @param taskDes
      */
     public ScheduleCommand(String taskDes){
@@ -26,11 +26,12 @@ public class ScheduleCommand extends Command {
     }
 
     /**
-     *
-     * @param tasks
-     * @param ui
-     * @param storage
-     * @throws DukeException
+     * The command will extract the events and deadlines that are on the date the user input
+     * It will spilt up into events with time, events without time and deadlines and display them
+     * @param tasks the tasklist
+     * @param ui the ui
+     * @param storage the storage
+     * @throws DukeException any expected error
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try{
@@ -44,25 +45,7 @@ public class ScheduleCommand extends Command {
         ArrayList<Events> scheduleWithoutTime = new ArrayList<>();
         ArrayList<Deadlines> deadlines = new ArrayList<>();
         for(int i = 0; i < tasks.getSize(); i++){
-            if(tasks.getTask(i).getTaskType() == TaskType.TODOS){
-                continue;
-            }
-            if(tasks.getTask(i).getTaskType() == TaskType.DEADLINES){
-                Deadlines deadline = (Deadlines)tasks.getTask(i);
-                if(deadline.getDate().isEqual(date)) {
-                    deadlines.add(deadline);
-                }
-                continue;
-            }
-            Events event = (Events)tasks.getTask(i);
-            if(!event.getDate().isEqual(date)){
-                continue;
-            }
-            if(!event.isHasTime()){
-                scheduleWithoutTime.add(event);
-                continue;
-            }
-            scheduleWithTime.add(event);
+            categoriseTask(tasks, scheduleWithTime, scheduleWithoutTime, deadlines, i, date);
         }
         sort_TaskByTime_deadlines(deadlines);
         sort_TaskByTime_events(scheduleWithTime);
@@ -70,9 +53,41 @@ public class ScheduleCommand extends Command {
     }
 
     /**
-     *
-     * @param deadlines
-     * @throws DukeException
+     * Separate function to categorise the task into the different ArrayList
+     * @param tasks the task list
+     * @param scheduleWithTime the list of event with time
+     * @param scheduleWithoutTime the list of event without time
+     * @param deadlines the list of deadline
+     * @param i the task index
+     * @param date the date the user input
+     */
+    private void categoriseTask(TaskList tasks, ArrayList<Events> scheduleWithTime, ArrayList<Events> scheduleWithoutTime,
+                                ArrayList<Deadlines> deadlines, int i, LocalDate date){
+        if(tasks.getTask(i).getTaskType() == TaskType.TODOS){
+            return;
+        }
+        if(tasks.getTask(i).getTaskType() == TaskType.DEADLINES){
+            Deadlines deadline = (Deadlines)tasks.getTask(i);
+            if(deadline.getDate().isEqual(date)) {
+                deadlines.add(deadline);
+            }
+            return;
+        }
+        Events event = (Events)tasks.getTask(i);
+        if(!event.getDate().isEqual(date)){
+            return;
+        }
+        if(!event.isHasTime()){
+            scheduleWithoutTime.add(event);
+            return;
+        }
+        scheduleWithTime.add(event);
+    }
+
+    /**
+     * Do a sort to arrange the deadline by their timing
+     * @param deadlines list of deadline with the date the user wants
+     * @throws DukeException any expected errors
      */
 
     private void sort_TaskByTime_deadlines(ArrayList<Deadlines> deadlines) throws DukeException {
@@ -111,12 +126,12 @@ public class ScheduleCommand extends Command {
     }
 
     /**
-     *
-     * @param events
-     * @throws DukeException
+     * Sort the event based on their time
+     * @param events list of events with time
+     * @throws DukeException any expected error
      */
     private void sort_TaskByTime_events(ArrayList<Events> events) throws DukeException {
-        for(int j = 0; j < events.size() - 1; j++) {
+        for(int j = 0; j < events.size() - 1; j++) { //bubble sort
             boolean isSorted = true;
             for (int i = 0; i < events.size() - j - 1; i++) {
                 Events event1 = events.get(i);

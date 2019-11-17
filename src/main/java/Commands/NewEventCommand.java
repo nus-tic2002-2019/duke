@@ -13,23 +13,23 @@ import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
 /**
- *
+ * Command to Create a new Events task
  */
 public class NewEventCommand extends Command {
     /**
-     *
-     * @param taskDes
+     * Constructs the Event Command
+     * @param taskDes the Command the User input
      */
     public NewEventCommand(String taskDes){
         super(taskDes);
     }
 
     /**
-     *
-     * @param tasks
-     * @param ui
-     * @param storage
-     * @throws DukeException
+     * Execute the event command by creating the Events task
+     * @param tasks the task list
+     * @param ui the Ui
+     * @param storage the Storage
+     * @throws DukeException any expected error
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try{
@@ -45,18 +45,18 @@ public class NewEventCommand extends Command {
         String taskDes = taskItem.substring(6, dividerPosition2);
         String taskDateTime = taskItem.substring(dividerPosition2+5);
         Events event = eventTimeSetter(taskDes, taskDateTime);
-        assert event.getTaskType() == TaskType.EVENTS;
+        assert event.getTaskType() == TaskType.EVENTS; //Checking whether the task has been created as a event before adding and saving
         tasks.addTask(event);
 
         storage.save(tasks);
     }
 
     /**
-     *
-     * @param taskDes
-     * @param taskDateTime
-     * @return
-     * @throws DukeException
+     * Checking if the user has input any time and adding it into the class if he has
+     * @param taskDes the task description
+     * @param taskDateTime the task date and time
+     * @return the events class
+     * @throws DukeException any expected error
      */
     public static Events eventTimeSetter(String taskDes, String taskDateTime) throws DukeException {
         try{

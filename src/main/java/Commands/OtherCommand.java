@@ -6,11 +6,11 @@ import UI.*;
 import Storage.*;
 
 /**
- *
+ * list of other etc commands
  */
 public class OtherCommand extends Command {
     /**
-     *
+     * Constructs the OtherCommands
      * @param taskDes
      */
     public OtherCommand(String taskDes){
@@ -18,11 +18,11 @@ public class OtherCommand extends Command {
     }
 
     /**
-     *
-     * @param tasks
-     * @param ui
-     * @param storage
-     * @throws DukeException
+     * Execute the other commands: Hi, Help and Clearlist
+     * @param tasks The list of task
+     * @param ui The Ui
+     * @param storage The storage
+     * @throws DukeException any expected error
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         switch(taskItem){

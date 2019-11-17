@@ -8,7 +8,7 @@ import Exception.DukeException;
 import Parser.Parser;
 
 /**
- *
+ * Create the Duke class to start of the program
  */
 public class Duke {
 
@@ -17,13 +17,11 @@ public class Duke {
     private Ui ui;
 
     /**
-     *
-     * @param filePath
+     * Constructs the Duke class
+     * @param filePath the filePath of the stored txt file
      */
     public Duke(String filePath) {
         ui = new Ui();
-
-
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
@@ -31,13 +29,11 @@ public class Duke {
             ui.showError(e.getMessage());
             ui.showLoadingError();
             tasks = new TaskList();
-
         }
-
     }
 
     /**
-     *
+     * this function will run the Duke program
      */
     public void run() {
         ui.showDukeWelcome();
@@ -58,7 +54,7 @@ public class Duke {
     }
 
     /**
-     *
+     * Main function to start
      * @param args
      */
     public static void main(String[] args) {

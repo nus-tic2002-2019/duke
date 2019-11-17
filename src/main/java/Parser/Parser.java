@@ -10,14 +10,14 @@ import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 
 /**
- *
+ * Parser class to spilt up the text from the command
  */
 public class Parser {
     /**
-     *
-     * @param fullCommand
-     * @return
-     * @throws DukeException
+     * Read the command and return the individual command based on what the user input
+     * @param fullCommand what the user has inputted
+     * @return the individual command
+     * @throws DukeException any expected error
      */
     public static Command parse(String fullCommand) throws DukeException {
         String keyCommand = fullCommand.split(" ")[0].toLowerCase();
@@ -51,10 +51,10 @@ public class Parser {
     }
 
     /**
-     *
-     * @param text
-     * @return
-     * @throws DukeException
+     * Convert the different way the user type the date into the date
+     * @param text what the user has typed for the date portion
+     * @return the LocalDate to be stored
+     * @throws DukeException any expected error
      */
     public static LocalDate convertStringToDate(String text) throws DukeException {
 
@@ -72,10 +72,10 @@ public class Parser {
     }
 
     /**
-     *
-     * @param text
-     * @return
-     * @throws DukeException
+     * Checking if the user has type any other words that like mon and return the date based on the current date
+     * @param text the date the user input
+     * @return the LocalDate to be stored
+     * @throws DukeException any expected error
      */
     public static LocalDate checkForOtherWording(String text) throws DukeException {
         text = text.toLowerCase();
@@ -91,23 +91,23 @@ public class Parser {
     }
 
     /**
-     *
-     * @param text
-     * @return
-     * @throws DukeException
+     * Checking and returning the day of week based on what the user has type
+     * @param text the text the user inputted
+     * @return the DayOfWeek
+     * @throws DukeException error when user typed something else instead of the day of the week
      */
     public static DayOfWeek getCommandDay(String text) throws DukeException {
         switch(text){
             case "mon":
             case "monday":
                 return DayOfWeek.MONDAY;
-            case "tues":
+            case "tue":
             case "tuesday":
                 return DayOfWeek.TUESDAY;
             case "wed":
             case "wednesday":
                 return DayOfWeek.WEDNESDAY;
-            case "thurs":
+            case "thu":
             case "thursday":
                 return DayOfWeek.THURSDAY;
             case "fri":
@@ -125,10 +125,10 @@ public class Parser {
     }
 
     /**
-     *
-     * @param text
-     * @return
-     * @throws DukeException
+     * Convert the time into a string
+     * @param text what the type has input for the time field
+     * @return the LocalTime to be store
+     * @throws DukeException error when user put something other than the correct time format
      */
     public static LocalTime convertStringToTime(String text) throws DukeException {
 
@@ -146,10 +146,10 @@ public class Parser {
     }
 
     /**
-     *
-     * @param text
-     * @return
-     * @throws DukeException
+     * Convert if the user didnt put : in between the hours and mins in his time
+     * @param text what the user input as time
+     * @return the String of what the user input to be used to convert into time
+     * @throws DukeException error when the user didnt keep to 4 digit
      */
     public static String convertTimeTextToTimeStyle(String text) throws DukeException {
         if (!text.substring(4).isEmpty()){

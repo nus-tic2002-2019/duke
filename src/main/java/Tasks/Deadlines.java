@@ -7,7 +7,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- *
+ * The Deadline class which the user want to store with date and time
  */
 public class Deadlines extends Task {
     protected LocalDate taskDate;
@@ -15,9 +15,9 @@ public class Deadlines extends Task {
     protected boolean hasTime = false;
 
     /**
-     *
-     * @param description
-     * @param taskDate
+     * Constructs the Deadlines class without a time
+     * @param description the description the user input
+     * @param taskDate the date the user input
      */
     public Deadlines(String description, LocalDate taskDate) {
         super(description);
@@ -26,10 +26,10 @@ public class Deadlines extends Task {
     }
 
     /**
-     *
-     * @param description
-     * @param taskDate
-     * @param taskTime
+     * Constructs the Event class with a time
+     * @param description the description the user input
+     * @param taskDate the date the user input
+     * @param taskTime the time the user input
      */
     public Deadlines(String description, LocalDate taskDate, LocalTime taskTime) {
         this(description, taskDate);
@@ -39,16 +39,16 @@ public class Deadlines extends Task {
     }
 
     /**
-     *
-     * @return
+     * return the date that was stored
+     * @return the date that was stored
      */
     public LocalDate getDate(){
         return taskDate;
     }
 
     /**
-     *
-     * @return
+     * return true or false if the class has time
+     * @return true or false if the class has time
      */
     public boolean isHasTime(){
         return hasTime;
@@ -67,8 +67,8 @@ public class Deadlines extends Task {
     }
 
     /**
-     *
-     * @return
+     * return the date and time that was stored in string
+     * @return the date and time that was stored in string
      */
     public String getDateTimeString(){
         return hasTime
@@ -77,8 +77,8 @@ public class Deadlines extends Task {
     }
 
     /**
-     *
-     * @return
+     * return the date and time formatted that was stored in string
+     * @return the date and time formatted that was stored in string
      */
     public String getDateTimeStringFormat(){
         return hasTime
@@ -87,8 +87,8 @@ public class Deadlines extends Task {
     }
 
     /**
-     *
-     * @return
+     * Return the task type with the task that the user input and whether it is done or not
+     * @return the task in String
      */
     @Override
     public String toString() {

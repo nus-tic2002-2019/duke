@@ -13,10 +13,10 @@ public class ParserTest {
 
     @Test
     public void ParserDateTest1() throws DukeException {
-        LocalDate d1 = Parser.convertStringToDate("Mon");
+        LocalDate d1 = Parser.convertStringToDate("2020-12-12");
         LocalDate d2 = Parser.convertStringToDate("2019-12-12");
 
-        assertEquals("2019-11-18", d1.toString());
+        assertEquals("2020-12-12", d1.toString());
         assertEquals("2019-12-12", d2.toString());
     }
 

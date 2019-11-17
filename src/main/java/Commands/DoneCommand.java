@@ -6,12 +6,12 @@ import UI.*;
 import Storage.*;
 
 /**
- *
+ * Command set a specific task as done
  */
 public class DoneCommand extends Command {
     /**
-     *
-     * @param taskDes
+     * Constructs the Done command
+     * @param taskDes the command the user input
      */
     public DoneCommand(String taskDes){
         super(taskDes);

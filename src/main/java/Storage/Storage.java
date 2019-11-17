@@ -13,27 +13,27 @@ import java.util.ArrayList;
 import java.io.IOException;
 
 /**
- *
+ * Storage to read and write file in a txt file
  */
 public class Storage {
 
     private static String filePath;
 
     /**
-     *
-     * @param filePath
+     * Constructs the storage class to store the file path of the txt file
+     * @param filePath the file path of the txt file
      */
     public Storage(String filePath){
         this.filePath = filePath;
     }
 
     /**
-     *
-     * @param taskType
-     * @param taskDes
-     * @param taskDateTime
-     * @return
-     * @throws DukeException
+     * Separate out the event and deadline and create the individual class
+     * @param taskType the type of the task
+     * @param taskDes the task description stored
+     * @param taskDateTime the date and time of the task
+     * @return the task created
+     * @throws DukeException any expected error
      */
     private static Task creatingEventOrDeadline(String taskType, String taskDes, String taskDateTime) throws DukeException {
         if(!(taskType.contains("E") || taskType.contains("D"))){
@@ -43,14 +43,13 @@ public class Storage {
             return NewEventCommand.eventTimeSetter(taskDes, taskDateTime);
         }
         return NewDeadlinesCommand.deadlineTimeSetter(taskDes, taskDateTime);
-
     }
 
     /**
-     *
-     * @param text
-     * @return
-     * @throws DukeException
+     * Convert the text in the file into task class
+     * @param text text from the file
+     * @return return the task created
+     * @throws DukeException any expected error
      */
     private static Task convertTaskFromFile(String text) throws DukeException {
         Task task;
@@ -58,33 +57,36 @@ public class Storage {
         String taskType = text.substring(firstDivider + 2, firstDivider + 3);
         String taskDoneString = text.substring(firstDivider + 6, firstDivider +7);
         String taskDetails = text.substring(firstDivider + 10);
+        boolean isDone = false;
+        if(!(taskDoneString.contains("0")||taskDoneString.contains("1"))) {
+
+            throw new DukeException("Unknown boolean");
+        }
+        if(taskDoneString.contains("1")){
+            isDone = true;
+        }
         if(taskDetails.contains(" | ")){
             int timeDivider = taskDetails.indexOf(" | ");
             String taskDes = taskDetails.substring(0, timeDivider);
             String taskTime = taskDetails.substring(timeDivider + 3);
             task = creatingEventOrDeadline(taskType, taskDes, taskTime);
+            task.editDone(isDone);
             return task;
         }
         if(!taskType.contains("T")){
             throw new DukeException("Unknown task type");
         }
         task = new ToDos(taskDetails);
-        if(!(taskDoneString.contains("0")||taskDoneString.contains("1"))) {
-
-            throw new DukeException("Unknown boolean");
-        }
-        if(taskDoneString.contains("1")){
-            task.editDone(true);
-        }
+        task.editDone(isDone);
 
         return task;
     }
 
     /**
-     *
-     * @return
-     * @throws FileNotFoundException
-     * @throws DukeException
+     * create the list of task from the file
+     * @return the ArrayList of task that is in the file
+     * @throws FileNotFoundException file that can't be found
+     * @throws DukeException any other expected error
      */
     private static ArrayList<Task> getListOfTask() throws FileNotFoundException, DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -103,9 +105,9 @@ public class Storage {
     }
 
     /**
-     *
-     * @return
-     * @throws DukeException
+     * Return the ArrayList of Task
+     * @return the ArrayList of task
+     * @throws DukeException any expected error
      */
     public static ArrayList<Task> load() throws DukeException {
         try {
@@ -118,11 +120,11 @@ public class Storage {
     }
 
     /**
-     *
-     * @param task
-     * @return
-     * @throws DukeException
-     * @throws IllegalStateException
+     * Convert the task into the saving format to save into the file
+     * @param task the task to be converted
+     * @return the string format to be save
+     * @throws DukeException any expected error
+     * @throws IllegalStateException any IllegalStateExpection
      */
     private static String convertTaskStoring(Task task) throws DukeException, IllegalStateException {
         String storingTask;
@@ -156,8 +158,8 @@ public class Storage {
     }
 
     /**
-     *
-     * @param lists
+     * Write into a txt file
+     * @param lists list of the task to be write into the txt file
      */
     public static void save(TaskList lists){
         try {

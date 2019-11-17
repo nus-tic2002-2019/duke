@@ -9,23 +9,23 @@ import UI.Ui;
 import java.util.ArrayList;
 
 /**
- *
+ * Command to show the list of task the user want to find using a keyword
  */
 public class FindCommand extends Command {
     /**
-     *
-     * @param taskDes
+     * Constructs the Find command
+     * @param taskDes the command the user input
      */
     public FindCommand(String taskDes){
         super(taskDes);
     }
 
     /**
-     *
-     * @param tasks
-     * @param ui
-     * @param storage
-     * @throws DukeException
+     * Execute the find command by finding the keyword from the list of task
+     * @param tasks the task list
+     * @param ui the Ui
+     * @param storage the Storage
+     * @throws DukeException any expected error
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if(tasks.getSize()<= 0){

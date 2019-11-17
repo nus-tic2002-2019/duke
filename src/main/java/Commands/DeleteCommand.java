@@ -6,7 +6,7 @@ import UI.*;
 import Storage.*;
 
 /**
- *
+ * Command to delete a task
  */
 public class DeleteCommand extends Command {
     /**

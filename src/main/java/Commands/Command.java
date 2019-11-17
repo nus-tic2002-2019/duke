@@ -7,7 +7,7 @@ import Storage.Storage;
 
 
 /**
- *
+ * abstract class command
  */
 public abstract class Command {
     protected String taskItem;
