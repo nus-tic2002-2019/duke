@@ -16,7 +16,6 @@ public class Storage {
     public Storage(String filePath) {
         File f = new File(filePath);
         this.filePath = filePath;
-        //System.out.println("Full path " + f.getAbsolutePath() );
     }
 
     //Getter

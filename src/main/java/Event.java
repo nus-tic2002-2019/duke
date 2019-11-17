@@ -1,5 +1,5 @@
 public class Event extends Task {
-    protected String eventDescription;
+    //Declare variables
     protected String eventAtString;
 
     //Declare constant variables
@@ -12,17 +12,15 @@ public class Event extends Task {
     //Constructor
     public Event(String taskDescription) {
         super(taskDescription.substring(0, taskDescription.indexOf('/') - 1) );
-        typeIdt = 'E';
+        typeIdt = CHAR_EVENT;
 
-        eventDescription = taskDescription.substring(0, taskDescription.indexOf(CHAR_SEPARATOR) - 1);
         eventAtString = taskDescription.substring(taskDescription.indexOf(CHAR_SEPARATOR) + 2 + atStrLen);
     }
 
     public Event(String taskDescription, String taskTime) {
         super(taskDescription);
-        typeIdt = 'E';
+        typeIdt = CHAR_EVENT;
 
-        eventDescription = taskDescription;
         eventAtString = taskTime;
     }
 
@@ -33,6 +31,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[" + typeIdt + "][" + getStatusIcon() + "] " + eventDescription + " (" + STRING_AT + ": " + eventAtString + ")";
+        return "[" + typeIdt + "][" + getStatusIcon() + "] " + taskDescription + " (" + STRING_AT + ": " + eventAtString + ")";
     }
 }

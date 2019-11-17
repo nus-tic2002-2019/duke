@@ -1,10 +1,13 @@
-public class Task {
+public abstract class Task {
     //Declare variables
     protected String taskDescription;
     protected boolean isDone;
     protected char typeIdt;
 
     //Declare constant variables
+    protected static final char CHAR_TODO = 'T';
+    protected static final char CHAR_DEADLINE = 'D';
+    protected static final char CHAR_EVENT = 'E';
     protected static final String CHAR_SEPARATOR_WRITE = "|";
     private static final String CHAR_FALSE = "0";
     private static final String CHAR_TRUE = "1";
@@ -13,7 +16,6 @@ public class Task {
     public Task(String taskDescription) {
         this.taskDescription = taskDescription;
         isDone = false;
-        typeIdt = 'A';
     }
 
     //Getter

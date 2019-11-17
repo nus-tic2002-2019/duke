@@ -1,11 +1,10 @@
 public class Deadline extends Task {
     //Declare variables
-    protected String deadlineDescription;
     protected String deadlineByString;
 
     //Declare constant variables
     protected final String STRING_BY = "by";
-    protected final char STRING_SEPARATOR = '/';
+    protected final char CHAR_SEPARATOR = '/';
 
     //Store keywords' number of characters
     protected int byStrLen = STRING_BY.length();
@@ -13,17 +12,15 @@ public class Deadline extends Task {
     //Constructor
     public Deadline(String taskDescription) {
         super(taskDescription.substring(0, taskDescription.indexOf('/') - 1) );
-        typeIdt = 'D';
+        typeIdt = CHAR_DEADLINE;
 
-        deadlineDescription = (taskDescription.substring(0, taskDescription.indexOf(STRING_SEPARATOR) - 1) );
-        deadlineByString = taskDescription.substring(taskDescription.indexOf(STRING_SEPARATOR) + 2 + byStrLen);
+        deadlineByString = taskDescription.substring(taskDescription.indexOf(CHAR_SEPARATOR) + 2 + byStrLen);
     }
 
     public Deadline(String taskDescription, String taskTime) {
         super(taskDescription);
-        typeIdt = 'D';
+        typeIdt = CHAR_DEADLINE;
 
-        deadlineDescription = (taskDescription);
         deadlineByString = taskTime;
     }
 
@@ -34,6 +31,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[" + typeIdt + "][" + getStatusIcon() + "] " + deadlineDescription + " (" + STRING_BY + ": " + deadlineByString + ")";
+        return "[" + typeIdt + "][" + getStatusIcon() + "] " + taskDescription + " (" + STRING_BY + ": " + deadlineByString + ")";
     }
 }

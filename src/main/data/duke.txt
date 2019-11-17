@@ -1,6 +1,6 @@
-T|0|hey
-D|0|hmm|for show
-E|0|sleep|Desperate need
-T|0|test test test
-D|1|hais hais|when will this end
-E|0|when when when|dk
+T|0|test
+E|0|hey|sleep
+T|0|test
+D|0|test|test
+E|0|test|test
+D|0|a|at
