@@ -65,8 +65,8 @@ public class Duke {
     }
     /*
     Identify user input and Store task object into task list.
-    @para task current task list.
-    @para input text input from user
+    @param task current task list.
+    @param input text input from user
     @return task new task list.
     */
     public static ArrayList<Task> StoreTask(ArrayList<Task> task, String input) {
@@ -105,7 +105,7 @@ public class Duke {
                 System.out.println("Now you have " + temp+" items in the list.");
             }
             catch (Exception e1){
-                checkException("Deadline description and time cannot be empty.");
+                checkException("Deadline description and time cannot be empty."+e1.getMessage());
             }
         }
         else if(word[0].equalsIgnoreCase("event"))
