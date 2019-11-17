@@ -10,6 +10,8 @@ import main.java.duke.ui.Ui;
 import main.java.duke.storage.Storage.StorageOperationException;
 import main.java.duke.storage.Storage.InvalidStorageFilePathException;
 
+import java.io.IOException;
+
 
 public class Duke {
 
@@ -23,14 +25,15 @@ public class Duke {
         try {
             storage = new Storage(filePath);
             tasks = new TaskList(storage.load());
-        } catch (StorageOperationException | InvalidStorageFilePathException e) {
+        } catch (StorageOperationException | InvalidStorageFilePathException | IOException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
     }
     public static void main(String[] args) {
         //new Duke("data/tasks.txt").run();
-        new Duke("./data/duke.txt").run();
+      //  new Duke("./data/duke.txt").run();
+        new Duke(System.getProperty("user.dir")+"/data/duke.txt").run();
         //new Duke("C:\\Users\\RuiTing\\Desktop\\NUS-Module\\Year2-Sem1\\TIC2002-Introductionto Software Engineering\\Duke\\data\\duke.txt").run();
         //new Duke("D:\\NUS-Module\\NUS-Module\\Year2-Sem1\\TIC2002-Introductionto Software Engineering\\Duke\\src\\test\\data\\InvalidDuke.txt").run();
 
@@ -96,6 +99,10 @@ public class Duke {
             }
         }
     }
+
+
+
+
     //original
     /*
     private static void addTask(String inputString) throws EmptyDescriptionException, UndefinedTaskException {
@@ -140,4 +147,7 @@ public class Duke {
     }
 
      */
+
+
+
 }

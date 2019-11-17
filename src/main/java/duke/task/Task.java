@@ -35,8 +35,8 @@ public class Task {
      * @return a string icon to display the status
      */
     public String getStatusIcon() {
-        return (isDone ? "\u2713"+" : "+finishTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"))
-                       : "\u2718"); //return tick or X symbols
+        return (isDone ? "Done"+" : "+finishTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"))
+                       : "X"); //return tick or X symbols
     }
 
     /**

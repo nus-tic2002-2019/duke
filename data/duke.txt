@@ -3,3 +3,4 @@ E|0|project meeting|2019-12-01 1200|
 T|1|go exercising|2019-11-13 1353
 T|0|borrow book|
 D|1|design website database structure|2019-08-05 1005|2019-11-16 1739
+D|0|tic2301 report submission|2019-12-01 2359|

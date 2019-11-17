@@ -64,9 +64,11 @@ public class Storage {
      *
      * @throws StorageOperationException if there were errors reading and/or converting data from file.
      */
-    public TaskList load() throws StorageOperationException{
+    public TaskList load() throws StorageOperationException, IOException {
 
         if (!Files.exists(path) || !Files.isRegularFile(path)) {
+            Files.createDirectories(path.getParent());
+            Files.createFile(path);
             return new TaskList();
         }
         try {
