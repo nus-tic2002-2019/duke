@@ -40,10 +40,10 @@ public class TempTaskList {
             }
         }
         // O(n^2)   ):
-        for (int i = 0; i < deadlines.size() - 1; ++i) {
-            for (int j = 1; j < deadlines.size(); ++j) {
-                if (deadlines.get(i).getDate().compareTo(deadlines.get(j).getDate()) > 0) {
-                    Collections.swap(deadlines, i, j);
+        for (int i = 0; i < deadlines.size(); ++i) {
+            for (int j = 0; j < deadlines.size()-1; ++j) {
+                if (deadlines.get(j).getDate().compareTo(deadlines.get(j+1).getDate()) > 0) {
+                    Collections.swap(deadlines, j, j+1);
                 }
             }
         }

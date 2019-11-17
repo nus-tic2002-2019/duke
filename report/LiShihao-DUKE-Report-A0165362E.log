@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018) (preloaded format=xelatex 2018.5.12)  17 NOV 2019 15:03
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018) (preloaded format=xelatex 2018.5.12)  17 NOV 2019 17:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1028,6 +1028,9 @@ File: english.lbx 2018/03/04 v3.11 biblatex localization (PK/MW)
 
 LaTeX Warning: Label `startold' multiply defined.
 
+
+LaTeX Warning: Label `startold' multiply defined.
+
 )
 \openout1 = `LiShihao-DUKE-Report-A0165362E.aux'.
 
@@ -1292,7 +1295,7 @@ you left one out. Proceed, with fingers crossed.
 <to be read again> 
                    \unhbox 
 l.159 \includegraphics
-                      [height= 12cm]{list.png}
+                      [height= 12.8cm]{list.png}
 I was expecting to see something like `(' or `\{' or
 `\}' here. If you typed, e.g., `{' instead of `\{', you
 should probably delete the `{' by typing `1' now, so that
@@ -1305,33 +1308,175 @@ File: list.png Graphic file (type bmp)
 ./LiShihao-DUKE-Report-A0165362E.tex:160: Missing $ inserted.
 <inserted text> 
                 $
-l.160 
-      
+l.160 \caption{Screenshot - \texttt{list}}
+                                          
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ./LiShihao-DUKE-Report-A0165362E.tex:160: Missing \right. inserted.
 <inserted text> 
                 \right .
-l.160 
-      
+l.160 \caption{Screenshot - \texttt{list}}
+                                          
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
 With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 204.
+./LiShihao-DUKE-Report-A0165362E.tex:167: Missing $ inserted.
+<inserted text> 
+                $
+l.167 \left
+           
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./LiShihao-DUKE-Report-A0165362E.tex:168: Missing delimiter (. inserted).
+<to be read again> 
+                   \unhbox 
+l.168 \includegraphics
+                      [width = 11.4cm]{done.png}
+I was expecting to see something like `(' or `\{' or
+`\}' here. If you typed, e.g., `{' instead of `\{', you
+should probably delete the `{' by typing `1' now, so that
+braces don't get unbalanced. Otherwise just proceed.
+Acceptable delimiters are characters whose \delcode is
+nonnegative, or you can use `\delimiter <delimiter code>'.
+
+File: done.png Graphic file (type bmp)
+<done.png>
+./LiShihao-DUKE-Report-A0165362E.tex:169: Missing $ inserted.
+<inserted text> 
+                $
+l.169 ...creenshot - \texttt{done, do + task no.}}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./LiShihao-DUKE-Report-A0165362E.tex:169: Missing \right. inserted.
+<inserted text> 
+                \right .
+l.169 ...creenshot - \texttt{done, do + task no.}}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
 File: nus-logo.png Graphic file (type bmp)
 <nus-logo.png>
 [3]
+./LiShihao-DUKE-Report-A0165362E.tex:175: Missing $ inserted.
+<inserted text> 
+                $
+l.175 \left
+           
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./LiShihao-DUKE-Report-A0165362E.tex:176: Missing delimiter (. inserted).
+<to be read again> 
+                   \unhbox 
+l.176 \includegraphics
+                      [width = 16cm]{error.png}
+I was expecting to see something like `(' or `\{' or
+`\}' here. If you typed, e.g., `{' instead of `\{', you
+should probably delete the `{' by typing `1' now, so that
+braces don't get unbalanced. Otherwise just proceed.
+Acceptable delimiters are characters whose \delcode is
+nonnegative, or you can use `\delimiter <delimiter code>'.
+
+File: error.png Graphic file (type bmp)
+<error.png>
+./LiShihao-DUKE-Report-A0165362E.tex:177: Missing $ inserted.
+<inserted text> 
+                $
+l.177 ...rror messages handling file access error}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./LiShihao-DUKE-Report-A0165362E.tex:177: Missing \right. inserted.
+<inserted text> 
+                \right .
+l.177 ...rror messages handling file access error}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./LiShihao-DUKE-Report-A0165362E.tex:184: Missing $ inserted.
+<inserted text> 
+                $
+l.184 \left
+           
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./LiShihao-DUKE-Report-A0165362E.tex:185: Missing delimiter (. inserted).
+<to be read again> 
+                   \unhbox 
+l.185 \includegraphics
+                      [width = 15.4cm]{delete.png}
+I was expecting to see something like `(' or `\{' or
+`\}' here. If you typed, e.g., `{' instead of `\{', you
+should probably delete the `{' by typing `1' now, so that
+braces don't get unbalanced. Otherwise just proceed.
+Acceptable delimiters are characters whose \delcode is
+nonnegative, or you can use `\delimiter <delimiter code>'.
+
+File: delete.png Graphic file (type bmp)
+<delete.png>
+./LiShihao-DUKE-Report-A0165362E.tex:186: Missing $ inserted.
+<inserted text> 
+                $
+l.186 ...{Screenshot - \texttt{delete + task no.}}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./LiShihao-DUKE-Report-A0165362E.tex:186: Missing \right. inserted.
+<inserted text> 
+                \right .
+l.186 ...{Screenshot - \texttt{delete + task no.}}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 File: nus-logo.png Graphic file (type bmp)
 <nus-logo.png>
  [4]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 204.
+File: file.png Graphic file (type bmp)
+<file.png>
+File: find.png Graphic file (type bmp)
+<find.png>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+File: nus-logo.png Graphic file (type bmp)
+<nus-logo.png>
+ [5]
+File: find.png Graphic file (type bmp)
+<find.png>
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 241.
+File: nus-logo.png Graphic file (type bmp)
+<nus-logo.png>
+
+[6]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 241.
  (./LiShihao-DUKE-Report-A0165362E.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 204.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 204.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 241.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 241.
 Package rerunfilecheck Info: File `LiShihao-DUKE-Report-A0165362E.out' has not 
 changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
@@ -1345,12 +1490,12 @@ l'.
 
  ) 
 Here is how much of TeX's memory you used:
- 26075 strings out of 492970
- 499690 string characters out of 6133938
+ 26094 strings out of 492970
+ 499923 string characters out of 6133938
  808296 words of memory out of 5000000
- 29871 multiletter control sequences out of 15000+600000
+ 29886 multiletter control sequences out of 15000+600000
  534476 words of font info for 59 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  39i,11n,66p,10414b,742s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on LiShihao-DUKE-Report-A0165362E.pdf (4 pages).
+Output written on LiShihao-DUKE-Report-A0165362E.pdf (6 pages).

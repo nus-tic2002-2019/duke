@@ -87,7 +87,7 @@ public class CommandList {
                 } catch (IOException e) {
                     ui.errorFileMessage();
                 } catch (DateTimeException e) {
-                    //ui.dateErrMessage();
+                    ui.dateErrMessage();
                 }
             }
         } );
@@ -103,7 +103,7 @@ public class CommandList {
                 } catch (IOException e) {
                     ui.errorFileMessage();
                 } catch (DateTimeException e) {
-                    //ui.dateTimeErrMessage();
+                    ui.dateTimeErrMessage();
                 }
             }
         } );
@@ -138,11 +138,15 @@ public class CommandList {
     }
     private void cmdFind(String tofind, TempTaskList list) {
         ArrayList<Task> find = new ArrayList<Task>();
+        ArrayList<Integer> no = new ArrayList<Integer>();
+
         for (int i = 0; i < list.size() ;++i) {
-            if (list.get(i).getContent().contains(tofind))
+            if (list.get(i).getContent().contains(tofind)) {
                 find.add(list.get(i));
+                no.add(list.get(i).getTaskNumber());
+            }
         }
-        ui.findMessage(find);
+        ui.findMessage(no, find);
     }
 
     private void cmdMarkDone(String content, TempTaskList list) throws Exception {
@@ -169,8 +173,8 @@ public class CommandList {
             if (listIndex < 0 || listIndex > list.size()) {
                 throw new IndexOutOfBoundsException();
             }
-            if (list.get(listIndex).getCompleted()) {
-                ui.doneAlreadyMessage();
+            if (!list.get(listIndex).getCompleted()) {
+                ui.notDoneAlreadyMessage();
             } else {
                 list.get(listIndex).setIncompleted();
                 ui.markDoMessage(list.get(listIndex));

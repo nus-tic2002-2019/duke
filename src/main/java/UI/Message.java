@@ -87,6 +87,10 @@ public class Message {
     public void doneAlreadyMessage () {
         System.out.println("\t🥳 Hooray! This task has already been marked done ~");
     }
+    public void notDoneAlreadyMessage () {
+        System.out.println("\t🙄 Yes you should! This task was not completed in the first place =_=|||");
+    }
+
     public void errorFileMessage () {
         System.out.println("\t☹ OOPS!!! Error occurred to get the file :-(");
     }
@@ -97,13 +101,13 @@ public class Message {
     public void dateTimeErrMessage () {
         System.out.println("\t☹ OOPS!!! Please input a time in format as \" yyyy-mm-dd time-time (24h)\" ");
     }
-    public void findMessage (ArrayList<Task> list) {
+    public void findMessage (ArrayList<Integer> no, ArrayList<Task> list) {
         if (list.size() == 0) {
             System.out.println("\tNo matching task, dear ~");
         } else {
             System.out.println("\tHere are the matching tasks in your list:");
             for (int i = 0; i < list.size(); ++i) {
-                System.out.println("\t" + i+1 + "." + list.get(i));
+                System.out.println("\t" + no.get(i) + "." + list.get(i));
             }
         }
     }
