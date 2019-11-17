@@ -21,13 +21,20 @@ public class Deadline extends Task {
         return "["+this.getSymbol()+"]" + this.getStatusIcon() +" "+ super.toString() + " (by: " + by + ")";
     }
 	
-	@Override
-	public String toSave() {
-        return this.getSymbol() + " | " + this.getStatus() + " | " + super.toString() + " | " + by;
+    @Override
+    public String toSave() {
+    	return this.getSymbol() + " | " + this.getStatus() + " | " + super.toString() + " | " + by;
     }
-	@Override
-	public String getDate(){
-		return by;
-	}
+	
+   /**
+     * Returns a String date of the Task.
+     *
+     * <p></p>To be implemented by Deadline Task class.
+     *
+     * @return A String that returns the date of Deadline.
+     */
+     public String getDate(){
+	return by;
+     }
 	
 }
