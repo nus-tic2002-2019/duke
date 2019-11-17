@@ -1,10 +1,6 @@
 import java.io.IOException;
-
 import exceptions.DukeException;
 import tasks.*;
-import tasks.Task;
-
-//import java.util.Arrays;
 import java.util.ArrayList;
 
 public class Duke {
@@ -14,8 +10,6 @@ public class Duke {
 
     public Duke(String filePath) {
         ui = new Ui();
-        //tasksList = new TaskList();
-        //storage = new Storage(filePath, tasksList.getList());
         storage = new Storage(filePath);
         try {
             tasksList = new TaskList(storage.load());
@@ -72,11 +66,10 @@ public class Duke {
                     default:
                         break;
                 }
-                //tasks.getList().get(i).print();
                 output = ui.takeUi();
             }
         } catch (IOException e) {
-            System.out.println("");
+            System.out.println("Commands not recognized");
         }
 
     }

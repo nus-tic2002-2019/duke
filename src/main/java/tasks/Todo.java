@@ -1,10 +1,17 @@
 package tasks;
 
-import java.time.format.DateTimeFormatter;
+/**
+ * Todo class is a child of Task class and
+ * represent tasks with only task description
+ */
 
 public class Todo extends Task {
     private boolean type = false;
 
+    /**
+     * constructor for Todo class
+     * @param description task description
+     */
     public Todo(String description) {
         super(description);
     }

@@ -1,11 +1,16 @@
 package tasks;
 
-import java.time.format.DateTimeFormatter;
-
+/**
+ * Task class represent tasks and activities to be completed.
+ */
 public class Task {
     private String task;
-    boolean done;
+    private boolean done;
 
+    /**
+     * constructor for Task class
+     * @param task task description
+     */
     public Task(String task) {
         this.task = task;
         this.done = false;
@@ -20,15 +25,15 @@ public class Task {
     }
 
     public void isDone() {
-        this.done = true;
+        done = true;
     }
 
     public String getDate(){
-        return task;
+        return "";
     }
 
     public String getTime() {
-        return task;
+        return "";
     }
 
     public String getStatusIcon() {

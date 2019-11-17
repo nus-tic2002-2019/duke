@@ -1,25 +1,26 @@
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
-import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
 import tasks.*;
-import tasks.TaskList;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+
+/**
+ * Performs all the file handling
+ */
 
 public class Storage {
     private String filePath;
     private static ArrayList<Task> userArr;
     private static Map<String, String> map;
+
+    /**
+     * Constructor for Storage class
+     * @param filePath - the file path which the ArrayList will be loaded from or saved into.
+     */
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -28,21 +29,6 @@ public class Storage {
         map.put("todo", "T");
         map.put("event", "E");
         map.put("deadline", "D");
-        //createFile();
-    }
-
-    public void createFile() {
-        File f = new File(filePath);
-        try {
-            if (!f.exists()) {
-                f.createNewFile();
-                System.out.println("File created.");
-            } else {
-                System.out.println("File exists in the system");
-            }
-        } catch (IOException e) {
-            System.out.println("");
-        }
     }
 
     public ArrayList<Task> load() throws IOException{
@@ -51,7 +37,6 @@ public class Storage {
         String taskDesc;
         LocalDate taskDate;
         LocalTime taskTime;
-        //ArrayList<Task> tempArr = new ArrayList<Task>();
 
         try {
             File f = new File(filePath);
@@ -65,7 +50,7 @@ public class Storage {
             while (s.hasNext()) {
                 actionType = s.next();
                 taskStatus = s.next();
-                taskDesc = "";
+                //taskDesc = "";
 
                 switch (actionType) {
                     case "T":
@@ -87,7 +72,6 @@ public class Storage {
                         System.out.println("Error");
                         break;
                 }
-                //System.out.println("Type: " + actionType + ", status: " + taskStatus + ", task: " + taskDesc + " - " + taskDate + " - " + taskTime);
                 if (taskStatus.equals("true")) {
                     userArr.get(i).isDone();
                 }
@@ -114,7 +98,6 @@ public class Storage {
             temp = textToAppend + System.lineSeparator();
         } else {
             temp = map.get(actionType) + " | " + userArr.get(num).getDone() + textToAppend + System.lineSeparator();
-            //temp = map.get(actionType) + " | " + userArr.get(taskNo).getDone() + textToAppend + System.lineSeparator();
         }
 
         FileWriter fw = new FileWriter(filePath, true);
@@ -131,7 +114,6 @@ public class Storage {
             int num = Integer.parseInt(taskNo);
             writeToFile("");
             int i = 0;
-            //List<String> tokens = new ArrayList<String>();
             while (i < num-1) {
                 appendToFile(actionType, i, s.nextLine());
                 i++;
