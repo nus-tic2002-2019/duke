@@ -1,0 +1,7 @@
+T | 0 | buy food
+T | 1 | buy computer
+T | 0 | do housework
+D | 1 | excercise | 12/12/2019 1100
+T | 0 | borrow book
+T | 0 | buy book
+D | 0 | return book | 19/11/2019 1230
