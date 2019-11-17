@@ -1,9 +1,19 @@
+/*
+Deadline.java
+define Deadline task.
+*/
+
 package task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
+    /*
+    constructor of deadline object.
+    @param description deadline task description
+    @param time deadline of deadline object.
+    */
 
     protected boolean isDone;
     protected LocalDate by;
@@ -21,6 +31,7 @@ public class Deadline extends Task {
     public LocalDate getDeadLine() {
         return this.by;
     }
+
 
     @Override
     public String toString() {

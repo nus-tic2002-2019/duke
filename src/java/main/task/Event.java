@@ -1,3 +1,8 @@
+/*
+Event.java
+define Event task.
+*/
+
 package task;
 
 import task.Task;
@@ -8,6 +13,12 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task {
     protected boolean isDone;
     protected LocalDate at;
+
+    /*
+    constructor of event object.
+    @param description event task description
+    @param time deadline of event object.
+    */
 
     public Event(String description, LocalDate at) {
         super(description);

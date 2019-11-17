@@ -1,5 +1,9 @@
-package save;
+/*
+Save.java
+define Save task.
+*/
 
+package save;
 
 import task.Deadline;
 import task.Event;
@@ -23,7 +27,10 @@ import java.util.Scanner;
 
 
 public class Save {
-
+    /*
+    constructor of loadtask object.
+    @param description loaded the task.
+    */
     public List<Task> loadTasks() throws IOException {
         List<Task> loadedTasks = new ArrayList<>();
 
@@ -58,7 +65,6 @@ public class Save {
         } else {
             System.out.println("Error");
         }
-//        System.out.println(task.toString());
         return task;
     }
 
@@ -76,7 +82,10 @@ public class Save {
         return lines;
     }
 
-
+    /*
+    constructor of autosave object.
+    @param description save the file to mentioned path.
+    */
     public void autoSave(List<Task> tasks) throws IOException {
 
         try {
@@ -100,37 +109,4 @@ public class Save {
 
     public Save() throws IOException {
     }
-
-//    public void save(List<Task> tasks) {
-//        try {
-//            FileWriter fw = new FileWriter(this.filePath);
-//
-//            File f = new File(this.filePath); // create a File for the given file path
-//            Scanner s = new Scanner(f); // create a Scanner using the File as the source
-//            for (Task task : tasks) {
-//                if (s.hasNext()) {
-//                    fw.write("\r\n");
-//                }
-//                fw.write(task.save());
-//            }
-//            fw.close();
-//        } catch (IOException e) {
-//
-//        }
-//    }
-
-//    public static void main(String[] args) throws IOException {
-//        List<Task> list = new ArrayList<>();
-//        list.add(new Todo("Return Book"));
-//        list.add(new Event("Return Book", "11th Nov 2019"));
-//        list.add(new Deadline("Return book", "10th Nov"));
-//        list.add(new Todo("Return book"));
-//        Save s = new Save();
-//        s.getLines();
-//        s.autoSave(list);
-//        s.loadTasks();
-//        for (Task tasks : s.loadTasks()) {
-//            System.out.println(tasks.toString());
-//        }
-//    }
 }

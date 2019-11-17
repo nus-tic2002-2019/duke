@@ -1,8 +1,17 @@
+/*
+Todo.java
+define Todo task.
+*/
+
 package task;
 
 public class Todo extends Task {
     protected boolean isDone;
 
+    /*
+    constructor of todo object
+    @param description todo task description
+     */
     public Todo(String description) {
         super(description);
         isDone = false;
