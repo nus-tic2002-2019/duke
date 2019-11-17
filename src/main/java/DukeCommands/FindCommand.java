@@ -33,13 +33,13 @@ public class FindCommand implements Command {
             String[] taskNameComponents = task.description().split(" ");
             for (String nameComponent : taskNameComponents) {
                 if (nameComponent.equalsIgnoreCase(searchTerm)) {
-                    toReturn.append("     ");
-					toReturn.append("Task Number is: ");
-					toReturn.append(taskcount);
-					toReturn.append(") ");
-                    toReturn.append(task.toString());
-                    toReturn.append("\n");
-                    break;
+			toReturn.append("     ");
+			toReturn.append("Task Number is: ");
+			toReturn.append(taskcount);
+			toReturn.append(") ");
+			toReturn.append(task.toString());
+			toReturn.append("\n");
+			break;
                 }
             }
 			taskcount++;
