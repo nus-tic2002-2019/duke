@@ -93,6 +93,46 @@ public class TaskList {
        // }
     }
 
+    /**
+     * Edit content of the existing Task in Array List
+     * Input format : edit 10 >> new content
+     *
+     * @param myArr_list  Array of Task passed over from main program
+     * @param line input by users
+     *
+     */
+    public void edit_data (ArrayList<Task> myArr_list, String line) {
+
+        int position = Integer.parseInt(line.substring(5,7));
+        int new_content = line.indexOf(">>");
+        int position_by;
+        Task contents = null;
+        char task_type =  myArr_list.get(position-1).toString().charAt(1);
+        System.out.println(task_type);
+
+        switch (task_type) {
+            case 'T' :
+                contents = new Todo(line.substring(new_content + 3));
+                break;
+            case 'E' :
+                position_by = line.indexOf("by");
+                contents = new Event(line.substring(new_content+3, position_by- 1), line.substring(position_by +3));
+                break;
+            case 'D' :
+                position_by = line.indexOf("by");
+                int close_bracket = line.indexOf(')');
+                contents = new Deadlines(line.substring(new_content+3, position_by - 1), (line.substring((position_by + 4), close_bracket)));
+                break;
+            default :
+                System.out.println("Invalid Task Type");
+                return;
+        }
+
+        System.out.println('\n' + horizontal_line + "Item before replace: " + myArr_list.get(position-1));
+        myArr_list.set(position-1, contents);
+        System.out.println("Item after Replace: " + myArr_list.get(position-1) + '\n' + horizontal_line);
+    }
+
     private static String set_Task_done(Task myArr_list, int position) throws IOException {
         myArr_list.setDone();
         return (myArr_list.getStatusIcon());

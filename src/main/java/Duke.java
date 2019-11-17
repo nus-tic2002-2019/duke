@@ -9,12 +9,15 @@ public class Duke {
 
     static String horizontal_line = ("____________________________________\n");
 
-    public static void main(String[] args) { //throws FileNotFoundException {
-        run();
+    public static void main(String[] args) {
+        try {
+            run();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-    //public static void main(String[] args) throws FileNotFoundException {
-    public static void run() {
+    public static void run()  throws  FileNotFoundException {
         Storage pFile = new Storage();
         Ui display = new Ui();
         Parser user_input = new Parser();
@@ -33,8 +36,7 @@ public class Duke {
         } catch (IOException e) {//| ClassNotFoundException e) {
             System.out.println("File not found");
         }
-
-
+        
         Scanner in = new Scanner(System.in);
         String line;
         line = in.nextLine();
@@ -50,12 +52,15 @@ public class Duke {
                     display.print_Arry(myArr_list);
                     break;
 
-                case "find" : {
+                case "find" :
                     display.Print_Find_Result(myArr_list, line.substring(5));
+                    break;
 
-                } break;
+                case "edit" :
+                    update_input.edit_data(myArr_list, line);
+                    break;
 
-                case "done": {
+                case "done":
                     try {
                         int position = Integer.parseInt(line.substring(5));
                         // (myArr_list.get(position-1)).setDone();
@@ -79,9 +84,9 @@ public class Duke {
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("☹ OOPS!!! The description of a done cannot be empty.");
                     }
-                } break;
+                 break;
 
-                case "todo": {
+                case "todo":
                     try {
                         update_input.append_Todo(myArr_list, line, count);
                         display.Print_input(count, myArr_list.get(count));
@@ -89,28 +94,21 @@ public class Duke {
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
                     }
-                } break;
+                 break;
 
                 //deadline return book  (by: 2019-12-01)
-                case "deadline": {
+                case "deadline":
                     try {
-                       update_input.append_Deadline(myArr_list, line, count);
-                       /*
-                        try {
-                            update_input.append_new_data(FilePath, myArr_list.get(count).toString() + System.lineSeparator());
-                            //writeToFile(FilePath, myArr_list.get(count).toString() + System.lineSeparator());
-                        } catch (IOException e) {
-                            System.out.println("Something went wrong: " + e.getMessage());
-                        } */
+                        update_input.append_Deadline(myArr_list, line, count);
                         display.Print_input(count, myArr_list.get(count));
                         count++;
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
                     }
-                } break;
+                break;
 
                 //event project meeting /at Mon 2-4pm
-                case "event": {
+                case "event":
                     try {
                         update_input.append_Event(myArr_list, line, count, FilePath);
                         display.Print_input(count, myArr_list.get(count));
@@ -118,9 +116,9 @@ public class Duke {
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("☹ OOPS!!! The description of a event cannot be empty.");
                     }
-                } break;
+                break;
 
-                case "delete": {
+                case "delete":
                     int delete_input = Integer.parseInt(line.substring(7));
                     try {
                         //myArr_list = delete_item(FilePath, delete_input, myArr_list);
@@ -134,7 +132,7 @@ public class Duke {
                     } catch (FileNotFoundException e) {
                         System.out.println("File not found");
                     }
-                } break;
+                 break;
 
                 default:
                     System.out.println(horizontal_line + "\n☹ OOPS!!! I'm sorry, but I don't know what that means :-( \n" + horizontal_line);
