@@ -1,21 +1,21 @@
 package duke.task;
 
-import java.util.*;
+import duke.ui.Ui;
 
 public class Event extends Todo {
-    private Date at;
+    private String at;
 
-    public Event(String description,Date at) {
+    public Event(String description,String at) {
         super(description);
         this.at = at;
     }
 
-    public void setAt(Date at) {
+    public void setAt(String at) {
         this.at = at;
     }
 
-    public Date getAt() {
-        return this.at;
+    public String getAt() {
+        return Ui.printDateTime(this.at);
     }
     
     public String printTask(){
@@ -24,5 +24,9 @@ public class Event extends Todo {
     
     public String writeTask(){
       return ("E | " + this.getStatus() + " | " + this.description + " | " + this.getAt());
+    }
+    
+    public String getDateTime(){
+        return this.at;
     }
 }

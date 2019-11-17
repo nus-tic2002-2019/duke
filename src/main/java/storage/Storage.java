@@ -10,6 +10,7 @@ import duke.task.*;
 import duke.ui.Ui;
 import java.io.*;
 import java.text.*;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 /**
  *
@@ -17,12 +18,13 @@ import java.util.*;
  */
 public class Storage {
     private String fileName;
-    
+    Ui ui;
     public Storage(String fileName){
         this.fileName = fileName;
     }
     
     public void save(TaskList tasks){
+        
         try {
             FileWriter writer = new FileWriter(this.fileName);
             for ( int i = 0; i < tasks.getSize() ; i++ ){
@@ -32,7 +34,7 @@ public class Storage {
         } catch (FileNotFoundException ex) {
             createFile();
         } catch (IOException ex) {
-            Ui.response("☹ OOPS!!! Sorry an error has occured.");
+            ui.response("☹ OOPS!!! Sorry an error has occured.");
         }
     }
     
@@ -42,7 +44,7 @@ public class Storage {
         try {
             FileWriter writer = new FileWriter(file);
         } catch (IOException ex) {
-            Ui.response("☹ OOPS!!! Sorry an error has occured.");
+            ui.response("☹ OOPS!!! Sorry an error has occured.");
         }
     }
     
@@ -50,7 +52,7 @@ public class Storage {
         Scanner s = new Scanner(new File(this.fileName));
         
         s.useDelimiter(System.getProperty("line.separator"));
-            ArrayList<Task> Tasks = new ArrayList<Task>();
+            ArrayList<Task> Tasks = new ArrayList<>();
             while (s.hasNext()){
                 String line = s.next();
                 String words[] = line.split(" [|] ");
@@ -59,7 +61,8 @@ public class Storage {
                 }
                 if ( words[0].equals("E")) {
                     try {
-                        Tasks.add(new Event(words[2],convertDate(words[3])));
+                        ui.convertDate(words[3]);
+                        Tasks.add(new Event(words[2],words[3]));
                     } catch (ParseException e) {
                         Ui.response("☹ OOPS!!! Please include a valid date description after '/at'.");
                     } catch (DukeException e){
@@ -68,7 +71,8 @@ public class Storage {
                 }
                 if ( words[0].equals("D")) {
                     try {
-                        Tasks.add(new Deadline(words[2],convertDate(words[3])));
+                        ui.convertDate(words[3]);
+                        Tasks.add(new Deadline(words[2],words[3]));
                     } catch (ParseException e) {
                         Ui.response("☹ OOPS!!! Please include a valid date description after '/by'.");
                     } catch (DukeException e){
@@ -81,13 +85,5 @@ public class Storage {
             }
         s.close();
         return Tasks;
-    }
-    
-    private static Date convertDate(String stringdate) throws DukeException, ParseException{
-        if ( stringdate.equals("") ){
-            throw new DukeException();
-        }
-        Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(stringdate);  
-        return date1;
     }
 }

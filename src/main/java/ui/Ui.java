@@ -8,7 +8,10 @@ package duke.ui;
 import duke.exception.DukeException;
 import duke.task.TaskList;
 import java.text.*;
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author lug3g
@@ -32,7 +35,6 @@ public class Ui {
         System.out.println("Hello from\n" + logo);
         printLine();
         System.out.println("\tHello! I'm Duke\n\tWhat can I do for you?");
-        //DukeEnum.DukeCommand.printCommands();
         printLine();
     }
     
@@ -51,6 +53,29 @@ public class Ui {
         System.out.println("\tHere are the tasks in your list:");
         for ( int i = 0; i < tasks.getSize() ; i++ ){
             System.out.printf("\t%d. %s\n",i+1,tasks.getTask(i).printTask());
+        }
+        printLine();
+    }
+    
+    public static void printSameDayTasks(TaskList tasks,String stringdate) throws DukeException{
+        if ( tasks.getSize() < 1 ) {
+            throw new DukeException();
+        }
+        printLine();
+        System.out.println("\tHere are the tasks in your list:");
+        int j = 1;
+        for ( int i = 0; i < tasks.getSize() ; i++ ){
+            if ( tasks.getTask(i).getDateTime().equals("") ){
+                continue;
+            }
+            try {
+                if ( isSameDate(getDate(stringdate),getDate(tasks.getTask(i).getDateTime()))   ){
+                    System.out.printf("\t%d. %s\n",j,tasks.getTask(i).printTask());
+                    j++;
+                }
+            } catch (ParseException ex) {
+                response("☹ OOPS!!! Please include a date description (yyyy-mm-dd.");
+            }
         }
         printLine();
     }
@@ -78,18 +103,44 @@ public class Ui {
     }
     
     public static void showLoadingError(){
-        
+        response("☹ OOPS!!! There is a loading error.");
     }
     
     public String getLine(){
         return this.line;
     }
     
-    private static Date convertDate(String stringdate) throws DukeException, ParseException{
+    
+    public static void convertDate(String stringdate) throws DukeException, ParseException{
         if ( stringdate.equals("") ){
             throw new DukeException();
         }
-        Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(stringdate);  
-        return date1;
+        
+        Date dateTime=new SimpleDateFormat("yyyy-MM-dd").parse(stringdate);
+    }
+    
+    public static String printDateTime(String printdate){
+        String dateItems [] = printdate.split("-");
+        String mth = new DateFormatSymbols().getMonths()[Integer.parseInt(dateItems[1]) -1];
+        String dateTime = dateItems[2] + " " + mth + " " + dateItems[0];
+        return dateTime;
+    }
+    
+    public static Date getDate(String stringdate) throws DukeException, ParseException{
+        if ( stringdate.equals("") ){
+            throw new DukeException();
+        }
+        Date dateTime=new SimpleDateFormat("yyyy-MM-dd").parse(stringdate);
+        return dateTime;
+    }
+    
+    public static boolean isSameDate(Date date1,Date date2) {
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        cal1.setTime(date1);
+        cal2.setTime(date2);
+        boolean sameDay = cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) &&
+                          cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
+        return sameDay;
     }
 }

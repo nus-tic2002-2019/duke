@@ -33,6 +33,7 @@ public abstract class Task{
         return (isDone ? 1 : 0); //return 1 or 0
     }
     
+    public abstract String getDateTime();
     public abstract String printTask();
     public abstract String writeTask();
 }

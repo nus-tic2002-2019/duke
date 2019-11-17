@@ -8,6 +8,7 @@ package duke.commands;
 import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.task.TaskList;
+import duke.task.Todo;
 import duke.ui.Ui;
 
 /**
@@ -24,10 +25,21 @@ public class ListCommand extends Command {
     }
 
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        try {
-            ui.printTasks(tasks);
-        } catch (DukeException e) {
-            ui.response( "☹ OOPS!!! There is no task on your list. Please add a new task to the system." );
+        if ( getCommand().equals("list") ){
+            try {
+                ui.printTasks(tasks);
+            } catch (DukeException e) {
+                ui.response( "☹ OOPS!!! There is no task on your list. Please add a new task to the system." );
+            }
+        }
+        
+        if ( getCommand().equals("listsameday")){
+            try {
+                String date = ui.getLine().replaceFirst("listsameday ", "");
+                ui.printSameDayTasks(tasks,date);
+            } catch (DukeException e) {
+                ui.response( "☹ OOPS!!! There is no task on your list. Please add a new task to the system." );
+            }           
         }
     }
 }

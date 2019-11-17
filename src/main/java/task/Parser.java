@@ -48,14 +48,14 @@ public class Parser{
             return new DeleteCommand(c);
         }
         
-        if ( c.equals("list") ){
+        if ( c.equals("list") | c.equals("listsameday" )){
             return new ListCommand(c);
         }
         return null;
     }
     
     private static boolean checkCommandError(String line){
-        String [] commands = {"bye","done","list","todo","event","deadline","delete"};
+        String [] commands = {"bye","done","list","todo","event","deadline","delete","listsameday"};
         String [] words = line.split(" ",0);
         
         try {
@@ -70,7 +70,7 @@ public class Parser{
     }
     
     private static boolean checkMissingDescriptionError(String line){
-        String [] missingDescription = {"todo","event","deadline","done","delete"};
+        String [] missingDescription = {"todo","event","deadline","done","delete","listsameday"};
         String [] words = line.split(" ",0);
         
         try {
