@@ -18,7 +18,7 @@ public class ViewByUpcomingCommand extends Command {
     }
 
     /**
-     * Executes the command and display a list of deadlines and events that are due today, tomorrow and overdue.
+     * Executes the duke.command and display a list of deadlines and events that are due today, tomorrow and overdue.
      *
      * @param tasks task list.
      * @param ui text ui.

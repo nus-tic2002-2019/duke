@@ -1,7 +1,5 @@
-package command;
+package duke.command;
 
-import duke.command.Command;
-import duke.command.SetDoAfterCommand;
 import duke.others.DukeException;
 import duke.storage.Storage;
 import duke.task.TaskList;

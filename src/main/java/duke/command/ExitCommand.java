@@ -12,7 +12,7 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Executes the command.
+     * Executes the duke.command.
      *
      * @param tasks task list.
      * @param ui text ui.

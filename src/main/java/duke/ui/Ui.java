@@ -72,7 +72,7 @@ public class Ui {
     }
 
     /**
-     * Prints a message when command is unknown to the application.
+     * Prints a message when duke.command is unknown to the application.
      */
     public void showUnknown() {
         print(MSG_UNKNOWN);

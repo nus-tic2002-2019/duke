@@ -20,7 +20,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Executes the command and tasks with description equals to the user input task description.
+     * Executes the duke.command and tasks with description equals to the user input task description.
      *
      * @param tasks task list.
      * @param ui text ui.

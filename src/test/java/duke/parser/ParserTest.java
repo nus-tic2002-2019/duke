@@ -1,9 +1,8 @@
-package parser;
+package duke.parser;
 
 import duke.command.*;
 import duke.others.DukeException;
 import duke.others.Keyword;
-import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.*;
 

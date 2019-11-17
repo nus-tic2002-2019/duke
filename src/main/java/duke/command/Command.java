@@ -8,7 +8,7 @@ import duke.others.DukeException;
 import java.io.IOException;
 
 /**
- * Represents an executable command.
+ * Represents an executable duke.command.
  */
 public abstract class Command {
     /** Represents the status of the application. If True, application will be terminated */

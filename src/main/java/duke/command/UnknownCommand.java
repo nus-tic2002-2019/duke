@@ -5,13 +5,13 @@ import duke.ui.Ui;
 import duke.storage.Storage;
 
 /**
- * When user input/command is not taken into account in the Parser.
+ * When user input/duke.command is not taken into account in the Parser.
  */
 public class UnknownCommand extends Command {
     public UnknownCommand() {}
 
     /**
-     * Executes the command and prints a response.
+     * Executes the duke.command and prints a response.
      *
      * @param tasks task list.
      * @param ui text ui.

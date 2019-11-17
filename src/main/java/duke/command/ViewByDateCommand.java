@@ -22,7 +22,7 @@ public class ViewByDateCommand extends Command {
     }
 
     /**
-     * Executes the command and tasks with date equals to the user input date.
+     * Executes the duke.command and tasks with date equals to the user input date.
      *
      * @param tasks task list
      * @param ui text ui.

@@ -14,7 +14,7 @@ public class ViewAllCommand extends Command {
     }
 
     /**
-     * Executes the command and display all tasks in the task list.
+     * Executes the duke.command and display all tasks in the task list.
      *
      * @param tasks task list
      * @param ui text ui.

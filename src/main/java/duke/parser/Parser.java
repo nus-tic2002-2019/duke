@@ -36,10 +36,10 @@ public class Parser {
     }
 
     /**
-     * Parses user input into command for execution.
+     * Parses user input into duke.command for execution.
      *
      * @param input full user input string.
-     * @return the command based on the user input.
+     * @return the duke.command based on the user input.
      */
     public static Command parse(String input) throws DukeException, DateTimeParseException {
         String keyword = getKeyword(input.trim());
@@ -113,10 +113,10 @@ public class Parser {
     }
 
     /**
-     * Get keyword of the command based on the user input.
+     * Get keyword of the duke.command based on the user input.
      *
      * @param input full user input string.
-     * @return keyword of the command.
+     * @return keyword of the duke.command.
      */
     private static String getKeyword(String input) {
         if (input.matches(KEYWORD_DONE + ".*")) {
@@ -150,20 +150,20 @@ public class Parser {
     }
 
     /**
-     * Remove keyword to get the command parameters (if applicable).
+     * Remove keyword to get the duke.command parameters (if applicable).
      *
      * @param input full user input string.
-     * @param keyword command keyword.
-     * @return command parameters.
+     * @param keyword duke.command keyword.
+     * @return duke.command parameters.
      */
     private static String removeKeyword(String input, String keyword) {
         return input.replace(keyword, "").trim();
     }
 
     /**
-     * Checks if user has input a task description when entering a create task command.
+     * Checks if user has input a task description when entering a create task duke.command.
      *
-     * @param param command parameter.
+     * @param param duke.command parameter.
      * @throws DukeException if task description is missing from the user input.
      */
     private static void checkDesc(String param) throws DukeException {
@@ -173,9 +173,9 @@ public class Parser {
     }
 
     /**
-     * Checks if user has input a date when entering a create Event/Deadline command.
+     * Checks if user has input a date when entering a create Event/Deadline duke.command.
      *
-     * @param param command parameter.
+     * @param param duke.command parameter.
      * @throws DukeException if user did not lead the date with a "/" character, did not enter a date or enter an
      * invalid date format (accepted format = "yyyy-mm-dd" or "yyyy-m-d").
      */

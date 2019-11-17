@@ -45,7 +45,7 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Executes the command and add a new task to the task list.
+     * Executes the duke.command and add a new task to the task list.
      *
      * @param tasks task list.
      * @param ui text ui.

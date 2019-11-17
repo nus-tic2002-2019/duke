@@ -14,7 +14,7 @@ public class ViewByStatusCommand extends Command {
     }
 
     /**
-     * Executes the command and display a list of tasks that are still not completed/done.
+     * Executes the duke.command and display a list of tasks that are still not completed/done.
      *
      * @param tasks task list
      * @param ui text ui.
