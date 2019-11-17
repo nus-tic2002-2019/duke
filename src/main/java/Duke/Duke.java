@@ -2,7 +2,8 @@ package Duke;
 
 import DukeExceptions.DukeMainException;
 import DukeItems.Task;
-import Output.writeToText;
+import Storage.loadFromExcel;
+import Storage.writeToExcel;
 import Ui.*;
 
 import java.util.ArrayList;
@@ -45,8 +46,14 @@ public class Duke {
             String inputCommand = input.split(" ")[0]; //identifies command from first word
             switch (inputCommand) {
                 case "save":
-                    writeToText.write(userList);
+                    writeToExcel saveExcel = new writeToExcel(userList);
+                    saveExcel.saveToExcel();
                     break;
+
+                case "load":
+                    loadFromExcel loadExcel = new loadFromExcel();
+                    loadExcel.loadFile();
+
                 case "bye":
                     System.out.println("Bye! I better see you again soon!");
                     continueInput = false;
@@ -59,10 +66,25 @@ public class Duke {
 
                 case "list":
                     /*
-                        Displays list of saved tasks.
+                     *  Displays list of saved tasks.
                      */
                     uiList uilist = new uiList(userList); //initialize
                     uilist.printList();
+                    break;
+
+                case "tag":
+                    //user input example: tag 1 #tagDescription
+                    try{
+                        if (input.equals("tag")){
+                            throw new DukeMainException.invalidInput("Task number required!");
+                        }
+
+                        uiTag uitag = new uiTag(userList, input);
+                        uitag.addTag();
+
+                    }catch (DukeMainException.invalidInput e) {
+                        e.printStackTrace();
+                    }
                     break;
 
                 case "done":
@@ -102,6 +124,8 @@ public class Duke {
 
                         uiDelete uidelete = new uiDelete(userList, input, delNum);
                         uidelete.itemDelete();
+                        saveExcel = new writeToExcel(userList);
+                        saveExcel.saveToExcel();
 
                     } catch (DukeMainException.invalidInput e) {
                         e.printStackTrace();
@@ -116,6 +140,8 @@ public class Duke {
 
                         uiTodo uitodo = new uiTodo(userList, input);
                         uitodo.addTodo();
+                        saveExcel = new writeToExcel(userList);
+                        saveExcel.saveToExcel();
 
                     } catch (DukeMainException.nullDescription e) {
                         e.printStackTrace();
@@ -139,6 +165,8 @@ public class Duke {
 
                         uiDeadline uideadline = new uiDeadline(userList, input);
                         uideadline.addDeadline();
+                        saveExcel = new writeToExcel(userList);
+                        saveExcel.saveToExcel();
 
 
                     } catch (DukeMainException.nullDescription e) {
@@ -163,6 +191,8 @@ public class Duke {
 
                         uiEvent uievent = new uiEvent(userList, input);
                         uievent.addEvent();
+                        saveExcel = new writeToExcel(userList);
+                        saveExcel.saveToExcel();
 
 
                     } catch (DukeMainException.nullDescription e) {
@@ -176,10 +206,33 @@ public class Duke {
                             throw new DukeMainException.nullDescription("Search key required!");
                         }
 
+                        //input template: find <keyword>
+                        //searchTerm takes in <keyword> and passes it to uiFind;
                         String searchTerm = input.substring(4);
                         uiFind find = new uiFind(userList, searchTerm);
                         find.findTask();
 
+                    } catch (DukeMainException.nullDescription e) {
+                        e.printStackTrace();
+                    }
+                    break;
+
+                case "#":
+                    try {
+                        if (input.equals("#")) {
+                            throw new DukeMainException.nullDescription("Tag description required!");
+                        }
+                        if (input.startsWith("#")){
+                            for (int i = 0; i < userList.size(); i++){
+                                task = userList.get(i);
+                                if (task.verifyTag(input)){
+                                    System.out.println( (i+1) + ". " + userList.get(i).toString() );
+                                }
+                                else {
+                                    System.out.println( input + " not found!" );
+                                }
+                            }
+                        }
                     } catch (DukeMainException.nullDescription e) {
                         e.printStackTrace();
                     }

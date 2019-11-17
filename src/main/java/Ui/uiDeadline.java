@@ -28,7 +28,7 @@ public class uiDeadline {
 
         DateTimeParser = new uiDateTimeParser(deadBy);
 
-        Deadline deadline = new Deadline(deadTask, DateTimeParser.uiDateParser());
+        Deadline deadline = new Deadline(deadTask, DateTimeParser.uiDateTimeParser());
         userList.add(deadline);
 
         System.out.println("__________________________________________________________________");
