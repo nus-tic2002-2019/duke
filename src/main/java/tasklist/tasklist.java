@@ -38,6 +38,7 @@ public class tasklist {
         ui = new ui();
         ui.printLine2();
         boolean missingText = true;
+        assert (findText != null);
         for (int i = 0; i < importedArray.size(); i++){
             boolean foundText = importedArray.get(i).contains(findText);
             if (foundText){
@@ -59,6 +60,7 @@ public class tasklist {
     public void arrayToDo(ArrayList<String> importedArray, String filteredInputText){
         ui = new ui();
         storage = new storage();
+        assert (filteredInputText != null);
         importedArray.add("[T][" + "\u2718" + "]" + filteredInputText);
         storage.saveFile(importedArray);
         ui.printLine1();
@@ -79,6 +81,7 @@ public class tasklist {
             int doneInt = Integer.parseInt(filteredInputText.substring(1));
             doneInt--;
             String filteredList = importedArray.get(doneInt);
+            assert (doneInt <= importedArray.size());
             if ( filteredList.indexOf("][") == 2 ) {
                 importedArray.set(doneInt, (filteredList.substring(0, 3) + "[" + "\u2713" + "]" + filteredList.substring(6)));
             } else {
@@ -106,6 +109,8 @@ public class tasklist {
         DateTimeFormatter inputdateFormat = DateTimeFormatter.ofPattern("d-MMM-yyyy");
         ui = new ui();
         storage = new storage();
+        assert (filteredInputText != null);
+        assert (ldInputDate != null);
         importedArray.add("[E][" + "\u2718" + "]" + filteredInputText + " (at: " + inputdateFormat.format(ldInputDate) + ")");
         storage.saveFile(importedArray);
         ui.printLine1();
@@ -124,6 +129,8 @@ public class tasklist {
         DateTimeFormatter inputdateFormat = DateTimeFormatter.ofPattern("d-MMM-yyyy");
         ui = new ui();
         storage = new storage();
+        assert (filteredInputText != null);
+        assert (ldInputDate != null);
         importedArray.add("[D][" + "\u2718" + "]" + filteredInputText + " (by: " + inputdateFormat.format(ldInputDate) + ")");
         storage.saveFile(importedArray);
         ui.printLine1();
@@ -142,6 +149,7 @@ public class tasklist {
         DateTimeFormatter inputdateFormat = DateTimeFormatter.ofPattern("d-MMM-yyyy");
         ui = new ui();
         storage = new storage();
+        assert (filteredInputText != null);
         importedArray.add("[N][" + "\u2718" + "]" + filteredInputText + " (need: " + filteredInputTime + ")");
         storage.saveFile(importedArray);
         ui.printLine1();
