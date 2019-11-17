@@ -33,6 +33,7 @@ public class AddCommand extends Command {
         try {
             taskList.addTask(toAdd);
             System.out.println("New "+toAdd.getTaskType()+" Added: "+toAdd.toString());
+            System.out.println("Now you have "+taskList.getSize()+" tasks in the list.");
         } catch (TaskList.DuplicateTaskException e) {
             e.printStackTrace();
         }

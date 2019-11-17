@@ -47,7 +47,7 @@ public class Parser {
 
 
 
-    public static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    public static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>\\d+)");
     public static final Pattern TASK_DONE_TIME_FORMAT =
                 Pattern.compile("(?<targetIndex>\\d+)"+" on/"
                         +"(?<year>\\d{4})"+"-"+"(?<month>\\d{2})"+"-"+"(?<day>\\d{2})"
@@ -197,7 +197,8 @@ public class Parser {
             assert targetIndex>0 : "Invalid number, the index should be larger than 0.";
             return new DeleteCommand(targetIndex);
         }catch (ParseException pe){
-            return  new IncorrectCommand("Error");
+            return new IncorrectCommand("This is a incorrect format, " +
+                    " you may type the list to see all the commands.");
         }
     }
 
@@ -220,7 +221,11 @@ public class Parser {
         return new FindCommand(keywordSet);
     }
 
-
+    /**
+     * Parses arguments in the context of the viewdone task Command.
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareViewDone(String args) {
         try {
             final Matcher matcher = VIEW_DONE_TASK_BY_TIME_FORMAT.matcher(args.trim());
