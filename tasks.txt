@@ -1,0 +1,1 @@
+D | 0 | H | to file tax | 2019-12-22E | 0 | H | Christmas Party | 2020-12-25 15:00 - 22:00T | 1 | H | read bookD | 0 | M | buy gifts for Christmas Party | 2019-12-01E | 0 | M | project meeting | 2019-08-06 22:00 - 23:00T | 1 | M | buy lunchD | 0 | L | return book | 2019-08-06E | 0 | M | fashion show | 2020-01-01 15:00 - 19:00
