@@ -15,6 +15,12 @@ public class Parser {
     public Parser () {
     }
 
+    /**
+     * From the String text
+     * get the starttime of an event
+     * @param text
+     * @return
+     */
     public static String getStartTimeText (String text) {
         String start = text.substring(0, text.lastIndexOf("-"));
         return start;
@@ -26,6 +32,12 @@ public class Parser {
         return at;
     }
 
+    /**
+     * From the String text
+     * get the endtime of an event
+     * @param text
+     * @return
+     */
     public static LocalDateTime getEndTime (String text) {
         String tillTimeText = text.substring(text.lastIndexOf("-") + 1);
         String atText = Parser.getStartTimeText(text);
@@ -35,6 +47,14 @@ public class Parser {
         LocalDateTime till = Parser.getDateTime(tillText);
         return till;
     }
+
+    /**
+     * From String get the Date and Time
+     * Stored/return in LocalDateTime type
+     * @param timeText
+     * @return
+     * @throws DateTimeParseException
+     */
 
     public static LocalDateTime getDateTime (String timeText) throws DateTimeParseException {
         LocalDateTime datetime = null;
@@ -50,6 +70,12 @@ public class Parser {
         return datetime;
     }
 
+    /**
+     * From String parse the Date
+     * @param dateText
+     * @return
+     * @throws DateTimeException
+     */
     public static LocalDate getDate (String dateText) throws DateTimeException {
         LocalDate dueDate = null;
         try {
@@ -61,7 +87,12 @@ public class Parser {
         return dueDate;
     }
 
-
+    /**
+     * Convert user type "Li Shihao" to
+     * return "li-shihao" as part of filename in the path
+     * @param name
+     * @return
+     */
     public static String convertFileName (String name) {
         name = name.toLowerCase();
         name = name.trim();
@@ -72,12 +103,27 @@ public class Parser {
         }
         return filename.substring(2);
     }
+
+    /**
+     * After get the line from txt file
+     * separate the sentence by "|"
+     * in java RE "|" & "\" is used, so must use "\\|"
+     * @param line
+     * @return
+     */
     public static String[] fileLineBreak (String line){
         String[] parts = line.split("\\|", 4);
 
         return parts;
     }
 
+    /**
+     * From the attributes of Task
+     * convert to the text format that will be stored
+     * later in the txt file
+     * @param task
+     * @return
+     */
     public static String taskToText (Task task) {
         String line = "";
         String completion = "";

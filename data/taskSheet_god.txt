@@ -1,0 +1,8 @@
+T | 0 | love
+D | 0 | peace | 2020-01-01
+E | 0 | celebrate | 2020-02-01 01:00-10:00
+T | 0 | make human
+T | 0 | make light
+D | 0 | make ground | 2030-01-01
+D | 0 | make sea | 2040-01-01
+D | 0 | make bractirial | 1900-01-01

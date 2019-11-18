@@ -42,6 +42,7 @@ public class Duke {
 
         String username = in.nextLine();
         String filename = Parser.convertFileName(username);
+        assert !filename.equals("") : "empty filename no good";
 
         try {
             file = new Storage(filename);

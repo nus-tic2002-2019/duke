@@ -31,6 +31,9 @@ public class TempTaskList {
         ui.printTaskList(list);
     }
 
+    /**
+     * Get all the Deadlines and sort them in order where last due date at bottom
+     */
     public void sort() {
         ArrayList<Deadline> deadlines = new ArrayList<>();
         for (Task task : list) {

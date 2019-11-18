@@ -28,14 +28,21 @@ public class Storage {
         return file;
     }
 
+    /**
+     * Read from disk where txt file is stored for user
+     * understand the task type and parameters of each line
+     * push into TempTaskList
+     * @param to
+     * @throws FileNotFoundException
+     */
     public void read(TempTaskList to) throws FileNotFoundException {
         Scanner s = new Scanner(file);
         while (s.hasNext()) {
             String[] linewords = Parser.fileLineBreak(s.nextLine());
+            assert linewords.length < 2;
             String taskType = linewords[0].trim();
             String isCompleted = linewords[1].trim();
             String content = linewords[2].trim();
-
 
             if (taskType.equals("T")) {
                 Todo task = new Todo(content);
@@ -51,6 +58,7 @@ public class Storage {
                 to.add(task);
             }
             if (taskType.equals("E")) {
+
                 String time = linewords[3].trim();
                 LocalDateTime at = Parser.getStartTime(time);
                 LocalDateTime till = Parser.getEndTime(time);
@@ -63,6 +71,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Get from TempTaskList(often after updating), write into the file
+     *
+     * @param from
+     * @throws IOException
+     */
     public void write(TempTaskList from) throws IOException{
         FileWriter fw = new FileWriter(file, false);
         try {

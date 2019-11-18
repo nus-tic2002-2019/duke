@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018) (preloaded format=xelatex 2018.5.12)  18 NOV 2019 00:00
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018) (preloaded format=xelatex 2018.5.12)  18 NOV 2019 14:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1530,26 +1530,50 @@ File: nus-logo.png Graphic file (type bmp)
 <nus-logo.png>
 
 [7]
+File: junit1.png Graphic file (type bmp)
+<junit1.png>
+File: liner.png Graphic file (type bmp)
+<liner.png>
+File: junit2.png Graphic file (type bmp)
+<junit2.png>
+
+Overfull \hbox (317.16518pt too wide) in paragraph at lines 242--245
+ [] 
+ []
+
+
+Overfull \vbox (9.24051pt too high) has occurred while \output is active []
+
 File: nus-logo.png Graphic file (type bmp)
 <nus-logo.png>
- [8]
+
+[8]
+File: assert1.png Graphic file (type bmp)
+<assert1.png>
+File: liner.png Graphic file (type bmp)
+<liner.png>
+File: assert2.png Graphic file (type bmp)
+<assert2.png>
+File: nus-logo.png Graphic file (type bmp)
+<nus-logo.png>
+ [9]
 File: class.pdf Graphic file (type pdf)
 <use class.pdf>
 File: nus-logo.png Graphic file (type bmp)
 <nus-logo.png>
- [9
+ [10
 
 
 ]
 
-./LiShihao-DUKE-Report-A0165362E.tex:283: LaTeX Error: There's no line here to 
+./LiShihao-DUKE-Report-A0165362E.tex:295: LaTeX Error: There's no line here to 
 end.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.283 \\W
+l.295 \\W
          hen just started the program, a new Duke object will be initiated t...
 
 Your command was ignored.
@@ -1564,32 +1588,32 @@ File: sequence.pdf Graphic file (type pdf)
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-./LiShihao-DUKE-Report-A0165362E.tex:305: LaTeX Error: \begin{landscape} on inp
-ut line 271 ended by \end{document}.
+./LiShihao-DUKE-Report-A0165362E.tex:317: LaTeX Error: \begin{landscape} on inp
+ut line 283 ended by \end{document}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.305 \end{document}
+l.317 \end{document}
                     
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 305.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 317.
 File: nus-logo.png Graphic file (type bmp)
 <nus-logo.png>
-[10
+[11
 
 ]
 File: nus-logo.png Graphic file (type bmp)
 <nus-logo.png>
- [11]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 305.
+ [12]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 317.
  (./LiShihao-DUKE-Report-A0165362E.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 305.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 305.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 317.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 317.
 Package rerunfilecheck Info: File `LiShihao-DUKE-Report-A0165362E.out' has not 
 changed.
 (rerunfilecheck)             Checksum: DB33C413498C9616A6493CE9A8608472.
@@ -1604,16 +1628,16 @@ l'.
  )
 (\end occurred inside a group at level 2)
 
-### semi simple group (level 2) entered at line 271 (\begingroup)
-### semi simple group (level 1) entered at line 271 (\begingroup)
+### semi simple group (level 2) entered at line 283 (\begingroup)
+### semi simple group (level 1) entered at line 283 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 26130 strings out of 492970
- 500652 string characters out of 6133938
- 808298 words of memory out of 5000000
- 29913 multiletter control sequences out of 15000+600000
+ 26150 strings out of 492970
+ 500921 string characters out of 6133938
+ 809298 words of memory out of 5000000
+ 29928 multiletter control sequences out of 15000+600000
  534500 words of font info for 62 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  39i,11n,66p,10414b,742s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on LiShihao-DUKE-Report-A0165362E.pdf (11 pages).
+Output written on LiShihao-DUKE-Report-A0165362E.pdf (12 pages).

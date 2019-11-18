@@ -161,6 +161,13 @@ public class CommandList {
             ui.doneValidTaskNoMessage();
         }
     }
+
+    /**
+     * mark completed task to incompleted
+     * @param content
+     * @param list
+     * @throws Exception
+     */
     private void cmdMarkDo(String content, TempTaskList list) throws Exception {
         try {
             int listIndex = Integer.parseInt(content) - 1;
@@ -180,6 +187,12 @@ public class CommandList {
         }
     }
 
+    /**
+     * Remove task in TempTaskList by task number
+     * @param content
+     * @param list
+     * @throws Exception
+     */
     private void cmdDelete(String content, TempTaskList list) throws Exception {
         try {
             int listIndex = Integer.parseInt(content) - 1;
