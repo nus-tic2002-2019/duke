@@ -36,10 +36,11 @@ public class ListCommand implements Command {
      */
 
     public String execute(TaskList taskList, Storage storage) {
+
 		boolean haveOverdueTasks = false;
 		System.out.println("Here are the tasks in your list:");
 		for (int a=1; a<taskList.getSize()+1;a++){
-			if (isTaskOverdue(taskList.getTask(a-1))){
+			if (taskList.getTask(a-1).getSymbol().equals("D") && isTaskOverdue(taskList.getTask(a-1))){
 				System.out.println("	"+a+". "+taskList.getTask(a-1)+" !OVERDUE!" );
 				haveOverdueTasks = true;
 			} else {
