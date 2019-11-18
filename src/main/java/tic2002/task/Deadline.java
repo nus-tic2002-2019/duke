@@ -1,38 +1,55 @@
 package tic2002.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
     //Declare constant variables
     protected final String STRING_BY = "by";
-    protected final char CHAR_SEPARATOR = '/';
-
-    //Store keywords' number of characters
-    protected int byStrLen = STRING_BY.length();
 
     //Declare variables
     protected String deadlineByString;
+    protected LocalDateTime deadlineDateTime;
 
     //Constructor
-    public Deadline(String taskDescription) {
-        super(taskDescription.substring(0, taskDescription.indexOf('/') - 1) );
-        typeIdt = CHAR_DEADLINE;
-
-        deadlineByString = taskDescription.substring(taskDescription.indexOf(CHAR_SEPARATOR) + 2 + byStrLen);
-    }
-
     public Deadline(String taskDescription, String taskTime) {
         super(taskDescription);
-        typeIdt = CHAR_DEADLINE;
-
         deadlineByString = taskTime;
+        typeIdt = CHAR_DEADLINE;
+    }
+
+    public Deadline(String taskDescription, LocalDateTime taskDateTime) {
+        super(taskDescription);
+        deadlineDateTime = taskDateTime;
+        typeIdt = CHAR_DEADLINE;
+        isDateTimeFormat = true;
     }
 
     //Getter
     public String printToFile() {
-        return(super.printToFile() + CHAR_SEPARATOR_WRITE + deadlineByString);
+        String tempString = super.printToFile() + CHAR_SEPARATOR_WRITE;
+
+        if (isDateTimeFormat) {
+            tempString += DateTimeFormatter.ofPattern(DATE_TIME_FORMAT).format(deadlineDateTime);
+        } else {
+            tempString += deadlineByString;
+        }
+
+        return tempString;
     }
 
     @Override
     public String toString() {
-        return "[" + typeIdt + "][" + getStatusIcon() + "] " + taskDescription + " (" + STRING_BY + ": " + deadlineByString + ")";
+        String tempString = "[" + typeIdt + "][" + getStatusIcon() + "] " + taskDescription + " (" + STRING_BY + ": ";
+
+        if (isDateTimeFormat) {
+            tempString += DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_OUTPUT).format(deadlineDateTime);
+        } else {
+            tempString += deadlineByString;
+        }
+
+        tempString += ")";
+
+        return tempString;
     }
 }

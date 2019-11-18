@@ -9,8 +9,10 @@ import tic2002.task.Todo;
 import tic2002.ui.Ui;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Parser {
     //Declare constant variables
@@ -21,6 +23,10 @@ public class Parser {
     private static final String STRING_TODO = "todo";
     private static final String STRING_DEADLINE = "deadline";
     private static final String STRING_EVENT = "event";
+    private static final String STRING_BY = "by";
+    private static final String STRING_AT = "at";
+    private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HHmm";
+    private static final char CHAR_SEPARATOR = '/';
 
     //Store keywords' number of characters
     private static int doneStrLen = STRING_DONE.length();
@@ -28,6 +34,8 @@ public class Parser {
     private static int todoStrLen = STRING_TODO.length();
     private static int deadlineStrLen = STRING_DEADLINE.length();
     private static int eventStrLen = STRING_EVENT.length();
+    private static int byStrLen = STRING_BY.length();
+    private static int atStrLen = STRING_AT.length();
 
     //Declare variables
     private static Ui currentUi;
@@ -49,9 +57,20 @@ public class Parser {
         return isExit;
     }
 
-    //Parse string to date
-    public LocalDate parseStringToDate(String dateInput) {
-        return LocalDate.parse(dateInput);
+    //Check if string is valid date and time
+    public boolean isDateTime(String dateTimeInput) {
+        try {
+            LocalDateTime.parse(dateTimeInput, DateTimeFormatter.ofPattern(DATE_TIME_FORMAT) );
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    //Parse string to date and time
+    public LocalDateTime parseStringToDateTime(String dateTimeInput) {
+        return LocalDateTime.parse(dateTimeInput, DateTimeFormatter.ofPattern(DATE_TIME_FORMAT) );
     }
 
     //Run user command
@@ -119,13 +138,31 @@ public class Parser {
             } else if (currentInput.length() >= deadlineStrLen && (currentInput.substring(0, deadlineStrLen) ).equals(STRING_DEADLINE) ) {
                 //Add deadline
                 String inputExtract = currentInput.substring(deadlineStrLen + 1);
-                tasksList.add(new Deadline(inputExtract) );
+                String taskExtract = inputExtract.substring(0, inputExtract.indexOf(CHAR_SEPARATOR) - 1);
+                String timeExtract = inputExtract.substring(inputExtract.indexOf(CHAR_SEPARATOR) + 2 + byStrLen);
+
+                if (isDateTime(timeExtract) ) {
+                    LocalDateTime timeConvert = parseStringToDateTime(timeExtract);
+                    tasksList.add(new Deadline(taskExtract, timeConvert) );
+                } else {
+                    tasksList.add(new Deadline(taskExtract, timeExtract) );
+                }
+
                 currentStorage.appendTaskToFile(tasksList.get(tasksList.size() -1) );
 
             } else if (currentInput.length() >= eventStrLen && (currentInput.substring(0, eventStrLen) ).equals(STRING_EVENT) ) {
                 //Add event
                 String inputExtract = currentInput.substring(eventStrLen + 1);
-                tasksList.add(new Event(inputExtract) );
+                String taskExtract = inputExtract.substring(0, inputExtract.indexOf(CHAR_SEPARATOR) - 1);
+                String timeExtract = inputExtract.substring(inputExtract.indexOf(CHAR_SEPARATOR) + 2 + atStrLen);
+
+                if (isDateTime(timeExtract) ) {
+                    LocalDateTime timeConvert = parseStringToDateTime(timeExtract);
+                    tasksList.add(new Event(taskExtract, timeConvert) );
+                } else {
+                    tasksList.add(new Event(taskExtract, timeExtract) );
+                }
+
                 currentStorage.appendTaskToFile(tasksList.get(tasksList.size() -1) );
 
             } else {

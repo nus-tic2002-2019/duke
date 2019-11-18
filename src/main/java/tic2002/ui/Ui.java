@@ -14,7 +14,9 @@ public class Ui {
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
     private static final String LINE_SEPARATOR = "____________________________________________________________\n";
-    private static final String MSG_GREET = DUKE_LOGO + LINE_SEPARATOR + "Hello! I'm Duke\n" + "What can I do for you?\n" + LINE_SEPARATOR;
+    private static final String USER_INSTRUCTIONS = "Instructions: [list | todo {} | deadline {} /by {} | event {} /at {} | done {} | delete {} | bye]\n"
+            + "Format: [Date&Time {yyyy-MM-dd HHmm}]\n";
+    private static final String MSG_GREET = DUKE_LOGO + LINE_SEPARATOR + "Hello! I'm Duke\n" + "What can I do for you?\n" + USER_INSTRUCTIONS + LINE_SEPARATOR;
     private static final String MSG_BYE = LINE_SEPARATOR + "Bye. Hope to see you again soon!\n" + LINE_SEPARATOR;
     private static final String MSG_LIST = LINE_SEPARATOR + "Here are the tasks in your list:\n";
     private static final String MSG_DONE = LINE_SEPARATOR + "Nice! I've marked this task as done:";
@@ -60,7 +62,7 @@ public class Ui {
             tempString += (tasksList.get(i) + "\n");
         }
 
-        tempString += LINE_SEPARATOR;
+        tempString += (LINE_SEPARATOR + USER_INSTRUCTIONS + LINE_SEPARATOR);
 
         System.out.print(tempString);
     }
@@ -69,7 +71,7 @@ public class Ui {
     public void displayMessageDone(int currentTaskNum) {
         String tempString = MSG_DONE;
         tempString += (tasksList.get(currentTaskNum) + "\n");
-        tempString += LINE_SEPARATOR;
+        tempString += (LINE_SEPARATOR + USER_INSTRUCTIONS + LINE_SEPARATOR);
         System.out.print(tempString);
     }
 
@@ -77,7 +79,7 @@ public class Ui {
     public void displayMessageDelete(int currentTaskNum) {
         String tempString = MSG_DELETE;
         tempString += (tasksList.get(currentTaskNum) + "\n");
-        tempString += LINE_SEPARATOR;
+        tempString += (LINE_SEPARATOR + USER_INSTRUCTIONS + LINE_SEPARATOR);
         System.out.print(tempString);
     }
 
@@ -87,7 +89,7 @@ public class Ui {
         tempString += (tasksList.get(tasksList.size() -1) + "\n");
         tempString += MSG_POST_TASK_1;
         tempString += tasksList.size();
-        tempString += MSG_POST_TASK_2;
+        tempString += (MSG_POST_TASK_2 + USER_INSTRUCTIONS + LINE_SEPARATOR);
         System.out.print(tempString);
     }
 

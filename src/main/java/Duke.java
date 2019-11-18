@@ -32,10 +32,6 @@ public class Duke {
 
                 parser = new Parser(ui, input, tasks, storage);
 
-                //Test
-                String testDate = "2019-11-18";
-                System.out.println(parser.parseStringToDate(testDate) );
-
                 parser.runCommand();
 
                 isExit = parser.getIsExit();
