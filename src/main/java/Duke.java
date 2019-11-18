@@ -1,33 +1,32 @@
 import tic2002.exception.DukeException;
 import tic2002.parser.Parser;
 import tic2002.storage.Storage;
-import tic2002.task.Task;
+import tic2002.task.TaskList;
 import tic2002.ui.Ui;
-
-import java.util.ArrayList;
 
 /**
  * Represents class Duke of main application.
  */
 public class Duke {
     //Declare constant variables
-    final String STORAGE_PATH_DUKE = "src/main/data/duke.txt";
+    private static final String STORAGE_PATH_DUKE = "src/main/data/duke.txt";
 
     //Create class
-    private static ArrayList<Task> tasks;
+    private static TaskList tasks;
     private static Ui ui;
     private static Storage storage;
     private static Parser parser;
 
     //Constructor
     public Duke() {
-        tasks = new ArrayList<Task>();
+        tasks = new TaskList();
         ui = new Ui(tasks);
         storage = new Storage(STORAGE_PATH_DUKE, ui, tasks);
     }
 
     /**
      * Runs application of class Duke.
+     * Until user exits.
      */
     public void runApp() {
         boolean isExit = false;

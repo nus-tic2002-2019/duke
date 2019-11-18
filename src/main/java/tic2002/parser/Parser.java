@@ -4,14 +4,13 @@ import tic2002.exception.DukeException;
 import tic2002.storage.Storage;
 import tic2002.task.Deadline;
 import tic2002.task.Event;
-import tic2002.task.Task;
+import tic2002.task.TaskList;
 import tic2002.task.Todo;
 import tic2002.ui.Ui;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.time.LocalDateTime;
 
 /**
@@ -22,6 +21,7 @@ public class Parser {
     //Declare constant variables
     private static final String STRING_BYE = "bye";
     private static final String STRING_LIST = "list";
+    private static final String STRING_CLEAR = "clear";
     private static final String STRING_DONE = "done";
     private static final String STRING_DELETE = "delete";
     private static final String STRING_TODO = "todo";
@@ -45,11 +45,11 @@ public class Parser {
     private static Ui currentUi;
     private static Storage currentStorage;
     private String currentInput;
-    private ArrayList<Task> tasksList;
+    private TaskList tasksList;
     private boolean isExit = false;
 
     //Constructor
-    public Parser(Ui currentUi, String currentInput, ArrayList<Task> tasksList, Storage currentStorage) {
+    public Parser(Ui currentUi, String currentInput, TaskList tasksList, Storage currentStorage) {
         this.currentUi = currentUi;
         this.currentStorage = currentStorage;
         this.currentInput = currentInput;
@@ -59,7 +59,8 @@ public class Parser {
     //Getter
     /**
      * Returns isExit boolean of Parser class.
-     * @return Boolean isExit.
+     *
+     * @return Boolean.
      */
     public boolean getIsExit() {
         return isExit;
@@ -70,8 +71,7 @@ public class Parser {
      * Based on custom format.
      *
      * @param dateTimeInput
-     * @return Boolean true if input is valid date.
-     * @return Boolean false if input is not valid date.
+     * @return Boolean
      */
     public boolean isDateTime(String dateTimeInput) {
         try {
@@ -89,7 +89,7 @@ public class Parser {
      * No checking of string validity.
      *
      * @param dateTimeInput
-     * @return LocalDateTime output.
+     * @return LocalDateTime
      */
     public LocalDateTime parseStringToDateTime(String dateTimeInput) {
         return LocalDateTime.parse(dateTimeInput, DateTimeFormatter.ofPattern(DATE_TIME_FORMAT) );
@@ -100,7 +100,7 @@ public class Parser {
      * Executes different actions based on user input.
      * Display appropriate messages back to user.
      *
-     * @throws DukeException to reject non-standard inputs out of instructions.
+     * @throws DukeException to reject non-standard inputs.
      */
     public void runCommand() throws DukeException {
         if (currentInput.equals(STRING_BYE) ) {
@@ -113,6 +113,16 @@ public class Parser {
             //List tasks
             currentUi.displayMessageTasksList();
 
+        } else if (currentInput.equals(STRING_CLEAR) ) {
+            //Clear tasks
+            tasksList.clearTask();
+            try {
+                currentStorage.clearFile();
+            } catch (IOException e) {
+                currentUi.displayErrorIo();
+            }
+            currentUi.displayMessageClear();
+
         } else if (currentInput.length() >= doneStrLen && (currentInput.substring(0, doneStrLen) ).equals(STRING_DONE) ) {
             //Mark task as done
 
@@ -121,7 +131,7 @@ public class Parser {
             int taskNum = Integer.parseInt(taskIndex) - 1;
 
             //Set task as done
-            tasksList.get(taskNum).setDone();
+            tasksList.getTask(taskNum).setDone();
 
             //Write (update) to file
             try {
@@ -141,13 +151,13 @@ public class Parser {
             int taskNum = Integer.parseInt(taskIndex) - 1;
 
             //Reset task done status
-            tasksList.get(taskNum).resetDone();
+            tasksList.getTask(taskNum).resetDone();
 
             //Print task to be deleted
             currentUi.displayMessageDelete(taskNum);
 
             //Delete task
-            tasksList.remove(taskNum);
+            tasksList.deleteTask(taskNum);
 
             //Write (update) to file
             try {
@@ -160,8 +170,8 @@ public class Parser {
             if (currentInput.length() >= todoStrLen && (currentInput.substring(0, todoStrLen) ).equals(STRING_TODO) ) {
                 //Add to-do
                 String inputExtract = currentInput.substring(todoStrLen + 1);
-                tasksList.add(new Todo(inputExtract) );
-                currentStorage.appendTaskToFile(tasksList.get(tasksList.size() -1) );
+                tasksList.addTask(new Todo(inputExtract) );
+                currentStorage.appendTaskToFile(tasksList.getTask(tasksList.getListSize() -1) );
 
             } else if (currentInput.length() >= deadlineStrLen && (currentInput.substring(0, deadlineStrLen) ).equals(STRING_DEADLINE) ) {
                 //Add deadline
@@ -171,12 +181,12 @@ public class Parser {
 
                 if (isDateTime(timeExtract) ) {
                     LocalDateTime timeConvert = parseStringToDateTime(timeExtract);
-                    tasksList.add(new Deadline(taskExtract, timeConvert) );
+                    tasksList.addTask(new Deadline(taskExtract, timeConvert) );
                 } else {
-                    tasksList.add(new Deadline(taskExtract, timeExtract) );
+                    tasksList.addTask(new Deadline(taskExtract, timeExtract) );
                 }
 
-                currentStorage.appendTaskToFile(tasksList.get(tasksList.size() -1) );
+                currentStorage.appendTaskToFile(tasksList.getTask(tasksList.getListSize() -1) );
 
             } else if (currentInput.length() >= eventStrLen && (currentInput.substring(0, eventStrLen) ).equals(STRING_EVENT) ) {
                 //Add event
@@ -186,12 +196,12 @@ public class Parser {
 
                 if (isDateTime(timeExtract) ) {
                     LocalDateTime timeConvert = parseStringToDateTime(timeExtract);
-                    tasksList.add(new Event(taskExtract, timeConvert) );
+                    tasksList.addTask(new Event(taskExtract, timeConvert) );
                 } else {
-                    tasksList.add(new Event(taskExtract, timeExtract) );
+                    tasksList.addTask(new Event(taskExtract, timeExtract) );
                 }
 
-                currentStorage.appendTaskToFile(tasksList.get(tasksList.size() -1) );
+                currentStorage.appendTaskToFile(tasksList.getTask(tasksList.getListSize() -1) );
 
             } else {
                 throw new DukeException();

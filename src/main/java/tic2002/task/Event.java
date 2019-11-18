@@ -32,7 +32,7 @@ public class Event extends Task {
     /**
      * Combine and return String for writing into file, for Event class.
      *
-     * @return String of combined output.
+     * @return String
      */
     public String printToFile() {
         String tempString = super.printToFile() + CHAR_SEPARATOR_WRITE;

@@ -30,7 +30,7 @@ public abstract class Task {
     /**
      * Returns appropriate symbol of Task status.
      *
-     * @return String of appropriate symbol.
+     * @return String
      */
     public String getStatusIcon() {
         return (isDone ? "\u2713" : "\u2718");
@@ -39,7 +39,7 @@ public abstract class Task {
     /**
      * Combine and return String for writing into file, for Task class.
      *
-     * @return String of combined output.
+     * @return String
      */
     public String printToFile() {
         String output = typeIdt + CHAR_SEPARATOR_WRITE;

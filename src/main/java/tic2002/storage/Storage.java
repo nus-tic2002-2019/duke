@@ -3,6 +3,7 @@ package tic2002.storage;
 import tic2002.task.Deadline;
 import tic2002.task.Event;
 import tic2002.task.Task;
+import tic2002.task.TaskList;
 import tic2002.task.Todo;
 import tic2002.ui.Ui;
 
@@ -31,11 +32,11 @@ public class Storage {
     //Declare variables
     private static Ui currentUi;
     private static String filePath;
-    private File currentFile;
+    private static File currentFile;
     private ArrayList< ArrayList<String> > fileExtract;
 
     //Constructor
-    public Storage(String filePath, Ui currentUi, ArrayList<Task> tasksList) {
+    public Storage(String filePath, Ui currentUi, TaskList tasksList) {
         this.currentUi = currentUi;
         this.filePath = filePath;
         currentFile = new File(filePath);
@@ -51,12 +52,12 @@ public class Storage {
 
     //Getter
     /**
-     * Returns String ArrayList, consisting all elements of a line.
+     * Returns String ArrayList, that contains all elements of a line.
      * Delimited by custom separator.
      * Requisite for readFile function.
      *
      * @param currentLine as input String.
-     * @return String ArrayList.
+     * @return String.
      */
     private static ArrayList<String> readLine(String currentLine) {
         ArrayList<String> lineElements = new ArrayList<>();
@@ -80,7 +81,7 @@ public class Storage {
     }
 
     /**
-     * Returns ArrayList of String ArrayList, consisting all lines in a file.
+     * Returns ArrayList of String ArrayList, that contains all lines in a file.
      *
      * @return ArrayList of String ArrayList.
      * @throws FileNotFoundException if file does not exist.
@@ -117,20 +118,29 @@ public class Storage {
     /**
      * Writes list of Strings to file.
      *
-     * @param tasksList, ArrayList of Task.
+     * @param tasksList as ArrayList of Task.
      * @throws IOException
      */
-    public void writeToFile(ArrayList<Task> tasksList) throws IOException {
+    public void writeToFile(TaskList tasksList) throws IOException {
         FileWriter fw = new FileWriter(filePath);
 
-        for (int i = 0; i < tasksList.size(); i++) {
-            fw.write(tasksList.get(i).printToFile() + "\n");
+        for (int i = 0; i < tasksList.getListSize(); i++) {
+            fw.write(tasksList.getTask(i).printToFile() + "\n");
         }
 
         fw.close();
     }
 
-    //Append task to file
+    /**
+     * Clears file.
+     *
+     * @throws IOException
+     */
+    public void clearFile() throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write("");
+        fw.close();
+    }
 
     //Execute functions
     /**
@@ -147,25 +157,26 @@ public class Storage {
     }
 
     //Sub-function to initialize Done and add to Task ArrayList
-    private void initDoneAddArray (ArrayList<Task> currentTasksArray, Task currentTask, String doneStatus) {
+    private void initDoneAddArray (TaskList currentTasksArray, Task currentTask, String doneStatus) {
         if (doneStatus.equals(CHAR_FALSE) ) {
             currentTask.resetDone();
         } else if (doneStatus.equals(CHAR_TRUE) ) {
             currentTask.setDone();
         }
 
-        currentTasksArray.add(currentTask);
+        currentTasksArray.addTask(currentTask);
     }
 
     /**
      * Initializes and add tasks into Task ArrayList.
      * Retrieves from saved file data.
      * Assume integrity of file to be always good.
+     * No checking if file has been modified.
      *
-     * @param fromLineList, ArrayList of StringArrayList, retrieved from saved file.
-     * @param toTasksArray, Task ArrayList.
+     * @param fromLineList as ArrayList of StringArrayList, retrieved from saved file.
+     * @param toTasksArray as Task ArrayList.
      */
-    public void appendTaskToArray(ArrayList< ArrayList<String> > fromLineList, ArrayList<Task> toTasksArray) {
+    public void appendTaskToArray(ArrayList< ArrayList<String> > fromLineList, TaskList toTasksArray) {
         for (int i = 0; i < fromLineList.size(); i++) {
             if (fromLineList.get(i).get(0).equals(CHAR_TODO) ) {
                 //Add todo from file
@@ -177,7 +188,7 @@ public class Storage {
                     tempTodo.setDone();
                 }
 
-                toTasksArray.add(tempTodo);
+                toTasksArray.addTask(tempTodo);
 
             } else if (fromLineList.get(i).get(0).equals(CHAR_DEADLINE) ) {
                 //Add deadline from file
