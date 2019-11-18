@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 
 /**
  * A Command to change the date of a Deadline Task. This will update the Deadline Task to the TaskList and the Storage
@@ -33,14 +34,18 @@ public class SnoozeCommand implements Command {
      */
     public String execute(TaskList taskList, Storage storage) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
-		Task t = taskList.getTask(taskNum);
-        oldDateFormatted = t.getDate();
+		ArrayList<Task> list = taskList.getTaskList();
+		Task currTask = list.get(taskNum);
+		
+        oldDateFormatted = currTask.getDate();
 		LocalDate oldLocalDate = LocalDate.parse(oldDateFormatted, formatter);
 		LocalDate newLocalDate = oldLocalDate.plusDays(7);
 		newDateFormatted = newLocalDate.format(formatter);
-        System.out.println(newDateFormatted);
+		currTask.setDate(newDateFormatted);
+		storage.writeToFile(list);
+		
 
-		return UI.snooze(t);
+		return UI.snooze(currTask);
 		
     }
 }
