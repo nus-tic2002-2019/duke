@@ -3,6 +3,9 @@ package tic2002.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents Deadline sub-class, inherited from Task class.
+ */
 public class Deadline extends Task {
     //Declare constant variables
     protected final String STRING_BY = "by";
@@ -26,6 +29,11 @@ public class Deadline extends Task {
     }
 
     //Getter
+    /**
+     * Combine and return String for writing into file, for Deadline class.
+     *
+     * @return String of combined output.
+     */
     public String printToFile() {
         String tempString = super.printToFile() + CHAR_SEPARATOR_WRITE;
 

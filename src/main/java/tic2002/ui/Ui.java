@@ -6,6 +6,7 @@ import tic2002.task.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public class Ui {
     //Declare constant variables
     private static final String DUKE_LOGO = " ____        _        \n"

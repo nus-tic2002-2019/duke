@@ -1,5 +1,8 @@
 package tic2002.task;
 
+/**
+ * Represents Task class.
+ */
 public abstract class Task {
     //Declare constant variables
     protected static final char CHAR_TODO = 'T';
@@ -24,10 +27,20 @@ public abstract class Task {
     }
 
     //Getter
+    /**
+     * Returns appropriate symbol of Task status.
+     *
+     * @return String of appropriate symbol.
+     */
     public String getStatusIcon() {
         return (isDone ? "\u2713" : "\u2718");
     }
 
+    /**
+     * Combine and return String for writing into file, for Task class.
+     *
+     * @return String of combined output.
+     */
     public String printToFile() {
         String output = typeIdt + CHAR_SEPARATOR_WRITE;
 
@@ -51,18 +64,30 @@ public abstract class Task {
     }
 
     //Setter
+    /**
+     * Sets isDone boolean of Task class to true.
+     */
     public void setDone() {
         isDone = true;
     }
 
+    /**
+     * Sets isDone boolean of Task class to false.
+     */
     public void resetDone() {
         isDone = false;
     }
 
+    /**
+     * Sets isDateTimeFormat boolean of Task class to true.
+     */
     public void setBoolDateTime() {
         isDateTimeFormat = true;
     }
 
+    /**
+     * Sets isDateTimeFormat boolean of Task class to false.
+     */
     public void resetBoolDateTime() {
         isDateTimeFormat = false;
     }

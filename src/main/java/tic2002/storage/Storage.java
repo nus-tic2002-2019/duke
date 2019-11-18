@@ -15,6 +15,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * Represents Storage class.
+ * Deals with loading tasks from file and saving tasks back.
+ */
 public class Storage {
     //Declare constant variables
     private static final String CHAR_FALSE = "0";
@@ -46,8 +50,14 @@ public class Storage {
     }
 
     //Getter
-
-    //Function to read lines, requisites for readFile function
+    /**
+     * Returns String ArrayList, consisting all elements of a line.
+     * Delimited by custom separator.
+     * Requisite for readFile function.
+     *
+     * @param currentLine as input String.
+     * @return String ArrayList.
+     */
     private static ArrayList<String> readLine(String currentLine) {
         ArrayList<String> lineElements = new ArrayList<>();
 
@@ -69,7 +79,12 @@ public class Storage {
         return lineElements;
     }
 
-    //Get array of lines in file
+    /**
+     * Returns ArrayList of String ArrayList, consisting all lines in a file.
+     *
+     * @return ArrayList of String ArrayList.
+     * @throws FileNotFoundException if file does not exist.
+     */
     public ArrayList< ArrayList<String> > readFile() throws FileNotFoundException {
         ArrayList< ArrayList<String> > lineList = new ArrayList<>();
 
@@ -87,14 +102,24 @@ public class Storage {
     }
 
     //Setter
-    //Append string to file
+    /**
+     * Appends String to file.
+     *
+     * @param textToAppend as String to input.
+     * @throws IOException
+     */
     public void appendToFile(String textToAppend) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
         fw.write(textToAppend + "\n");
         fw.close();
     }
 
-    //Write string to file
+    /**
+     * Writes list of Strings to file.
+     *
+     * @param tasksList, ArrayList of Task.
+     * @throws IOException
+     */
     public void writeToFile(ArrayList<Task> tasksList) throws IOException {
         FileWriter fw = new FileWriter(filePath);
 
@@ -106,6 +131,13 @@ public class Storage {
     }
 
     //Append task to file
+
+    //Execute functions
+    /**
+     * Executes appending Tasks to file, using appendTaskToFile function.
+     *
+     * @param currentTask
+     */
     public void appendTaskToFile(Task currentTask) {
         try {
             appendToFile(currentTask.printToFile() );
@@ -125,7 +157,14 @@ public class Storage {
         currentTasksArray.add(currentTask);
     }
 
-    //Append tasks to array - assume integrity of file is always true
+    /**
+     * Initializes and add tasks into Task ArrayList.
+     * Retrieves from saved file data.
+     * Assume integrity of file to be always good.
+     *
+     * @param fromLineList, ArrayList of StringArrayList, retrieved from saved file.
+     * @param toTasksArray, Task ArrayList.
+     */
     public void appendTaskToArray(ArrayList< ArrayList<String> > fromLineList, ArrayList<Task> toTasksArray) {
         for (int i = 0; i < fromLineList.size(); i++) {
             if (fromLineList.get(i).get(0).equals(CHAR_TODO) ) {

@@ -3,6 +3,9 @@ package tic2002.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents Event sub-class, inherited from Task class.
+ */
 public class Event extends Task {
     //Declare constant variables
     protected final String STRING_AT = "at";
@@ -26,6 +29,11 @@ public class Event extends Task {
     }
 
     //Getter
+    /**
+     * Combine and return String for writing into file, for Event class.
+     *
+     * @return String of combined output.
+     */
     public String printToFile() {
         String tempString = super.printToFile() + CHAR_SEPARATOR_WRITE;
 

@@ -14,6 +14,10 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 
+/**
+ * Represents Parser class
+ * Deals interaction with user.
+ */
 public class Parser {
     //Declare constant variables
     private static final String STRING_BYE = "bye";
@@ -53,11 +57,22 @@ public class Parser {
     }
 
     //Getter
+    /**
+     * Returns isExit boolean of Parser class.
+     * @return Boolean isExit.
+     */
     public boolean getIsExit() {
         return isExit;
     }
 
-    //Check if string is valid date and time
+    /**
+     * Checks and returns true if input String is a valid date.
+     * Based on custom format.
+     *
+     * @param dateTimeInput
+     * @return Boolean true if input is valid date.
+     * @return Boolean false if input is not valid date.
+     */
     public boolean isDateTime(String dateTimeInput) {
         try {
             LocalDateTime.parse(dateTimeInput, DateTimeFormatter.ofPattern(DATE_TIME_FORMAT) );
@@ -68,12 +83,25 @@ public class Parser {
         return true;
     }
 
-    //Parse string to date and time
+    /**
+     * Returns parsed LocalDateTime from input String.
+     * Based on custom format.
+     * No checking of string validity.
+     *
+     * @param dateTimeInput
+     * @return LocalDateTime output.
+     */
     public LocalDateTime parseStringToDateTime(String dateTimeInput) {
         return LocalDateTime.parse(dateTimeInput, DateTimeFormatter.ofPattern(DATE_TIME_FORMAT) );
     }
 
-    //Run user command
+    //Execute functions
+    /**
+     * Executes different actions based on user input.
+     * Display appropriate messages back to user.
+     *
+     * @throws DukeException to reject non-standard inputs out of instructions.
+     */
     public void runCommand() throws DukeException {
         if (currentInput.equals(STRING_BYE) ) {
             //Bye

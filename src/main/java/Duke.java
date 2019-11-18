@@ -6,6 +6,9 @@ import tic2002.ui.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * Represents class Duke of main application.
+ */
 public class Duke {
     //Declare constant variables
     final String STORAGE_PATH_DUKE = "src/main/data/duke.txt";
@@ -23,6 +26,9 @@ public class Duke {
         storage = new Storage(STORAGE_PATH_DUKE, ui, tasks);
     }
 
+    /**
+     * Runs application of class Duke.
+     */
     public void runApp() {
         boolean isExit = false;
 
