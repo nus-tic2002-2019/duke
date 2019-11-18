@@ -6,8 +6,8 @@ public abstract class Task {
     protected static final char CHAR_DEADLINE = 'D';
     protected static final char CHAR_EVENT = 'E';
     protected static final String CHAR_SEPARATOR_WRITE = "|";
-    private static final String CHAR_FALSE = "0";
-    private static final String CHAR_TRUE = "1";
+    protected static final String CHAR_FALSE = "0";
+    protected static final String CHAR_TRUE = "1";
     protected static final String DATE_TIME_FORMAT = "yyyy-MM-dd HHmm";
     protected static final String DATE_TIME_FORMAT_OUTPUT = "d MMMM yyyy, h:mm a";
 
