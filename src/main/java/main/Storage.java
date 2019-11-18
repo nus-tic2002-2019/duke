@@ -18,7 +18,7 @@ public class Storage {
 
     private Path path = Paths.get(System.getProperty("user.dir"));
     private File data = new File(path + "/data/duke.txt");
-	private static final int INDEXOFTASKPARAMETER = 6;
+	private static final int INDEXOFTASKDESCRIPTION = 4;
     public Storage() {
 
     }
@@ -35,7 +35,6 @@ public class Storage {
 	public ArrayList<Task> readFromFile() {
 
         ArrayList<Task> toReturn = new ArrayList<>();
-		int i = INDEXOFTASKPARAMETER;
         try {
             Scanner sc = new Scanner(data);
             while (sc.hasNextLine()) {
@@ -43,50 +42,70 @@ public class Storage {
                 String[] next = sc.nextLine().split(" | ");
                 switch (next[0]) {
                 case ("T"):
-                    Task todo = new Todo(next[4]);
+					String todoName = "";
+					for (int a = INDEXOFTASKDESCRIPTION; a < next.length; a++) {
+						todoName += next[a] + " ";
+					}
+                    Task todo = new Todo(todoName);
                     if (Integer.valueOf(next[2]) == 1) {
                         todo.setStatusIconTrue();
                     }
                     toReturn.add(todo);
+					
                     break;
                 case ("E"):
-				
-				StringBuilder venue = new StringBuilder("");
-				while (i < next.length){
-					if (i == next.length-1){
-						venue.append(next[i]);
+				String eventName = "";
+				String venue = "";
+				for (int a = INDEXOFTASKDESCRIPTION; a < next.length; a++) {
+					if (!next[a].equals("|")){
+						eventName += next[a];
+						eventName += " ";
 					} else {
-						venue.append(next[i]);
-						venue.append(" ");
+						a++;
+						for (int parameterIndex = a; parameterIndex < next.length; parameterIndex++){
+							venue += next[parameterIndex];
+							if (parameterIndex == next.length -1){
+								break;
+							} else {
+								venue += " ";
+							}
+						}
+						break;
 					}
-					i++;
 				}
-				i = INDEXOFTASKPARAMETER;
-                    Task event = new Event(next[4], venue.toString());
-                    if (Integer.valueOf(next[2]) == 1) {
-                        event.setStatusIconTrue();
-                    }
-                    toReturn.add(event);
-                    break;
+				Task event = new Event(eventName, venue);
+				if (Integer.valueOf(next[2]) == 1) {
+					event.setStatusIconTrue();
+				}
+				toReturn.add(event);
+				break;
 
                 case ("D"):
-				StringBuilder date = new StringBuilder("");
-				while (i < next.length){
-					if (i == next.length-1){
-						date.append(next[i]);
+				String deadlineName = "";
+				String date = "";
+				for (int a = INDEXOFTASKDESCRIPTION; a < next.length; a++) {
+					if (!next[a].equals("|")){
+						deadlineName += next[a];
+						deadlineName += " ";
 					} else {
-						date.append(next[i]);
-						date.append(" ");
+						a++;
+						for (int parameterIndex = a; parameterIndex < next.length; parameterIndex++){
+							date += next[parameterIndex];
+							if (parameterIndex == next.length -1){
+								break;
+							} else {
+								date += " ";
+							}
+						}
+						break;
 					}
-					i++;
 				}
-				i = INDEXOFTASKPARAMETER;
-                    Task deadline = new Deadline(next[4], date.toString());
-                    if (Integer.valueOf(next[2]) == 1) {
-                        deadline.setStatusIconTrue();
-                    }
-                    toReturn.add(deadline);
-                    break;
+				Task deadline = new Deadline(deadlineName, date);
+				if (Integer.valueOf(next[2]) == 1) {
+					deadline.setStatusIconTrue();
+				}
+				toReturn.add(deadline);
+				break;
 
                 default:
                     break;
