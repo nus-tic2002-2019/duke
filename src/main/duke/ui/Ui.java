@@ -1,6 +1,5 @@
 package main.duke.ui;
 
-import main.duke.exception.DukeException;
 import main.duke.task.Task;
 import main.duke.task.TaskList;
 
@@ -34,7 +33,7 @@ public class Ui {
         }
     }
 
-    public void printErrorMsg(DukeException e) {
+    public void printErrorMsg(Exception e) {
         System.out.println(e.getMessage());
     }
 

@@ -1,34 +1,58 @@
 package main.duke.storage;
 
+import main.duke.exception.DukeException;
+import main.duke.task.TaskList;
+
 import java.io.File;
-import  java.io.FileNotFoundException;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
+import java.util.Scanner;
 
 public class Storage {
-
     private static final String path_str = "data/duke.txt";
-    public void readSaveFile() throws FileNotFoundException, IOException {
 
+
+    /**
+     * @param t
+     * @return false means no saved data, true means has saved data.
+     */
+    public void readSaveFile(TaskList t) throws DukeException {
         File f = new File(path_str);
-        if(f.exists()){
-
-        }
-        else{
+        if (!f.exists()) {
             System.out.println("Save file not found. Creating new file!");
-            writeToSaveFile("");
+            f = writeToSaveFile("");
+            System.out.println(f.getAbsolutePath());
+        }
+        loadSaveFile(f, t);
+    }
+
+    public void loadSaveFile(File f, TaskList t) throws DukeException {
+        try {
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                t.add(s.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+
         }
     }
-    public void writeToSaveFile(String s) throws IOException{
+
+    public File writeToSaveFile(String s) {
         File f = new File(path_str);
-        if(!f.exists()){
-            f.createNewFile();
+        try {
+            if (!f.exists()) {
+                f.createNewFile();
+            }
+            FileWriter fw = new FileWriter(path_str);
+            fw.write(s);
+            fw.close();
+        } catch (IOException e) {
+
         }
-        FileWriter fw = new FileWriter(path_str, true);
-        fw.write(s);
-        fw.close();
+        return f;
     }
+
     public Storage() {
     }
 

@@ -14,18 +14,14 @@ public class Duke {
 
 
     public Duke() {
-        tasks = new TaskList();
-        ui = new Ui();
         storage = new Storage();
-        parser = new Parser();
+        ui = new Ui();
         try {
-            storage.readSaveFile();
-        } catch (java.io.IOException ioException){
-            System.out.println(ioException.toString());
+            tasks = new TaskList(storage);
+        } catch (DukeException e){
+            ui.printErrorMsg(e);
         }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        parser = new Parser();
     }
     public void run(){
         boolean running = true;
