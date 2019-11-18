@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Represents an executable duke.command.
  */
-public abstract class Command {
+public class Command {
     /** Represents the status of the application. If True, application will be terminated */
     protected boolean isExit;
 
@@ -18,7 +18,8 @@ public abstract class Command {
         this.isExit = false;
     }
 
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException;
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
+    }
 
     /**
      * @return the termination status
