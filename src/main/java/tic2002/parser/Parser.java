@@ -27,10 +27,9 @@ public class Parser {
     private static final String STRING_TODO = "todo";
     private static final String STRING_DEADLINE = "deadline";
     private static final String STRING_EVENT = "event";
-    private static final String STRING_BY = "by";
-    private static final String STRING_AT = "at";
+    private static final String SEPARATOR_BY = "/by";
+    private static final String SEPARATOR_AT = "/at";
     private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HHmm";
-    private static final char CHAR_SEPARATOR = '/';
 
     //Store keywords' number of characters
     private static int doneStrLen = STRING_DONE.length();
@@ -38,8 +37,8 @@ public class Parser {
     private static int todoStrLen = STRING_TODO.length();
     private static int deadlineStrLen = STRING_DEADLINE.length();
     private static int eventStrLen = STRING_EVENT.length();
-    private static int byStrLen = STRING_BY.length();
-    private static int atStrLen = STRING_AT.length();
+    private static int byStrLen = SEPARATOR_BY.length();
+    private static int atStrLen = SEPARATOR_AT.length();
 
     //Declare variables
     private static Ui currentUi;
@@ -176,8 +175,8 @@ public class Parser {
             } else if (currentInput.length() >= deadlineStrLen && (currentInput.substring(0, deadlineStrLen) ).equals(STRING_DEADLINE) ) {
                 //Add deadline
                 String inputExtract = currentInput.substring(deadlineStrLen + 1);
-                String taskExtract = inputExtract.substring(0, inputExtract.indexOf(CHAR_SEPARATOR) - 1);
-                String timeExtract = inputExtract.substring(inputExtract.indexOf(CHAR_SEPARATOR) + 2 + byStrLen);
+                String taskExtract = inputExtract.substring(0, inputExtract.indexOf(SEPARATOR_BY) - 1);
+                String timeExtract = inputExtract.substring(inputExtract.indexOf(SEPARATOR_BY) + 1 + byStrLen);
 
                 if (isDateTime(timeExtract) ) {
                     LocalDateTime timeConvert = parseStringToDateTime(timeExtract);
@@ -191,8 +190,8 @@ public class Parser {
             } else if (currentInput.length() >= eventStrLen && (currentInput.substring(0, eventStrLen) ).equals(STRING_EVENT) ) {
                 //Add event
                 String inputExtract = currentInput.substring(eventStrLen + 1);
-                String taskExtract = inputExtract.substring(0, inputExtract.indexOf(CHAR_SEPARATOR) - 1);
-                String timeExtract = inputExtract.substring(inputExtract.indexOf(CHAR_SEPARATOR) + 2 + atStrLen);
+                String taskExtract = inputExtract.substring(0, inputExtract.indexOf(SEPARATOR_AT) - 1);
+                String timeExtract = inputExtract.substring(inputExtract.indexOf(SEPARATOR_AT) + 1 + atStrLen);
 
                 if (isDateTime(timeExtract) ) {
                     LocalDateTime timeConvert = parseStringToDateTime(timeExtract);
