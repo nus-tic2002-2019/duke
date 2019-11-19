@@ -129,7 +129,7 @@ public class Parser {
             //Mark task as done
 
             //Get task index
-            String taskIndex = currentInput.substring(doneStrLen + 1);
+            String taskIndex = currentInput.substring(doneStrLen).trim();
             int taskNum = Integer.parseInt(taskIndex) - 1;
 
             //Set task as done
@@ -149,7 +149,7 @@ public class Parser {
             //Delete task
 
             //Get task index
-            String taskIndex = currentInput.substring(deleteStrLen + 1);
+            String taskIndex = currentInput.substring(deleteStrLen).trim();
             int taskNum = Integer.parseInt(taskIndex) - 1;
 
             //Reset task done status
@@ -171,12 +171,12 @@ public class Parser {
         } else {
             if (currentInput.length() >= todoStrLen && (currentInput.substring(0, todoStrLen) ).equals(STRING_TODO) ) {
                 //Add to-do
-                String inputExtract = currentInput.substring(todoStrLen + 1);
+                String inputExtract = currentInput.substring(todoStrLen).trim();
                 Todo tempTodo;
 
                 if (inputExtract.indexOf(SEPARATOR_PRIORITY) >= 0) {
-                    String taskExtract = inputExtract.substring(0, inputExtract.indexOf(SEPARATOR_PRIORITY) - 1);
-                    String priorityExtract = inputExtract.substring(inputExtract.indexOf(SEPARATOR_PRIORITY) + 1 + priorityStrLen);
+                    String taskExtract = inputExtract.substring(0, inputExtract.indexOf(SEPARATOR_PRIORITY) ).trim();
+                    String priorityExtract = inputExtract.substring(inputExtract.indexOf(SEPARATOR_PRIORITY) + priorityStrLen).trim();
                     String priorityExtractUpper = priorityExtract.toUpperCase();
 
                     tempTodo = new Todo(taskExtract);
@@ -197,32 +197,72 @@ public class Parser {
 
             } else if (currentInput.length() >= deadlineStrLen && (currentInput.substring(0, deadlineStrLen) ).equals(STRING_DEADLINE) ) {
                 //Add deadline
-                String inputExtract = currentInput.substring(deadlineStrLen + 1);
-                String taskExtract = inputExtract.substring(0, inputExtract.indexOf(SEPARATOR_BY) - 1);
-                String timeExtract = inputExtract.substring(inputExtract.indexOf(SEPARATOR_BY) + 1 + byStrLen);
+                String inputExtract = currentInput.substring(deadlineStrLen).trim();
+                Deadline tempDeadline;
+                String taskExtract = inputExtract.substring(0, inputExtract.indexOf(SEPARATOR_BY) ).trim();
+                String timeExtract = null;
+
+                if (inputExtract.indexOf(SEPARATOR_PRIORITY) >= 0) {
+                    timeExtract = inputExtract.substring(inputExtract.indexOf(SEPARATOR_BY) + byStrLen, inputExtract.indexOf(SEPARATOR_PRIORITY) ).trim();
+                } else {
+                    timeExtract = inputExtract.substring(inputExtract.indexOf(SEPARATOR_BY) + byStrLen).trim();
+                }
 
                 if (isDateTime(timeExtract) ) {
                     LocalDateTime timeConvert = parseStringToDateTime(timeExtract);
-                    tasksList.addTask(new Deadline(taskExtract, timeConvert) );
+                    tempDeadline = new Deadline(taskExtract, timeConvert);
                 } else {
-                    tasksList.addTask(new Deadline(taskExtract, timeExtract) );
+                    tempDeadline = new Deadline(taskExtract, timeExtract);
                 }
 
+                if (inputExtract.indexOf(SEPARATOR_PRIORITY) >= 0) {
+                    String priorityExtract = inputExtract.substring(inputExtract.indexOf(SEPARATOR_PRIORITY) + priorityStrLen).trim();
+                    String priorityExtractUpper = priorityExtract.toUpperCase();
+
+                    try {
+                        tempDeadline.setTaskPriority(Priority.valueOf(priorityExtractUpper) );
+                    } catch (IllegalArgumentException e) {
+                        currentUi.displayErrorPriority();
+                        return;
+                    }
+                }
+
+                tasksList.addTask(tempDeadline);
                 currentStorage.appendTaskToFile(tasksList.getTask(tasksList.getListSize() -1) );
 
             } else if (currentInput.length() >= eventStrLen && (currentInput.substring(0, eventStrLen) ).equals(STRING_EVENT) ) {
                 //Add event
-                String inputExtract = currentInput.substring(eventStrLen + 1);
-                String taskExtract = inputExtract.substring(0, inputExtract.indexOf(SEPARATOR_AT) - 1);
-                String timeExtract = inputExtract.substring(inputExtract.indexOf(SEPARATOR_AT) + 1 + atStrLen);
+                String inputExtract = currentInput.substring(eventStrLen).trim();
+                Event tempEvent;
+                String taskExtract = inputExtract.substring(0, inputExtract.indexOf(SEPARATOR_AT) ).trim();
+                String timeExtract = null;
+
+                if (inputExtract.indexOf(SEPARATOR_PRIORITY) >= 0) {
+                    timeExtract = inputExtract.substring(inputExtract.indexOf(SEPARATOR_AT) + atStrLen, inputExtract.indexOf(SEPARATOR_PRIORITY) ).trim();
+                } else {
+                    timeExtract = inputExtract.substring(inputExtract.indexOf(SEPARATOR_AT) + atStrLen).trim();
+                }
 
                 if (isDateTime(timeExtract) ) {
                     LocalDateTime timeConvert = parseStringToDateTime(timeExtract);
-                    tasksList.addTask(new Event(taskExtract, timeConvert) );
+                    tempEvent = new Event(taskExtract, timeConvert);
                 } else {
-                    tasksList.addTask(new Event(taskExtract, timeExtract) );
+                    tempEvent = new Event(taskExtract, timeExtract);
                 }
 
+                if (inputExtract.indexOf(SEPARATOR_PRIORITY) >= 0) {
+                    String priorityExtract = inputExtract.substring(inputExtract.indexOf(SEPARATOR_PRIORITY) + priorityStrLen).trim();
+                    String priorityExtractUpper = priorityExtract.toUpperCase();
+
+                    try {
+                        tempEvent.setTaskPriority(Priority.valueOf(priorityExtractUpper) );
+                    } catch (IllegalArgumentException e) {
+                        currentUi.displayErrorPriority();
+                        return;
+                    }
+                }
+
+                tasksList.addTask(tempEvent);
                 currentStorage.appendTaskToFile(tasksList.getTask(tasksList.getListSize() -1) );
 
             } else {

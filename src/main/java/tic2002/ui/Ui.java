@@ -17,8 +17,8 @@ public class Ui {
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
     private static final String LINE_SEPARATOR = "____________________________________________________________\n";
-    private static final String USER_INSTRUCTIONS = "Instructions: [list | todo {} | deadline {} /by {} | event {} /at {} | done {} | delete {} | clear | bye]\n"
-            + "Format: [Date&Time {yyyy-MM-dd HHmm}]\n";
+    private static final String USER_INSTRUCTIONS = "Instructions: [list | todo {} /p {} | deadline {} /by {} /p {} | event {} /at {} /p {} | done {} | delete {} | clear | bye]\n"
+            + "Format: [Date&Time {yyyy-MM-dd HHmm} | Priority {/p} {high, medium, low}]\n";
     private static final String MSG_GREET = DUKE_LOGO + LINE_SEPARATOR + "Hello! I'm Duke\n" + "What can I do for you?\n" + USER_INSTRUCTIONS + LINE_SEPARATOR;
     private static final String MSG_BYE = LINE_SEPARATOR + "Bye. Hope to see you again soon!\n" + LINE_SEPARATOR;
     private static final String MSG_LIST = LINE_SEPARATOR + "Here are the tasks in your list:\n";

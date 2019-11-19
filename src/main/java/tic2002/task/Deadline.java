@@ -1,5 +1,7 @@
 package tic2002.task;
 
+import tic2002.enumerations.Priority;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -59,6 +61,10 @@ public class Deadline extends Task {
 
         preOutput += ")";
 
-        return preOutput;
+        if (taskPriority == Priority.NONE) {
+            return preOutput;
+        } else {
+            return preOutput + " " + priorityOutput;
+        }
     }
 }

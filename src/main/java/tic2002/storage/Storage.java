@@ -1,5 +1,6 @@
 package tic2002.storage;
 
+import tic2002.enumerations.Priority;
 import tic2002.task.Deadline;
 import tic2002.task.Event;
 import tic2002.task.Task;
@@ -66,6 +67,7 @@ public class Storage {
         s.useDelimiter("[|]");
 
         while (s.hasNext() ) {
+            lineElements.add(s.next() );
             lineElements.add(s.next() );
             lineElements.add(s.next() );
             lineElements.add(s.next() );
@@ -157,12 +159,14 @@ public class Storage {
     }
 
     //Sub-function to initialize Done and add to Task ArrayList
-    private void initDoneAddArray (TaskList currentTasksArray, Task currentTask, String doneStatus) {
+    private void completeDone_Priority_AddArray(TaskList currentTasksArray, Task currentTask, String doneStatus, Priority currentPriority) {
         if (doneStatus.equals(CHAR_FALSE) ) {
             currentTask.resetDone();
         } else if (doneStatus.equals(CHAR_TRUE) ) {
             currentTask.setDone();
         }
+
+        currentTask.setTaskPriority(currentPriority);
 
         currentTasksArray.addTask(currentTask);
     }
@@ -179,45 +183,46 @@ public class Storage {
     public void appendTaskToArray(ArrayList< ArrayList<String> > fromLineList, TaskList toTasksArray) {
         for (int i = 0; i < fromLineList.size(); i++) {
             String taskType = fromLineList.get(i).get(0);
+            String taskCompleteBool = fromLineList.get(i).get(1);
+            String taskDateBool = fromLineList.get(i).get(2);
+            Priority taskPriority = Priority.valueOf(fromLineList.get(i).get(3) );
+            String taskDescription = fromLineList.get(i).get(4);
 
             if (taskType.equals(CHAR_TODO) ) {
                 //Add todo from file
-                Todo tempTodo = new Todo(fromLineList.get(i).get(3) );
-
-                if (fromLineList.get(i).get(1).equals(CHAR_FALSE) ) {
-                    tempTodo.resetDone();
-                } else if (fromLineList.get(i).get(1).equals(CHAR_TRUE) ) {
-                    tempTodo.setDone();
-                }
-
-                toTasksArray.addTask(tempTodo);
+                Todo tempTodo = new Todo(taskDescription);
+                completeDone_Priority_AddArray(toTasksArray, tempTodo, taskCompleteBool, taskPriority);
 
             } else if (taskType.equals(CHAR_DEADLINE) ) {
                 //Add deadline from file
-                if (fromLineList.get(i).get(2).equals(CHAR_FALSE) ) {
-                    Deadline tempDeadline = new Deadline(fromLineList.get(i).get(3), fromLineList.get(i).get(4) );
-                    tempDeadline.resetBoolDateTime();
-                    initDoneAddArray(toTasksArray, tempDeadline, fromLineList.get(i).get(1) );
+                String taskTime = fromLineList.get(i).get(5);
 
-                } else if (fromLineList.get(i).get(2).equals(CHAR_TRUE) ) {
-                    LocalDateTime timeConvert = LocalDateTime.parse(fromLineList.get(i).get(4), DateTimeFormatter.ofPattern(DATE_TIME_FORMAT) );
-                    Deadline tempDeadline = new Deadline(fromLineList.get(i).get(3), timeConvert);
+                if (taskDateBool.equals(CHAR_FALSE) ) {
+                    Deadline tempDeadline = new Deadline(taskDescription, taskTime);
+                    tempDeadline.resetBoolDateTime();
+                    completeDone_Priority_AddArray(toTasksArray, tempDeadline, taskCompleteBool, taskPriority);
+
+                } else if (taskDateBool.equals(CHAR_TRUE) ) {
+                    LocalDateTime timeConvert = LocalDateTime.parse(taskTime, DateTimeFormatter.ofPattern(DATE_TIME_FORMAT) );
+                    Deadline tempDeadline = new Deadline(taskDescription, timeConvert);
                     tempDeadline.setBoolDateTime();
-                    initDoneAddArray(toTasksArray, tempDeadline, fromLineList.get(i).get(1) );
+                    completeDone_Priority_AddArray(toTasksArray, tempDeadline, taskCompleteBool, taskPriority);
                 }
 
             } else if (taskType.equals(CHAR_EVENT) ) {
                 //Add event from file
-                if (fromLineList.get(i).get(2).equals(CHAR_FALSE) ) {
-                    Event tempEvent = new Event(fromLineList.get(i).get(3), fromLineList.get(i).get(4) );
-                    tempEvent.resetBoolDateTime();
-                    initDoneAddArray(toTasksArray, tempEvent, fromLineList.get(i).get(1) );
+                String taskTime = fromLineList.get(i).get(5);
 
-                } else if (fromLineList.get(i).get(2).equals(CHAR_TRUE) ) {
-                    LocalDateTime timeConvert = LocalDateTime.parse(fromLineList.get(i).get(4), DateTimeFormatter.ofPattern(DATE_TIME_FORMAT) );
-                    Event tempEvent = new Event(fromLineList.get(i).get(3), timeConvert);
+                if (taskDateBool.equals(CHAR_FALSE) ) {
+                    Event tempEvent = new Event(taskDescription, taskTime);
+                    tempEvent.resetBoolDateTime();
+                    completeDone_Priority_AddArray(toTasksArray, tempEvent, taskCompleteBool, taskPriority);
+
+                } else if (taskDateBool.equals(CHAR_TRUE) ) {
+                    LocalDateTime timeConvert = LocalDateTime.parse(taskTime, DateTimeFormatter.ofPattern(DATE_TIME_FORMAT) );
+                    Event tempEvent = new Event(taskDescription, timeConvert);
                     tempEvent.setBoolDateTime();
-                    initDoneAddArray(toTasksArray, tempEvent, fromLineList.get(i).get(1) );
+                    completeDone_Priority_AddArray(toTasksArray, tempEvent, taskCompleteBool, taskPriority);
                 }
             }
         }
