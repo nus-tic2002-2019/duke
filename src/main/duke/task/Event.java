@@ -2,15 +2,18 @@ package main.duke.task;
 
 import main.duke.exception.DukeMissingDescException;
 
-public class Event extends Task{
-    private String start_endTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
-    public String getStart_endTime() {
+public class Event extends Task {
+    private LocalDateTime start_endTime;
+
+    public LocalDateTime getStart_endTime() {
         return start_endTime;
     }
 
-    public void setStart_endTime(String start_endTime) {
-        this.start_endTime = start_endTime;
+    public void setStart_endTime(String start_endTime){
+        this.start_endTime = Parser.parseDateTimeStr(start_endTime);
     }
 
     public Event(String description, String start_endTime) throws DukeMissingDescException {

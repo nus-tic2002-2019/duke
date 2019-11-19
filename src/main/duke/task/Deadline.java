@@ -2,15 +2,17 @@ package main.duke.task;
 
 import main.duke.exception.DukeMissingDescException;
 
-public class Deadline extends Task{
-    private String deadline;
+import java.time.LocalDateTime;
 
-    public String getDeadline() {
+public class Deadline extends Task {
+    private LocalDateTime deadline;
+
+    public LocalDateTime getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(String deadline) {
-        this.deadline = deadline;
+    public void setDeadline(String deadline){
+        this.deadline = Parser.parseDateTimeStr(deadline);
     }
 
     public Deadline(String description, String deadline) throws DukeMissingDescException {

@@ -36,7 +36,7 @@ public class UpdateCommand extends Command {
         }
     }
 
-    public UpdateCommand(Operation operation, int pos) {
+    public UpdateCommand(Operation operation, int pos) {    //inputted index is not valid. Try again.
         this.operation = operation;
         position = pos;
     }

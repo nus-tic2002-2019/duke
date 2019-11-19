@@ -5,10 +5,14 @@ import main.duke.exception.DukeUnknownException;
 import main.duke.storage.Storage;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class TaskList {
     private ArrayList<Task> tasks;
 
+    public Iterator<Task>iterator(){
+        return tasks.iterator();
+    }
     public String listTasks() {
         String tasksStr = "";
         int i = 0;
