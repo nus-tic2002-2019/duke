@@ -10,9 +10,6 @@ import java.util.Iterator;
 public class TaskList {
     private ArrayList<Task> tasks;
 
-    public Iterator<Task>iterator(){
-        return tasks.iterator();
-    }
     public String listTasks() {
         String tasksStr = "";
         int i = 0;

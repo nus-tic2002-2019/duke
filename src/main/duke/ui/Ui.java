@@ -3,12 +3,22 @@ package main.duke.ui;
 import main.duke.task.Task;
 import main.duke.task.TaskList;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
-
+/**
+ * Primarily for printing messages to console, also passes input to Parser.
+ */
 public class Ui {
     private Scanner input;
 
+    public void printTask(Task t) {
+        System.out.println(t.toString());
+    }
+
+    public void printEventsOnDateMsg(LocalDateTime dt) {
+        System.out.println(String.format("Events and Deadlines on %s", dt.toLocalDate().toString()));
+    }
 
     public void printAddMsg(TaskList tasks) {
         System.out.println("Got it. I've added this task:");
@@ -41,6 +51,9 @@ public class Ui {
         System.out.println("Hello! I'm Duke\nWhat can I do for you?\n");
     }
 
+    /**
+     * @return reads user's input to be parsed by Parser
+     */
     public String readCommand() {
         String inputStr = "";
         while (inputStr.isBlank() || inputStr.isEmpty()) {

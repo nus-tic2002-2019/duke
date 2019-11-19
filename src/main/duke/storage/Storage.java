@@ -38,6 +38,10 @@ public class Storage {
         }
     }
 
+    /**
+     * @param s string representation of data to be saved.
+     * @return Writes s to savefile at ./data/duke.txt, overwriting the original content.
+     */
     public File writeToSaveFile(String s) {
         File f = new File(path_str);
         try {

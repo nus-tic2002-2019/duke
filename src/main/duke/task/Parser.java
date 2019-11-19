@@ -12,6 +12,10 @@ import java.util.Arrays;
 
 public class Parser {
 
+    /**
+     * @param dt_str String representing LocalDateTime
+     * @return A LocalDateTime object as closely corresponding to dt_str
+     */
     public static LocalDateTime parseDateTimeStr(String dt_str) {
         //early exit.
         if (Parser.isValidISODateTimeStr(dt_str)) {
@@ -70,11 +74,7 @@ public class Parser {
     }
     //region validity checks for string parsing.
 
-    /**
-     * @param s String representing Date.
-     * @return true if s is a valid ISO Date string
-     */
-    public static boolean isValidISODateTimeStr(String s) {
+    private static boolean isValidISODateTimeStr(String s) {
         try {
             LocalDateTime.parse(s);
         } catch (DateTimeParseException e) {
@@ -83,7 +83,7 @@ public class Parser {
         return true;
     }
 
-    public static boolean isValidISODateStr(String s) {
+    private static boolean isValidISODateStr(String s) {
         try {
             LocalDate.parse(s);
         } catch (DateTimeParseException e) {
@@ -92,7 +92,7 @@ public class Parser {
         return true;
     }
 
-    public static boolean isValidISOTimeStr(String s) {
+    private static boolean isValidISOTimeStr(String s) {
         try {
             LocalTime.parse(s);
         } catch (DateTimeParseException e) {
@@ -102,6 +102,14 @@ public class Parser {
     }
 
     //endregion
+
+
+    /**
+     * @param inputStr raw String representing user's action
+     * @return Command that program can execute.
+     * @throws DukeUnknownException if Parser is unable to understand inputStr
+     * @throws DukeMissingDescException if Parser finds that action is missing a description
+     */
     public static Command parseInput(String inputStr) throws DukeUnknownException, DukeMissingDescException {
         Command parsedCommand;
         String[] strings = inputStr.split(" ");

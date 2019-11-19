@@ -16,6 +16,16 @@ public class UpdateCommand extends Command {
     private int position;
     private Task task;
 
+    /**
+     * Checks Operation tagged to command, executes it accordingly
+     * Add: Adds task and prints added task to console
+     * Done: prints task which was done and tags it as done.
+     * Delete: removes task from tasks before printing message.
+     * Default: Throws DukeUnknown error as UpdateCommand should only have Add, Done, Delete.
+     * @param tasks
+     * @param ui
+     * @param storage
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         switch (operation) {

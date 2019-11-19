@@ -20,6 +20,10 @@ public class Duke {
             ui.printErrorMsg(e);
         }
     }
+
+    /**
+     * Run loop of Duke.
+     */
     public void run(){
         boolean running = true;
         ui.printHelloMsg();
