@@ -1,5 +1,7 @@
 package tic2002.task;
 
+import tic2002.enumerations.Priority;
+
 /**
  * Represents Task class.
  */
@@ -19,11 +21,15 @@ public abstract class Task {
     protected boolean isDone;
     protected char typeIdt;
     protected boolean isDateTimeFormat = false;
+    protected Priority taskPriority;
+    protected String preOutput;
+    protected String priorityOutput;
 
     //Constructor
     public Task(String taskDescription) {
         this.taskDescription = taskDescription;
         isDone = false;
+        taskPriority = Priority.NONE;
     }
 
     //Getter
@@ -58,7 +64,7 @@ public abstract class Task {
             output += CHAR_FALSE;
         }
 
-        output += CHAR_SEPARATOR_WRITE + taskDescription;
+        output += CHAR_SEPARATOR_WRITE + taskPriority + CHAR_SEPARATOR_WRITE + taskDescription;
 
         return output;
     }
@@ -92,8 +98,27 @@ public abstract class Task {
         isDateTimeFormat = false;
     }
 
+    public void setTaskPriority(Priority currentPriority) {
+        taskPriority = currentPriority;
+    }
+
+    public void setTaskPriorityFromString(String currentPriority) {
+        taskPriority = Priority.valueOf(currentPriority);
+    }
+
+    protected void setPreOutput() {
+        preOutput = "[" + typeIdt + "][" + getStatusIcon() + "] " + taskDescription;
+        priorityOutput = "<Priority: " + taskPriority + ">";
+    }
+
     @Override
     public String toString() {
-        return "[" + typeIdt + "][" + getStatusIcon() + "] " + taskDescription;
+        setPreOutput();
+
+        if (taskPriority == Priority.NONE) {
+            return preOutput;
+        } else {
+            return preOutput + " " + priorityOutput;
+        }
     }
 }

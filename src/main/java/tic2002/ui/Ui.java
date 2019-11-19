@@ -28,10 +28,12 @@ public class Ui {
     private static final String MSG_PRE_TASK = LINE_SEPARATOR + "Got it. I've added this task:\n";
     private static final String MSG_POST_TASK_1 = "Now you have ";
     private static final String MSG_POST_TASK_2 = " tasks in the list.\n" + LINE_SEPARATOR;
+    private static final String ERROR_MSG_TRY_AGAIN = "Please verify and input again!\n";
     private static final String ERROR_MSG_IO = LINE_SEPARATOR + "Input or output failure!\n" + LINE_SEPARATOR;
-    private static final String ERROR_MSG_INDEX = LINE_SEPARATOR + "OOPS!!! The description of a done/todo/deadline/event cannot be empty.\n" + LINE_SEPARATOR;
+    private static final String ERROR_MSG_INCOMPLETE_INPUT = LINE_SEPARATOR + "Incomplete input! " + ERROR_MSG_TRY_AGAIN + LINE_SEPARATOR;
     private static final String ERROR_MSG_DUKE = LINE_SEPARATOR + "OOPS!!! I'm sorry, but I don't know what that means :-(\n" + LINE_SEPARATOR;
-    private static final String ERROR_MSG_FILE_NOT_EXIST = LINE_SEPARATOR + "File not found!\n" + LINE_SEPARATOR;
+    private static final String ERROR_MSG_FILE_NOT_EXIST = LINE_SEPARATOR + "File not found!" + LINE_SEPARATOR;
+    private static final String ERROR_MSG_ILLEGAL_INPUT_PRIORITY = LINE_SEPARATOR + "Incorrect priority input! " + ERROR_MSG_TRY_AGAIN + LINE_SEPARATOR;
 
     //Declare error inputs in an array
     private static String[] errorInputList = {"blah"};
@@ -143,6 +145,14 @@ public class Ui {
         System.out.print(ERROR_MSG_DUKE);
     }
 
+    public void displayErrorPriority() {
+        System.out.print(ERROR_MSG_ILLEGAL_INPUT_PRIORITY);
+    }
+
+    public void displayErrorIncompleteInput() {
+        System.out.print(ERROR_MSG_INCOMPLETE_INPUT);
+    }
+
     /**
      * Returns String of user input.
      *
@@ -160,6 +170,6 @@ public class Ui {
             }
         }
 
-        return input;
+        return input.trim();
     }
 }

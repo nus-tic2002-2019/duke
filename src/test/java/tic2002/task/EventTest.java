@@ -2,8 +2,8 @@ package tic2002.task;
 
 import java.time.LocalDateTime;
 
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EventTest {
     @Test

@@ -1,5 +1,6 @@
 package tic2002.parser;
 
+import tic2002.enumerations.Priority;
 import tic2002.exception.DukeException;
 import tic2002.storage.Storage;
 import tic2002.task.Deadline;
@@ -29,6 +30,7 @@ public class Parser {
     private static final String STRING_EVENT = "event";
     private static final String SEPARATOR_BY = "/by";
     private static final String SEPARATOR_AT = "/at";
+    private static final String SEPARATOR_PRIORITY = "/p";
     private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HHmm";
 
     //Store keywords' number of characters
@@ -39,6 +41,7 @@ public class Parser {
     private static int eventStrLen = STRING_EVENT.length();
     private static int byStrLen = SEPARATOR_BY.length();
     private static int atStrLen = SEPARATOR_AT.length();
+    private static int priorityStrLen = SEPARATOR_PRIORITY.length();
 
     //Declare variables
     private static Ui currentUi;
@@ -94,7 +97,7 @@ public class Parser {
         return LocalDateTime.parse(dateTimeInput, DateTimeFormatter.ofPattern(DATE_TIME_FORMAT) );
     }
 
-    //Execute functions
+    //Execute function
     /**
      * Executes different actions based on user input.
      * Display appropriate messages back to user.
@@ -169,7 +172,27 @@ public class Parser {
             if (currentInput.length() >= todoStrLen && (currentInput.substring(0, todoStrLen) ).equals(STRING_TODO) ) {
                 //Add to-do
                 String inputExtract = currentInput.substring(todoStrLen + 1);
-                tasksList.addTask(new Todo(inputExtract) );
+                Todo tempTodo;
+
+                if (inputExtract.indexOf(SEPARATOR_PRIORITY) >= 0) {
+                    String taskExtract = inputExtract.substring(0, inputExtract.indexOf(SEPARATOR_PRIORITY) - 1);
+                    String priorityExtract = inputExtract.substring(inputExtract.indexOf(SEPARATOR_PRIORITY) + 1 + priorityStrLen);
+                    String priorityExtractUpper = priorityExtract.toUpperCase();
+
+                    tempTodo = new Todo(taskExtract);
+
+                    try {
+                        tempTodo.setTaskPriority(Priority.valueOf(priorityExtractUpper) );
+                    } catch (IllegalArgumentException e) {
+                        currentUi.displayErrorPriority();
+                        return;
+                    }
+
+                } else {
+                    tempTodo = new Todo(inputExtract);
+                }
+
+                tasksList.addTask(tempTodo);
                 currentStorage.appendTaskToFile(tasksList.getTask(tasksList.getListSize() -1) );
 
             } else if (currentInput.length() >= deadlineStrLen && (currentInput.substring(0, deadlineStrLen) ).equals(STRING_DEADLINE) ) {

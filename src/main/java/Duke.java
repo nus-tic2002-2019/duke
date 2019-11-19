@@ -42,6 +42,8 @@ public class Duke {
                 isExit = parser.getIsExit();
             } catch (DukeException e) {
                 ui.displayErrorDuke();
+            } catch (StringIndexOutOfBoundsException e) {
+                ui.displayErrorIncompleteInput();
             }
         }
     }

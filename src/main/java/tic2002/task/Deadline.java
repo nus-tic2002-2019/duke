@@ -48,16 +48,17 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        String tempString = "[" + typeIdt + "][" + getStatusIcon() + "] " + taskDescription + " (" + STRING_BY + ": ";
+        setPreOutput();
+        preOutput += " (" + STRING_BY + ": ";
 
         if (isDateTimeFormat) {
-            tempString += DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_OUTPUT).format(deadlineDateTime);
+            preOutput += DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_OUTPUT).format(deadlineDateTime);
         } else {
-            tempString += deadlineByString;
+            preOutput += deadlineByString;
         }
 
-        tempString += ")";
+        preOutput += ")";
 
-        return tempString;
+        return preOutput;
     }
 }

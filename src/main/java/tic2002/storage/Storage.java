@@ -178,7 +178,9 @@ public class Storage {
      */
     public void appendTaskToArray(ArrayList< ArrayList<String> > fromLineList, TaskList toTasksArray) {
         for (int i = 0; i < fromLineList.size(); i++) {
-            if (fromLineList.get(i).get(0).equals(CHAR_TODO) ) {
+            String taskType = fromLineList.get(i).get(0);
+
+            if (taskType.equals(CHAR_TODO) ) {
                 //Add todo from file
                 Todo tempTodo = new Todo(fromLineList.get(i).get(3) );
 
@@ -190,7 +192,7 @@ public class Storage {
 
                 toTasksArray.addTask(tempTodo);
 
-            } else if (fromLineList.get(i).get(0).equals(CHAR_DEADLINE) ) {
+            } else if (taskType.equals(CHAR_DEADLINE) ) {
                 //Add deadline from file
                 if (fromLineList.get(i).get(2).equals(CHAR_FALSE) ) {
                     Deadline tempDeadline = new Deadline(fromLineList.get(i).get(3), fromLineList.get(i).get(4) );
@@ -204,7 +206,7 @@ public class Storage {
                     initDoneAddArray(toTasksArray, tempDeadline, fromLineList.get(i).get(1) );
                 }
 
-            } else if (fromLineList.get(i).get(0).equals(CHAR_EVENT) ) {
+            } else if (taskType.equals(CHAR_EVENT) ) {
                 //Add event from file
                 if (fromLineList.get(i).get(2).equals(CHAR_FALSE) ) {
                     Event tempEvent = new Event(fromLineList.get(i).get(3), fromLineList.get(i).get(4) );

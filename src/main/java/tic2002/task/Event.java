@@ -48,16 +48,17 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        String tempString = "[" + typeIdt + "][" + getStatusIcon() + "] " + taskDescription + " (" + STRING_AT + ": ";
+        setPreOutput();
+        preOutput += " (" + STRING_AT + ": ";
 
         if (isDateTimeFormat) {
-            tempString += DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_OUTPUT).format(eventDateTime);
+            preOutput += DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_OUTPUT).format(eventDateTime);
         } else {
-            tempString += eventAtString;
+            preOutput += eventAtString;
         }
 
-        tempString += ")";
+        preOutput += ")";
 
-        return tempString;
+        return preOutput;
     }
 }
