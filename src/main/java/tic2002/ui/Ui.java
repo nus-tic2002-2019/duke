@@ -25,6 +25,7 @@ public class Ui {
     private static final String MSG_CLEAR = LINE_SEPARATOR + "All tasks cleared!\n" + LINE_SEPARATOR;
     private static final String MSG_DONE = LINE_SEPARATOR + "Nice! I've marked this task as done:";
     private static final String MSG_DELETE = LINE_SEPARATOR + "Noted. I've removed this task:";
+    private static final String MSG_PRE_FIND = LINE_SEPARATOR + "Here are the matching tasks in your list:\n";
     private static final String MSG_PRE_TASK = LINE_SEPARATOR + "Got it. I've added this task:\n";
     private static final String MSG_POST_TASK_1 = "Now you have ";
     private static final String MSG_POST_TASK_2 = " tasks in the list.\n" + LINE_SEPARATOR;
@@ -120,6 +121,18 @@ public class Ui {
         tempString += tasksList.getListSize();
         tempString += (MSG_POST_TASK_2 + USER_INSTRUCTIONS + LINE_SEPARATOR);
         System.out.print(tempString);
+    }
+
+    public void displayMessageFindPre() {
+        System.out.print(MSG_PRE_FIND);
+    }
+
+    public void displayMessageFindElement(int currentIndex, int displayIndex) {
+        System.out.print(displayIndex + "." + tasksList.getTask(currentIndex) + "\n");
+    }
+
+    public void displayLineSeperator() {
+        System.out.print(LINE_SEPARATOR);
     }
 
     /**

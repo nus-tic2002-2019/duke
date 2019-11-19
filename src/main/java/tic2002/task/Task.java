@@ -33,6 +33,10 @@ public abstract class Task {
     }
 
     //Getter
+    public String getTaskDescription() {
+        return taskDescription;
+    }
+
     /**
      * Returns appropriate symbol of Task status.
      *

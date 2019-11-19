@@ -25,6 +25,7 @@ public class Parser {
     private static final String STRING_CLEAR = "clear";
     private static final String STRING_DONE = "done";
     private static final String STRING_DELETE = "delete";
+    private static final String STRING_FIND = "find";
     private static final String STRING_TODO = "todo";
     private static final String STRING_DEADLINE = "deadline";
     private static final String STRING_EVENT = "event";
@@ -36,6 +37,7 @@ public class Parser {
     //Store keywords' number of characters
     private static int doneStrLen = STRING_DONE.length();
     private static int deleteStrLen = STRING_DELETE.length();
+    private static int findStrLen = STRING_FIND.length();
     private static int todoStrLen = STRING_TODO.length();
     private static int deadlineStrLen = STRING_DEADLINE.length();
     private static int eventStrLen = STRING_EVENT.length();
@@ -145,7 +147,7 @@ public class Parser {
             //Print completed task
             currentUi.displayMessageDone(taskNum);
 
-        } else if (currentInput.length() >= deleteStrLen && (currentInput.substring(0, deleteStrLen) ).equals(STRING_DELETE) ){
+        } else if (currentInput.length() >= deleteStrLen && (currentInput.substring(0, deleteStrLen) ).equals(STRING_DELETE) ) {
             //Delete task
 
             //Get task index
@@ -167,6 +169,27 @@ public class Parser {
             } catch (IOException e) {
                 currentUi.displayErrorIo();
             }
+
+        } else if (currentInput.length() >= findStrLen && (currentInput.substring(0, findStrLen) ).equals(STRING_FIND) ) {
+            //Find task
+
+            //Get find keyword
+            String findKeyword = currentInput.substring(findStrLen).trim();
+            int numOfResults = 0;
+
+            currentUi.displayMessageFindPre();
+
+            //Perform search
+            for (int i = 0; i < tasksList.getListSize(); i++) {
+                int keywordIndex = tasksList.getTask(i).getTaskDescription().indexOf(findKeyword);
+
+                if (keywordIndex >= 0) {
+                    numOfResults++;
+                    currentUi.displayMessageFindElement(i, numOfResults);
+                }
+            }
+
+            currentUi.displayLineSeperator();
 
         } else {
             if (currentInput.length() >= todoStrLen && (currentInput.substring(0, todoStrLen) ).equals(STRING_TODO) ) {
