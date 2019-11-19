@@ -23,8 +23,8 @@ public class Ui {
     private static final String MSG_BYE = LINE_SEPARATOR + "Bye. Hope to see you again soon!\n" + LINE_SEPARATOR;
     private static final String MSG_LIST = LINE_SEPARATOR + "Here are the tasks in your list:\n";
     private static final String MSG_CLEAR = LINE_SEPARATOR + "All tasks cleared!\n" + LINE_SEPARATOR;
-    private static final String MSG_DONE = LINE_SEPARATOR + "Nice! I've marked this task as done:";
-    private static final String MSG_DELETE = LINE_SEPARATOR + "Noted. I've removed this task:";
+    private static final String MSG_DONE = LINE_SEPARATOR + "Nice! I've marked this task as done:\n";
+    private static final String MSG_DELETE = LINE_SEPARATOR + "Noted. I've removed this task:\n";
     private static final String MSG_PRE_FIND = LINE_SEPARATOR + "Here are the matching tasks in your list:\n";
     private static final String MSG_PRE_TASK = LINE_SEPARATOR + "Got it. I've added this task:\n";
     private static final String MSG_POST_TASK_1 = "Now you have ";
@@ -35,6 +35,7 @@ public class Ui {
     private static final String ERROR_MSG_DUKE = LINE_SEPARATOR + "OOPS!!! I'm sorry, but I don't know what that means :-(\n" + LINE_SEPARATOR;
     private static final String ERROR_MSG_FILE_NOT_EXIST = LINE_SEPARATOR + "File not found!" + LINE_SEPARATOR;
     private static final String ERROR_MSG_ILLEGAL_INPUT_PRIORITY = LINE_SEPARATOR + "Incorrect priority input! " + ERROR_MSG_TRY_AGAIN + LINE_SEPARATOR;
+    private static final String ERROR_MSG_ILLEGAL_INDEX = LINE_SEPARATOR + "Incorrect index! " + ERROR_MSG_TRY_AGAIN + LINE_SEPARATOR;
     private static final String ASSERT_MSG_NEGATIVE_INDEX = LINE_SEPARATOR + "Index cannot be negative! " + ERROR_MSG_TRY_AGAIN + LINE_SEPARATOR;
 
     //Declare error inputs in an array
@@ -179,12 +180,22 @@ public class Ui {
     }
 
     /**
-     * Print error message incomplete input.
+     * Prints error message incomplete input.
      */
     public void displayErrorIncompleteInput() {
         System.out.print(ERROR_MSG_INCOMPLETE_INPUT);
     }
 
+    /**
+     * Prints error message incorrect index input.
+     */
+    public void displayErrorIndexInput() {
+        System.out.print(ERROR_MSG_ILLEGAL_INDEX);
+    }
+
+    /**
+     * Prints assertion message incorrect negative index input.
+     */
     public void displayAssertNegativeIndex() {
         System.out.print(ASSERT_MSG_NEGATIVE_INDEX);
     }

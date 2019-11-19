@@ -131,8 +131,8 @@ public class Parser {
         } else if (currentInput.length() >= doneStrLen && (currentInput.substring(0, doneStrLen) ).equals(STRING_DONE) ) {
             //Mark task as done
             //Get task index
-            String taskIndex = currentInput.substring(doneStrLen).trim();
-            int taskNum = Integer.parseInt(taskIndex) - 1;
+            String taskIndexExtract = currentInput.substring(doneStrLen).trim();
+            int taskNum = Integer.parseInt(taskIndexExtract) - 1;
             assert taskNum >= 0 : "Index cannot be negative!";
 
             //Set task as done

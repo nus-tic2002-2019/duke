@@ -46,6 +46,8 @@ public class Duke {
                 ui.displayErrorIncompleteInput();
             } catch (AssertionError e) {
                 ui.displayAssertNegativeIndex();
+            } catch (IndexOutOfBoundsException e) {
+                ui.displayErrorIndexInput();
             }
         }
     }
