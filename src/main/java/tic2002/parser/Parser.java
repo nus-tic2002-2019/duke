@@ -133,6 +133,7 @@ public class Parser {
             //Get task index
             String taskIndex = currentInput.substring(doneStrLen).trim();
             int taskNum = Integer.parseInt(taskIndex) - 1;
+            assert taskNum >= 0 : "Index cannot be negative!";
 
             //Set task as done
             tasksList.getTask(taskNum).setDone();
@@ -152,6 +153,7 @@ public class Parser {
             //Get task index
             String taskIndex = currentInput.substring(deleteStrLen).trim();
             int taskNum = Integer.parseInt(taskIndex) - 1;
+            assert taskNum >= 0 : "Index cannot be negative!";
 
             //Reset task done status
             tasksList.getTask(taskNum).resetDone();

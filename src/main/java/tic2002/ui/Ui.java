@@ -35,6 +35,7 @@ public class Ui {
     private static final String ERROR_MSG_DUKE = LINE_SEPARATOR + "OOPS!!! I'm sorry, but I don't know what that means :-(\n" + LINE_SEPARATOR;
     private static final String ERROR_MSG_FILE_NOT_EXIST = LINE_SEPARATOR + "File not found!" + LINE_SEPARATOR;
     private static final String ERROR_MSG_ILLEGAL_INPUT_PRIORITY = LINE_SEPARATOR + "Incorrect priority input! " + ERROR_MSG_TRY_AGAIN + LINE_SEPARATOR;
+    private static final String ASSERT_MSG_NEGATIVE_INDEX = LINE_SEPARATOR + "Index cannot be negative! " + ERROR_MSG_TRY_AGAIN + LINE_SEPARATOR;
 
     //Declare error inputs in an array
     private static String[] errorInputList = {"blah"};
@@ -182,6 +183,10 @@ public class Ui {
      */
     public void displayErrorIncompleteInput() {
         System.out.print(ERROR_MSG_INCOMPLETE_INPUT);
+    }
+
+    public void displayAssertNegativeIndex() {
+        System.out.print(ASSERT_MSG_NEGATIVE_INDEX);
     }
 
     /**
