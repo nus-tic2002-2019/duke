@@ -1,0 +1,13 @@
+T | 0 | read book Algorithms
+D | 1 | return book | 2018-02-28
+E | 0 | project meeting | 2019-10-11 02:00-04:00
+E | 1 | project management | 2019-12-25 02:00-13:15
+T | 0 | join sports club
+D | 0 | duke | 2019-11-17
+D | 0 | exam | 2019-12-04
+E | 0 | conf.call with customer | 2019-11-18 10:30-12:00
+D | 0 | security report | 2019-11-20
+E | 0 | sleep after exam | 2019-12-04 03:30-07:00
+T | 0 | new todo app
+D | 0 | modify duke project | 2019-11-22
+E | 0 | party | 2019-12-30 05:30-08:00
