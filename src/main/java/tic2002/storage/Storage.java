@@ -51,14 +51,14 @@ public class Storage {
         appendTaskToArray(fileExtract, tasksList);
     }
 
-    //Getter
+    //Miscellaneous functions
     /**
      * Returns String ArrayList, that contains all elements of a line.
      * Delimited by custom separator.
      * Requisite for readFile function.
      *
      * @param currentLine as input String.
-     * @return String.
+     * @return String ArrayList.
      */
     private static ArrayList<String> readLine(String currentLine) {
         ArrayList<String> lineElements = new ArrayList<>();
@@ -104,7 +104,6 @@ public class Storage {
         return lineList;
     }
 
-    //Setter
     /**
      * Appends String to file.
      *
@@ -173,7 +172,7 @@ public class Storage {
 
     /**
      * Initializes and add tasks into Task ArrayList.
-     * Retrieves from saved file data.
+     * Retrieves from saved file.
      * Assume integrity of file to be always good.
      * No checking if file has been modified.
      *
@@ -189,12 +188,12 @@ public class Storage {
             String taskDescription = fromLineList.get(i).get(4);
 
             if (taskType.equals(CHAR_TODO) ) {
-                //Add todo from file
+                //Retrieve todo from file
                 Todo tempTodo = new Todo(taskDescription);
                 completeDone_Priority_AddArray(toTasksArray, tempTodo, taskCompleteBool, taskPriority);
 
             } else if (taskType.equals(CHAR_DEADLINE) ) {
-                //Add deadline from file
+                //Retrieve deadline from file
                 String taskTime = fromLineList.get(i).get(5);
 
                 if (taskDateBool.equals(CHAR_FALSE) ) {
@@ -210,7 +209,7 @@ public class Storage {
                 }
 
             } else if (taskType.equals(CHAR_EVENT) ) {
-                //Add event from file
+                //Retrieve event from file
                 String taskTime = fromLineList.get(i).get(5);
 
                 if (taskDateBool.equals(CHAR_FALSE) ) {

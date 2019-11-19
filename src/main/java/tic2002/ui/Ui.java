@@ -123,14 +123,26 @@ public class Ui {
         System.out.print(tempString);
     }
 
+    /**
+     * Print find pre-message.
+     */
     public void displayMessageFindPre() {
         System.out.print(MSG_PRE_FIND);
     }
 
+    /**
+     * Prints task with given display index.
+     *
+     * @param currentIndex as current index in loop of Task lists.
+     * @param displayIndex as number to print at start of line.
+     */
     public void displayMessageFindElement(int currentIndex, int displayIndex) {
         System.out.print(displayIndex + "." + tasksList.getTask(currentIndex) + "\n");
     }
 
+    /**
+     * Prints a line separator.
+     */
     public void displayLineSeperator() {
         System.out.print(LINE_SEPARATOR);
     }
@@ -158,10 +170,16 @@ public class Ui {
         System.out.print(ERROR_MSG_DUKE);
     }
 
+    /**
+     * Prints error message incorrect priority input.
+     */
     public void displayErrorPriority() {
         System.out.print(ERROR_MSG_ILLEGAL_INPUT_PRIORITY);
     }
 
+    /**
+     * Print error message incomplete input.
+     */
     public void displayErrorIncompleteInput() {
         System.out.print(ERROR_MSG_INCOMPLETE_INPUT);
     }

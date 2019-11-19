@@ -50,7 +50,7 @@ public class Parser {
     private static Storage currentStorage;
     private String currentInput;
     private TaskList tasksList;
-    private boolean isExit = false;
+    private boolean isAppExit = false;
 
     //Constructor
     public Parser(Ui currentUi, String currentInput, TaskList tasksList, Storage currentStorage) {
@@ -62,14 +62,15 @@ public class Parser {
 
     //Getter
     /**
-     * Returns isExit boolean of Parser class.
+     * Returns isAppExit boolean of Parser class.
      *
      * @return Boolean.
      */
     public boolean getIsExit() {
-        return isExit;
+        return isAppExit;
     }
 
+    //Miscellaneous functions
     /**
      * Checks and returns true if input String is a valid date.
      * Based on custom format.
@@ -110,7 +111,7 @@ public class Parser {
         if (currentInput.equals(STRING_BYE) ) {
             //Bye
             currentUi.byeUser();
-            isExit = true;
+            isAppExit = true;
             return;
 
         } else if (currentInput.equals(STRING_LIST) ) {
@@ -129,7 +130,6 @@ public class Parser {
 
         } else if (currentInput.length() >= doneStrLen && (currentInput.substring(0, doneStrLen) ).equals(STRING_DONE) ) {
             //Mark task as done
-
             //Get task index
             String taskIndex = currentInput.substring(doneStrLen).trim();
             int taskNum = Integer.parseInt(taskIndex) - 1;
@@ -149,7 +149,6 @@ public class Parser {
 
         } else if (currentInput.length() >= deleteStrLen && (currentInput.substring(0, deleteStrLen) ).equals(STRING_DELETE) ) {
             //Delete task
-
             //Get task index
             String taskIndex = currentInput.substring(deleteStrLen).trim();
             int taskNum = Integer.parseInt(taskIndex) - 1;
@@ -172,7 +171,6 @@ public class Parser {
 
         } else if (currentInput.length() >= findStrLen && (currentInput.substring(0, findStrLen) ).equals(STRING_FIND) ) {
             //Find task
-
             //Get find keyword
             String findKeyword = currentInput.substring(findStrLen).trim();
             int numOfResults = 0;
@@ -192,6 +190,7 @@ public class Parser {
             currentUi.displayLineSeperator();
 
         } else {
+            //Add task
             if (currentInput.length() >= todoStrLen && (currentInput.substring(0, todoStrLen) ).equals(STRING_TODO) ) {
                 //Add to-do
                 String inputExtract = currentInput.substring(todoStrLen).trim();
@@ -222,6 +221,7 @@ public class Parser {
                 //Add deadline
                 String inputExtract = currentInput.substring(deadlineStrLen).trim();
                 Deadline tempDeadline;
+
                 String taskExtract = inputExtract.substring(0, inputExtract.indexOf(SEPARATOR_BY) ).trim();
                 String timeExtract = null;
 
@@ -257,6 +257,7 @@ public class Parser {
                 //Add event
                 String inputExtract = currentInput.substring(eventStrLen).trim();
                 Event tempEvent;
+
                 String taskExtract = inputExtract.substring(0, inputExtract.indexOf(SEPARATOR_AT) ).trim();
                 String timeExtract = null;
 
@@ -289,6 +290,7 @@ public class Parser {
                 currentStorage.appendTaskToFile(tasksList.getTask(tasksList.getListSize() -1) );
 
             } else {
+                //Reject non-known keywords
                 throw new DukeException();
             }
 

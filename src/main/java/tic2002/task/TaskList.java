@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Represents TaskList class.
+ * To store Task object.
  */
 public class TaskList {
     //Declare variables

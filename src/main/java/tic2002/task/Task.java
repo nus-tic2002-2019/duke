@@ -20,7 +20,7 @@ public abstract class Task {
     protected String taskDescription;
     protected boolean isDone;
     protected char typeIdt;
-    protected boolean isDateTimeFormat = false;
+    protected boolean isDateTimeFormat;
     protected Priority taskPriority;
     protected String preOutput;
     protected String priorityOutput;
@@ -29,10 +29,17 @@ public abstract class Task {
     public Task(String taskDescription) {
         this.taskDescription = taskDescription;
         isDone = false;
+        isDateTimeFormat = false;
         taskPriority = Priority.NONE;
     }
 
     //Getter
+
+    /**
+     * Returns task description.
+     *
+     * @return String
+     */
     public String getTaskDescription() {
         return taskDescription;
     }
@@ -102,14 +109,16 @@ public abstract class Task {
         isDateTimeFormat = false;
     }
 
+    /**
+     * Set taskPriority according to user input.
+     *
+     * @param currentPriority
+     */
     public void setTaskPriority(Priority currentPriority) {
         taskPriority = currentPriority;
     }
 
-    public void setTaskPriorityFromString(String currentPriority) {
-        taskPriority = Priority.valueOf(currentPriority);
-    }
-
+    /** Generate pre-output for consistent use of this and its child class */
     protected void setPreOutput() {
         preOutput = "[" + typeIdt + "][" + getStatusIcon() + "] " + taskDescription;
         priorityOutput = "<Priority: " + taskPriority + ">";
