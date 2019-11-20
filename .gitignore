@@ -1,0 +1,21 @@
+# IDEA files
+/.idea/
+/out/
+/*.iml
+
+# Gradle build files
+/.gradle/
+/build/
+src/main/resources/docs/
+
+# MacOS custom attributes files created by Finder
+.DS_Store
+*.iml
+bin/
+**.class
+
+# library folder used for testing
+lib/
+
+# files used to store tasks data
+/data/*

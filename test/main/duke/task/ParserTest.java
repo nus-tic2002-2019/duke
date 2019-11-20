@@ -15,25 +15,29 @@ class ParserTest {
         Command c = Parser.parseInput("todo dance");
         assertEquals(c.getClass(), UpdateCommand.class);
         uc = (UpdateCommand) c;
-        assertEquals(uc.getTask(), new ToDo("dance"));
+        assertEquals(uc.getTask().getDescription(), new ToDo("dance").getDescription());
         assertEquals(uc.getOperation(), UpdateCommand.Operation.Add);
 
         c = Parser.parseInput("TOdO   fart");   //parser must be robust against capitalization and multiple whitespaces.
         assertEquals(c.getClass(), UpdateCommand.class);
         uc = (UpdateCommand) c;
-        assertEquals(uc.getTask(), new ToDo("fart"));
+        assertEquals(uc.getTask().getDescription(), new ToDo("fart").getDescription());
         assertEquals(uc.getOperation(), UpdateCommand.Operation.Add);
 
         c = Parser.parseInput("deadline TIC2002 /by 17/11/2019");
         assertEquals(c.getClass(), UpdateCommand.class);
         uc = (UpdateCommand) c;
-        assertEquals(uc.getTask(), new Deadline("TIC2002", "17/11/2019"));
+        Deadline d = (Deadline) uc.getTask();
+        assertEquals(d.getDescription(), new Deadline("TIC2002", "17/11/2019").getDescription());
+        assertEquals(d.getDeadline(), new Deadline("TIC2002", "17/11/2019").getDeadline());
         assertEquals(uc.getOperation(), UpdateCommand.Operation.Add);
 
         c = Parser.parseInput("event Exercise Wallaby Reservist /at 16/10/2019 1900");
         assertEquals(c.getClass(), UpdateCommand.class);
         uc = (UpdateCommand) c;
-        assertEquals(uc.getTask(), new Event("Exercise Wallaby Reservist", "16/10/2019 1900"));
+        Event e = (Event) uc.getTask();
+        assertEquals(e.getStart_endTime(), new Event("Exercise Wallaby Reservist", "16/10/2019 1900").getStart_endTime());
+        assertEquals(e.getDescription(), new Event("Exercise Wallaby Reservist", "16/10/2019 1900").getDescription());
         assertEquals(uc.getOperation(), UpdateCommand.Operation.Add);
 
         assertThrows(DukeMissingDescException.class, () -> {
