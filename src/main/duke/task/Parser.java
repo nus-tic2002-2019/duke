@@ -123,12 +123,13 @@ public class Parser {
                 break;
             case "delete":
             case "done":
+            case "edit":
                 int pos = Integer.parseInt(strings[1]) - 1; //pos.minValue = 0, cannot be negative.
                 if (pos < 0) {
                     throw new IndexOutOfBoundsException("invalid number detected, please input a number starting from 1.");
                 }
                 UpdateCommand.Operation op = UpdateCommand.Operation.valueOf(firstStr.substring(0, 1).toUpperCase() + firstStr.substring(1));
-                parsedCommand = new UpdateCommand(op, pos);
+                parsedCommand = (firstStr != "edit") ? new UpdateCommand(op, pos) : new UpdateCommand(UpdateCommand.Operation.Edit, pos);
                 break;
             case "check":
                 parsedCommand = new CheckCommand(strings[1]);

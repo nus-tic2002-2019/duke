@@ -28,11 +28,11 @@ public class TaskList {
         String[] str_arr = s.split(" ");
         int startDescIndex = s.indexOf(String.format("[%c]", Task.CHECKMARK));  // done
         int lastDescIndex = s.length();
-        if(startDescIndex == -1){
+        if (startDescIndex == -1) {
             startDescIndex = s.indexOf(String.format("[%c]", Task.CROSSMARK));  //not done
             done = false;
         }
-        switch (str_arr[1].charAt(1)){
+        switch (str_arr[1].charAt(1)) {
             case 'D':
                 //1: [D][❌] tic2002 (by: today)
                 lastDescIndex = s.lastIndexOf(" (by: ");
@@ -75,6 +75,10 @@ public class TaskList {
 
     public int size() {
         return tasks.size();
+    }
+
+    public void edit(int pos, Task t) {
+        tasks.set(pos, t);
     }
 
     public TaskList(Storage s) throws DukeException {

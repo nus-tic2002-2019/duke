@@ -20,8 +20,17 @@ public class Ui {
         System.out.println(String.format("Events and Deadlines on %s", dt.toLocalDate().toString()));
     }
 
-    public void printNoEventOnDateMsg(){
+    public void printNoEventOnDateMsg() {
         System.out.println("No events on this date.");
+    }
+
+    public void printEditTaskMsg(Task t) {
+        System.out.println(String.format("Editing task: %s", t.toString()));
+        System.out.println(String.format("Input new description for %s.", t.getClass().getSimpleName()));
+    }
+
+    public void printEditDateMsg() {
+        System.out.println("Input new date for event/deadline.");
     }
 
     public void printAddMsg(TaskList tasks) {

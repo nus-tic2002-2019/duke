@@ -18,4 +18,4 @@ bin/
 lib/
 
 # files used to store tasks data
-/data/*
+data/*
