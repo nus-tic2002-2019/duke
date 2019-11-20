@@ -9,17 +9,18 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> tasks;
 
-    public String listTasks() {
+    public static String listTasks(ArrayList<Task> task_list) {
         String tasksStr = "";
         int i = 0;
-        for (Task t : tasks) {
+        for (Task t : task_list) {
             tasksStr += String.format("%d: %s\n", ++i, t);
         }
         return tasksStr;
     }
-
-    public void printTasks() {
-        System.out.print(listTasks());
+    public String printTasks() {
+        String list = listTasks(tasks);
+        System.out.print(list);
+        return list;
     }
 
     public boolean add(String s) throws DukeException {
@@ -66,6 +67,16 @@ public class TaskList {
 
     public Task get(int i) {
         return tasks.get(i);
+    }
+
+    public ArrayList<Task> find(String s) {
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task t : tasks) {
+            if (t.getDescription().toLowerCase().contains(s.toLowerCase())) {
+                result.add(t);
+            }
+        }
+        return result;
     }
 
     public void done(int i) {

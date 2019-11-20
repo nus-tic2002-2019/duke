@@ -134,6 +134,10 @@ public class Parser {
             case "check":
                 parsedCommand = new CheckCommand(strings[1]);
                 break;
+            case "find":
+                int startIndex = inputStr.indexOf(strings[0]) + strings[0].length();
+                parsedCommand = new FindCommand(inputStr.substring(startIndex).strip());
+                break;
             default:    //task processing.
                 if (firstStr.isBlank() || firstStr.isEmpty())
                     throw new DukeUnknownException();

@@ -4,6 +4,7 @@ import main.duke.task.Task;
 import main.duke.task.TaskList;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -22,6 +23,15 @@ public class Ui {
 
     public void printNoEventOnDateMsg() {
         System.out.println("No events on this date.");
+    }
+
+    public void printFindResultsMsg(ArrayList<Task> results){
+        if(results.size() != 0) {
+            System.out.println("Here are the matching tasks in your list:\n");
+            System.out.println(TaskList.listTasks(results));
+        }else {
+            System.out.println("No results found!");
+        }
     }
 
     public void printEditTaskMsg(Task t) {
