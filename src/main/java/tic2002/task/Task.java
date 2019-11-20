@@ -54,6 +54,15 @@ public abstract class Task {
     }
 
     /**
+     * Returns task priority.
+     *
+     * @return Priority
+     */
+    public Priority getTaskPriority() {
+        return taskPriority;
+    }
+
+    /**
      * Combine and return String for writing into file, for Task class.
      *
      * @return String

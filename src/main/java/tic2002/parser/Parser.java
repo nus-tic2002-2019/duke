@@ -35,6 +35,7 @@ public class Parser {
     private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HHmm";
 
     //Store keywords' number of characters
+    private static int listStrLen = STRING_LIST.length();
     private static int doneStrLen = STRING_DONE.length();
     private static int deleteStrLen = STRING_DELETE.length();
     private static int findStrLen = STRING_FIND.length();
@@ -114,9 +115,18 @@ public class Parser {
             isAppExit = true;
             return;
 
-        } else if (currentInput.equals(STRING_LIST) ) {
+        } else if (currentInput.length() >= listStrLen && (currentInput.substring(0, listStrLen) ).equals(STRING_LIST) ) {
             //List tasks
-            currentUi.displayMessageTasksList();
+
+            if (currentInput.indexOf(SEPARATOR_PRIORITY) >= 0) {
+                String priorityExtract = currentInput.substring(currentInput.indexOf(SEPARATOR_PRIORITY) + priorityStrLen).trim();
+                String priorityExtractUpper = priorityExtract.toUpperCase();
+
+                currentUi.displayTasksByPriority(Priority.valueOf(priorityExtractUpper) );
+
+            } else {
+                currentUi.displayMessageTasksList(tasksList.getListSize() );
+            }
 
         } else if (currentInput.equals(STRING_CLEAR) ) {
             //Clear tasks
@@ -185,7 +195,7 @@ public class Parser {
 
                 if (keywordIndex >= 0) {
                     numOfResults++;
-                    currentUi.displayMessageFindElement(i, numOfResults);
+                    currentUi.displayMessageFindElement(i, i + 1);
                 }
             }
 
