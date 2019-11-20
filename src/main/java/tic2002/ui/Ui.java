@@ -38,7 +38,7 @@ public class Ui {
     private static final String ERROR_MSG_IO = LINE_SEPARATOR + "Input or output failure!\n" + LINE_SEPARATOR;
     private static final String ERROR_MSG_INCOMPLETE_INPUT = LINE_SEPARATOR + "Incomplete input! " + ERROR_MSG_TRY_AGAIN + LINE_SEPARATOR;
     private static final String ERROR_MSG_DUKE = LINE_SEPARATOR + "OOPS!!! I'm sorry, but I don't know what that means :-(\n" + LINE_SEPARATOR;
-    private static final String ERROR_MSG_FILE_NOT_EXIST = LINE_SEPARATOR + "File not found!" + LINE_SEPARATOR;
+    private static final String ERROR_MSG_FILE_NOT_EXIST = LINE_SEPARATOR + "File not found!\n" + LINE_SEPARATOR;
     private static final String ERROR_MSG_ILLEGAL_INPUT_PRIORITY = LINE_SEPARATOR + "Incorrect priority input! " + ERROR_MSG_TRY_AGAIN + LINE_SEPARATOR;
     private static final String ERROR_MSG_ILLEGAL_INDEX = LINE_SEPARATOR + "Incorrect index! " + ERROR_MSG_TRY_AGAIN + LINE_SEPARATOR;
     private static final String ASSERT_MSG_NEGATIVE_INDEX = LINE_SEPARATOR + "Index cannot be negative! " + ERROR_MSG_TRY_AGAIN + LINE_SEPARATOR;
@@ -175,19 +175,17 @@ public class Ui {
     }
 
     /**
-     * Returns String of error message file not found
-     *
-     * @return String
+     * Prints error message file not found
      */
-    public String displayErrorFileNotFound() {
-        return ERROR_MSG_IO;
+    public void displayErrorFileNotFound() {
+        System.out.print(ERROR_MSG_FILE_NOT_EXIST);
     }
 
     /**
      * Prints error message IO
      */
     public void displayErrorIo() {
-        System.out.print(ERROR_MSG_FILE_NOT_EXIST);
+        System.out.print(ERROR_MSG_IO);
     }
 
     /**
