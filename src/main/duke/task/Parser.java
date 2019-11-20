@@ -41,7 +41,7 @@ public class Parser {
             }
             if (temp.length > 1) {
                 time = strToTime(temp[1]);
-            } else if (date == null){
+            } else if (date == null) {
                 time = strToTime(temp[0]);
             }
         }
@@ -107,12 +107,12 @@ public class Parser {
     /**
      * @param inputStr raw String representing user's action
      * @return Command that program can execute.
-     * @throws DukeUnknownException if Parser is unable to understand inputStr
+     * @throws DukeUnknownException     if Parser is unable to understand inputStr
      * @throws DukeMissingDescException if Parser finds that action is missing a description
      */
-    public static Command parseInput(String inputStr) throws DukeUnknownException, DukeMissingDescException {
+    public static Command parseInput(String inputStr) throws DukeUnknownException, DukeMissingDescException, IndexOutOfBoundsException {
         Command parsedCommand;
-        String[] strings = inputStr.split(" ");
+        String[] strings = inputStr.split("[\\s]+");
         String firstStr = strings[0].strip().toLowerCase();
         switch (firstStr) {
             case "bye":
@@ -123,7 +123,10 @@ public class Parser {
                 break;
             case "delete":
             case "done":
-                int pos = Integer.parseInt(strings[1]) - 1;
+                int pos = Integer.parseInt(strings[1]) - 1; //pos.minValue = 0, cannot be negative.
+                if (pos < 0) {
+                    throw new IndexOutOfBoundsException("invalid number detected, please input a number starting from 1.");
+                }
                 UpdateCommand.Operation op = UpdateCommand.Operation.valueOf(firstStr.substring(0, 1).toUpperCase() + firstStr.substring(1));
                 parsedCommand = new UpdateCommand(op, pos);
                 break;
@@ -142,7 +145,7 @@ public class Parser {
     private static Task processTask(String[] inputStrs) throws DukeUnknownException, DukeMissingDescException {
         String tempStr = "";
         Task createdTask;
-        switch (inputStrs[0]) {
+        switch (inputStrs[0].toLowerCase()) {
             default:
                 throw new DukeUnknownException();
             case "todo":

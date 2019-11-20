@@ -5,7 +5,7 @@ import main.duke.exception.DukeMissingDescException;
 public abstract class Task {
     protected boolean isDone;
     protected String description;
-    public static final char checkmark = '\u2713', crossmark = '\u274C';
+    public static final char CHECKMARK = '\u2713', CROSSMARK = '\u274C';
 
     public boolean isDone() {
         return isDone;
@@ -32,6 +32,6 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s", (isDone) ? checkmark : crossmark, getDescription());
+        return String.format("[%s] %s", (isDone) ? CHECKMARK : CROSSMARK, getDescription());
     }
 }

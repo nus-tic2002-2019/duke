@@ -15,7 +15,12 @@ public class UpdateCommand extends Command {
     private Operation operation;
     private int position;
     private Task task;
-
+    public Task getTask(){
+        return task;
+    }
+    public Operation getOperation(){
+        return operation;
+    }
     /**
      * Checks Operation tagged to command, executes it accordingly
      * Add: Adds task and prints added task to console

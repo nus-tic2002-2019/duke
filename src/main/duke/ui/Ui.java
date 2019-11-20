@@ -20,6 +20,10 @@ public class Ui {
         System.out.println(String.format("Events and Deadlines on %s", dt.toLocalDate().toString()));
     }
 
+    public void printNoEventOnDateMsg(){
+        System.out.println("No events on this date.");
+    }
+
     public void printAddMsg(TaskList tasks) {
         System.out.println("Got it. I've added this task:");
         System.out.println(tasks.get(tasks.size() - 1).toString());   //increment size after printing the task added.

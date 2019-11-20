@@ -5,7 +5,6 @@ import main.duke.exception.DukeUnknownException;
 import main.duke.storage.Storage;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -27,10 +26,10 @@ public class TaskList {
         Task t;
         boolean done = true;
         String[] str_arr = s.split(" ");
-        int startDescIndex = s.indexOf(String.format("[%c]", Task.checkmark));  // done
+        int startDescIndex = s.indexOf(String.format("[%c]", Task.CHECKMARK));  // done
         int lastDescIndex = s.length();
         if(startDescIndex == -1){
-            startDescIndex = s.indexOf(String.format("[%c]", Task.crossmark));  //not done
+            startDescIndex = s.indexOf(String.format("[%c]", Task.CROSSMARK));  //not done
             done = false;
         }
         switch (str_arr[1].charAt(1)){
@@ -63,10 +62,6 @@ public class TaskList {
         if (i < this.size())
             return tasks.remove(i);
         else throw new IndexOutOfBoundsException("Index out of bounds");
-    }
-
-    public boolean remove(Task t) {
-        return tasks.remove(t);
     }
 
     public Task get(int i) {
