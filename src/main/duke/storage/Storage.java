@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
-    private static final String path_str = "data/duke.txt";
+    private String path_str;
 
 
     /**
@@ -57,7 +57,8 @@ public class Storage {
         return f;
     }
 
-    public Storage() {
+    public Storage(String path_str) {
+        this.path_str = (!path_str.isEmpty() || !path_str.isBlank())? path_str : "data/duke.txt";
     }
 
 }
