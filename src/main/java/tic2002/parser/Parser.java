@@ -142,8 +142,9 @@ public class Parser {
             //Mark task as done
             //Get task index
             String taskIndexExtract = currentInput.substring(doneStrLen).trim();
+            assert taskIndexExtract.length() > 0 : "Missing input of done index! ";
             int taskNum = Integer.parseInt(taskIndexExtract) - 1;
-            assert taskNum >= 0 : "Index cannot be negative!";
+            assert taskNum >= 0 : "Index cannot be negative! ";
 
             //Set task as done
             tasksList.getTask(taskNum).setDone();
@@ -162,8 +163,9 @@ public class Parser {
             //Delete task
             //Get task index
             String taskIndex = currentInput.substring(deleteStrLen).trim();
+            assert taskIndex.length() > 0 : "Missing input of deleted index! ";
             int taskNum = Integer.parseInt(taskIndex) - 1;
-            assert taskNum >= 0 : "Index cannot be negative!";
+            assert taskNum >= 0 : "Index cannot be negative! ";
 
             //Reset task done status
             tasksList.getTask(taskNum).resetDone();
@@ -184,14 +186,16 @@ public class Parser {
         } else if (currentInput.length() >= findStrLen && (currentInput.substring(0, findStrLen) ).equals(STRING_FIND) ) {
             //Find task
             //Get find keyword
-            String findKeyword = currentInput.substring(findStrLen).trim();
+            String findKeyword = currentInput.substring(findStrLen).trim().toLowerCase();
+            assert findKeyword.length() > 0 : "Missing input of find index! ";
+
             int numOfResults = 0;
 
             currentUi.displayMessageFindPre();
 
             //Perform search
             for (int i = 0; i < tasksList.getListSize(); i++) {
-                int keywordIndex = tasksList.getTask(i).getTaskDescription().indexOf(findKeyword);
+                int keywordIndex = tasksList.getTask(i).getTaskDescription().toLowerCase().indexOf(findKeyword);
 
                 if (keywordIndex >= 0) {
                     numOfResults++;
@@ -206,6 +210,7 @@ public class Parser {
             if (currentInput.length() >= todoStrLen && (currentInput.substring(0, todoStrLen) ).equals(STRING_TODO) ) {
                 //Add to-do
                 String inputExtract = currentInput.substring(todoStrLen).trim();
+                assert inputExtract.length() > 0 : "Incomplete input! ";
                 Todo tempTodo;
 
                 if (inputExtract.indexOf(SEPARATOR_PRIORITY) >= 0) {
@@ -241,6 +246,7 @@ public class Parser {
                     timeExtract = inputExtract.substring(inputExtract.indexOf(SEPARATOR_BY) + byStrLen, inputExtract.indexOf(SEPARATOR_PRIORITY) ).trim();
                 } else {
                     timeExtract = inputExtract.substring(inputExtract.indexOf(SEPARATOR_BY) + byStrLen).trim();
+                    assert timeExtract.length() > 0 : "Incomplete input! ";
                 }
 
                 if (isDateTime(timeExtract) ) {
@@ -277,6 +283,7 @@ public class Parser {
                     timeExtract = inputExtract.substring(inputExtract.indexOf(SEPARATOR_AT) + atStrLen, inputExtract.indexOf(SEPARATOR_PRIORITY) ).trim();
                 } else {
                     timeExtract = inputExtract.substring(inputExtract.indexOf(SEPARATOR_AT) + atStrLen).trim();
+                    assert timeExtract.length() > 0 : "Incomplete input! ";
                 }
 
                 if (isDateTime(timeExtract) ) {

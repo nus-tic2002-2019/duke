@@ -1,7 +1,0 @@
-T|1|0|NONE|test
-T|0|0|NONE|lol
-E|1|0|NONE|sleep|soon
-D|0|0|HIGH|test|1
-T|0|0|NONE|sleep
-T|0|0|MEDIUM|lol
-E|0|0|LOW|hmm|dk

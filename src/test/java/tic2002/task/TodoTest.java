@@ -8,6 +8,6 @@ public class TodoTest {
     public void constructorTest() {
         Todo t = new Todo("test");
         assertEquals("[T][✘] test", t.toString() );
-        assertEquals("T|0|0|test", t.printToFile() );
+        assertEquals("T|0|0|NONE|test", t.printToFile() );
     }
 }

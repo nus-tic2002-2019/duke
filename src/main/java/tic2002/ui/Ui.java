@@ -18,8 +18,8 @@ public class Ui {
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
     private static final String LINE_SEPARATOR = "____________________________________________________________\n";
-    private static final String USER_INSTRUCTIONS = "Instructions: [list /p {} | find {} | todo {} /p {} | deadline {} /by {} /p {} | event {} /at {} /p {} | done {} | delete {} | clear | bye]\n"
-            + "Format: [Date&Time {yyyy-MM-dd HHmm} | Priority {/p} {high, medium, low}]\n";
+    private static final String USER_INSTRUCTIONS = "--Instructions: [list /p {} | find {} | todo {} /p {} | deadline {} /by {} /p {} | event {} /at {} /p {} | done {} | delete {} | clear | bye]\n"
+            + "--Format: [Date&Time {yyyy-MM-dd HHmm} | Priority {/p} {high, medium, low}]\n";
     private static final String SAVE_INSTRUCTIONS = "***Save Instructions: Create duke.txt file in the same directory as this JAR file.***\n";
     private static final String MSG_GREET = DUKE_LOGO + LINE_SEPARATOR + "Hello! I'm Duke\n" + "What can I do for you?\n" + SAVE_INSTRUCTIONS + USER_INSTRUCTIONS + LINE_SEPARATOR;
     private static final String MSG_BYE = LINE_SEPARATOR + "Bye. Hope to see you again soon!\n" + LINE_SEPARATOR;
@@ -41,7 +41,6 @@ public class Ui {
     private static final String ERROR_MSG_FILE_NOT_EXIST = LINE_SEPARATOR + "File not found!\n" + LINE_SEPARATOR;
     private static final String ERROR_MSG_ILLEGAL_INPUT_PRIORITY = LINE_SEPARATOR + "Incorrect priority input! " + ERROR_MSG_TRY_AGAIN + LINE_SEPARATOR;
     private static final String ERROR_MSG_ILLEGAL_INDEX = LINE_SEPARATOR + "Incorrect index! " + ERROR_MSG_TRY_AGAIN + LINE_SEPARATOR;
-    private static final String ASSERT_MSG_NEGATIVE_INDEX = LINE_SEPARATOR + "Index cannot be negative! " + ERROR_MSG_TRY_AGAIN + LINE_SEPARATOR;
 
     //Declare error inputs in an array
     private static String[] errorInputList = {"blah"};
@@ -217,10 +216,12 @@ public class Ui {
     }
 
     /**
-     * Prints assertion message incorrect negative index input.
+     * Prints assertion error message.
+     *
+     * @param currentError
      */
-    public void displayAssertNegativeIndex() {
-        System.out.print(ASSERT_MSG_NEGATIVE_INDEX);
+    public void displayAssertErrorMessage(Error currentError) {
+        System.out.print(LINE_SEPARATOR + currentError.getMessage() + ERROR_MSG_TRY_AGAIN + LINE_SEPARATOR );
     }
 
     /**

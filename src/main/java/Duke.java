@@ -9,8 +9,8 @@ import tic2002.ui.Ui;
  */
 public class Duke {
     //Declare constant variables
-    //private static final String STORAGE_PATH_DUKE = "src/main/data/duke.txt"; //Debug mode
-    private static final String STORAGE_PATH_DUKE = "./duke.txt"; //Production mode
+    private static final String STORAGE_PATH_DUKE = "src/main/data/duke.txt"; //Debug mode
+    //private static final String STORAGE_PATH_DUKE = "./duke.txt"; //Production mode
 
     //Create class
     private static TaskList tasks;
@@ -46,9 +46,11 @@ public class Duke {
             } catch (StringIndexOutOfBoundsException e) {
                 ui.displayErrorIncompleteInput();
             } catch (AssertionError e) {
-                ui.displayAssertNegativeIndex();
+                ui.displayAssertErrorMessage(e);
             } catch (IndexOutOfBoundsException e) {
                 ui.displayErrorIndexInput();
+            } catch (IllegalArgumentException e) {
+                ui.displayErrorPriority();
             }
         }
     }
