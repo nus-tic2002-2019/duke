@@ -54,7 +54,7 @@ public abstract class Command {
 
 
     public boolean isExit(){
-        return this.exit;
+        return this.exit = false;
     }
 
     public abstract void execute(TaskList tasklist, Ui ui, Storage storage);

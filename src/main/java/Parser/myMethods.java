@@ -1,91 +1,71 @@
 package Parser;
 import Exceptions.*;
 
-import java.security.spec.ECField;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
-import java.util.concurrent.ExecutionException;
 
 public class myMethods {
-    public String[] parseSpace(String input){
-        String[] act = input.split(" ",2);
-        return act;
-    }
-
-    public String parseEvents(String input){
-        int indexOfSlash = input.indexOf("/");
-        String tmp0 = input.substring(0, indexOfSlash);
-        return tmp0;
-    }
-
-    public String parseSlash(String input){
-
-        int indexOfSlash = input.indexOf("/");
-        //String[] act = input.split("/",2);
-        //String tmp0 = input.substring(7, indexOfSlash);
-        String tmp1 = input.substring(indexOfSlash+1, indexOfSlash+3);
-        String tmp2 = input.substring(indexOfSlash+3, input.length());
-        return "(" + tmp1 + ": " + tmp2 + ")";
-    }
-
-    public static void printLines(String k){
-        System.out.println(k);
-    }
-
-    public String[] parsed(String input){
-        String[] act = input.split(" ",2);
-        return act;
-    }
-
 
 
     /**
      * Converts LDT Object to a string with d m y hhmm format
-     * @param dateTime
+     * @param input
      * @return
      */
 
     public Date dteToString(String input) throws  InvalidDateException{
-        String date = input.substring(input.indexOf("/at")+ 4, input.length()); // full date time.
-        String dte = input.substring(input.indexOf("/at")+ 4, input.length()-4); // date get date only
 
-//        System.out.println("WHAT IS DTE LA : " + dte);
-//        System.out.println("WHAT IS DATE LA : " + date);
+        String date = input.substring(input.indexOf("/by")+ 4, input.length()); // full date time.
+        String dte = input.substring(input.indexOf("/by")+ 4, input.length()-4); // date get date only
+
+      //  System.out.println("WHAT IS DTE LA : " + dte);
+     //   System.out.println("WHAT IS DATE LA : " + date);
 
 
-        SimpleDateFormat formatterMMDD = new SimpleDateFormat("MMM-dd-yyyy HHmm");
+        SimpleDateFormat formatterMMDD = new SimpleDateFormat("MMM-dd-yyyy HHmm");// not working dky
         SimpleDateFormat formatterDDMM = new SimpleDateFormat("dd-MMM-yyyy HHmm");
 
+        SimpleDateFormat formartterYYMM = new SimpleDateFormat("yyyy-MM-dd HHmm");
         Date ddmmm = new Date();
         Date mmmdd = new Date();
 
         try {
-            if(chkDateFormat_DDMMYYYY(dte) || chkDateFormat_MMDDYYYY(dte) ){
+            if(chkDateFormat_DDMMYYYY(dte) || chkDateFormat_MMDDYYYY(dte) || chkDateFormat_YYYYMMDD(dte)){
 
                 if(chkDateFormat_DDMMYYYY(date)){
+                 //   System.out.println("COME HERE MEH?");
                     ddmmm = formatterDDMM.parse(date);
-
+                 //   System.out.println("@@@@@ semo date lai de : " + ddmmm);
                     return ddmmm;
                 }
                 else if(chkDateFormat_MMDDYYYY(dte)){
-                    System.out.println("COME HERE ANOT ");
-                    SimpleDateFormat format1 = new SimpleDateFormat("MMM-dd-yyyy HH:mm");
-                    SimpleDateFormat format2 = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
-                    System.out.println("DATE HERE  : " + date);
+                 //   System.out.println("COME HERE ANOT ");
+                    SimpleDateFormat format1 = new SimpleDateFormat("MMM-dd-yyyy HHmm");
+                    SimpleDateFormat format2 = new SimpleDateFormat("dd-MMM-yyyy HHmm");
+                  //  System.out.println("DATE HERE  : " + date);
                     Date tmpDte = format1.parse(date);
-                    System.out.println("WHAT IS DATE TMP DTE : " + tmpDte);
-                    System.out.println("FORMATTED LEH : " + format2.parse(tmpDte.toString()));
+                  //  System.out.println("WHAT IS DATE TMP DTE : " + tmpDte);
+                    //System.out.println("FORMATTED LEH : " + format2.parse(tmpDte.toString()));
                     //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HHmm");
-                    return format2.parse(tmpDte.toString());
+                    return tmpDte;
+                }
+                else if(chkDateFormat_YYYYMMDD(dte)){
+                  //  System.out.println("COME HERE ANOT YY");
+                    SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HHmm");
+                    SimpleDateFormat format3 = new SimpleDateFormat("dd-MMM-yyyy HHmm");
+                 //   System.out.println("DATE HERE  : " + date);
+                    Date tmpDte = format1.parse(date);
+                 //   System.out.println("WHAT IS DATE TMP DTE : " + tmpDte);
+                    return tmpDte;
                 }
 
             }
         }
         catch (DateTimeParseException | ParseException e){
-            //throw new InvalidDateException();
+            throw new InvalidDateException("     ☹ OOPS!!! Date, Syntax Wrong, Please use : DD-MMM-YYYY(13-Oct-2019) HHmm (1000) Or " +
+                    "MMM-DD-YYYY HHmm Or YYYY-MM-DD");
         }
 
         return ddmmm;
@@ -146,6 +126,39 @@ public class myMethods {
 
             javaDate = sdfrmt.parse(date);
             //System.out.println(date+" is valid date format dd mmm yyyy : ");
+        }
+        /* Date format is invalid */
+        catch (ParseException e)
+        {
+            //System.out.println(date + " is Invalid Date format dd mmm yyyy :");
+            return false;
+        }
+        /* Return true if date format is valid */
+        return true;
+    }
+
+    /**
+     * to check if date is YYYYMMDD
+     * @param date
+     * @return
+     */
+    public boolean chkDateFormat_YYYYMMDD(String date){
+        /*
+         * Set preferred date format,
+         * For example MM-dd-yyyy, MM.dd.yyyy,dd.MM.yyyy etc.*/
+        SimpleDateFormat sdfrmt = new SimpleDateFormat("yyyy-MM-dd");
+        sdfrmt.setLenient(false);
+        //System.out.println(" DATE HERE DDMM : " + date);
+        Date javaDate = new Date();
+        /* Create Date object
+         * parse the string into date
+         */
+        try
+        {
+           // System.out.println(" DATE HERE DDMM : " + date);
+
+            javaDate = sdfrmt.parse(date);
+          //  System.out.println(date+" is valid date format yyyy mm dd : ");
         }
         /* Date format is invalid */
         catch (ParseException e)

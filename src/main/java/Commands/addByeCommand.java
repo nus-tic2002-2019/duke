@@ -7,8 +7,13 @@ public class addByeCommand extends Command{
 
     public static final String COMMAND = "bye";
 
+
+    /**
+     * Constructor for Bye Command
+     * @param exit
+     */
     public addByeCommand(boolean exit){
-        super(false);
+        super(true);
     }
 
     @Override

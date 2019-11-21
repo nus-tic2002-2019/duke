@@ -10,17 +10,20 @@ import Ui.Ui;
 public class addTodoCommand extends Command{
     public static final String COMMAND = "todo";
 
-    public addTodoCommand(String des){
-        super(des);
 
+    /**
+     * Constructor for todo Command
+     * @param description
+     */
+    public addTodoCommand(String description){
+        super(description);
     }
 
 
+    @Override
     public void execute(TaskList tasklist, Ui ui, Storage storage){
-        String tmp = new myMethods().parsed(description)[1];
         Task newTask = new toDos(description);
         tasklist.addTask(newTask);
-//        ui.newTask(newTask, tasklist);
         ui.newTodo(tasklist);
     }
 }

@@ -41,33 +41,34 @@ public class Ui {
     /**
      *
      * @param insert
-     * @param store
+     * @param tasklist
      */
-    public void newTask(Task insert, TaskList store){
+    public void newTask(Task insert, TaskList tasklist){
         printLines(line);
         System.out.println("      Got it. I've added this task:");
         System.out.println("       " + insert.toString());
-        System.out.println("     Now you have " +  Integer.toString(store.getSize()) +  " tasks in the list.");
+        System.out.println("     Now you have " +  Integer.toString(tasklist.getSize()) +  " tasks in the list.");
         printLines(line);
     }
 
     /**
      * prints the Todo Messages
-     * @param store
+     * @param tasklist
      */
-    public void newTodo(TaskList store){
+    public void newTodo(TaskList tasklist){
 
         printLine();
         System.out.println("      Got it. I've added this task:");
-        System.out.println("     " + store.getTask(store.getSize()-1).getDescription());
+        System.out.println("     " + tasklist.getTask(tasklist.getSize()-1).getDescription());
         printLine();
     }
 
+    /**
+     * prints the Done Messages
+     */
     public void newDone(){
         printLine();
         System.out.println("     Nice! I've marked this task as done:");
-        //System.out.println("      " + store.getTask(new Parser().parsedInput())
-
     }
 
     /**
@@ -80,6 +81,9 @@ public class Ui {
         printLine();
     }
 
+
+    // Error section
+
     /**
      * Return Loading error message
      */
@@ -87,6 +91,25 @@ public class Ui {
         System.out.println(" :(  Loading Error!");
     }
 
+
+
+    /**
+     * Return error message for Wrong Date Input
+     */
+    public void showInvalidDateException(){
+        Line();
+        System.out.println("     ☹ OOPS!!! Date, Syntax Wrong, Please use : DD-MMMM-YYYY(13-Oct-2019) HHmm (1000)");
+        Line();
+    }
+
+    /**
+     * Return error message for file error
+     */
+    public void showIOException(){
+        Line();
+        System.out.println("File error ...");
+        Line();
+    }
 
     //Displaying Task class list
     public void displayTaskList(String input,TaskList tasklist){

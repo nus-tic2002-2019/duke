@@ -13,10 +13,18 @@ public class addEventCommand extends Command {
     public static final String COMMAND = "event";
 
     private Date dte;
+    private String by;
 
-    public addEventCommand(String description, Date dte){
+
+    /**
+     * Constructor for Events Command
+     * @param description
+     * @param by
+     */
+    public addEventCommand(String description,String by){
         super(description);
-        this.dte = dte;
+        //this.dte = dte;
+        this.by = by;
     }
 
 
@@ -29,7 +37,7 @@ public class addEventCommand extends Command {
      */
     @Override
     public void execute(TaskList tasklist, Ui ui, Storage storage){
-        Task newTask = new Events(description, dte);
+        Task newTask = new Events(description, by);
         tasklist.addTask(newTask);
         ui.newTask(newTask, tasklist);
     }
