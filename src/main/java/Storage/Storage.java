@@ -44,8 +44,8 @@ public class Storage {
 
                 tmp = tmp.replace("(by:", "|").replace("(at:", "|").
                         replace(")", "").replaceAll("\\[", "").
-                        replaceAll("]", "|").replace("\u2713", "1 ").
-                        replace("\u2718", "0 ").replace("after", "|");
+                        replaceAll("]", "|").replace("\u2713", "1").
+                        replace("\u2718", "0").replace("after", "|");
             }
             file.write(tmp);
             file.close();

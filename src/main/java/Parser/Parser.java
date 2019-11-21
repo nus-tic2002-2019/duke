@@ -80,8 +80,10 @@ public class Parser {
      * @throws DukeException
      */
     private static Command find(String inputs) throws DukeException {
+
         try{
             String[] tmp = inputs.split(" ");
+            assert tmp != null : "input cannot be nothing";
             System.out.println(tmp[0]);
 
             return new addFindCommand(tmp[1]);
@@ -205,6 +207,7 @@ public class Parser {
     private static Command done(String inputs, TaskList tasklist) throws DukeEmptyException, NumberFormatException, DukeOutOfBoundsException{
         String tmp = "";
         int storeTaskNo = 0;
+
         if(inputs.length() == 4){
             tmp = "";
             storeTaskNo = 0;

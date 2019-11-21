@@ -92,6 +92,8 @@ public class TaskList {
         Task result;
         switch(words[0]){
             case "T" :
+                assert words[2].equals("1") || words[2].equals("0") : "It should be a 1 or 0 for status else please check your task status in the text file.";
+
                 result = new toDos(words[2]);
                 String a = "1";
                 if(Integer.parseInt(words[1].trim()) == 1){
