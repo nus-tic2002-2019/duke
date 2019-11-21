@@ -86,6 +86,7 @@ public class Ui {
                 System.out.println("Error parsing input. Try again.");
             }
         }
+        assert !inputStr.isEmpty() && !inputStr.isBlank();
         return inputStr;
     }
 

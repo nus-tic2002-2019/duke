@@ -17,6 +17,9 @@ public class TaskList {
         }
         return tasksStr;
     }
+    public String listTasks() {
+        return listTasks(tasks);
+    }
     public String printTasks() {
         String list = listTasks(tasks);
         System.out.print(list);
@@ -81,6 +84,7 @@ public class TaskList {
 
     public void done(int i) {
         Task currTask = get(i);
+        assert currTask != null;
         currTask.setDone(true);
     }
 
@@ -89,6 +93,7 @@ public class TaskList {
     }
 
     public void edit(int pos, Task t) {
+        assert pos < tasks.size();
         tasks.set(pos, t);
     }
 

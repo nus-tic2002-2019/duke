@@ -21,6 +21,7 @@ public class Storage {
         File f = new File(path_str);
         if (!f.exists()) {
             System.out.println("Save file not found. Creating new file!");
+
             f = writeToSaveFile("");
             System.out.println(f.getAbsolutePath());
         }
@@ -58,7 +59,7 @@ public class Storage {
     }
 
     public Storage(String path_str) {
-        this.path_str = (!path_str.isEmpty() || !path_str.isBlank())? path_str : "data/duke.txt";
+        this.path_str = (!path_str.isEmpty() || !path_str.isBlank())? path_str : "duke.txt";
     }
 
 }

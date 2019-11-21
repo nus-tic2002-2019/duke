@@ -19,3 +19,6 @@ lib/
 
 # files used to store tasks data
 data/*
+
+# meta-inf
+src/META-INF
