@@ -1,0 +1,8 @@
+T | 0 | study | HIGH
+T | 0 | play | LOW
+D | 0 | return book | MEDIUM | 2019-12-12
+T | 1 | buy new phone | MEDIUM
+E | 0 | chess competition | MEDIUM | 2019-12-05
+T | 0 | sleep | HIGH
+T | 0 | welcome | LOW
+T | 1 | go for a jog | HIGH
