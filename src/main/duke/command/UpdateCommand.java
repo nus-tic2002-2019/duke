@@ -30,6 +30,7 @@ public class UpdateCommand extends Command {
      * Add: Adds task and prints added task to console
      * Done: prints task which was done and tags it as done.
      * Delete: removes task from tasks before printing message.
+     * Edit: edits tasks and replaces previous iteration of task in list.
      * Default: Throws DukeUnknown error as UpdateCommand should only have Add, Done, Delete.
      *
      * @param tasks
