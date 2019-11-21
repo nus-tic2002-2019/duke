@@ -12,3 +12,13 @@ src/main/resources/docs/
 .DS_Store
 *.iml
 bin/
+**.class
+
+# library folder used for testing
+lib/
+
+# files used to store tasks data
+data/*
+
+# meta-inf
+src/META-INF
