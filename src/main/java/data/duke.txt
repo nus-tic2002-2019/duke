@@ -1,0 +1,4 @@
+T | 0 | study | HIGH
+T | 0 | abcd | HIGH
+T | 0 | defg | HIGH
+T | 0 | lajs | HIGH
