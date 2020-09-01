@@ -1,0 +1,2 @@
+date|||T|false|bring food|||2019-12-12
+task|||T|false|clean bed and room|||T|false|go to toilet

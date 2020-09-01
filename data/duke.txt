@@ -1,0 +1,9 @@
+T|true|wake up
+D|false|return book and pen|2019-12-27T06:05:00
+E|false|project meeting|2019-12-27T06:05:00|2019-12-27T06:05:00
+T|true|open eyes
+T|false|go to toilet
+T|false|prepare breakfast
+T|false|play games
+D|false|return shoes|2019-12-27T06:05:00
+T|false|buy food
