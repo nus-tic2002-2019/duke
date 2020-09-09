@@ -1,0 +1,26 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '5.1.0'
+    id 'java'
+}
+
+group 'me.chercherlyn'
+version '1.0.0'
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
+}
+
+shadowJar {
+    archiveBaseName = "Duke"
+    archiveClassifier = ""
+}
