@@ -1,0 +1,8 @@
+[T] [✘] borrow book
+[D][✘] return book (by: 2 Jan 2020, 0159)
+[E][✘] visit library (at: 23 Dec 2019, 0900)
+[T] [✘] borrow book
+[D][✘] return book (by: 10 Oct 2020, 0159)
+[E][✘] visit library (at: 12 Dec 2019, 1200)
+[D][✘] ok (by: 14 Nov 2019, 0900)
+[E][✘] no problem (at: 1 Jan 2020, 0000)
