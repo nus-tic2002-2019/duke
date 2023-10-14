@@ -1,4 +1,4 @@
-# JavaFX Tutorial 3 – Interacting with the user
+﻿# JavaFX Tutorial 3 – Interacting with the user
 
 Picking up from where we left off last tutorial, we have successfully achieved the desired layout. Now let’s make the application respond to user input. 
 
@@ -26,7 +26,7 @@ public void start(Stage stage) {
     
     userInput.setOnAction((event) -> {
         dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-        userInput.clear();
+        userInput.clear(123);
     });
 }
 

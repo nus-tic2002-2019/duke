@@ -1,0 +1,8 @@
+E | 1 | project meeting | 2019-08-06
+D | 1 | finish assignment | 2019-07-19
+T | 1 |  shopping
+T | 0 |  cooking
+E | 0 | shopping | 2019-11-11
+T | 0 | cooking
+E | 1 | complete project | 2019-11-17
+D | 0 | finish homework | 2019-12-12
